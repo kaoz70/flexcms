@@ -26,7 +26,7 @@
 				<select id="input_id" name="input_id">
 		        	<? foreach ($inputs as $row) : ?>
 		       	  	    <option value="<?=$row->inputId;?>" <?=$input_id == $row->inputId ? 'selected' : '';?> ><?=$row->inputTipoContenido;?></option>
-		     		<?php endforeach; ?>
+		     		<? endforeach; ?>
 		       	</select>
 			</div>
 			

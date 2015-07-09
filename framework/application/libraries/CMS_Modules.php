@@ -39,8 +39,14 @@ class CMS_Modules {
 	/**************************
 	 * BEGIN: MODULES
 	 *************************/
-	/*
-	 * Este modulo muestra las publicaciones de una pagina
+	
+	/**
+	 * @param $page
+	 * @param $module
+	 * @param $moduleData
+	 * @param $idioma
+	 * @param $data
+	 * @return string
 	 */
 	public function publicaciones($page, $module, $moduleData, $idioma, $data)
 	{
@@ -103,8 +109,13 @@ class CMS_Modules {
 		return $html;
 	}
 
-	/*
-	 * Este modulo muestra los productos de una categoria (POR TERMINAR - NO MUESTRA LOS CAMPOS Y PAGINACION MAL)
+	/**
+	 * @param $module
+	 * @param $moduleData
+	 * @param $idioma
+	 * @param $paginaUrl
+	 * @param $data
+	 * @return string
 	 */
 	public function productosCategoria($module, $moduleData, $idioma, $paginaUrl, $data)
 	{
@@ -157,6 +168,14 @@ class CMS_Modules {
 
 	}
 
+	/**
+	 * @param $module
+	 * @param $moduleData
+	 * @param $idioma
+	 * @param $paginaUrl
+	 * @param $data
+	 * @return string
+	 */
 	public function productosDestacados($module, $moduleData, $idioma, $paginaUrl, $data)
 	{
 		$CI =& get_instance();
@@ -208,6 +227,12 @@ class CMS_Modules {
 		return $html;
 	}
 
+	/**
+	 * @param $module
+	 * @param $moduleData
+	 * @param $idioma
+	 * @return string
+	 */
 	public function productosDestacadosAzar($module, $moduleData, $idioma)
 	{
 		$CI =& get_instance();
@@ -249,6 +274,14 @@ class CMS_Modules {
 		return $html;
 	}
 
+	/**
+	 * @param $module
+	 * @param $moduleData
+	 * @param $idioma
+	 * @param $paginaUrl
+	 * @param $data
+	 * @return string
+	 */
 	public function productosMenu($module, $moduleData, $idioma, $paginaUrl, $data)
 	{
 		$CI =& get_instance();
@@ -267,6 +300,13 @@ class CMS_Modules {
 		return $html;
 	}
 
+	/**
+	 * @param $module
+	 * @param $moduleData
+	 * @param $idioma
+	 * @param $data
+	 * @return string
+	 */
 	public function html($module, $moduleData, $idioma, $data)
 	{
 		$CI =& get_instance();
@@ -290,6 +330,13 @@ class CMS_Modules {
 		return $html;
 	}
 
+	/**
+	 * @param $module
+	 * @param $moduleData
+	 * @param $idioma
+	 * @param $data
+	 * @return string
+	 */
 	public function facebook($module, $moduleData, $idioma, $data)
 	{
 		$CI =& get_instance();
@@ -319,6 +366,13 @@ class CMS_Modules {
 		return $html;
 	}
 
+	/**
+	 * @param $module
+	 * @param $moduleData
+	 * @param $idioma
+	 * @param $data
+	 * @return string
+	 */
 	public function banner($module, $moduleData, $idioma, $data)
 	{
 		$CI =& get_instance();
@@ -348,6 +402,13 @@ class CMS_Modules {
 
 	}
 
+	/**
+	 * @param $module
+	 * @param $moduleData
+	 * @param $page
+	 * @param $data
+	 * @return mixed
+	 */
 	public function titulo($module, $moduleData, $page, $data)
 	{
 		$CI =& get_instance();
@@ -358,6 +419,14 @@ class CMS_Modules {
 		return $CI->load->view('modulos/titulo/' . $module->moduloVista, $moduleData, true);
 	}
 
+	/**
+	 * @param $module
+	 * @param $moduleData
+	 * @param $idioma
+	 * @param $paginaUrl
+	 * @param $data
+	 * @return string
+	 */
 	public function faq($module, $moduleData, $idioma, $paginaUrl, $data)
 	{
 		$CI =& get_instance();
@@ -406,6 +475,14 @@ class CMS_Modules {
 		return $html;
 	}
 
+	/**
+	 * @param $module
+	 * @param $moduleData
+	 * @param $idioma
+	 * @param $paginaUrl
+	 * @param $data
+	 * @return string
+	 */
 	public function enlaces($module, $moduleData, $idioma, $paginaUrl, $data)
 	{
 		$CI =& get_instance();
@@ -463,6 +540,14 @@ class CMS_Modules {
 
 	}
 
+	/**
+	 * @param $module
+	 * @param $moduleData
+	 * @param $idioma
+	 * @param $paginaUrl
+	 * @param $data
+	 * @return string
+	 */
 	public function galeria($module, $moduleData, $idioma, $paginaUrl, $data)
 	{
 		$CI =& get_instance();
@@ -554,6 +639,13 @@ class CMS_Modules {
 
 	}
 
+	/**
+	 * @param $module
+	 * @param $moduleData
+	 * @param $idioma
+	 * @param $data
+	 * @return string
+	 */
 	public function mapa($module, $moduleData, $idioma, $data)
 	{
 		$CI =& get_instance();
@@ -602,6 +694,13 @@ class CMS_Modules {
 
 	}
 
+	/**
+	 * @param $module
+	 * @param $moduleData
+	 * @param $idioma
+	 * @param $data
+	 * @return string
+	 */
 	public function productoFiltros($module, $moduleData, $idioma, $data)
 	{
 		$CI =& get_instance();
@@ -619,6 +718,14 @@ class CMS_Modules {
 		return $html;
 	}
 
+	/**
+	 * @param $module
+	 * @param $moduleData
+	 * @param $idioma
+	 * @param $currentPage
+	 * @param $data
+	 * @return string
+	 */
 	public function menu($module, $moduleData, $idioma, $currentPage, $data)
 	{
 		$CI =& get_instance();
@@ -636,6 +743,13 @@ class CMS_Modules {
 		return $html;
 	}
 
+	/**
+	 * @param $module
+	 * @param $moduleData
+	 * @param $idioma
+	 * @param $data
+	 * @return string
+	 */
 	public function productosAzar($module, $moduleData, $idioma, $data)
 	{
 
@@ -678,6 +792,13 @@ class CMS_Modules {
 		return $html;
 	}
 
+	/**
+	 * @param $module
+	 * @param $moduleData
+	 * @param $idioma
+	 * @param $data
+	 * @return string
+	 */
 	public function contacto($module, $moduleData, $idioma, $data)
 	{
 
@@ -700,6 +821,13 @@ class CMS_Modules {
 		return $html;
 	}
 
+	/**
+	 * @param $module
+	 * @param $moduleData
+	 * @param $idioma
+	 * @param $data
+	 * @return string
+	 */
 	public function articulo($module, $moduleData, $idioma, $data)
 	{
 
@@ -725,6 +853,12 @@ class CMS_Modules {
 		return $html;
 	}
 
+	/**
+	 * @param $module
+	 * @param $moduleData
+	 * @param $idioma
+	 * @return string
+	 */
 	public function servicios($module, $moduleData, $idioma)
 	{
 
@@ -778,6 +912,12 @@ class CMS_Modules {
 		return $html;
 	}
 
+	/**
+	 * @param $module
+	 * @param $moduleData
+	 * @param $idioma
+	 * @return string
+	 */
 	public function serviciosDestacados($module, $moduleData, $idioma)
 	{
 
@@ -831,6 +971,13 @@ class CMS_Modules {
 		return $html;
 	}
 
+	/**
+	 * @param $module
+	 * @param $page
+	 * @param $lang
+	 * @param $paths
+	 * @return string
+	 */
 	public function breadcrumbs($module, $page, $lang, $paths)
 	{
 
@@ -852,6 +999,13 @@ class CMS_Modules {
 
 	}
 
+	/**
+	 * @param $module
+	 * @param $moduleData
+	 * @param $idioma
+	 * @param $data
+	 * @return string
+	 */
 	public function direcciones($module, $moduleData, $idioma, $data)
 	{
 
@@ -881,6 +1035,13 @@ class CMS_Modules {
 		return $html;
 	}
 
+	/**
+	 * @param $module
+	 * @param $moduleData
+	 * @param $idioma
+	 * @param $data
+	 * @return string
+	 */
 	public function publicidad($module, $moduleData, $idioma, $data)
 	{
 
@@ -924,6 +1085,11 @@ class CMS_Modules {
 	 * GENERAL FUNCTIONS
 	 */
 
+	/**
+	 * @param $file
+	 * @param $moduleData
+	 * @return string
+	 */
 	public function loadView($file, $moduleData){
 
 		$CI =& get_instance();
@@ -974,24 +1140,6 @@ class CMS_Modules {
 
 	}
 
-	/*public function getParentPage($pageId = 0, $idioma = 'es', $array = array())
-	{
-		$CI =& get_instance();
-
-		if($pageId) {
-			$page = $CI->Html->getPage($pageId, $idioma);
-
-			$pageObj = new stdClass();
-			$pageObj->nombre = $page->paginaNombre;
-			$pageObj->url = base_url($idioma.'/'.$page->paginaNombreURL);
-
-			array_push($array, $pageObj);
-			$array = $this->getParentPage($page->paginaPadreId, $idioma, $array);
-		}
-
-		return $array;
-
-	}*/
 
 	/**
 	 * Creates the menu and the path to the active node

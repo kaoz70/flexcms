@@ -375,11 +375,11 @@ class Catalogo_model extends CI_Model
 
 	function getProductoCampoRel()
 	{
-		//echo $productoId;
 		$productoId = $this->uri->segment(4);
-		$consulta = "SELECT productoId, campoId, productocampoValor FROM producto_campos WHERE productoId=" . $productoId;
-		$query = $this->db->query($consulta);
-		return $query->result();
+		return $this->db
+			->where("productoId", $productoId)
+			->get("producto_campos")
+			->result();
 	}
 
 	//guardar campo

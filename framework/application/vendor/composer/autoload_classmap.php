@@ -133,8 +133,6 @@ return array(
     'MrClay\\Cli' => $vendorDir . '/mrclay/minify/min/lib/MrClay/Cli.php',
     'MrClay\\Cli\\Arg' => $vendorDir . '/mrclay/minify/min/lib/MrClay/Cli/Arg.php',
     'PageTree' => $baseDir . '/framework/application/models/eloquent/PageTree.php',
-    'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php',
-    'Symfony\\Component\\HttpFoundation\\Resources\\stubs\\FakeFile' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/FakeFile.php',
     'aCssAtBlockEndToken' => $vendorDir . '/natxet/CssMin/src/CssMin.php',
     'aCssAtBlockStartToken' => $vendorDir . '/natxet/CssMin/src/CssMin.php',
     'aCssDeclarationToken' => $vendorDir . '/natxet/CssMin/src/CssMin.php',

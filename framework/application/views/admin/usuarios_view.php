@@ -13,20 +13,20 @@
             <h3 class="header"><?=$group->description?></h3>
 
             <ul id="list_<?=$group->id?>" class="content" >
-                <?php foreach($usuarios as $user_key => $user): ?>
+                <? foreach($usuarios as $user_key => $user): ?>
                     <? if($user->group_id == $group->id):?>
                     <li class="listado" id="<?=$user->user_id?>">
                         <a class="nombre modificar nivel2" href="<?=base_url();?>admin/usuarios/modificar/<?=$user->user_id?>"><span><?=$user->first_name?> <?=$user->last_name?></span></a>
-                        <?php if($user->user_id != 1): ?>
+                        <? if($user->user_id != 1): ?>
                         <a href="<?=base_url();?>admin/usuarios/eliminar/<?=$user->user_id?>" class="eliminar" >eliminar</a>
-                        <?php endif; ?>
+                        <? endif; ?>
                     </li>
-                    <?php endif; ?>
-                <?php  endforeach; ?>
+                    <? endif; ?>
+                <? endforeach; ?>
             </ul>
         </li>
         <? endif ?>
-    <?php  endforeach; ?>
+    <? endforeach; ?>
 
 </ul>
 <a id="crear" class="nivel2 ajax boton importante n2" href="<?=base_url();?>admin/usuarios/crear"><?=$txt_usuarios;?></a>

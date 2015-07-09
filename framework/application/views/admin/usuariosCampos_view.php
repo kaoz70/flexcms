@@ -8,7 +8,7 @@
             <a class="nombre modificar nivel3" href="<?=base_url();?>admin/usuarios/modificarCampo/<?=$campo->userFieldId?>"><span><?=$campo->userFieldLabel?></span></a>
             <a href="<?=base_url();?>admin/usuarios/eliminarCampo/<?=$campo->userFieldId?>" class="eliminar" >eliminar</a>
         </li>
-    <?php  endforeach; ?>
+    <? endforeach; ?>
 
 </ul>
 <a id="crear" class="nivel3 ajax boton importante n1" href="<?=base_url();?>admin/usuarios/crearCampo">Crear Campo</a>

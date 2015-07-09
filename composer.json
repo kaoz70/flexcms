@@ -1,4 +1,6 @@
 {
+  "name": "FlexCMS",
+  "description": "Content Management System",
   "require": {
     "kriswallsmith/assetic": "1.2.0",
     "leafo/lessphp": "0.4.0",
@@ -8,14 +10,13 @@
     "ptachoire/cssembed": "1.0.2",
     "lonnieezell/codeigniter-forensics": "dev-master",
     "gajus/dindent": "2.0.*",
-    "mailchimp/mailchimp": "dev-master",
     "parsecsv/php-parsecsv": "0.4.5",
     "cartalyst/nested-sets": "2.0.*",
-    "cartalyst/api": "1.0.*",
     "cartalyst/sentinel": "1.0.*",
-    "illuminate/database": "*",
+    "illuminate/database": "4.2.*",
     "mrclay/minify": "3.0.*@dev",
-    "facebook/php-sdk-v4" : "4.0.*"
+    "facebook/php-sdk-v4" : "4.0.*",
+    "mailchimp/mailchimp": "2.0.*"
   },
   "repositories": [
     {

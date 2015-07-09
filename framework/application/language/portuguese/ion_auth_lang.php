@@ -2,7 +2,7 @@
 /**
 * Name:  Ion Auth Lang - Portuguese
 * 
-* Author: AndrÈ Br·s Simıes
+* Author: Andr√© Br√°s Sim√µes
 * 		  andrebrassimoes@gmail.com
 *         
 * 
@@ -16,37 +16,37 @@
 
 // Account Creation
 $lang['account_creation_successful'] 	  	 = 'Conta Criada com Sucesso';
-$lang['account_creation_unsuccessful'] 	 	 = 'N„o È possÌvel criar a Conta';
-$lang['account_creation_duplicate_email'] 	 = 'Email em Uso ou Inv·lido';
-$lang['account_creation_duplicate_username'] 	 = 'Nome de Usu·rio em Uso ou Inv·lido';
+$lang['account_creation_unsuccessful'] 	 	 = 'N√£o √© poss√≠vel criar a Conta';
+$lang['account_creation_duplicate_email'] 	 = 'Email em Uso ou Inv√°lido';
+$lang['account_creation_duplicate_username'] 	 = 'Nome de Usu√°rio em Uso ou Inv√°lido';
 
 
 // Password
 $lang['password_change_successful'] 	 	 = 'Senha Alterada com Sucesso';
-$lang['password_change_unsuccessful'] 	  	 = 'N„o È PossÌvel Alterar a Senha';
+$lang['password_change_unsuccessful'] 	  	 = 'N√£o √© Poss√≠vel Alterar a Senha';
 $lang['forgot_password_successful'] 	 	 = 'Nova Senha Enviada por Email';
-$lang['forgot_password_unsuccessful'] 	 	 = 'N„o È PossÌvel Criar uma Nova Senha';
+$lang['forgot_password_unsuccessful'] 	 	 = 'N√£o √© Poss√≠vel Criar uma Nova Senha';
 
 // Activation
 $lang['activate_successful'] 		  	 = 'Conta Ativada';
-$lang['activate_unsuccessful'] 		 	 = 'N„o È PossÌvel Ativar a Conta';
+$lang['activate_unsuccessful'] 		 	 = 'N√£o √© Poss√≠vel Ativar a Conta';
 $lang['deactivate_successful'] 		  	 = 'Conta Desativada';
-$lang['deactivate_unsuccessful'] 	  	 = 'N„o È PossÌvel Desativar a Conta';
-$lang['activation_email_successful'] 	  	 = 'Email de AtivaÁ„o Enviado';
-$lang['activation_email_unsuccessful']   	 = 'N„o È PossÌvel Enviar o Email de AtivaÁ„o';
+$lang['deactivate_unsuccessful'] 	  	 = 'N√£o √© Poss√≠vel Desativar a Conta';
+$lang['activation_email_successful'] 	  	 = 'Email de Ativa√ß√£o Enviado';
+$lang['activation_email_unsuccessful']   	 = 'N√£o √© Poss√≠vel Enviar o Email de Ativa√ß√£o';
 
 // Login / Logout
-$lang['login_successful'] 		  	 = 'Sess„o Iniciada com Sucesso';
-$lang['login_unsuccessful'] 		  	 = 'N„o È PossÌvel Iniciar Sess„o';
-$lang['logout_successful'] 		 	 = 'Sess„o Encerrada com Sucesso';
+$lang['login_successful'] 		  	 = 'Sess√£o Iniciada com Sucesso';
+$lang['login_unsuccessful'] 		  	 = 'N√£o √© Poss√≠vel Iniciar Sess√£o';
+$lang['logout_successful'] 		 	 = 'Sess√£o Encerrada com Sucesso';
   
 // Account Changes
-$lang['update_successful'] 		 	 = 'InformaÁ„o da Conta Atualizada com Sucesso';
-$lang['update_unsuccessful'] 		 	 = 'N„o È PossÌvel Atualizar a InformaÁ„o da Conta';
-$lang['delete_successful'] 		 	 = 'Usu·rio Removido';
-$lang['delete_unsuccessful'] 		 	 = 'N„o È PossÌvel Remover o Usu·rio';
+$lang['update_successful'] 		 	 = 'Informa√ß√£o da Conta Atualizada com Sucesso';
+$lang['update_unsuccessful'] 		 	 = 'N√£o √© Poss√≠vel Atualizar a Informa√ß√£o da Conta';
+$lang['delete_successful'] 		 	 = 'Usu√°rio Removido';
+$lang['delete_unsuccessful'] 		 	 = 'N√£o √© Poss√≠vel Remover o Usu√°rio';
 
 // Email Subjects - TODO Please Translate
 $lang['email_forgotten_password_subject']    = 'Esqueci a senha';
 $lang['email_new_password_subject']          = 'Nova senha';
-$lang['email_activation_subject']            = 'AtivaÁ„o da conta';
+$lang['email_activation_subject']            = 'Ativa√ß√£o da conta';

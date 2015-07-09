@@ -8,14 +8,14 @@
 
 pre {
     color: red;
-    @import "imports/simple";
+    @import "imports/simple.scss";
 }
 
 code {
     @import "imports/simple", "imports/simple";
 }
 
-@import "imports/_partial";
+@import "imports/partial";
 
 body {
     color: $variable;
