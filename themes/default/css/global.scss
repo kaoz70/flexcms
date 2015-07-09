@@ -1,0 +1,364 @@
+@import "generated/_colors";
+
+/*****
+ * VARIABLES PRINCIPALES
+ ****/
+
+$error-color: #ff2100; /* Color principal (hexadecimal) de los mensajes de error */
+$color-text-light: #fff;
+$color-text-dark: #333;
+$radius: 0px;
+$menu-bg: false; /* Color del fondo (hexadecimal) del menu, 'false' para ningun fondo */
+$menu-text-color: $primary-color; /* Color del texto del menu si el fondo esta en 'false' */
+
+/*****
+ * FIN VARIABLES PRINCIPALES
+ ****/
+
+/* Colores del menu */
+
+@if $menu-bg == false {
+  $menu-bg: transparent;
+  $bg-lightness: lightness($primary-color);
+  @if $bg-lightness > 70% {
+    $menu-active-bg: darken($primary-color, 10%);
+    $menu-hover-bg: darken($primary-color, 15%);
+    $menu-dropdown-hover-bg: darken($primary-color, 20%);
+  }
+  @else {
+    $menu-active-bg: lighten($primary-color, 5%);
+    $menu-hover-bg: lighten($primary-color, 10%);
+    $menu-dropdown-hover-bg: lighten($primary-color, 15%);
+  }
+}
+@else {
+  $bg-lightness: lightness($menu-bg);
+  @if $bg-lightness > 70% {
+    $menu-active-bg: darken($menu-bg, 10%);
+    $menu-hover-bg: darken($menu-bg, 15%);
+    $menu-dropdown-hover-bg: darken($menu-bg, 20%);
+  }
+  @else {
+    $menu-active-bg: lighten($menu-bg, 5%);
+    $menu-hover-bg: lighten($menu-bg, 10%);
+    $menu-dropdown-hover-bg: lighten($menu-bg, 15%);
+  }
+}
+
+
+/* Devuelve un color (claro u oscuro) dependiendo del fondo */
+@function calculateTextColor($bg:$primary-color, $dark:$color-text-dark, $light:$color-text-light){
+
+  @if $bg == transparent {
+    $color: $menu-text-color;
+  }
+  @else {
+    $bg-lightness: lightness($bg);
+    @if $bg-lightness > 70% {
+      $color: $dark;
+    }
+    @else {
+      $color: $light;
+    }
+  }
+
+  @return $color;
+}
+
+
+
+/* This controls padding around the buttons. Use a variable or em value */
+$padding: em-calc(10 20);
+
+/* This controls button color. Set to one of our variables or a custom hex value */
+$button-bg: $primary-color;
+
+/* This whether button is full-width. Set to true or false */
+$full-width: false;
+
+/* This controls whether disabled styles are used. Set to true or false */
+$disabled: false;
+
+/* This controls padding for inputs, they are a little different */
+$is-input: false;
+
+/* Using the available options */
+.button {
+  background-color: $button-bg;
+  border-color: darken($button-bg, 10%);
+}
+
+button:hover,
+button:focus,
+.button:hover,
+.button:focus {
+  background-color: darken($button-bg, 10%);
+  text-decoration: none;
+}
+
+.postfix.button {
+  line-height: 0;
+}
+
+a,
+a:hover {
+  color: $primary-color;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+::selection {
+  background-color: $primary-color;
+  color: calculateTextColor($primary-color, $color-text-dark, $color-text-light);
+}
+
+ul.pagination {
+  li.current a,
+  li.current a:hover,
+  li.current a:focus {
+    background: $primary-color;
+  }
+  a {
+    text-decoration: none;
+    border-radius: $radius;
+  }
+}
+
+.breadcrumbs {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  > * a,
+  > * span {
+    color: $primary-color;
+  }
+  * {
+    text-transform: none !important;
+  }
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+  border-radius: $radius;
+}
+
+/*.error {
+  background: $error-color;
+  padding: 10px;
+  color: #fff;
+  a {
+    color: #fff;
+  }
+}*/
+
+[data-abide] {
+
+  .error {
+    input,
+    textarea,
+    select {
+      border-radius: $radius $radius 0 0;
+      border-color: $error-color !important;
+    }
+  }
+
+  .error {
+    label,
+    label.error {
+      color: $error-color;
+    }
+  }
+
+  .error small.error,
+  span.error,
+  small.error {
+    margin-bottom: 0 !important;
+    background: $error-color !important;
+  }
+
+  small.error:last-child {
+    border-radius: 0 0 $radius $radius;
+    margin-bottom: 1em !important;
+  }
+}
+
+table {
+  width: 100%;
+
+  thead,
+  tfoot {
+    background: lighten($secondary-color, 50%);
+  }
+
+}
+
+
+.top-bar {
+  background: $primary-color;
+  margin-bottom: 0;
+}
+
+.contain-to-grid {
+  background: none;
+}
+
+/** Changes background color, height and margin of the border **/
+@media only screen and (min-width: 940px) {
+  .top-bar {
+    background: $menu-bg;
+  }
+  .top-bar-section ul,
+  .top-bar-section li a:not(.button) {
+    background: none;
+  }
+}
+
+
+$shadow-color: calculateTextColor($menu-active-bg, $color-text-dark, $color-text-light);
+
+/* Expanded state is menu opened (mobile) */
+.top-bar.expanded {
+  background: $secondary-color;
+  .top-bar-section {
+    ul {
+      background: $secondary-color;
+    }
+    ul li > a {
+       background: $secondary-color;
+       color: calculateTextColor($secondary-color, $color-text-dark, $color-text-light);
+    }
+    ul li > a:hover {
+      background: darken($secondary-color, 10%) !important;
+      color: calculateTextColor($secondary-color, $color-text-dark, $color-text-light);
+    }
+  }
+  .title-area {
+    background: $menu-active-bg;
+  }
+  .toggle-topbar a{
+    color: calculateTextColor($menu-active-bg, $color-text-dark, $color-text-light);
+  }
+  .toggle-topbar a span {
+    box-shadow: 0 10px 0 1px $shadow-color, 0 16px 0 1px $shadow-color, 0 22px 0 1px $shadow-color;
+  }
+}
+
+.top-bar-section {
+
+  ul li.active > a {
+    background:  $menu-active-bg;
+    color: calculateTextColor($menu-active-bg, $color-text-dark, $color-text-light);
+  }
+
+  .active .active li > a {
+    background: darken($menu-active-bg, 10%) !important;
+  }
+
+  .active .active .dropdown a:hover {
+    background: darken($menu-active-bg, 15%) !important;
+  }
+
+  /** Changes the hover state of non active menu items **/
+  li:hover a {
+    background: $menu-hover-bg;
+    color: calculateTextColor($menu-hover-bg, $color-text-dark, $color-text-light);
+  }
+
+  /** Changes non active menu items **/
+  ul li > a {
+    color: calculateTextColor($menu-bg, $color-text-dark, $color-text-light);
+    text-decoration: none;
+    transition: background-color 150 + ms ease-out;
+  }
+
+  > ul > li > a {
+    border-radius: $radius;
+  }
+
+  > ul > li.has-dropdown:hover > a {
+    border-radius: $radius $radius 0 0;
+  }
+
+  > ul > li > ul.dropdown {
+    > li:last-child > a {
+      border-radius: 0 0 $radius $radius;
+    }
+    > li:last-child:hover > a {
+      border-radius: 0 0 0 $radius;
+    }
+  }
+
+  ul.dropdown {
+    /** IMPORTANT fill for the ul dropdown container **/
+    li a:hover:not(.button) {
+       background: $menu-dropdown-hover-bg !important;
+       color: calculateTextColor($menu-dropdown-hover-bg, $color-text-dark, $color-text-light);
+    }
+  }
+
+  /** This fixes the position and the color of the dropdown arrow **/
+  ul > li.has-dropdown a:after {
+    border-color: calculateTextColor($menu-bg, $color-text-dark, $color-text-light) transparent transparent transparent;
+    margin-top: -2.5px;
+  }
+
+  /** color of the dropdown arrow o hover state **/
+  ul > li.has-dropdown:hover a:after {
+    border-color: calculateTextColor($menu-dropdown-hover-bg, $color-text-dark, $color-text-light) transparent transparent transparent;
+  }
+
+}
+
+#totop {
+  position: fixed;
+  cursor: pointer;
+  display:none;
+  right: 20px;
+  bottom: 20px;
+  width: 50px;
+  font-size: em-calc(12);
+  height: 50px;
+  background: $primary-color;
+  text-align: center;
+  border-radius: 50px;
+  box-shadow: #000 0px 3px 10px;
+  color: #fff;
+  span {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+  }
+  .flecha {
+    margin-top: -16px;
+    font-size: 21px;
+  }
+}
+
+.bx-wrapper {
+  margin: 0 auto;
+}
+
+.bx-next {
+  right: 10px;
+  background: url("../../../framework/packages/bxslider/bx_styles/gray_next.png");
+}
+.bx-prev {
+  left: 10px;
+  background: url("../../../framework/packages/bxslider/bx_styles/gray_prev.png");
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: transparent;
+}
+
+#header,
+#main_content,
+#footer {
+  position: relative;
+}

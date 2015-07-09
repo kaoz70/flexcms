@@ -1,0 +1,287 @@
+$primary-color: #98AF42; /* Color principal (hexadecimal) puede ser un color corporativo */
+$secondary-color: #333333; /* Color secundario (hexadecimal) puede ser un color corporativo */
+
+@mixin generate-grandient ($color1, $color2) {
+  background: $color1; /* Old browsers */
+  background: -moz-linear-gradient(top,  $color1 0%, $color2 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$color1), color-stop(100%,$color2)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  $color1 0%,$color2 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  $color1 0%,$color2 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  $color1 0%,$color2 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  $color1 0%,$color2 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$color1', endColorstr='$color2',GradientType=0 ); /* IE6-8 */
+}
+
+
+body.reservaciones,
+body.noticias,
+body.contacto,
+body.catalogo {
+  .columns.pos_1 {
+    .module {
+      margin-bottom: 30px;
+    }
+    .mod_banner.habitaciones {
+      h2 {
+        margin-bottom: -40px;
+        top: 10px;
+        z-index: 1;
+      }
+
+      img {
+        display: inline;
+      }
+
+    }
+  }
+
+}
+
+body.catalogo .main_content,
+body.noticias .main_content,
+body.contacto .mod_contacto {
+  h2 {
+    background: none;
+    padding: 0;
+    width: 100%;
+    text-align: left;
+    margin-top: 30px;
+    box-shadow: none;
+  }
+  h2:before,
+  h2:after {
+    display: none;
+  }
+}
+
+
+body.contacto {
+  .article {
+    background: none;
+  }
+
+  @media all and (min-width: 640px) {
+    .main_content,
+    .mod_contacto {
+      width: 50%;
+      float: left;
+    }
+  }
+
+  .mod_contacto {
+
+    #enviar,
+    #borrar {
+      padding: 13px 35px;
+      float: right;
+      margin-left: 5px;
+    }
+
+    #borrar {
+      @include generate-grandient(#8E9090, darken(#8E9090, 10%));
+    }
+
+  }
+
+}
+
+body.catalogo {
+
+  h1 {
+    display: none;
+  }
+
+  h2 {
+    strong {
+      color: $primary-color;
+      font-weight: normal;
+    }
+  }
+
+  @media all and (max-width: 640px) {
+    h2 {
+      font-size: 32px !important;
+    }
+  }
+
+  #productos {
+    .producto {
+
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      border: 6px solid #8E9090;
+      margin-bottom: 20px;
+
+      img {
+        position: absolute;
+        top: -30%;
+      }
+
+      h3 {
+        position: absolute;
+        font-family: libel_suitregular, Arial, Helvetica, sans-serif;
+        @media all and (min-width: 940px) {
+          font-size: 55px;
+        }
+        @media all and (max-width: 939px) {
+          font-size: 6+vw;
+        }
+
+        color: #fff;
+        bottom: 0;
+        left: 0;
+        background: #000;
+        padding: 10px 33px;
+        font-weight: normal;
+        margin: 0;
+        z-index: 1;
+      }
+
+      a {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+      }
+
+    }
+
+    .producto:after {
+      padding-top: 40%;
+      display: block;
+      content: '';
+    }
+
+  }
+
+  #detalle {
+    .gal_wrapper {
+
+      margin-bottom: 20px;
+      border: 6px solid #8E9090;
+
+      .info {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        background: #000;
+        background: rgba(0, 0, 0, 0.90);
+        padding: 10px 20px;
+        color: #BBBCBC;
+      }
+
+    }
+
+  }
+
+  .info.texto {
+    max-height: 300px;
+    overflow: auto;
+  }
+
+  h2.nombre {
+    float: left;
+    width: auto;
+  }
+
+  .regresar {
+    display: block;
+    float: right;
+    padding: 10px 0 10px 33px;
+    background: url("../images/flecha_servicios_left.png") no-repeat 0 center;
+    color: #646464;
+    font-family: libel_suitregular, Arial, Helvetica, sans-serif;
+    font-size: 26px;
+    margin-top: 50px;
+  }
+
+}
+
+body.reservaciones {
+  .delete {
+    background: url("../images/ico_delete.png");
+    width: 20px;
+    height: 0;
+    padding-top: 20px;
+    overflow: hidden;
+    display: block;
+  }
+
+  td,
+  th {
+    border: 1px solid #000;
+  }
+
+  thead {
+    background: #636363;
+    th,
+    td {
+      color: #8E9090;
+      padding: 21px 0;
+      text-align: center;
+      font-weight: normal;
+      font-size: 16px;
+    }
+  }
+
+  tr {
+    .custom.dropdown,
+    input {
+      margin-bottom: 0;
+    }
+  }
+
+  tr.grand_total {
+    th {
+      font-family: libel_suitregular, Arial, Helvetica, sans-serif;
+      color: $primary-color !important;
+      text-transform: uppercase;
+    }
+    font-size: 30px;
+  }
+
+  p.incluye {
+    font-size: 18px;
+    strong {
+      color: $primary-color;
+    }
+  }
+
+  h4.adicionales {
+    color: #CECECE;
+    font-size: 17px;
+  }
+
+  h3 {
+    font-size: 27px;
+    font-family: libel_suitregular, Arial, Helvetica, sans-serif;
+    color: #8E9090;
+  }
+
+  .line-top {
+    border-top: 1px dotted #646464;
+    padding-top: 24px;
+    margin-top: 31px;
+  }
+
+  legend {
+    width: 100%;
+    background: none;
+    margin: 0 0 0 -7px;
+    padding: 0;
+  }
+
+  fieldset {
+    background: #333;
+    border: none;
+    padding-top: 30px;
+    margin-bottom: 42px;
+    h4 {
+      color: #fff;
+    }
+  }
+
+}

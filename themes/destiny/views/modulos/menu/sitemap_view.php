@@ -1,0 +1,1 @@
+<?= render_menu('sitemap', $menu['tree'], $menu['path']) ?>

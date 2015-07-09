@@ -1,0 +1,5 @@
+.mooeditable-ui-toolbar .uploadimage-item .button-icon{ background-position: 0 -320px !important; }
+.dialog-content {
+    overflow: auto;
+    max-height: 297px;
+}

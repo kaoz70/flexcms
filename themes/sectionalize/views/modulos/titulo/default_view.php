@@ -1,0 +1,1 @@
+<h1 class="module text-center v-center<?=$class?>"><?=$titulo?></h1>

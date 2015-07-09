@@ -1,0 +1,1 @@
+<?= $this->lang->line('ui_search_no_result') ?>

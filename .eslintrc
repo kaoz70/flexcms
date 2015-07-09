@@ -1,0 +1,11 @@
+{
+  "globals": {
+    "window": false,
+    "jQuery": false,
+    "clearInterval": false,
+    "$": false
+  },
+  "rules": {
+    "no-extra-semi": 0
+  }
+}

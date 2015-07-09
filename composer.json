@@ -1,0 +1,40 @@
+{
+  "require": {
+    "kriswallsmith/assetic": "1.2.0",
+    "leafo/lessphp": "0.4.0",
+    "leafo/scssphp": "0.1.0",
+    "natxet/CssMin": "3.0.2",
+    "lmammino/jsmin4assetic": "1.0.0",
+    "ptachoire/cssembed": "1.0.2",
+    "lonnieezell/codeigniter-forensics": "dev-master",
+    "gajus/dindent": "2.0.*",
+    "mailchimp/mailchimp": "dev-master",
+    "parsecsv/php-parsecsv": "0.4.5",
+    "cartalyst/nested-sets": "2.0.*",
+    "cartalyst/api": "1.0.*",
+    "cartalyst/sentinel": "1.0.*",
+    "illuminate/database": "*",
+    "mrclay/minify": "3.0.*@dev",
+    "facebook/php-sdk-v4" : "4.0.*"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.cartalyst.com"
+    }
+  ],
+  "extra": {
+    "codeigniter-application-dir": "framework/application",
+    "codeigniter-sparks-dir": "framework/sparks"
+  },
+  "minimum-stability": "dev",
+  "autoload": {
+    "classmap": [
+      "framework/application/models/eloquent",
+      "framework/application/workers"
+    ]
+  },
+  "config": {
+    "vendor-dir": "framework/application/vendor"
+  }
+}

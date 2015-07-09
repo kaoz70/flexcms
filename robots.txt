@@ -1,0 +1,5 @@
+# robotstxt.org/
+
+User-agent: *
+Disallow: /ajax* #ajax requests
+Disallow: /cdn-cgi/ #cloudflare CDN

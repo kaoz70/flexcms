@@ -1,0 +1,6 @@
+plugin for rotation
+https://github.com/heygrady/transform
+
+modified:
+
+jquery.transform.js for jquery 1.9.1 $.browser removed!

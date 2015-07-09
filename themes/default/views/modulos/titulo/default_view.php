@@ -1,0 +1,1 @@
+<h1 class="module <?=$class?>"><?=$titulo?></h1>
