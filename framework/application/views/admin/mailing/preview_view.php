@@ -9,27 +9,27 @@
 					<div class="header">Escritorio</div>
 					<div class="content">
 
-						<div class="input">
+						<div class="medium input">
 							<label>To:</label>
 							<span><?=$to_name?> &lt; email del destinatario &gt;</span>
 						</div>
 
-						<div class="input">
+						<div class="medium input">
 							<label>From:</label>
 							<span><?=$from_name?></span>
 						</div>
 
-						<div class="input">
+						<div class="medium input">
 							<label>Reply-to:</label>
 							<span><?=$from_email?></span>
 						</div>
 
-						<div class="input">
+						<div class="medium input">
 							<label>Subject:</label>
 							<span><?=$subject?></span>
 						</div>
 
-						<iframe src="<?=base_url('admin/mailing/get_campaign_content/' . $id)?>"></iframe>
+						<iframe src="<?=base_url('admin/mailchimp/campaign/content/' . $id)?>"></iframe>
 
 					</div>
 				</div>
@@ -42,7 +42,7 @@
 					<div class="content">
 
 						<div class="mobile">
-							<iframe src="<?=base_url('admin/mailing/get_campaign_content/' . $id)?>"></iframe>
+							<iframe src="<?=base_url('admin/mailchimp/campaign/content/' . $id)?>"></iframe>
 						</div>
 
 					</div>

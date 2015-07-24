@@ -130,25 +130,30 @@ class Cart_model extends CI_Model {
             $updatable_option_data = array();
             $campos_post = $this->input->post('campo');
 
-            foreach ($listado as $item) {
-                $opciones[$item->productoCampoId] = $campos_post[$item->productoCampoId];
+	        foreach ($listado as $item) {
+		        $opciones[$item->productoCampoId] = $campos_post[$item->productoCampoId];
 
-                //Get the list items
-                $this->db->from('producto_campos_listado_predefinido_rel')
-                    ->join('producto_campos_listado_predefinido', 'producto_campos_listado_predefinido.productoCamposListadoPredefinidoId = producto_campos_listado_predefinido_rel.productoCamposListadoPredefinidoId')
-                    ->join($lang.'_producto_campos_listado_predefinido', $lang.'_producto_campos_listado_predefinido.productoCamposListadoPredefinidoId = producto_campos_listado_predefinido.productoCamposListadoPredefinidoId')
-                    ->where('productoId', $producto->productoId)
-                    ->where('producto_campos_listado_predefinido.productoCampoId', $item->productoCampoId);
-                $query = $this->db->get();
-                $resultado = $query->result();
+		        //Get the list items
+		        $this->db->from('producto_campos_listado_predefinido_rel')
+		                 ->join('producto_campos_listado_predefinido', 'producto_campos_listado_predefinido.productoCamposListadoPredefinidoId = producto_campos_listado_predefinido_rel.productoCamposListadoPredefinidoId')
+		                 ->join($lang.'_producto_campos_listado_predefinido', $lang.'_producto_campos_listado_predefinido.productoCamposListadoPredefinidoId = producto_campos_listado_predefinido.productoCamposListadoPredefinidoId')
+		                 ->join('producto_campos', 'producto_campos.productoCampoId = producto_campos_listado_predefinido.productoCampoId')
+		                 ->join($lang.'_producto_campos', $lang.'_producto_campos.productoCampoId = producto_campos.productoCampoId')
+		                 ->where('productoId', $producto->productoId)
+		                 ->where('producto_campos_listado_predefinido.productoCampoId', $item->productoCampoId);
+		        $query = $this->db->get();
+		        $resultado = $query->result();
 
-                $updatable_option_data[$item->productoCampoId] = array();
+		        $updatable_option_data[$item->productoCampoId] = array();
 
-                foreach ($resultado as $list_item) {
-                    $updatable_option_data[$item->productoCampoId][] = $list_item->productoCamposListadoPredefinidoTexto;
-                }
+		        foreach ($resultado as $list_item) {
+			        $updatable_option_data[$item->productoCampoId][] = [
+				        'label' => $list_item->productoCampoValor,
+				        'value' => $list_item->productoCamposListadoPredefinidoTexto,
+			        ];
+		        }
 
-            }
+	        }
 
             $cart_data = array(
                 'id' => $this->input->post('productoId'),

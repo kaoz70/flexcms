@@ -72,9 +72,6 @@ class Login extends CI_Controller {
 	private function renderAdmin()
 	{
 
-		date_default_timezone_set("America/Guayaquil");
-		setlocale(LC_ALL, 'es_ES');
-
 		$config = $this->Config->get();
 		$data['titulo'] = $config->site_name . " Control Panel";
 		$data['user'] = $this->ion_auth->user()->row();

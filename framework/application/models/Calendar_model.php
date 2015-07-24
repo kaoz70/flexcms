@@ -87,6 +87,7 @@ class Calendar_model extends CI_Model
 		$this->db->update('activities',  array(
 			'time' => $this->input->post('time'),
 			'data' => $this->input->post('data'),
+			'place_id' => $this->input->post('place_id'),
 			'temporal' => 0,
 		));
 	}

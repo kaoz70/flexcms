@@ -30,8 +30,8 @@
 <?= form_close(); ?>
 </div>
 
-<a class="nivel3 ajax boton n2" href="<?=base_url('admin/calendar/activities/'.$id)?>">Administrar Actividades</a>
-<a href="<?= $link; ?>" data-level="nivel2" data-edit-url="calendar/edit/" data-delete-url="calendar/delete/" class="guardar boton importante n1 no_sort <?=$nuevo?>" ><?=$txt_boton;?></a>
+<a class="nivel3 ajax boton n2" href="<?=base_url('admin/calendar/activity/index/'.$id)?>">Administrar Actividades</a>
+<a href="<?= $link; ?>" data-level="nivel2" data-edit-url="calendar/day/edit/" data-delete-url="calendar/day/delete/" class="guardar boton importante n1 no_sort <?=$nuevo?>" ><?=$txt_boton;?></a>
 
 <script type="text/javascript">
 	initDayPicker();

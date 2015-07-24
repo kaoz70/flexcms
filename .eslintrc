@@ -3,6 +3,8 @@
     "window": false,
     "jQuery": false,
     "clearInterval": false,
+    "setTimeout": false,
+    "clearTimeout": false,
     "$": false
   },
   "rules": {

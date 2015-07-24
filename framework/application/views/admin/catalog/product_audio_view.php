@@ -44,7 +44,7 @@
 
 	<?= form_close(); ?>
 </div>
-<a href="<?= $link; ?>" data-level="nivel3" data-edit-url="catalogo/modificarProductoAudio/<?=$productoId?>/" data-delete-url="catalogo/eliminarProductoAudio/<?=$productoId?>/" class="guardar boton importante n1 <?=$nuevo?>" ><?=$txt_boton; ?></a>
+<a href="<?= $link; ?>" data-level="nivel3" data-edit-url="catalog/audio/edit/" data-delete-url="catalog/audio/delete/" class="guardar boton importante n1 <?=$nuevo?>" ><?=$txt_boton; ?></a>
 
 <script type="text/javascript">
     upload.file('upload-audio', 'upload-fileName', '<?=base_url();?>admin/archivo/productoAudio/<?=$productoId; ?>/<?=$productoAudioId?>', false);

@@ -1,6 +1,6 @@
 <?php
 
-class Faq extends CI_Controller {
+class Faq extends MY_Controller implements AdminInterface {
 
 	function __construct()
 	{
@@ -20,6 +20,10 @@ class Faq extends CI_Controller {
 
 		$this->seguridad->init();
 		
+	}
+
+	public function index(){
+
 	}
 
 	public function edit($id)
@@ -99,9 +103,10 @@ class Faq extends CI_Controller {
 
 	}
 	
-	public function create($paginaId)
+	public function create()
 	{
 
+		$paginaId = $this->uri->segment(4);
 		$data['titulo'] = 'Nueva Pregunta Frecuente';
 		$data['txt_boton']='Guardar Pregunta';
 		$data['faqHabilitado'] = 'checked="checked"';
@@ -145,7 +150,7 @@ class Faq extends CI_Controller {
 
 	}
 	
-	public function reorder()
+	public function reorder($id)
 	{
 
 		$response = new stdClass();

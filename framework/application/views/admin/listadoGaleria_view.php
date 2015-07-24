@@ -1,13 +1,13 @@
 <h2><?=$txt_titulo?><a class="cerrar" href="#" >cancelar</a></h2>
 
-<ul class="contenido_col sorteable listado_galeria" style="bottom: <?=$bottomMargin?>px" rel="<?=$url_rel?>">
+<ul class="contenido_col listado_galeria" style="bottom: <?=$bottomMargin?>px" rel="<?=$url_rel?>">
 
 	<fieldset id="upload-gallery">
 		<div>
 			<input class="fileselect" type="file" name="fileselect[]" />
 			<div class="filedrag">o arrastre los archivos aquí</div>
 		</div>
-		<ul class="list galeria" id="<?=$list_id?>" style="overflow: hidden" data-sort="<?=$url_sort?>">
+		<ul class="list galeria sorteable" id="<?=$list_id?>" style="overflow: hidden" data-sort="<?=$url_sort?>">
 
 			<?php foreach($items as $item): ?>
 
@@ -16,7 +16,7 @@
 						<img src="<?= $url_path . $item[$idx_id] . '_admin.' . $item[$idx_extension] . '?' . time() ?>" />
 						<span class="nombre"><span><?=$item[$idx_nombre]?></span></span>
 					</a>
-					<a href="<?=$url_eliminar . '/' . $item[$idx_id];?>" class="eliminar" >eliminar</a>
+					<a href="<?=$url_eliminar . '/' . $item[$idx_id];?>" class="eliminar" ></a>
 				</li>
 
 			<?php  endforeach; ?>

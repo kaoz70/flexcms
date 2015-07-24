@@ -3,12 +3,12 @@
   "version": "4.2.1",
   "assets": {
     "prod": {
-      "css": ["packages/bx-slider.js/dist/jquery.bxslider.css"],
-      "js": ["packages/bx-slider.js/dist/jquery.bxslider.js"]
+      "css": ["framework/packages/bx-slider.js/dist/jquery.bxslider.css"],
+      "js": ["framework/packages/bx-slider.js/dist/jquery.bxslider.js"]
     },
     "dev": {
-      "css": ["packages/bx-slider.js/src/less/jquery.bxslider.less"],
-      "js": ["packages/bx-slider.js/src/js/jquery.bxslider.js"]
+      "css": ["framework/packages/bx-slider.js/src/less/jquery.bxslider.less"],
+      "js": ["framework/packages/bx-slider.js/src/js/jquery.bxslider.js"]
     }
   },
   "docs": "http://bxslider.com/options",

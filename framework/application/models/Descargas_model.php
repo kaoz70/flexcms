@@ -93,6 +93,7 @@ class Descargas_model extends CI_Model
 	{
 		$this->db->select('descargas_categorias.id AS id, descargaCategoriaNombre');
 		$this->db->join('es_descargas_categorias', 'es_descargas_categorias.descargaCategoriaId = descargas_categorias.id');
+		$this->db->where('temporal', 0);
 		$query = $this->db->get('descargas_categorias');
 		return $query->result_array();
 	}
@@ -118,7 +119,7 @@ class Descargas_model extends CI_Model
 			$dataIdioma = array(
 				'descargaCategoriaId' => $node->id,
 				'descargaCategoriaNombre' => $this->input->post($dim.'_descargaCategoriaNombre'),
-				'descargaCategoriaUrl' => $general->generateSafeUrl($this->input->post($dim.'_descargaCategoriaNombre'))
+				'descargaCategoriaUrl' => $general->generateSafeUrl($this->input->post($dim.'_descargaCategoriaNombre')),
 			);
 
 			$this->db->insert($dim.'_descargas_categorias', $dataIdioma);

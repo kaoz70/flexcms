@@ -46,7 +46,7 @@
     </form>
 
 </div>
-<a class="guardar boton importante n1" href="<?=base_url();?>admin/catalog/update_predefined_list"><?=$txt_guardar;?></a>
+<a class="guardar boton importante n1" href="<?=base_url();?>admin/catalog/predefinedList/update/<?=$productoCampoId?>"><?=$txt_guardar;?></a>
 
 <script type="text/javascript">
     seccionesAdmin();

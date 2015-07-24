@@ -5,16 +5,16 @@
 	<div class="searchButton"></div>
 </div>
 
-<ul class="contenido_col searchResults listado_general" rel="<?=base_url('admin/mailing/subscribers')?>" style="bottom: <?=$bottomMargin?>px">
+<ul class="contenido_col searchResults listado_general" rel="<?=base_url('admin/mailchimp/subscribers')?>" style="bottom: <?=$bottomMargin?>px">
 
 	<li class="pagina field">
 		<h3 class="header">Suscritos</h3>
 		<ul class="content" id="subscribed">
 			<?php foreach($subscribed as $row):?>
 				<li class="listado" id="<?=$row['LEID']?>">
-					<a class="nombre modificar <?=$nivel?>" href="<?=base_url();?>admin/mailing/modify_subscriber/<?=$list_id?>/<?=$row['LEID']?>"><span><?=$row['Email Address']?></span></a>
-					<a href="<?=base_url();?>admin/mailing/delete_subscriber/<?=$list_id?>/<?=$row['LEID']?>" class="eliminar" >eliminar</a>
-					<a href="<?=base_url();?>admin/mailing/unsubscribe/<?=$list_id?>/<?=$row['LEID']?>" class="unsubscribe" >desuscribir</a>
+					<a class="nombre modificar <?=$nivel?>" href="<?=base_url();?>admin/mailchimp/subscriber/edit/<?=$list_id?>/<?=$row['LEID']?>"><span><?=$row['Email Address']?></span></a>
+					<a href="<?=base_url();?>admin/mailchimp/subscriber/delete/<?=$list_id?>/<?=$row['LEID']?>" class="eliminar" ></a>
+					<a href="<?=base_url();?>admin/mailchimp/subscriber/unsubscribe/<?=$list_id?>/<?=$row['LEID']?>" class="unsubscribe" ></a>
 				</li>
 			<?php endforeach;?>
 		</ul>
@@ -25,8 +25,8 @@
 		<ul class="content" id="unsubscribed">
 			<?php foreach($unsubscribed as $row):?>
 				<li class="listado" id="<?=$row['LEID']?>">
-					<a class="nombre modificar <?=$nivel?>" href="<?=base_url();?>admin/mailing/modify_subscriber/<?=$list_id?>/<?=$row['LEID']?>"><span><?=$row['Email Address']?></span></a>
-					<a href="<?=base_url();?>admin/mailing/delete_subscriber/<?=$list_id?>/<?=$row['LEID']?>" class="eliminar" >eliminar</a>
+					<a class="nombre modificar <?=$nivel?>" href="<?=base_url();?>admin/mailchimp/subscriber/edit/<?=$list_id?>/<?=$row['LEID']?>"><span><?=$row['Email Address']?></span></a>
+					<a href="<?=base_url();?>admin/mailchimp/subscriber/delete/<?=$list_id?>/<?=$row['LEID']?>" class="eliminar" ></a>
 				</li>
 			<?php endforeach;?>
 		</ul>

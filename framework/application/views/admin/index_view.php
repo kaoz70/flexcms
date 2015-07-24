@@ -10,7 +10,7 @@
 
     <script type="text/javascript">
         var system = {
-            base_url: '<?=base_url()?>'
+            baseUrl: '<?=base_url()?>'
         }
     </script>
 
@@ -61,7 +61,7 @@
 		<img style="margin-bottom: 13px; width: 100%" src="<?=base_url('assets/admin/images/logo.png')?>" />
         <ul id="menu" class="contenido">
             <? foreach ($secciones as $seccion): ?>
-                <li><a title="<?=$seccion->adminSeccionNombre?>" rel="<?=$seccion->desc?>" class="nivel1 ajax tooltip" id="<?=$seccion->adminSeccionController?>" href="<?=base_url('admin/'.$seccion->adminSeccionController);?>"><?=$seccion->adminSeccionNombre?></a></li>
+                <li><a title="<?=$seccion->adminSeccionNombre?>" rel="<?=$seccion->desc?>" class="nivel1 ajax tooltip" data-controller="<?=$seccion->adminSeccionController?>" href="<?=base_url('admin/'.$seccion->adminSeccionController);?>"><?=$seccion->adminSeccionNombre?></a></li>
             <? endforeach ?>
         </ul>
         <div class="user">
@@ -87,7 +87,7 @@
 		</table>
 	</div>
 
-	<div id="version">v1.6.4</div>
+	<div id="version">v1.7.0</div>
 
 </body>
 </html>

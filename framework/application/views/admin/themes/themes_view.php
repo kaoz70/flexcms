@@ -5,7 +5,7 @@
 	<?php foreach($themes as $theme): ?>
 
 		<li class="listado theme" id="<?=$theme->folder?>">
-			<a class="modificar nivel3" href="<?=base_url('admin/theme/modificar/' . $theme->folder)?>">
+			<a class="modificar nivel3" href="<?=base_url('admin/themes/theme/edit/' . $theme->folder)?>">
 
 				<img src="<?=base_url('themes/' . $theme->folder . '/preview.jpg')?>">
 
@@ -14,7 +14,7 @@
 				</div>
 
 			</a>
-			<a href="<?=base_url('admin/theme/eliminar/' . $theme->folder)?>" class="eliminar" >eliminar</a>
+			<a href="<?=base_url('admin/themes/theme/delete/' . $theme->folder)?>" class="eliminar" >eliminar</a>
 		</li>
 		
 	<?php  endforeach; ?>

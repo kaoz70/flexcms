@@ -8,8 +8,8 @@
 			<?php foreach($result_contactos as $row):?>
 
 				<li class="listado" id="<?=$row->contactoId?>">
-					<a class="nombre modificar nivel2" href="<?=base_url();?>admin/contact/edit_contact/<?=$row->contactoId?>"><span><?=$row->contactoNombre;?></span></a>
-					<a href="<?=base_url();?>admin/contact/delete_contact/<?=$row->contactoId?>" class="eliminar" >eliminar</a>
+					<a class="nombre modificar nivel2" href="<?=base_url();?>admin/contact/person/edit/<?=$row->contactoId?>"><span><?=$row->contactoNombre;?></span></a>
+					<a href="<?=base_url();?>admin/contact/person/delete/<?=$row->contactoId?>" class="eliminar" ></a>
 				</li>
 			
 			<?php endforeach;?>
@@ -18,14 +18,14 @@
 	</li>
     <li class="pagina field">
         <h3 class="header">Direcciones</h3>
-        <ul id="list_direccion" class="sorteable content" data-sort="<?=base_url('admin/contact/reorder_addresses')?>">
+        <ul id="list_direccion" class="sorteable content" data-sort="<?=base_url('admin/contact/address/reorder')?>">
 
             <?php foreach($result_direcciones as $row): ?>
 
                 <li class="listado drag" id="<?=$row->contactoDireccionId;?>">
-                    <div class="mover">mover</div>
-                    <a class="nombre modificar nivel2" href="<?=base_url();?>admin/contact/edit_address/<?=$row->contactoDireccionId;?>"><span><?=$row->contactoDireccionNombre;?></span></a>
-                    <a href="<?=base_url();?>admin/contact/delete_address/<?=$row->contactoDireccionId;?>" class="eliminar" >eliminar</a>
+                    <div class="mover"></div>
+                    <a class="nombre modificar nivel2" href="<?=base_url();?>admin/contact/address/edit/<?=$row->contactoDireccionId;?>"><span><?=$row->contactoDireccionNombre;?></span></a>
+                    <a href="<?=base_url();?>admin/contact/address/delete/<?=$row->contactoDireccionId;?>" class="eliminar" ></a>
                 </li>
 
             <?php endforeach;?>
@@ -36,14 +36,14 @@
     </li>
 	<li class="pagina field">
 		<h3 class="header">Elmentos del Formulario</h3>
-		<ul id="list_contacto" class="sorteable content" data-sort="<?=base_url('admin/contact/reorganizarElementos')?>">
+		<ul id="list_contacto" class="sorteable content" data-sort="<?=base_url('admin/contact/field/reorder')?>">
 
 			<?php foreach($result_elementos as $row): ?>
 			
 				<li class="listado drag" id="<?=$row->contactoCampoId;?>">
-					<div class="mover">mover</div>
-					<a class="nombre modificar nivel2" href="<?=base_url();?>admin/contact/edit_form_field/<?=$row->contactoCampoId;?>"><span><?=$row->contactoCampoValor;?></span></a>
-					<a href="<?=base_url();?>admin/contact/delete_form_field/<?=$row->contactoCampoId;?>" class="eliminar" >eliminar</a>
+					<div class="mover"></div>
+					<a class="nombre modificar nivel2" href="<?=base_url();?>admin/contact/field/edit/<?=$row->contactoCampoId;?>"><span><?=$row->contactoCampoValor;?></span></a>
+					<a href="<?=base_url();?>admin/contact/field/delete/<?=$row->contactoCampoId;?>" class="eliminar" ></a>
 				</li>
 			
 			<?php endforeach;?>
@@ -54,6 +54,6 @@
 	</li>
 </ul>
 
-<a id="crear_contacto" class="nivel2 ajax boton n3" href="<?=base_url();?>admin/contact/create_address"><?=$txt_nuevaDireccion;?></a>
-<a id="crear_contacto" class="nivel2 ajax boton n2" href="<?=base_url();?>admin/contact/create_contact"><?=$txt_nuevoContacto;?></a>
-<a id="crear_elemento" class="nivel2 ajax boton n1" href="<?=base_url();?>admin/contact/create_form_field"><?=$txt_nuevoElem;?></a>
+<a id="crear_contacto" class="nivel2 ajax boton n3" href="<?=base_url();?>admin/contact/address/create"><?=$txt_nuevaDireccion;?></a>
+<a id="crear_contacto" class="nivel2 ajax boton n2" href="<?=base_url();?>admin/contact/person/create"><?=$txt_nuevoContacto;?></a>
+<a id="crear_elemento" class="nivel2 ajax boton n1" href="<?=base_url();?>admin/contact/field/create"><?=$txt_nuevoElem;?></a>

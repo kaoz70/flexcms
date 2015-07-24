@@ -56,4 +56,4 @@
 	
 </div>
 
-<a href="<?= $link; ?>" nivel="nivel2" data-unsubscribe-url="mailing/unsubscribe/<?=$list_id?>/" modificar="mailing/modify_subscriber/<?=$list_id?>/" eliminar="mailing/delete_subscriber/<?=$list_id?>/" class="guardar boton importante mailchimp n1 no_sort <?=$new?>" ><?=$button_text?></a>
+<a href="<?= $link; ?>" nivel="nivel2" data-unsubscribe-url="mailchimp/subscriber/unsubscribe/<?=$list_id?>/" modificar="mailchimp/subscriber/edit/<?=$list_id?>" eliminar="mailchimp/subscriber/delete/<?=$list_id?>" class="guardar boton importante mailchimp n1 no_sort <?=$new?>" ><?=$button_text?></a>

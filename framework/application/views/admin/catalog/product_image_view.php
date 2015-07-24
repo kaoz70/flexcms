@@ -4,26 +4,26 @@
 	<?php
 
 	$attributes = array('class' => 'form');
-	echo form_open('admin/catalogo/subirImagenGaleriaProducto/'.$productoImagenId, $attributes);
+	echo form_open('admin/catalogo/subirImagenGaleriaProducto/'.$productoArchivoId, $attributes);
 ?>
 
 	<div class="field">
 		<div class="header">General</div>
 		<div class="content">
 			<div class="input">
-				<label for="productoImagenNombre">Nombre:</label>
-				<input class="required name" id="productoImagenNombre" name="productoImagenNombre" type="text" value="<?=$productoImagenNombre ?>"/>
+				<label for="productoArchivoNombre">Nombre:</label>
+				<input class="required name" id="productoArchivoNombre" name="productoArchivoNombre" type="text" value="<?=$productoArchivoNombre ?>"/>
 			</div>
 	
 			<fieldset>
 				<legend>Descripción</legend>
 				<? foreach ($idiomas as $key => $idioma): ?>
 					<div>
-					<label for="<?=$idioma['idiomaDiminutivo']?>_productoImagenDescripcion"><?=$idioma['idiomaNombre']?></label>
+					<label for="<?=$idioma['idiomaDiminutivo']?>_productoDescargaDescripcion"><?=$idioma['idiomaNombre']?></label>
 					<? if(count($traducciones[$idioma['idiomaDiminutivo']]) > 0):?>
-						<input name="<?=$idioma['idiomaDiminutivo']?>_productoImagenDescripcion" type="text" value="<?=$traducciones[$idioma['idiomaDiminutivo']]->productoImagenDescripcion?>"/>
+						<input name="<?=$idioma['idiomaDiminutivo']?>_productoDescargaDescripcion" type="text" value="<?=$traducciones[$idioma['idiomaDiminutivo']]->productoDescargaDescripcion?>"/>
 					<? else: ?>
-						<input name="<?=$idioma['idiomaDiminutivo']?>_productoImagenDescripcion" type="text" value=""/>
+						<input name="<?=$idioma['idiomaDiminutivo']?>_productoDescargaDescripcion" type="text" value=""/>
 					<? endif ?>
 					</div>
 				<? endforeach ?>
@@ -31,35 +31,32 @@
 
             <fieldset id="upload-image-productoImagen">
                 <legend><?=$txt_botImagen;?></legend>
-                <div>
-                    <input class="fileselect" type="file" name="fileselect[]" />
-                    <div class="filedrag">o arrastre el archivo aquí</div>
-                </div>
                 <ul class="list">
-                    <? if($imagen != ''): ?>
+                    <? if($imagenUrl != ''): ?>
                         <li class="image">
-                            <?=$imagen?>
+                            <?=$imagenUrl?>
                         </li>
                     <? endif; ?>
                 </ul>
             </fieldset>
-			
-			<input id="imagen-productoImagen" type="hidden" name="productoImagen" value="<?=$productoImagen; ?>" data-orig="<?=$imagenOrig?>" />
+
+			<input id="imagen-productoImagen" type="hidden" name="productoImagen" value="<?=$productoArchivoExtension; ?>" data-orig="<?=$imagenOrig?>" />
 	
 			<div class="input check">
-				<input type="checkbox" name="productoImagenEnabled" id="productoImagenEnabled" <?= $productoImagenEnabled; ?> />
-				<label for="productoImagenEnabled">Publicado</label>
+				<input type="checkbox" name="productoArchivoEnabled" id="productoArchivoEnabled" <?= $productoArchivoEnabled; ?> />
+				<label for="productoArchivoEnabled">Publicado</label>
 			</div>
 		</div>
 	</div>
 
-	<input id="productoImagenId" type="hidden" name="productoImagenId" value="<?=$productoImagenId; ?>" />
-    <input class="coord" type="hidden" name="productoImagenCoord" value="<?=$productoImagenCoord;?>" />
+	<input id="upload-fileName" type="hidden" name="productoArchivoExtension" value="<?=$productoArchivoExtension; ?>" />
+	<input id="productoArchivoId" type="hidden" name="productoArchivoId" value="<?=$productoArchivoId; ?>" />
+    <input class="coord" type="hidden" name="productoArchivoCoord" value="<?=urlencode($productoArchivoCoord);?>" />
 
 	<?= form_close(); ?>
 </div>
-<a href="<?= $link; ?>" data-level="nivel3" data-edit-url="catalogo/modificarProductoImagen/<?=$productoImagenId; ?>" data-delete-url="catalogo/eliminarProductoImagen/<?=$productoImagenId; ?>" class="guardar boton importante n1 <?=$nuevo?>" ><?=$txt_boton; ?></a>
+<a href="<?= $link; ?>" data-level="nivel3" data-edit-url="catalogo/modificarProductoImagen/<?=$productoArchivoId; ?>" data-delete-url="catalogo/eliminarProductoImagen/<?=$productoArchivoId; ?>" class="guardar boton importante n1 <?=$nuevo?>" ><?=$txt_boton; ?></a>
 
 <script type="text/javascript">
-    upload.image('upload-image-productoImagen', 'imagen-productoImagen', '<?=base_url();?>admin/imagen/productoGaleria/<?=$productoId?>/<?=$productoImagenId?>', <?=$cropDimensions->imagenAncho?>, <?=$cropDimensions->imagenAlto?>, <?=$cropDimensions->imagenCrop ? 'true' : 'false'?>);
+    upload.image('upload-image-productoImagen', 'imagen-productoImagen', '<?=base_url();?>admin/imagen/productoGaleria/<?=$productoId?>/<?=$productoCampoId?>/<?=$productoArchivoId?>', <?=$cropDimensions->imagenAncho?>, <?=$cropDimensions->imagenAlto?>, <?=$cropDimensions->imagenCrop ? 'true' : 'false'?>);
 </script>

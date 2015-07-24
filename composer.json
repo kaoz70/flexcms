@@ -1,5 +1,5 @@
 {
-  "name": "FlexCMS",
+  "name": "Dejabu/FlexCMS",
   "description": "Content Management System",
   "require": {
     "kriswallsmith/assetic": "1.2.0",
@@ -31,8 +31,18 @@
   "minimum-stability": "dev",
   "autoload": {
     "classmap": [
+      "framework/application/interfaces",
       "framework/application/models/eloquent",
-      "framework/application/workers"
+      "framework/application/workers",
+      "framework/application/controllers/admin/calendar",
+      "framework/application/controllers/admin/catalog",
+      "framework/application/controllers/admin/contact",
+      "framework/application/controllers/admin/gallery",
+      "framework/application/controllers/admin/maps",
+      "framework/application/controllers/admin/publications",
+      "framework/application/controllers/admin/services",
+      "framework/application/controllers/admin/sliders",
+      "framework/application/controllers/admin/users"
     ]
   },
   "config": {

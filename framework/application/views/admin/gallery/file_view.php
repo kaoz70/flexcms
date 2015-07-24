@@ -65,7 +65,7 @@ echo form_open('admin/descargas/' . $link, $attributes);
 
 <?= form_close(); ?>
 </div>
-<a href="<?= $link; ?>" data-level="nivel2" data-edit-url="descargas/modificarDescarga/<?=$descargaId?>" data-delete-url="descargas/eliminarDescarga/<?=$descargaId?>" class="guardar boton importante n1 selectbox <?=$nuevo?>" ><?=$txt_boton;?></a>
+<a href="<?= $link; ?>" data-level="nivel2" data-edit-url="gallery/file/edit/<?=$descargaId?>" data-delete-url="gallery/file/delete/<?=$descargaId?>" class="guardar boton importante n1 selectbox <?=$nuevo?>" ><?=$txt_boton;?></a>
 
 <script type="text/javascript">
 	initDatePicker();

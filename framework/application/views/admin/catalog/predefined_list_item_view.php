@@ -50,4 +50,4 @@
 
 	<?= form_close(); ?>
 </div>
-<a href="<?= $link; ?>" data-level="nivel5" data-edit-url="catalog/edit_predefined_list_item/" data-delete-url="catalog/delete_predefined_list_item/" class="guardar boton importante n1 <?=$nuevo?>" ><?=$txt_boton; ?></a>
+<a href="<?= $link; ?>" data-level="nivel5" data-edit-url="catalog/predefinedListItem/edit/" data-delete-url="catalog/predefinedListItem/delete/" class="guardar boton importante n1 <?=$nuevo?>" ><?=$txt_boton; ?></a>

@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Structure extends CI_Controller {
+class Structure extends MY_Controller implements AdminInterface {
 	
 	var $txt_boton = '';
 	var $pagina_info = array();
@@ -80,7 +80,7 @@ class Structure extends CI_Controller {
 	public function create()
 	{
 
-        $pagina = $this->Paginas->addPage();
+        $pagina = $this->insert();
 
         $data['paginaId'] = $pagina->insert_id;
 		$data['paginaEsPopup'] = '';
@@ -121,6 +121,11 @@ class Structure extends CI_Controller {
 		$data['pagina_info']->pagina_tipoId = 0;
 		
 		$this->load->view('admin/paginaCrear_view', $data);
+	}
+
+	public function insert()
+	{
+		return $this->Paginas->addPage();
 	}
 	
 	public function edit($id)
@@ -183,7 +188,7 @@ class Structure extends CI_Controller {
 		$this->load->view('admin/paginaCrear_view', $data);
 	}
 	
-	public function update()
+	public function update($id)
 	{
 
 		$response = new stdClass();
@@ -191,7 +196,7 @@ class Structure extends CI_Controller {
 
 		try{
 			$this->Paginas->updatePage($this->cms_general);
-			$response->new_id = $id = $this->uri->segment(4);
+			$response->new_id = $id;
 		} catch (Exception $e) {
 			$response = $this->cms_general->error('Ocurri&oacute; un problema al actualizar la p&aacute;ina!', $e);
 	}
@@ -268,7 +273,7 @@ class Structure extends CI_Controller {
 		$this->load->view('admin/paginasVentana_view', $data);
 	}
 	
-	public function reorder()
+	public function reorder($id)
 	{
 
 		$response = new stdClass();

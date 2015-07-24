@@ -270,18 +270,17 @@ class Imagen extends CI_Controller {
 
 	}
 
-	public function productoGaleria()
+	public function productoGaleria($productoid, $fieldId)
 	{
 
-		$productoid = $this->uri->segment(4, 0);
-		$imageid = $this->uri->segment(5, 0);
+		$imageId = $this->uri->segment(6, 0);
 		$imagedata = json_decode($this->input->post('imagedata'));
         $filedata = $this->input->post('filedata');
 		$imagedata->path = 'assets/public/images/catalog/gal_';
 		$time = time();
 
-		if($imageid){
-			$imagedata->id = $productoid . '_' . $imageid;
+		if($imageId){
+			$imagedata->id = $imageId;
 			$images = $this->Modulo->getImages(6);
 		}
 
@@ -292,9 +291,9 @@ class Imagen extends CI_Controller {
 			$extension = substr(strrchr($imagedata->name,'.'),1);
 			$name = str_replace('.' . $extension, '', $name);
 
-			$this->db->insert('producto_imagenes', array(
-				'productoImagen' => $extension . '?' . $time,
-				'productoImagenCoord' => json_encode(array(
+			$this->db->insert('producto_archivos', array(
+				'productoArchivoExtension' => $extension . '?' . $time,
+				'productoArchivoCoord' => json_encode(array(
 					'top' => 0,
 					'left' => 0,
 					'width' => $imagedata->width,
@@ -302,19 +301,20 @@ class Imagen extends CI_Controller {
 					'scale' => 0,
 				)),
 				'productoId' => $productoid,
-				'productoImagenNombre' => $name,
+				'productoCampoId' => $fieldId,
+				'productoArchivoNombre' => $name,
 			));
 			$image_id = $this->db->insert_id();
 
 			//Create the translation fields
 			$idiomas = $this->Idiomas->getLanguages();
 			foreach ($idiomas as $lang) {
-				$this->db->insert($lang['idiomaDiminutivo'] . '_producto_imagenes', array(
-					'productoImagenId' => $image_id,
+				$this->db->insert($lang['idiomaDiminutivo'] . '_producto_archivos', array(
+					'productoDescargaId' => $image_id,
 				));
 			}
 
-			$imagedata->id = $productoid . '_' . $image_id;
+			$imagedata->id = $image_id;
 			$imagedata->image_id = $image_id;
 
 			$images = array();

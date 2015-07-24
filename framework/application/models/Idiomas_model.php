@@ -261,40 +261,16 @@ class Idiomas_model extends CI_Model {
         ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8');
 
 		/*
-		 * PRODUCTO IMAGENES
-		 */
-		$this->db->query('CREATE TABLE IF NOT EXISTS `'.$diminutivo.'_producto_imagenes` (
-          `'.$diminutivo.'_productoImagenId` int(11) NOT NULL AUTO_INCREMENT,
-          `productoImagenId` int(11) NOT NULL,
-          `productoImagenTexto` text NOT NULL,
-          PRIMARY KEY (`'.$diminutivo.'_productoImagenId`),
-          KEY `'.$diminutivo.'_productoImagenId` (`productoImagenId`),
-          CONSTRAINT `'.$diminutivo.'_productoImagenId` FOREIGN KEY (`productoImagenId`) REFERENCES `producto_imagenes` (`productoImagenId`) ON DELETE CASCADE ON UPDATE CASCADE
-        ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8');
-
-		/*
-		 * PRODUCTO VIDEOS
-		 */
-		$this->db->query('CREATE TABLE `'.$diminutivo.'_producto_videos` (
-          `'.$diminutivo.'_productoVideoId` int(11) NOT NULL AUTO_INCREMENT,
-          `productoVideoId` int(11) NOT NULL,
-          `productoVideoTexto` text NOT NULL,
-          PRIMARY KEY (`'.$diminutivo.'_productoVideoId`),
-          KEY `'.$diminutivo.'_productoVideoId` (`productoVideoId`),
-          CONSTRAINT `'.$diminutivo.'_productoVideoId` FOREIGN KEY (`productoVideoId`) REFERENCES `producto_videos` (`productoVideoId`) ON DELETE CASCADE ON UPDATE CASCADE
-        ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8');
-
-		/*
 		 * PRODUCTO DESCARGAS
 		 */
-		$this->db->query('CREATE TABLE IF NOT EXISTS `'.$diminutivo.'_producto_descargas` (
-          `'.$diminutivo.'_productoDescargaId` int(11) NOT NULL AUTO_INCREMENT,
-          `productoDescargaId` int(11) NOT NULL,
-          `productoDescargaTexto` text NOT NULL,
-          PRIMARY KEY (`'.$diminutivo.'_productoDescargaId`),
-          KEY `'.$diminutivo.'_productoDescargaId` (`productoDescargaId`),
-          CONSTRAINT `'.$diminutivo.'_productoDescargaId` FOREIGN KEY (`productoDescargaId`) REFERENCES `producto_descargas` (`productoDescargaId`) ON DELETE CASCADE ON UPDATE CASCADE
-        ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8');
+		$this->db->query('CREATE TABLE `'.$diminutivo.'_producto_archivos` (
+		  `'.$diminutivo.'_productoDescargaId` int(11) NOT NULL AUTO_INCREMENT,
+		  `productoDescargaId` int(11) NOT NULL,
+		  `productoDescargaTexto` text DEFAULT NULL,
+		  PRIMARY KEY (`'.$diminutivo.'_productoDescargaId`),
+		  KEY `'.$diminutivo.'_productoDescargaId` (`productoDescargaId`),
+		  CONSTRAINT `fk_'.$diminutivo.'_producto_archivos_productoArchivos` FOREIGN KEY (`productoDescargaId`) REFERENCES `producto_archivos` (`productoArchivoId`) ON DELETE CASCADE ON UPDATE NO ACTION
+		) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;');
 
 		/*
 		 * PRODUCTO LISTADO PREDEFINIDO
@@ -465,7 +441,8 @@ class Idiomas_model extends CI_Model {
 		 * Eliminamos las tablas donde se guarda la informacion de cada idioma
 		 ***********************************************************************/
 
-		$this->db->query('DROP TABLE '.$diminutivo.'_paginas,
+		$this->db->query('DROP TABLE '
+          .$diminutivo.'_paginas,
 		 '.$diminutivo.'_articulos,
 		 '.$diminutivo.'_banner_campos,
 		 '.$diminutivo.'_banner_campos_rel,
@@ -479,9 +456,7 @@ class Idiomas_model extends CI_Model {
 		 '.$diminutivo.'_producto_campos_rel,
 		 '.$diminutivo.'_producto_categorias,
 		 '.$diminutivo.'_modulos,
-		 '.$diminutivo.'_producto_imagenes,
-		 '.$diminutivo.'_producto_videos,
-		 '.$diminutivo.'_producto_descargas,
+		 '.$diminutivo.'_producto_archivos,
 		 '.$diminutivo.'_producto_campos_listado_predefinido,
 		 '.$diminutivo.'_descargas_categorias,
 		 '.$diminutivo.'_descargas,
@@ -612,8 +587,8 @@ class Idiomas_model extends CI_Model {
 			/*
 			 * PRODUCTO IMAGENES
 			 */
-			$this->db->query('RENAME TABLE `'.$diminutivoAnterior.'_producto_imagenes` TO `'.$diminutivo.'_producto_imagenes`');
-			$this->db->query('ALTER TABLE `'.$diminutivo.'_producto_imagenes`
+			$this->db->query('RENAME TABLE `'.$diminutivoAnterior.'_producto_archivos` TO `'.$diminutivo.'_producto_archivos`');
+			$this->db->query('ALTER TABLE `'.$diminutivo.'_producto_archivos`
 			CHANGE COLUMN `'.$diminutivoAnterior.'_productoImagenId` `'.$diminutivo.'_productoImagenId`  int(11) NOT NULL AUTO_INCREMENT FIRST');
 
 			/*
@@ -626,8 +601,8 @@ class Idiomas_model extends CI_Model {
 			/*
 			 * PRODUCTO DESCARGAS
 			 */
-			$this->db->query('RENAME TABLE `'.$diminutivoAnterior.'_producto_descargas` TO `'.$diminutivo.'_producto_descargas`');
-			$this->db->query('ALTER TABLE `'.$diminutivo.'_producto_descargas`
+			$this->db->query('RENAME TABLE `'.$diminutivoAnterior.'_producto_archivos` TO `'.$diminutivo.'_producto_archivos`');
+			$this->db->query('ALTER TABLE `'.$diminutivo.'_producto_archivos`
 			CHANGE COLUMN `'.$diminutivoAnterior.'_productoDescargaId` `'.$diminutivo.'_productoDescargaId`  int(11) NOT NULL AUTO_INCREMENT FIRST');
 
 			/*

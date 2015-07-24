@@ -1,7 +1,7 @@
 <h2><?=$window_title?><a class="cerrar" href="#" >cancelar</a></h2>
 <div class="contenido_col" style="width: 765px;">
 
-	<?= form_open('admin/mailing/' . $link, array('class' => 'form')); ?>
+	<?= form_open('admin/mailchimp/' . $link, array('class' => 'form')); ?>
 	
 	<div class="field">
 		<div class="header">General</div>

@@ -2,8 +2,6 @@
 <div class="contenido_col">
 
 	<?=form_open($link, array('class' => 'form'));?>
-	
-	
 	<div class="field">
 		<div class="header">General</div>
 		<div class="content">

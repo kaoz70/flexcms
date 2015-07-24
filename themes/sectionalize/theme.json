@@ -1,13 +1,1 @@
-{
-  "name": "Sectionalize",
-  "author": "Bootply",
-  "description": "",
-  "version": "1.0.0",
-  "config": {
-    "framework": "bootstrap",
-    "primary_color": "#00BBF9",
-    "secondary_color": "#706F6F",
-    "backgrounds": [],
-    "logo_extension": "png"
-  }
-}
+{"name":"Sectionalize","author":"Bootply","description":"","version":"1.0.0","config":{"framework":"bootstrap","primary_color":"#00BBF9","secondary_color":"#706F6F","backgrounds":[],"logo_extension":"jpg?1437072986"}}

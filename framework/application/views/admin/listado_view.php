@@ -11,12 +11,19 @@
 
 	<?php foreach($items as $item): ?>
 
-		<li class="listado drag" id="<?=$item[$idx_id];?>">
+		<li class="listado <?= $drag ? 'drag' : '' ?>" id="<?=$item[$idx_id];?>">
             <?if($drag):?>
-			<div class="mover">mover</div>
+			<div class="mover"></div>
             <? endif ?>
-			<a class="nombre <?= isset($select) && $select ? 'seleccionar' : 'modificar'?> <?=$nivel?>" href="<?=$url_modificar . '/' . $item[$idx_id];?>"><span><?=$item[$idx_nombre]?></span></a>
-			<a href="<?=$url_eliminar . '/' . $item[$idx_id];?>" class="eliminar" >eliminar</a>
+
+			<a data-id="<?=$item[$idx_id];?>"
+			   class="nombre <?= isset($select) && $select ? 'seleccionar' : 'modificar ' . $nivel?> <?= isset($add_class) ? $add_class : ''?>"
+			   href="<?=$url_modificar . '/' . $item[$idx_id];?>"><span><?=$item[$idx_nombre]?></span></a>
+
+			<? if(!isset($select) || (isset($select) && !$select)): ?>
+				<a href="<?=$url_eliminar . '/' . $item[$idx_id];?>" class="eliminar" ></a>
+			<? endif ?>
+
 			<? if(isset($additional_buttons)): ?>
 				<? foreach (array_reverse($additional_buttons) as $button): ?>
 					<? if(!array_key_exists('function', $button) OR $button['function']['name']($item[$button['function']['params']])): ?>
@@ -24,6 +31,7 @@
 					<? endif ?>
 				<? endforeach ?>
 			<? endif ?>
+
 		</li>
 		
 	<?php  endforeach; ?>

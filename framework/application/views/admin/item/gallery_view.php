@@ -26,11 +26,11 @@ if($extension && strlen($extension) < 6):
 		case 'jpeg': ?>
 
 			<li class="image drag" id="<?=$item['descargaId']?>">
-				<a class="modificar details nivel2" href="<?=base_url('admin/gallery/edit/'.$item['descargaId'])?>">
+				<a class="modificar details nivel2" href="<?=base_url('admin/gallery/file/edit/'.$item['descargaId'])?>">
 					<img src="<?=base_url()?>assets/public/images/downloads/img_<?=$item['descargaId']?>_admin.<?=$item['descargaArchivo'] . '?' . time()?>" />
 					<div class="nombre"><span><?=$item['descargaNombre']?></span></div>
 				</a>
-				<a href="<?=base_url('admin/gallery/delete/'.$item['descargaId'])?>" class="eliminar" >eliminar</a>
+				<a href="<?=base_url('admin/gallery/file/delete/'.$item['descargaId'])?>" class="eliminar" ></a>
 			</li>
 
 			<? break ?>
@@ -42,41 +42,42 @@ if($extension && strlen($extension) < 6):
 		case 'wav': ?>
 				
 			<li class="audio drag" id="<?=$item['descargaId']?>">
-				<a class="modificar details nivel2" href="<?=base_url('admin/gallery/edit/'.$item['descargaId'])?>" >
+				<a class="modificar details nivel2" href="<?=base_url('admin/gallery/file/edit/'.$item['descargaId'])?>" >
 					<div class="file" style="width: <?=$final_width?>px; height: <?=$final_height?>px;"></div>
 					<div class="nombre"><span><?=$item['descargaNombre']?></span></div>
 				</a>
-				<a href="<?=base_url('admin/gallery/delete/'.$item['descargaId'])?>" class="eliminar" >eliminar</a>
+				<a href="<?=base_url('admin/gallery/file/delete/'.$item['descargaId'])?>" class="eliminar" ></a>
 			</li>
 				
 			<? break ?>
 						
 		<?//Video
+		case 'ogv':
 		case 'avi':
 		case 'wmv':
 		case 'mov': ?>
 						
 			<li class="video drag" id="<?=$item['descargaId']?>">
-				<a class="modificar details nivel2" href="<?=base_url('admin/gallery/edit/'.$item['descargaId'])?>">
+				<a class="modificar details nivel2" href="<?=base_url('admin/gallery/file/edit/'.$item['descargaId'])?>">
 					<div class="file" style="width: <?=$final_width?>px; height: <?=$final_height?>px;"></div>
 					<div class="nombre"><span><?=$item['descargaNombre']?></span></div>
 				</a>
-				<a href="<?=base_url('admin/gallery/delete/'.$item['descargaId'])?>" class="eliminar" >eliminar</a>
-			</li>'
+				<a href="<?=base_url('admin/gallery/file/delete/'.$item['descargaId'])?>" class="eliminar" ></a>
+			</li>
 
 			<? break ?>
 			
-		//Others
-		<? default: ?>
+		<? //Other
+		default: ?>
 	
 			<li class="default drag" id="<?= $item['descargaId'] ?>">
-				<a class="modificar details nivel2" href="<?= base_url('admin/gallery/edit/'.$item['descargaId']) ?>">
+				<a class="modificar details nivel2" href="<?= base_url('admin/gallery/file/edit/'.$item['descargaId']) ?>">
 					<div class="file" style="width: <?= $final_width ?>px; height: <?= $final_height ?>px;">
 						<span class="extension"><?= mb_strtoupper($extension) ?></span>
 					</div>
 					<div class="nombre"><span><?= $item['descargaNombre'] ?></span></div>
 				</a>
-				<a href="<?= base_url('admin/gallery/delete/'.$item['descargaId']) ?>" class="eliminar" >eliminar</a>
+				<a href="<?= base_url('admin/gallery/file/delete/'.$item['descargaId']) ?>" class="eliminar" ></a>
 			</li>
 	
 	<? endswitch ?>
@@ -84,11 +85,11 @@ if($extension && strlen($extension) < 6):
 <? else://Probably youtube video ?>
 	
 	<li class="video drag" id="<?= $item['descargaId'] ?>">
-		<a class="modificar details nivel2" href="<?= base_url('admin/gallery/edit/'.$item['descargaId']) ?>">
+		<a class="modificar details nivel2" href="<?= base_url('admin/gallery/file/edit/'.$item['descargaId']) ?>">
 			<img height="<?= $final_height ?>" src="http://img.youtube.com/vi/<?= $item['descargaArchivo'] ?>/1.jpg" />
 			<div class="nombre"><span><?= $item['descargaNombre'] ?></span></div>
 		</a>
-		<a href="<?= base_url('admin/gallery/delete/'.$item['descargaId']) ?>" class="eliminar" >eliminar</a>
-	</li>';
+		<a href="<?= base_url('admin/gallery/file/delete/'.$item['descargaId']) ?>" class="eliminar" ></a>
+	</li>
 
 <? endif ?>

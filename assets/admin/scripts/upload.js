@@ -54,7 +54,7 @@ var upload = {
         }
 
         myUpload = new Uploader($(elemId), {
-            url: system.base_url + 'assets/admin/php/upload.php',
+            url: system.baseUrl + 'assets/admin/php/upload.php',
             multiple: false,
             onItemAdded: function (file, item) {
                 upload.onItemAddedHandler(item);
@@ -101,7 +101,7 @@ var upload = {
             myUpload;
 
         myUpload = new Uploader(w, {
-            url: system.base_url + 'assets/admin/php/upload.php',
+            url: system.baseUrl + 'assets/admin/php/upload.php',
             multiple: false,
             onItemAdded: function (file, item) {
 
@@ -160,7 +160,7 @@ var upload = {
         upload.target = $(elemId);
 
         myUpload = new Uploader(upload.target, {
-            url: system.base_url + 'assets/admin/php/upload.php',
+            url: system.baseUrl + 'assets/admin/php/upload.php',
             multiple: true,
             onItemAdded: function (file, item) {
 
@@ -293,7 +293,7 @@ var upload = {
                             request,
                             dimensions = last_img.getSize(),
                             loader_fx = new Fx.Tween(loader),
-                            url = system.base_url + 'admin/imagen/' + method;
+                            url = system.baseUrl + 'admin/imagen/' + method;
 
                         request = new Request({
                             url: url,
@@ -332,7 +332,7 @@ var upload = {
                                 if (response.message === 'success') {
 
                                     image =  new Element('img', {
-                                        src: system.base_url + response.path
+                                        src: system.baseUrl + response.path
                                     });
 
                                     item.getElement('.details').set('href', modify_link + '/' + response.image_id);
@@ -379,8 +379,11 @@ var upload = {
 
                 } else { //It's a file and gallery section
 
-                    var request = new Request({
-                        url: system.base_url + 'admin/archivo/' + method,
+                    var url = system.baseUrl + 'admin/archivo/' + method,
+                        request;
+
+                    request = new Request({
+                        url: url,
                         noCache: true,
                         data: {
                             'imagedata': file,

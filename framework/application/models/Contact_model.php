@@ -2,12 +2,6 @@
 class Contact_model extends CI_Model
 {
 
-	function __construct()
-	{
-		// Call the Model constructor
-		parent::__construct();
-	}
-
 	function getContacts($lang)
 	{
 		$this->db->join($lang.'_contactos', $lang.'_contactos.contactoId = contactos.contactoId', 'LEFT');
@@ -28,6 +22,7 @@ class Contact_model extends CI_Model
 	{
 		$this->db->cache_on();
 		$this->db->join($lang.'_contacto_direcciones', $lang.'_contacto_direcciones.contactoDireccionId = contacto_direcciones.contactoDireccionId', 'LEFT');
+		$this->db->order_by('contactoDireccionPosicion', 'asc');
 		$query = $this->db->get('contacto_direcciones');
 		$this->db->cache_off();
 		return $query->result();

@@ -67,6 +67,6 @@
 </div>
 
 <? if(!$new): ?>
-	<a href="<?=base_url('admin/mailing/preview/' . $id)?>" class="nivel3 ajax boton n2" >Previsualizar</a>
+	<a href="<?=base_url('admin/mailchimp/campaign/preview/' . $id)?>" class="nivel3 ajax boton n2" >Previsualizar</a>
 <? endif ?>
-<a href="<?= $link; ?>" nivel="nivel2" modificar="mailing/modify_campaign/" eliminar="mailing/delete_campaign/" data-send-url="mailing/check/" class="mailchimp-campaign guardar boton no_sort importante n1 <?=$new?>" ><?=$button_text?></a>
+<a href="<?= $link; ?>" nivel="nivel2" modificar="mailchimp/campaign/edit/" eliminar="mailchimp/campaign/delete/" data-send-url="mailchimp/campaign/check/" class="mailchimp-campaign guardar boton no_sort importante n1 <?=$new?>" ><?=$button_text?></a>

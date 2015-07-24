@@ -4,18 +4,18 @@
   "assets": {
     "prod": {
       "css": [
-        "packages/swiper/dist/css/swiper.min.css"
+        "framework/packages/swiper/dist/css/swiper.min.css"
       ],
       "js": [
-        "packages/swiper/dist/js/swiper.min.js"
+        "framework/packages/swiper/dist/js/swiper.min.js"
       ]
     },
     "dev": {
       "css": [
-        "packages/swiper/dist/css/swiper.css"
+        "framework/packages/swiper/dist/css/swiper.css"
       ],
       "js": [
-        "packages/swiper/dist/js/swiper.js"
+        "framework/packages/swiper/dist/js/swiper.js"
       ]
     }
   },

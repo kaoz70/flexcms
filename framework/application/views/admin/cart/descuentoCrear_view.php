@@ -129,8 +129,8 @@
                         >
                         <option value="0"> - Not applied to an Item - </option>
                         <?php foreach($items as $row) {?>
-                            <option value="<?php echo $row['productoId']; ?>" <?= $item === $row['productoId'] ? 'selected="selected"' : '' ?>>
-                                <?php echo $row['productoNombre'];?>
+                            <option value="<?php echo $row->productoId; ?>" <?= $item === $row->productoId ? 'selected="selected"' : '' ?>>
+                                <?php echo $row->productoNombre;?>
                             </option>
                         <?php } ?>
                     </select>

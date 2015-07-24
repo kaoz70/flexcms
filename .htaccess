@@ -19,7 +19,7 @@ php_value post_max_size 100M
 <IfModule mod_rewrite.c>
     Options +FollowSymLinks
     RewriteEngine On
-    RewriteBase /web-flexcms-1.6.0/
+    RewriteBase /web-flexcms-1.7.x/
 
     #Removes access to the system folder by users.
     #Additionally this will allow you to create a System.php controller,

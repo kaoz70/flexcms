@@ -4,46 +4,51 @@
 	<?php
 
 	$attributes = array('class' => 'form');
-	echo form_open('admin/catalogo/subirVideoGaleriaProducto/'.$productoId.'/'.$productoVideoId, $attributes);
+	echo form_open('admin/catalogo/subirImagenGaleriaProducto/'.$productoArchivoId, $attributes);
 ?>
 
 	<div class="field">
 		<div class="header">General</div>
 		<div class="content">
 			<div class="input">
-				<label for="productoVideoNombre">Nombre:</label>
-				<input class="required name" id="productoVideoNombre" name="productoVideoNombre" type="text" value="<?=$productoVideoNombre ?>"/>
+				<label for="productoArchivoNombre">Nombre:</label>
+				<input class="required name" id="productoArchivoNombre" name="productoArchivoNombre" type="text" value="<?=$productoArchivoNombre ?>"/>
 			</div>
 	
 			<fieldset>
 				<legend>Descripción</legend>
 				<? foreach ($idiomas as $key => $idioma): ?>
 					<div>
-					<label for="<?=$idioma['idiomaDiminutivo']?>_productoVideoDescripcion"><?=$idioma['idiomaNombre']?></label>
+					<label for="<?=$idioma['idiomaDiminutivo']?>_productoDescargaDescripcion"><?=$idioma['idiomaNombre']?></label>
 					<? if(count($traducciones[$idioma['idiomaDiminutivo']]) > 0):?>
-						<input name="<?=$idioma['idiomaDiminutivo']?>_productoVideoDescripcion" type="text" value="<?=$traducciones[$idioma['idiomaDiminutivo']]->productoVideoDescripcion?>"/>
+						<input name="<?=$idioma['idiomaDiminutivo']?>_productoDescargaDescripcion" type="text" value="<?=$traducciones[$idioma['idiomaDiminutivo']]->productoDescargaDescripcion?>"/>
 					<? else: ?>
-						<input name="<?=$idioma['idiomaDiminutivo']?>_productoVideoDescripcion" type="text" value=""/>
+						<input name="<?=$idioma['idiomaDiminutivo']?>_productoDescargaDescripcion" type="text" value=""/>
 					<? endif ?>
 					</div>
 				<? endforeach ?>
 			</fieldset>
 
-            <fieldset>
-                <legend>Video Youtube</legend>
-                <input name="productoVideo" type="text" value="<?=$productoVideo?>"/>
+            <fieldset id="upload-image-productoImagen">
+                <legend>Video</legend>
+	            <video controls>
+		            <source src=<?= base_url('assets/public/files/catalog')?>/<?=$productoArchivoExtension; ?> >
+	            </video>
             </fieldset>
+
+			<input id="imagen-productoImagen" type="hidden" name="productoImagen" value="<?=$productoArchivoExtension; ?>" data-orig="<?=$imagenOrig?>" />
 	
 			<div class="input check">
-				<input type="checkbox" name="productoVideoEnabled" id="productoVideoEnabled" <?= $productoVideoEnabled; ?> />
-				<label for="productoVideoEnabled">Publicado</label>
+				<input type="checkbox" name="productoArchivoEnabled" id="productoArchivoEnabled" <?= $productoArchivoEnabled; ?> />
+				<label for="productoArchivoEnabled">Publicado</label>
 			</div>
 		</div>
 	</div>
 
-	<input id="productoVideoId" type="hidden" name="productoVideoId" value="<?=$productoVideoId; ?>" />
-	<input id="productoId" type="hidden" name="productoId" value="<?=$productoId; ?>" />
+	<input id="upload-fileName" type="hidden" name="productoArchivoExtension" value="<?=$productoArchivoExtension; ?>" />
+	<input id="productoArchivoId" type="hidden" name="productoArchivoId" value="<?=$productoArchivoId; ?>" />
+    <input class="coord" type="hidden" name="productoArchivoCoord" value="<?=urlencode($productoArchivoCoord);?>" />
 
 	<?= form_close(); ?>
 </div>
-<a href="<?= $link; ?>" data-level="nivel3" data-edit-url="catalog/edit_video/<?=$productoId?>/" data-delete-url="catalog/delete_video/<?=$productoId?>/" class="guardar boton importante n1 <?=$nuevo?>" ><?=$txt_boton; ?></a>
+<a href="<?= $link; ?>" data-level="nivel3" data-edit-url="catalogo/modificarProductoImagen/<?=$productoArchivoId; ?>" data-delete-url="catalogo/eliminarProductoImagen/<?=$productoArchivoId; ?>" class="guardar boton importante n1 <?=$nuevo?>" ><?=$txt_boton; ?></a>

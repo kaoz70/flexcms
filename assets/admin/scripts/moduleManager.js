@@ -187,7 +187,7 @@ var moduleManager = {
         }
 
         new Request.JSON({
-            url : system.base_url + 'admin/structure/copy',
+            url : system.baseUrl + 'admin/structure/copy',
             noCache : true,
             data : {
                 from_page: clickedElem.getParent().getElement('select :selected').get('value'),
@@ -213,7 +213,7 @@ var moduleManager = {
 
             },
             onFailure : function(xhr) {
-                failureRequestHandler(xhr, system.base_url + 'admin/structure/copy');
+                failureRequestHandler(xhr, system.baseUrl + 'admin/structure/copy');
             }
         }).send();
 
@@ -305,7 +305,7 @@ var moduleManager = {
         };
 
         new Request({
-            url: system.base_url + 'admin/modulos/updateModule',
+            url: system.baseUrl + 'admin/modulos/updateModule',
             data : {
                 moduleData: JSON.encode(moduleObj),
                 csrf_test: csrf_cookie
@@ -317,7 +317,7 @@ var moduleManager = {
                 clickedElem.dissolve();
             },
             onFailure: function(xhr){
-                failureRequestHandler(xhr, system.base_url + 'admin/modulos/updateModule');
+                failureRequestHandler(xhr, system.baseUrl + 'admin/modulos/updateModule');
             }
         }).send();
 
@@ -335,7 +335,7 @@ var moduleManager = {
         var pageId = $('paginaId').get('value');
 
         new Request.HTML({
-            url : system.base_url + 'admin/modulos/addRow/' + pageId + '/' + id,
+            url : system.baseUrl + 'admin/modulos/addRow/' + pageId + '/' + id,
             noCache : true,
             data : {
                 csrf_test: csrf_cookie
@@ -394,7 +394,7 @@ var moduleManager = {
 
             },
             onFailure : function(xhr) {
-                failureRequestHandler(xhr, system.base_url + 'admin/modulos/addRow/' + pageId + '/' + id);
+                failureRequestHandler(xhr, system.baseUrl + 'admin/modulos/addRow/' + pageId + '/' + id);
             }
         }).send();
 
@@ -440,7 +440,7 @@ var moduleManager = {
     removeRowListener: function(event) {
         var parent = event.target.getParent(),
             row_index = parent.getParent().getChildren('li.row').indexOf(parent),
-            url = system.base_url + 'admin/modulos/removeRow/' + parent.getElement('table').get('data-page-id') + '/' + row_index;
+            url = system.baseUrl + 'admin/modulos/removeRow/' + parent.getElement('table').get('data-page-id') + '/' + row_index;
 
         new Request.HTML({
             url : url,
@@ -486,7 +486,7 @@ var moduleManager = {
             page_id = $('paginaId').get('value');
 
         new Request({
-            url: system.base_url + 'admin/modulos/removeModule/' + page_id + '/' + row_id + '/' + column_id,
+            url: system.baseUrl + 'admin/modulos/removeModule/' + page_id + '/' + row_id + '/' + column_id,
             data : {
                 moduleId: parent.get('id').replace(/mod_/, ""),
                 csrf_test: csrf_cookie
@@ -506,7 +506,7 @@ var moduleManager = {
                 });
             },
             onFailure: function(xhr){
-                failureRequestHandler(xhr, system.base_url + 'admin/modulos/removeModule');
+                failureRequestHandler(xhr, system.baseUrl + 'admin/modulos/removeModule');
             }
         }).send();
 
@@ -521,7 +521,7 @@ var moduleManager = {
             parent = elem.getParent('tbody').getElement('.module_row').getChildren()[index].getChildren('.modules')[0];
 
         var request = new Request({
-            url: system.base_url + 'admin/modulos',
+            url: system.baseUrl + 'admin/modulos',
             data : {
                 csrf_test: csrf_cookie
             },
@@ -557,7 +557,7 @@ var moduleManager = {
 
             },
             onFailure: function(xhr){
-                failureRequestHandler(xhr, system.base_url + 'admin/modulos');
+                failureRequestHandler(xhr, system.baseUrl + 'admin/modulos');
             }
         });
 
@@ -578,27 +578,27 @@ var moduleManager = {
         {
             //Publicaciones
             case 1:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/publicaciones/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/publicaciones/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Catalogo Categoria
             case 2:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/catalogoCategoria/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/catalogoCategoria/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Html
             case 3:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/html/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/html/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Twitter
             case 4:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/twitter/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/twitter/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Facebook
             case 5:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/facebook/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/facebook/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Hit Counter
@@ -615,102 +615,102 @@ var moduleManager = {
 
             //Contenido
             case 8:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/content/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/content/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Banner
             case 9:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/banner/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/banner/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Productos Destacados
             case 10:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/catalogoProductosDestacados/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/catalogoProductosDestacados/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Menu del Catalogo
             case 11:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/catalogoMenu/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/catalogoMenu/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Titulo de la pagina
             case 12:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/titulo/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/titulo/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Preguntas Frecuentes
             case 13:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/faq/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/faq/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Enlaces
             case 14:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/enlaces/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/enlaces/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Galeria
             case 15:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/galeria/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/galeria/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Mapa
             case 16:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/mapa/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/mapa/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Catalogo Filtros
             case 17:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/catalogoFiltros/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/catalogoFiltros/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Menu
             case 18:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/menu/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/menu/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Producto al Azar
             case 19:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/catalogoProductoAzar/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/catalogoProductoAzar/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Contacto - Formulario
             case 20:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/contacto/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/contacto/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Articulo
             case 21:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/articulo/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/articulo/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Servicios
             case 22:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/servicios/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/servicios/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Breadcrumbs
             case 23:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/breadcrumbs/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/breadcrumbs/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Direcciones
             case 24:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/direcciones/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/direcciones/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Publicidad
             case 25:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/publicidad/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/publicidad/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Producto Destacado al Azar
             case 26:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/catalogoProductosDestacadosAzar/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/catalogoProductosDestacadosAzar/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Servicios destacados
             case 27:
-                moduleManager.getModuleRequest(system.base_url + 'admin/modulos/serviciosDestacados/' + page_id + '/' + row_id + '/' + column_id, parent);
+                moduleManager.getModuleRequest(system.baseUrl + 'admin/modulos/serviciosDestacados/' + page_id + '/' + row_id + '/' + column_id, parent);
                 break;
 
             //Html
@@ -776,7 +776,7 @@ var moduleManager = {
         });
 
         new Request({
-            url: system.base_url + 'admin/modulos/sortModules/' + page_id,
+            url: system.baseUrl + 'admin/modulos/sortModules/' + page_id,
             data : {
                 orig: JSON.encode(orig),
                 target: JSON.encode(target),
@@ -790,7 +790,7 @@ var moduleManager = {
             },
             onFailure: function(xhr){
                 $('rows').fade(1);
-                failureRequestHandler(xhr, system.base_url + 'admin/modulos/sortModules');
+                failureRequestHandler(xhr, system.baseUrl + 'admin/modulos/sortModules');
             }
         }).send();
 
@@ -806,7 +806,7 @@ var moduleManager = {
         });*/
 
         new Request({
-            url: system.base_url + 'admin/modulos/sortRows/' + page_id,
+            url: system.baseUrl + 'admin/modulos/sortRows/' + page_id,
             data : {
                 from_index: from_index,
                 to_index: to_index,
@@ -820,7 +820,7 @@ var moduleManager = {
             },
             onFailure: function(){
                 $('rows').fade(1);
-                failureRequestHandler(xhr, system.base_url + 'admin/modulos/sortRows');
+                failureRequestHandler(xhr, system.baseUrl + 'admin/modulos/sortRows');
             }
         }).send();
 

@@ -2,7 +2,7 @@
 if (!defined('BASEPATH'))
 	exit('No direct script access allowed');
 
-class Article extends CI_Controller
+class Article extends MY_Controller implements AdminInterface
 {
 
 	public function __construct()
@@ -29,8 +29,12 @@ class Article extends CI_Controller
 
 	}
 
-	public function create($page_id)
+	public function index(){}
+
+	public function create()
 	{
+
+		$page_id = $this->uri->segment(4);
 
 		$data['articuloId'] = '';
 		$data['titulo'] = 'Nuevo Articulo';
@@ -135,9 +139,8 @@ class Article extends CI_Controller
 
 	}
 
-	public function delete()
+	public function delete($id)
 	{
-		$id = $this->uri->segment(4);
 
 		$response = new stdClass();
 		$response->error_code = 0;

@@ -678,102 +678,18 @@
         ]
     },
     {
-        "name": "cartalyst/nested-sets",
-        "version": "2.0.x-dev",
-        "version_normalized": "2.0.9999999.9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "git@github.com:cartalyst/nested-sets.git",
-            "reference": "6e42ea61e462309a9f74172459688b516b578a6c"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/cartalyst/nested-sets/zipball/6e42ea61e462309a9f74172459688b516b578a6c",
-            "reference": "6e42ea61e462309a9f74172459688b516b578a6c",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "require-dev": {
-            "illuminate/database": "~4",
-            "mockery/mockery": "0.9.*"
-        },
-        "suggest": {
-            "illuminate/database": "We (by default) provide an Eloquent implementation (and illuminate/database worker). Required if you are not building your own implementations."
-        },
-        "time": "2015-02-25 22:14:36",
-        "type": "library",
-        "extra": {
-            "component": "package",
-            "frameworks": [
-                "Laravel 3",
-                "Laravel 4"
-            ],
-            "versions": {
-                "1": "1.0/master",
-                "2": "master"
-            },
-            "branch-alias": {
-                "dev-master": "2.1-dev"
-            }
-        },
-        "installation-source": "source",
-        "autoload": {
-            "psr-4": {
-                "Cartalyst\\NestedSets\\": "src/"
-            }
-        },
-        "license": [
-            "proprietary"
-        ],
-        "authors": [
-            {
-                "name": "Cartalyst LLC",
-                "email": "help@cartalyst.com"
-            },
-            {
-                "name": "Ben Corlett",
-                "email": "ben.corlett@cartalyst.com",
-                "role": "Developer"
-            },
-            {
-                "name": "Bruno Gaspar",
-                "email": "bruno.gaspar@cartalyst.com",
-                "role": "Developer"
-            },
-            {
-                "name": "Dan Syme",
-                "email": "dan.syme@cartalyst.com",
-                "role": "Creator & Designer"
-            }
-        ],
-        "description": "PHP 5.3+ nested sets package utilizing the Modified Preorder Tree Traversal algorithm.",
-        "keywords": [
-            "categories",
-            "mptt",
-            "nested",
-            "nested-sets",
-            "tags"
-        ],
-        "support": {
-            "source": "https://github.com/cartalyst/nested-sets/tree/2.0",
-            "issues": "https://github.com/cartalyst/nested-sets/issues"
-        }
-    },
-    {
         "name": "symfony/translation",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/Translation.git",
-            "reference": "ef3e45af7b042a87f64b184f7ebdc809157e0238"
+            "reference": "d049b8bb7085f2d8b413be00336acba3ceceadd4"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/Translation/zipball/ef3e45af7b042a87f64b184f7ebdc809157e0238",
-            "reference": "ef3e45af7b042a87f64b184f7ebdc809157e0238",
+            "url": "https://api.github.com/repos/symfony/Translation/zipball/d049b8bb7085f2d8b413be00336acba3ceceadd4",
+            "reference": "d049b8bb7085f2d8b413be00336acba3ceceadd4",
             "shasum": ""
         },
         "require": {
@@ -794,7 +710,7 @@
             "symfony/config": "",
             "symfony/yaml": ""
         },
-        "time": "2015-07-09 16:12:34",
+        "time": "2015-07-10 04:29:01",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -931,12 +847,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/cartalyst/support.git",
-            "reference": "1ba474441bc0d8579e76d2eed67013f66dd97006"
+            "reference": "87a7509b8fcf2318fd4a91e772569f5667b690ce"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/cartalyst/support/zipball/1ba474441bc0d8579e76d2eed67013f66dd97006",
-            "reference": "1ba474441bc0d8579e76d2eed67013f66dd97006",
+            "url": "https://api.github.com/repos/cartalyst/support/zipball/87a7509b8fcf2318fd4a91e772569f5667b690ce",
+            "reference": "87a7509b8fcf2318fd4a91e772569f5667b690ce",
             "shasum": ""
         },
         "require": {
@@ -948,7 +864,7 @@
             "mockery/mockery": "~0.9",
             "phpunit/phpunit": "~4.0"
         },
-        "time": "2015-02-04 03:35:29",
+        "time": "2015-07-22 07:23:44",
         "type": "library",
         "extra": {
             "component": "package",
@@ -1091,99 +1007,6 @@
                 "name": "Taylor Otwell",
                 "email": "taylorotwell@gmail.com"
             }
-        ]
-    },
-    {
-        "name": "cartalyst/sentinel",
-        "version": "1.0.x-dev",
-        "version_normalized": "1.0.9999999.9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/cartalyst/sentinel.git",
-            "reference": "5deb23847a16c3bce3ac115533d6b34c0936ca74"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/cartalyst/sentinel/zipball/5deb23847a16c3bce3ac115533d6b34c0936ca74",
-            "reference": "5deb23847a16c3bce3ac115533d6b34c0936ca74",
-            "shasum": ""
-        },
-        "require": {
-            "cartalyst/support": "~1.0",
-            "illuminate/support": "~4.1|5.0.*",
-            "php": ">=5.4.0"
-        },
-        "require-dev": {
-            "illuminate/cookie": "~4.1|5.0.*",
-            "illuminate/database": "~4.1|5.0.*",
-            "illuminate/http": "~4.1|5.0.*",
-            "illuminate/session": "~4.1|5.0.*",
-            "ircmaxell/password-compat": "~1.0",
-            "mockery/mockery": "~0.9",
-            "phpunit/phpunit": "~4.0"
-        },
-        "suggest": {
-            "illuminate/database": "By default, Sentinel utilizes the powerful Illuminate database layer.",
-            "illuminate/events": "To hook into various events across Sentinel, we recommend using Illuminate's event dispatcher.",
-            "ircmaxell/password-compat": "Default hashing uses PHP 5.5 password_* functions, with forward-compatible support.",
-            "symfony/http-foundation": "Required for native implementations."
-        },
-        "time": "2015-06-25 15:49:58",
-        "type": "library",
-        "extra": {
-            "component": "package",
-            "branch-alias": {
-                "dev-master": "1.0.x-dev"
-            }
-        },
-        "installation-source": "source",
-        "autoload": {
-            "classmap": [
-                "src/migrations"
-            ],
-            "psr-4": {
-                "Cartalyst\\Sentinel\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Ben Corlett",
-                "email": "ben.corlett@cartalyst.com",
-                "role": "Developer"
-            },
-            {
-                "name": "Cartalyst LLC",
-                "email": "help@cartalyst.com"
-            },
-            {
-                "name": "Bruno Gaspar",
-                "email": "bruno.gaspar@cartalyst.com",
-                "role": "Developer"
-            },
-            {
-                "name": "Dan Syme",
-                "email": "dan.syme@cartalyst.com",
-                "role": "Creator & Designer"
-            },
-            {
-                "name": "Suhayb Wardany",
-                "email": "su.wardany@cartalyst.com",
-                "role": "Developer"
-            }
-        ],
-        "description": "PHP 5.4+ Fully-featured Authentication & Authorization System",
-        "keywords": [
-            "auth",
-            "cartalyst",
-            "codeigniter",
-            "fuelphp",
-            "laravel",
-            "php",
-            "security"
         ]
     },
     {
@@ -1331,6 +1154,180 @@
             "laravel",
             "orm",
             "sql"
+        ]
+    },
+    {
+        "name": "cartalyst/nested-sets",
+        "version": "2.0.x-dev",
+        "version_normalized": "2.0.9999999.9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "git@github.com:cartalyst/nested-sets.git",
+            "reference": "6e42ea61e462309a9f74172459688b516b578a6c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/cartalyst/nested-sets/zipball/6e42ea61e462309a9f74172459688b516b578a6c",
+            "reference": "6e42ea61e462309a9f74172459688b516b578a6c",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "illuminate/database": "~4",
+            "mockery/mockery": "0.9.*"
+        },
+        "suggest": {
+            "illuminate/database": "We (by default) provide an Eloquent implementation (and illuminate/database worker). Required if you are not building your own implementations."
+        },
+        "time": "2015-02-25 22:14:36",
+        "type": "library",
+        "extra": {
+            "component": "package",
+            "frameworks": [
+                "Laravel 3",
+                "Laravel 4"
+            ],
+            "versions": {
+                "1": "1.0/master",
+                "2": "master"
+            },
+            "branch-alias": {
+                "dev-master": "2.1-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Cartalyst\\NestedSets\\": "src/"
+            }
+        },
+        "license": [
+            "proprietary"
+        ],
+        "authors": [
+            {
+                "name": "Cartalyst LLC",
+                "email": "help@cartalyst.com"
+            },
+            {
+                "name": "Ben Corlett",
+                "email": "ben.corlett@cartalyst.com",
+                "role": "Developer"
+            },
+            {
+                "name": "Bruno Gaspar",
+                "email": "bruno.gaspar@cartalyst.com",
+                "role": "Developer"
+            },
+            {
+                "name": "Dan Syme",
+                "email": "dan.syme@cartalyst.com",
+                "role": "Creator & Designer"
+            }
+        ],
+        "description": "PHP 5.3+ nested sets package utilizing the Modified Preorder Tree Traversal algorithm.",
+        "keywords": [
+            "categories",
+            "mptt",
+            "nested",
+            "nested-sets",
+            "tags"
+        ],
+        "support": {
+            "source": "https://github.com/cartalyst/nested-sets/tree/2.0",
+            "issues": "https://github.com/cartalyst/nested-sets/issues"
+        }
+    },
+    {
+        "name": "cartalyst/sentinel",
+        "version": "1.0.x-dev",
+        "version_normalized": "1.0.9999999.9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/cartalyst/sentinel.git",
+            "reference": "38e21c0353b8c17092933d64f087d4e4bab3eb29"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/cartalyst/sentinel/zipball/38e21c0353b8c17092933d64f087d4e4bab3eb29",
+            "reference": "38e21c0353b8c17092933d64f087d4e4bab3eb29",
+            "shasum": ""
+        },
+        "require": {
+            "cartalyst/support": "~1.0",
+            "illuminate/support": "~4.1|5.0.*",
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "illuminate/cookie": "~4.1|5.0.*",
+            "illuminate/database": "~4.1|5.0.*",
+            "illuminate/http": "~4.1|5.0.*",
+            "illuminate/session": "~4.1|5.0.*",
+            "ircmaxell/password-compat": "~1.0",
+            "mockery/mockery": "~0.9",
+            "phpunit/phpunit": "~4.0"
+        },
+        "suggest": {
+            "illuminate/database": "By default, Sentinel utilizes the powerful Illuminate database layer.",
+            "illuminate/events": "To hook into various events across Sentinel, we recommend using Illuminate's event dispatcher.",
+            "ircmaxell/password-compat": "Default hashing uses PHP 5.5 password_* functions, with forward-compatible support.",
+            "symfony/http-foundation": "Required for native implementations."
+        },
+        "time": "2015-07-21 11:58:18",
+        "type": "library",
+        "extra": {
+            "component": "package",
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Cartalyst\\Sentinel\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Ben Corlett",
+                "email": "ben.corlett@cartalyst.com",
+                "role": "Developer"
+            },
+            {
+                "name": "Cartalyst LLC",
+                "email": "help@cartalyst.com"
+            },
+            {
+                "name": "Bruno Gaspar",
+                "email": "bruno.gaspar@cartalyst.com",
+                "role": "Developer"
+            },
+            {
+                "name": "Dan Syme",
+                "email": "dan.syme@cartalyst.com",
+                "role": "Creator & Designer"
+            },
+            {
+                "name": "Suhayb Wardany",
+                "email": "su.wardany@cartalyst.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "PHP 5.4+ Fully-featured Authentication & Authorization System",
+        "keywords": [
+            "auth",
+            "cartalyst",
+            "codeigniter",
+            "fuelphp",
+            "laravel",
+            "php",
+            "security"
         ]
     }
 ]

@@ -5,7 +5,7 @@
 	<?php foreach($user as $template): ?>
 
 		<li class="listado theme">
-			<a class="modificar <?=$select ? 'seleccionar' : '' ?> nivel3" href="<?=base_url('admin/mailing/modify_template/' . $template['id'])?>">
+			<a class="modificar <?=$select ? 'seleccionar' : '' ?> nivel3" href="<?=base_url('admin/mailchimp/template/edit/' . $template['id'])?>">
 
 				<img src="<?=$template['preview_image']?>">
 
@@ -14,11 +14,11 @@
 				</div>
 
 			</a>
-			<a href="<?=base_url('admin/mailing/delete_template/' . $template['id'])?>" class="eliminar" >eliminar</a>
+			<a href="<?=base_url('admin/mailchimp/template/delete/' . $template['id'])?>" class="eliminar" >eliminar</a>
 		</li>
 		
 	<?php  endforeach; ?>
 	
 </ul>
 
-<a href="<?=base_url('admin/mailing/create_template')?>" class="nivel3 ajax importante n1 boton">crear nuevo template</a>
+<a href="<?=base_url('admin/mailchimp/template/create')?>" class="nivel3 ajax importante n1 boton">crear nuevo template</a>

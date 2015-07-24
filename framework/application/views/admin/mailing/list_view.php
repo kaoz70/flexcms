@@ -41,42 +41,42 @@
 		<div class="header">Estad&iacute;sticas</div>
 		<div class="content">
 
-			<div class="input">
+			<div class="input medium">
 				<label for="default_from_name">Miembros:</label>
 				<span><?=$stats['member_count']?></span>
 			</div>
 
-			<div class="input">
+			<div class="input medium">
 				<label for="default_from_name">Desuscritos:</label>
 				<span><?=$stats['unsubscribe_count']?></span>
 			</div>
 
-			<div class="input">
+			<div class="input medium">
 				<label for="default_from_name">Promedio de suscripci&oacute;n:</label>
-				<span><?=$stats['avg_sub_rate']?></span>
+				<span><?=round($stats['avg_sub_rate'], 2)?></span>
 			</div>
 
-			<div class="input">
+			<div class="input medium">
 				<label for="default_from_name">Promedio de desuscripci&oacute;n:</label>
-				<span><?=$stats['avg_unsub_rate']?></span>
+				<span><?=round($stats['avg_unsub_rate'], 2)?></span>
 			</div>
 
-			<div class="input">
+			<div class="input medium">
 				<label for="default_from_name">Tasa de apertura de email:</label>
-				<span><?=$stats['open_rate']?></span>
+				<span><?=round($stats['open_rate'], 2)?>%</span>
 			</div>
 
-			<div class="input">
+			<div class="input medium">
 				<label for="default_from_name">Tasa de clics:</label>
-				<span><?=$stats['click_rate']?></span>
+				<span><?=round($stats['click_rate'], 2)?>%</span>
 			</div>
 
-			<div class="input">
+			<div class="input medium">
 				<label for="default_from_name">Miembros desde env&iacute;o:</label>
 				<span><?=$stats['member_count_since_send']?></span>
 			</div>
 
-			<div class="input">
+			<div class="input medium">
 				<label for="default_from_name">Desuscritos desde env&iacute;o:</label>
 				<span><?=$stats['unsubscribe_count_since_send']?></span>
 			</div>
@@ -90,6 +90,6 @@
 	
 </div>
 
-<a href="<?= base_url('admin/mailing/list_abuse/' . $id) ?>" nivel="nivel3" class="ajax nivel4 boton n3" >Reportes de abuso</a>
-<a id="mailing_list_button" href="<?= base_url('admin/mailing/subscribers/' . $id) ?>" nivel="nivel3" class="ajax nivel4 boton importante n2" >Subscriptores</a>
-<a href="<?= base_url('admin/mailing/modify_list') ?>" nivel="nivel2" class="guardar boton importante n1" >Modificar Listado</a>
+<a href="<?= base_url('admin/mailchimp/lists/abuse/' . $id) ?>" nivel="nivel3" class="ajax nivel4 boton n3" >Reportes de abuso</a>
+<a id="mailing_list_button" href="<?= base_url('admin/mailchimp/subscriber/index/' . $id) ?>" nivel="nivel3" class="ajax nivel4 boton importante n2" >Subscriptores</a>
+<a href="<?= base_url('admin/mailchimp/lists/update/' . $id) ?>" nivel="nivel2" class="guardar boton importante n1" >Modificar Listado</a>

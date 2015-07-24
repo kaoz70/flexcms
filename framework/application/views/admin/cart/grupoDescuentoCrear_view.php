@@ -34,5 +34,5 @@
 	
 </div>
 
-<a href="<?= base_url('admin/cart/modificar_items_grupo_descuento/' . $id); ?>" class="nivel6 ajax boton n2" >Items del grupo</a>
-<a href="<?= $link; ?>" data-level="nivel3" data-edit-url="cart/modificar_grupo_descuento/<?=$id;?>" data-delete-url="cart/eliminar_grupo_descuento/<?=$id;?>" class="guardar boton importante n1 no_sort <?=$nuevo?>" ><?=$txt_boton;?></a>
+<a href="<?= base_url('admin/cart/discountItems/edit/' . $id); ?>" class="nivel6 ajax boton n2" >Items del grupo</a>
+<a href="<?= $link; ?>" data-level="nivel3" data-edit-url="cart/discountGroup/edit/<?=$id;?>" data-delete-url="cart/discountGroup/delete/<?=$id;?>" class="guardar boton importante n1 no_sort <?=$nuevo?>" ><?=$txt_boton;?></a>

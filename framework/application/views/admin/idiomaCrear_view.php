@@ -63,4 +63,4 @@ $idiomas = array(
 
 <?= form_close(); ?>
 </div>
-<a href="<?= $link; ?>" data-level="nivel2" data-edit-url="idiomas/modificarIdioma/" data-delete-url="idiomas/eliminarIdioma/" class="guardar boton importante n1 <?=$nuevo?> no_sort" ><?=$txt_boton;?></a>
+<a href="<?= $link; ?>" data-level="nivel2" data-edit-url="language/edit/" data-delete-url="language/delete/" class="guardar boton importante n1 <?=$nuevo?> no_sort" ><?=$txt_boton;?></a>

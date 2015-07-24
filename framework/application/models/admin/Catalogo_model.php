@@ -35,7 +35,7 @@ class Catalogo_model extends CI_Model
 
 	public function updateCategory($general)
 	{
-		$id = $this->uri->segment(4);
+		$id = $this->uri->segment(5);
 
 		$data = array(
 			'categoriaImagen' => $this->input->post('categoriaImagen'),
@@ -261,9 +261,8 @@ class Catalogo_model extends CI_Model
 	}
 
 	//actualizar CAmpo
-	public function updateCampo($general)
+	public function updateCampo($general, $campoId)
 	{
-		$campoId = $this->uri->segment(4);
 
         $productoCampoMostrarNombre = 0;
 		$productoCampoVerModulo = 0;
@@ -335,9 +334,8 @@ class Catalogo_model extends CI_Model
 	}
 
 	//borrar campo
-	function deleteCampo()
+	function deleteCampo($id)
 	{
-		$id = $this->uri->segment(4);
 		$this->db->where('productoCampoId', $id);
 		$this->db->delete('producto_campos');
 	}
@@ -686,7 +684,7 @@ class Catalogo_model extends CI_Model
 	
 	public function getProductImage($productImageId)
 	{
-		$this->db->where('productoImagenId', $productImageId);
+		$this->db->where('productoArchivoId', $productImageId);
 		$query = $this->db->get('producto_imagenes');
 
 		return $query->row();
@@ -722,11 +720,11 @@ class Catalogo_model extends CI_Model
 			$dim = $idioma['idiomaDiminutivo'];
 			
 			$dataIdioma = array(
-				'productoImagenId' => $lastInsertId,
+				'productoArchivoId' => $lastInsertId,
 				'productoImagenTexto' => $this->input->post($dim.'_productoImagenDescripcion'),
 			);
 			
-			$this->db->insert($dim.'_producto_imagenes', $dataIdioma);
+			$this->db->insert($dim.'_producto_archivos', $dataIdioma);
 			
 		}
 
@@ -751,7 +749,7 @@ class Catalogo_model extends CI_Model
             'productoImagenCoord' => urldecode($this->input->post('productoImagenCoord')),
 		);
 
-		$this->db->where('productoImagenId', $this->input->post('productoImagenId'));
+		$this->db->where('productoArchivoId', $this->input->post('productoArchivoId'));
 		$this->db->update('producto_imagenes', $data);
 		
 		$idiomas = $this->getLanguages();
@@ -765,15 +763,15 @@ class Catalogo_model extends CI_Model
 			);
 
 			$image = $this->db
-				->where('productoImagenId', $this->input->post('productoImagenId'))
-				->get($dim.'_producto_imagenes');
+				->where('productoArchivoId', $this->input->post('productoArchivoId'))
+				->get($dim.'_producto_archivos');
 
 			if($image->row()){
-				$this->db->where('productoImagenId', $this->input->post('productoImagenId'));
-				$this->db->update($dim.'_producto_imagenes', $dataIdioma);
+				$this->db->where('productoArchivoId', $this->input->post('productoArchivoId'));
+				$this->db->update($dim.'_producto_archivos', $dataIdioma);
 			} else {
-				$dataIdioma['productoImagenId'] = $this->input->post('productoImagenId');
-				$this->db->insert($dim.'_producto_imagenes', $dataIdioma);
+				$dataIdioma['productoArchivoId'] = $this->input->post('productoArchivoId');
+				$this->db->insert($dim.'_producto_archivos', $dataIdioma);
 			}
 
 		}
@@ -782,7 +780,7 @@ class Catalogo_model extends CI_Model
 
 	public function deleteProductImage($id='')
 	{
-		$this->db->where('productoImagenId', $id);
+		$this->db->where('productoArchivoId', $id);
 		$this->db->delete('producto_imagenes');
 	}
 
@@ -805,7 +803,7 @@ class Catalogo_model extends CI_Model
         {
             $data = array('productoImagenPosicion' => $i + 1);
 
-            $this->db->where('productoImagenId', $posiciones[$i]);
+            $this->db->where('productoArchivoId', $posiciones[$i]);
             $this->db->update('producto_imagenes', $data);
 
         }
@@ -816,19 +814,20 @@ class Catalogo_model extends CI_Model
     * PRODUCT FILES
     */
 
-    public function getProductFiles($productId = '')
+    public function getProductFiles($productId = '', $fieldId)
     {
         $this->db->where('productoId', $productId);
-        $this->db->order_by('productoDescargaPosicion', 'asc');
-        $query = $this->db->get('producto_descargas');
+        $this->db->where('productoCampoId', $fieldId);
+        $this->db->order_by('productoArchivoPosicion', 'asc');
+        $query = $this->db->get('producto_archivos');
 
         return $query->result_array();
     }
 
     public function getProductFile($productFileId)
     {
-        $this->db->where('productoDescargaId', $productFileId);
-        $query = $this->db->get('producto_descargas');
+        $this->db->where('productoArchivoId', $productFileId);
+        $query = $this->db->get('producto_archivos');
 
         return $query->row();
     }
@@ -836,19 +835,19 @@ class Catalogo_model extends CI_Model
     public function insertProductFile()
     {
 
-        $productoDescargaEnabled = 0;
+        $productoArchivoEnabled = 0;
 
-        if($this->input->post('productoDescargaEnabled') == 'on')
-            $productoDescargaEnabled = 1;
+        if($this->input->post('productoArchivoEnabled') == 'on')
+            $productoArchivoEnabled = 1;
 
         $data = array(
-            'productoDescargaArchivo' => $this->input->post('productoDescargaArchivo'),
+            'productoArchivoExtension' => $this->input->post('productoArchivoExtension'),
             'productoId' => $this->input->post('productoId'),
-            'productoDescargaNombre' => $this->input->post('productoDescargaNombre'),
-            'productoDescargaEnabled' => $productoDescargaEnabled
+            'productoArchivoNombre' => $this->input->post('productoArchivoNombre'),
+            'productoArchivoEnabled' => $productoArchivoEnabled
         );
 
-        $this->db->insert('producto_descargas', $data);
+        $this->db->insert('producto_archivos', $data);
         $lastInsertId = $this->db->insert_id();
 
         $idiomas = $this->getLanguages();
@@ -858,11 +857,11 @@ class Catalogo_model extends CI_Model
             $dim = $idioma['idiomaDiminutivo'];
 
             $dataIdioma = array(
-                'productoDescargaId' => $lastInsertId,
+                'productoArchivoId' => $lastInsertId,
                 'productoDescargaTexto' => $this->input->post($dim.'_productoDescargaDescripcion'),
             );
 
-            $this->db->insert($dim.'_producto_descargas', $dataIdioma);
+            $this->db->insert($dim.'_producto_archivos', $dataIdioma);
 
         }
 
@@ -872,19 +871,19 @@ class Catalogo_model extends CI_Model
 
     public function updateProductFile()
     {
-        $productoDescargaEnabled = 0;
+        $productoArchivoEnabled = 0;
 
-        if($this->input->post('productoDescargaEnabled') == 'on')
-            $productoDescargaEnabled = 1;
+        if($this->input->post('productoArchivoEnabled') == 'on')
+            $productoArchivoEnabled = 1;
 
         $data = array(
-            'productoDescargaArchivo' => $this->input->post('productoDescargaArchivo'),
-            'productoDescargaNombre' => $this->input->post('productoDescargaNombre'),
-            'productoDescargaEnabled' => $productoDescargaEnabled
+            'productoArchivoExtension' => $this->input->post('productoArchivoExtension'),
+            'productoArchivoNombre' => $this->input->post('productoArchivoNombre'),
+            'productoArchivoEnabled' => $productoArchivoEnabled
         );
 
-        $this->db->where('productoDescargaId', $this->input->post('productoDescargaId'));
-        $this->db->update('producto_descargas', $data);
+        $this->db->where('productoArchivoId', $this->input->post('productoArchivoId'));
+        $this->db->update('producto_archivos', $data);
 
         $idiomas = $this->getLanguages();
 
@@ -897,15 +896,15 @@ class Catalogo_model extends CI_Model
 			);
 
 			$file = $this->db
-				->where('productoDescargaId', $this->input->post('productoDescargaId'))
-				->get($dim.'_producto_descargas');
+				->where('productoDescargaId', $this->input->post('productoArchivoId'))
+				->get($dim.'_producto_archivos');
 
 			if($file->row()){
-				$this->db->where('productoDescargaId', $this->input->post('productoDescargaId'));
-				$this->db->update($dim.'_producto_descargas', $dataIdioma);
+				$this->db->where('productoDescargaId', $this->input->post('productoArchivoId'));
+				$this->db->update($dim.'_producto_archivos', $dataIdioma);
 			} else {
-				$dataIdioma['productoDescargaId'] = $this->input->post('productoDescargaId');
-				$this->db->insert($dim.'_producto_descargas', $dataIdioma);
+				$dataIdioma['productoDescargaId'] = $this->input->post('productoArchivoId');
+				$this->db->insert($dim.'_producto_archivos', $dataIdioma);
 			}
 
 
@@ -915,8 +914,8 @@ class Catalogo_model extends CI_Model
 
     public function deleteProductFile($id='')
     {
-        $this->db->where('productoDescargaId', $id);
-        $this->db->delete('producto_descargas');
+        $this->db->where('productoArchivoId', $id);
+        $this->db->delete('producto_archivos');
     }
 
     public function reorderProductFiles($productId)
@@ -927,8 +926,8 @@ class Catalogo_model extends CI_Model
 
         //Obtenemos todos los campos
         $this->db->where('productoId', $productId);
-        $this->db->order_by("productoDescargaPosicion", "asc");
-        $query = $this->db->get('producto_descargas');
+        $this->db->order_by("productoArchivoPosicion", "asc");
+        $query = $this->db->get('producto_archivos');
 
         //Obtenemos el numero de campos totales
         $numCampos = $query->num_rows();
@@ -936,10 +935,10 @@ class Catalogo_model extends CI_Model
         //Ordenamos las campos segun el orden del arreglo de IDs
         for ($i = 0; $i < $numCampos; $i++)
         {
-            $data = array('productoDescargaPosicion' => $i + 1);
+            $data = array('productoArchivoPosicion' => $i + 1);
 
-            $this->db->where('productoDescargaId', $posiciones[$i]);
-            $this->db->update('producto_descargas', $data);
+            $this->db->where('productoArchivoId', $posiciones[$i]);
+            $this->db->update('producto_archivos', $data);
 
         }
 
@@ -970,19 +969,20 @@ class Catalogo_model extends CI_Model
     public function insertProductVideo()
     {
 
-        $productoVideoEnabled = 0;
+        $productoArchivoEnabled = 0;
 
-        if($this->input->post('productoVideoEnabled') == 'on')
-            $productoVideoEnabled = 1;
+        if($this->input->post('productoArchivoEnabled') == 'on')
+            $productoArchivoEnabled = 1;
 
         $data = array(
             'productoId' => $this->input->post('productoId'),
-            'productoVideo' => $this->input->post('productoVideo'),
-            'productoVideoNombre' => $this->input->post('productoVideoNombre'),
-            'productoVideoEnabled' => $productoVideoEnabled
+            'productoCampoId' => $this->uri->segment(6),
+            'productoArchivoExtension' => $this->input->post('productoArchivoExtension'),
+            'productoArchivoNombre' => $this->input->post('productoArchivoNombre'),
+            'productoArchivoEnabled' => $productoArchivoEnabled,
         );
 
-        $this->db->insert('producto_videos', $data);
+        $this->db->insert('producto_archivos', $data);
         $lastInsertId = $this->db->insert_id();
 
         $idiomas = $this->getLanguages();
@@ -992,16 +992,15 @@ class Catalogo_model extends CI_Model
             $dim = $idioma['idiomaDiminutivo'];
 
             $dataIdioma = array(
-                'productoVideoId' => $lastInsertId,
-                'productoVideoTexto' => $this->input->post($dim.'_productoVideoDescripcion'),
+                'productoDescargaId' => $lastInsertId,
+                'productoDescargaTexto' => $this->input->post($dim.'_productoVideoDescripcion'),
             );
 
-            $this->db->insert($dim.'_producto_videos', $dataIdioma);
+            $this->db->insert($dim.'_producto_archivos', $dataIdioma);
 
         }
 
         return $lastInsertId;
-
 
     }
 
@@ -1028,7 +1027,7 @@ class Catalogo_model extends CI_Model
             $dim = $idioma['idiomaDiminutivo'];
 
             $dataIdioma = array(
-                'productoVideoTexto' => $this->input->post($dim.'_productoVideoDescripcion'),
+                'productoDescargaTexto' => $this->input->post($dim.'_productoVideoDescripcion'),
             );
 
             $this->db->where('productoVideoId', $this->input->post('productoVideoId'));
@@ -1200,10 +1199,10 @@ class Catalogo_model extends CI_Model
     }
 
     function insertarItemPredefinido(){
-        $productoCamposListadoPredefinidoPublicado = 0;
 
         $posicion = $this->db->count_all('producto_campos_listado_predefinido');
 
+	    $productoCamposListadoPredefinidoPublicado = 0;
         if($this->input->post('productoCamposListadoPredefinidoPublicado') == 'on')
             $productoCamposListadoPredefinidoPublicado = 1;
 
@@ -1364,8 +1363,8 @@ class Catalogo_model extends CI_Model
 	
 	public function getImageTranslation($diminutivo, $imageId)
 	{
-		$this->db->where('productoImagenId', $imageId);
-		$query = $this->db->get($diminutivo.'_producto_imagenes');
+		$this->db->where('productoArchivoId', $imageId);
+		$query = $this->db->get($diminutivo.'_producto_archivos');
 
 		return $query->row();
 	}
@@ -1381,7 +1380,7 @@ class Catalogo_model extends CI_Model
     public function getDescargaTranslation($diminutivo, $imageId)
     {
         $this->db->where('productoDescargaId', $imageId);
-        $query = $this->db->get($diminutivo.'_producto_descargas');
+        $query = $this->db->get($diminutivo.'_producto_archivos');
 
         return $query->row();
     }

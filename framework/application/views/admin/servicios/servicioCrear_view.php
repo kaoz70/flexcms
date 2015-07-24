@@ -150,5 +150,5 @@
     upload.image('upload-image-servicio', 'imagen-servicio', '<?=base_url();?>admin/imagen/servicio/<?=$servicioId?>', <?=$cropDimensions->imagenAncho?>, <?=$cropDimensions->imagenAlto?>, <?=$cropDimensions->imagenCrop ? 'true' : 'false'?>);
 </script>
 
-<a href="<?=base_url('admin/servicios/imagenes/' . $servicioId); ?>" class="boton importante n2 nivel2" >Galeri&iacute;a</a>
-<a href="<?= $link; ?>" data-level="nivel2" data-edit-url="servicios/modificar/" data-delete-url="servicios/eliminar/" class="guardar boton importante n1 <?=$nuevo?>" ><?=$txt_boton;?></a>
+<a href="<?=base_url('admin/services/image/index/' . $servicioId); ?>" class="boton importante n2 nivel2" >Galeri&iacute;a</a>
+<a href="<?= $link; ?>" data-level="nivel2" data-edit-url="services/service/edit/" data-delete-url="services/service/delete/" class="guardar boton importante n1 <?=$nuevo?>" ><?=$txt_boton;?></a>

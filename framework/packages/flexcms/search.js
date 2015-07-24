@@ -39,7 +39,7 @@ var search = {
         search.initialSearchString = search.input.val();
 
         search.language = system.lang;
-        search.url = system.base_url;
+        search.url = system.baseUrl;
     },
 
     clickListener : function (event) {

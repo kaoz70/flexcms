@@ -23,14 +23,14 @@ if ( ! function_exists('admin_tree'))
 
 		foreach ($nodes as $childNode) {
 
-			if($childNode->temporal !== 1) {
+			if($childNode->temporal != 1) {
 				$return .= '<li class="treedrag" id="' . $childNode->id . '">';
 				$return .= '<div class="controls">';
-				$return .= '<div class="mover">mover</div>';
+				$return .= '<div class="mover"></div>';
 				$return .= '<a class="nombre modificar ' .$level . '" href="' . $modify_url . '/' . $childNode->id . '">';
 				$return .= '<span>' . $childNode->$name_param . '</span>';
 				$return .= '</a>';
-				$return .= '<a href="' . $delete_url . '/' . $childNode->id . '" class="eliminar" >eliminar</a>';
+				$return .= '<a href="' . $delete_url . '/' . $childNode->id . '" class="eliminar" ></a>';
 				$return .= '</div>';
 				if (count($childNode->getChildren()) > 0) {
 					$return .= admin_tree($childNode->getChildren(), $level, $modify_url, $delete_url, $name_param);
@@ -157,11 +157,11 @@ if ( ! function_exists('admin_cat_tree'))
 
 				foreach ($items as $item) {
 					$return .= '<li class="listado drag" id="' . $item->id . '">
-									<div class="mover">mover</div>
+									<div class="mover"></div>
 									<a class="nombre modificar ' . $level . '" href="' . $urls['edit'] . '/' . $item->id . '">
 										<span>' . $item->$names['item'] . '</span>
 									</a>
-									<a href="' . $urls['delete'] . '/' . $item->id . '" class="eliminar">eliminar</a>
+									<a href="' . $urls['delete'] . '/' . $item->id . '" class="eliminar"></a>
 								</li>';
 				}
 
@@ -229,14 +229,14 @@ if ( ! function_exists('admin_gallery_tree'))
 
 				$return .= '<li class="pagina field" id="' . $childNode->id . '">';
 				$return .= '<h3 class="header">Categoría: ' . $childNode->$names['category'] . '</h3>';
-				$return .= '<ul class="sorteable content">';
+				$return .= '<ul class="content">';
 
 				$return .= '<fieldset id="upload-gallery_'.$childNode->id.'">
 				<div>
 					<input class="fileselect" type="file" name="fileselect[]" />
 					<div class="filedrag">o arrastre los archivos aquí</div>
 				</div>
-				<ul class="list galeria" id="list_'.$childNode->id.'" style="overflow: hidden" data-sort="' . $urls['sort'] . '/' . $childNode->id . '">';
+				<ul class="list galeria sorteable" id="list_'.$childNode->id.'" style="overflow: hidden" data-sort="' . $urls['sort'] . '/' . $childNode->id . '">';
 
 				foreach ($items as $item) {
 					$data['item'] = $item;
@@ -250,7 +250,7 @@ if ( ! function_exists('admin_gallery_tree'))
 				$return .= '</fieldset>' . PHP_EOL;
 				$return .= '</ul>' . PHP_EOL;
 				$return .= '<script type="text/javascript">initSortables($("list_'.$childNode->id.'"));</script>' . PHP_EOL;
-				$return .= '<script type="text/javascript">upload.gallery("upload-gallery_' . $childNode->id . '", "galeria/' . $childNode->id . '", ' . $dim->imagenAncho . ', ' . $dim->imagenAlto . ', "' . $level . '", "' . base_url('admin/gallery/edit/') . '", "'.base_url('admin/gallery/delete/').'");</script>' . PHP_EOL;
+				$return .= '<script type="text/javascript">upload.gallery("upload-gallery_' . $childNode->id . '", "galeria/' . $childNode->id . '", ' . $dim->imagenAncho . ', ' . $dim->imagenAlto . ', "' . $level . '", "' . $urls['edit'] . '", "' . $urls['delete'] . '");</script>' . PHP_EOL;
 
 				if (count($childNode->getChildren()) > 0) {
 					$return .= admin_gallery_tree($childNode->getChildren(), $level, $item_methods, $dim, $urls, $names);

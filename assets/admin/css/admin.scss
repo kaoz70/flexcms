@@ -353,6 +353,11 @@ input[type="submit"],
   background: #494949;
   padding: 14px;
 
+  .nombre {
+    position: relative;
+    left: 0;
+  }
+
   .titulo {
     color: #fff;
     font-size: 16px;
@@ -546,7 +551,7 @@ input[type="submit"],
   opacity: 0;
   display: none;
   font-size: 13px;
-  font-family: "Century Gothic", Arial;
+  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
   width: 150px;
 
   .tiempo {
@@ -650,6 +655,14 @@ hr {
       width: 100%;
     }
 
+    > span {
+      background: #7C7C7C;
+      padding: 6px;
+      display: block;
+      float: right;
+      box-sizing: border-box;
+    }
+
   }
 
   .input.small,
@@ -679,10 +692,12 @@ hr {
     label {
       width: 60%;
     }
+    > span,
     input,
     select {
       width: 40%;
     }
+
   }
 
   .input.no-float {
@@ -716,7 +731,7 @@ legend {
   @include gradient($primary-color, darken($primary-color, 5%));
   @include border-radius($radius $radius 0 0);
 
-  font-family: 'Century Gothic', Lucida Grande, Verdana, Sans-serif;
+  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
   font-size: 14px;
   color: calculateTextColor($primary-color, darken($secondary-color, 10%), lighten($primary-color, 40%));
   padding: 3px 12px;
@@ -836,7 +851,7 @@ h2 {
   font-size: 15px;
   padding: 7px 18px;
   @include border-radius($radius $radius 0 0);
-  font-family: 'Century Gothic', Lucida Grande, Verdana, Sans-serif;
+  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
   border-bottom: 3px solid $title-line-color;
   text-transform: uppercase;
 
@@ -1086,6 +1101,7 @@ li.treedrag .controls {
     background: darken($primary-color, 6%);
   }
 
+  position: relative;
   border: 1px solid darken($primary-color, 10%);
   height: 30px;
   margin-bottom: 5px;
@@ -1094,6 +1110,12 @@ li.treedrag .controls {
   -webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   -o-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   -ms-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+li.treedrag {
+  .nombre {
+    left: 13%;
+  }
 }
 
 .enabled {
@@ -1113,6 +1135,11 @@ li.treedrag .controls {
     display: none;
   }
 
+}
+
+.mailing_send,
+.unsubscribe {
+  right: 13% !important;
 }
 
 #preview {
@@ -1208,23 +1235,23 @@ li.treedrag .controls {
   overflow: hidden;
   background: url(../admin/images/iconos.png) no-repeat center center;
   display: block;
-  float: right;
-  position: relative;
-  top: -3px;
-  right: -16px;
+  position: absolute;
+  top: 3px;
+  right: 1px;
 }
 
 .eliminar,
 .unsubscribe,
 .mailing_send {
-  height: 0;
-  padding-top: 30px;
   width: 13%;
   display: block;
-  float: right;
+  position: absolute;
   overflow: hidden;
   box-sizing: border-box;
-  border-left: 1px solid #5A5A5A;
+  border-left: 1px solid #5a5a5a;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 
 .tick-large,
@@ -1266,12 +1293,12 @@ li.treedrag .controls {
 
 .mover,
 .bot_sortRow {
-  padding-top: 30px;
-  height: 0;
   width: 13%;
   overflow: hidden;
   cursor: move;
-  float: left;
+  position: absolute;
+  top: 0;
+  bottom: 0;
 
   @if lightness($primary-color) > 50% {
     background: darken($primary-color, 20%) url(../admin/images/ico_mover.png) no-repeat center center;
@@ -1281,12 +1308,17 @@ li.treedrag .controls {
 
 }
 
+.drag .nombre {
+  left: 13%;
+}
+
 .nombre {
   display: block;
   float: left;
   overflow: hidden;
   width: 74%;
-  height: 29px;
+  position: absolute;
+  height: 100%;
   @include border-radius( 0 $radius $radius 0);
 
   span {
@@ -1349,7 +1381,7 @@ li.treedrag .controls {
 
   }
 
-  #structure {
+  [data-controller="structure"] {
     background-image: url(../admin/images/menu/ico_estructura.png);
   }
 
@@ -1369,11 +1401,11 @@ li.treedrag .controls {
     background-image: url(../admin/images/menu/ico_publicaciones.png);
   }
 
-  #slideshow {
+  [data-controller="sliders/slider"] {
     background-image: url(../admin/images/menu/ico_banners.png);
   }
 
-  #mapas {
+  [data-controller="maps/map"] {
     background-image: url(../admin/images/menu/ico_mapa.png);
   }
 
@@ -1385,23 +1417,23 @@ li.treedrag .controls {
     background-image: url(../admin/images/menu/ico_galeria.png);
   }
 
-  #idiomas {
+  [data-controller="language"] {
     background-image: url(../admin/images/menu/ico_idiomas.png);
   }
 
-  #contact {
+  [data-controller="contact/contact"] {
     background-image: url(../admin/images/menu/ico_contacto.png);
   }
 
-  #usuarios {
+  [data-controller="users/user"] {
     background-image: url(../admin/images/menu/ico_usuarios.png);
   }
 
-  #estadisticas {
+  [data-controller="stats"] {
     background-image: url(../admin/images/menu/ico_estadisticas.png);
   }
 
-  #config {
+  [data-controller="config"] {
     background-image: url(../admin/images/menu/ico_configuracion.png);
   }
 
@@ -1409,7 +1441,7 @@ li.treedrag .controls {
     background-image: url(../admin/images/menu/ico_servicios.png);
   }
 
-  #publicidad {
+  [data-controller="advert"] {
     background-image: url(../admin/images/menu/ico_publicidad.png);
   }
 
@@ -1417,11 +1449,11 @@ li.treedrag .controls {
     background-image: url(../admin/images/menu/ico_cart.png);
   }
 
-  #theme {
+  [data-controller="themes/theme"] {
     background-image: url(../admin/images/menu/ico_theme.png);
   }
 
-  #mailing {
+  [data-controller="mailchimp/main"] {
     background-image: url(../admin/images/menu/ico_mailing.png);
   }
 
@@ -2006,10 +2038,17 @@ textarea {
 
 .DefaultStickyWin {
 
+  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif !important;
+
   h1 {
     color: #f00;
     font-size: 14px;
     padding: 6px 0 5px 0;
+  }
+
+  .body {
+    max-height: 500px;
+    overflow: auto;
   }
 
   #container {
@@ -2069,7 +2108,7 @@ textarea {
     left: 50%;
     font-size: 10px;
     line-height: 11px;
-    font-family: century gothic;
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
     margin: 8px 0px 0px -9px;
     text-transform: uppercase;
     width: 48px;
@@ -2123,10 +2162,12 @@ ul.galeria {
       margin: 0;
       border: none !important;
       border-radius: 0 !important;
+      max-height: 88px;
     }
 
     a {
       display: block;
+      border: 1px solid darken($primary-color, 10%);
     }
 
     .eliminar {
@@ -2134,6 +2175,7 @@ ul.galeria {
       position: absolute;
       top: 0;
       right: 5px;
+      height: 27px;
     }
 
     .nombre {
@@ -2143,6 +2185,9 @@ ul.galeria {
       float: none;
       width: 100%;
       text-align: center;
+      height: 27px;
+      position: relative;
+      left: 0;
     }
 
     .progress-bar {

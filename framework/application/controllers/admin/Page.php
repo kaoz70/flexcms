@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Page extends CI_Controller {
+class Page extends MY_Controller {
 	
 	var $txt_boton = '';
 	var $pagina_info = array();
@@ -162,9 +162,9 @@ class Page extends CI_Controller {
 					$data['url_search'] = base_url("admin/search/productos");
 
 					$data['urls'] = array(
-						'edit' => base_url('admin/catalog/edit_product'),
-						'delete' => base_url('admin/catalog/delete_product'),
-						'sort' => base_url('admin/catalog/reorder_products'),
+						'edit' => base_url('admin/catalog/product/edit'),
+						'delete' => base_url('admin/catalog/product/delete'),
+						'sort' => base_url('admin/catalog/product/reorder'),
 					);
 
 					$data['names'] = array(
@@ -200,25 +200,25 @@ class Page extends CI_Controller {
 						'id' => 'crear',
 						'class' => $data['nivel'] . ' ajax boton importante n4'
 					);
-					$data['menu'][] = anchor(base_url('admin/catalog/create_product'), 'crear nuevo producto', $atts);
+					$data['menu'][] = anchor(base_url('admin/catalog/product/create'), 'crear nuevo producto', $atts);
 
 					$atts = array(
 						'id' => 'crear',
 						'class' => $data['nivel'] . ' ajax boton n3'
 					);
-					$data['menu'][] = anchor(base_url('admin/catalog/categories'), 'categor&iacute;as', $atts);
+					$data['menu'][] = anchor(base_url('admin/catalog/category'), 'categor&iacute;as', $atts);
 
 					$atts = array(
 						'id' => 'crear',
 						'class' => $data['nivel'] . ' ajax boton n2'
 					);
-					$data['menu'][] = anchor(base_url('admin/catalog/fields'), 'template', $atts);
+					$data['menu'][] = anchor(base_url('admin/catalog/field'), 'template', $atts);
 
 					$atts = array(
 						'id' => 'crear',
 						'class' => $data['nivel'] . ' ajax boton n1'
 					);
-					$data['menu'][] = anchor(base_url('admin/catalog/configuracion'), 'configuracion', $atts);
+					$data['menu'][] = anchor(base_url('admin/catalog/config'), 'configuracion', $atts);
 					$data['bottomMargin'] = count($data['menu']) * 34;
 
 					$this->load->view('admin/listadoCategorias_view', $data);
@@ -230,10 +230,10 @@ class Page extends CI_Controller {
 
 					$data['items'] = $this->Noticias->getByPage($id, 'es');
 
-					$data['url_rel'] = base_url('admin/noticias');
+					$data['url_rel'] = base_url('admin/publications/publication');
 					$data['url_sort'] = '';
-					$data['url_modificar'] = base_url('admin/noticias/modificar');
-					$data['url_eliminar'] = base_url('admin/noticias/eliminar');
+					$data['url_modificar'] = base_url('admin/publications/publication/edit');
+					$data['url_eliminar'] = base_url('admin/publications/publication/delete');
 					$data['url_search'] = base_url("admin/search/publicaciones");
 
 					$data['search'] = true;
@@ -254,7 +254,7 @@ class Page extends CI_Controller {
 						'class' => $data['nivel'] . ' ajax boton importante n1'
 					);
 
-					$data['menu'][] = anchor(base_url('admin/noticias/crear/' . $id), 'crear nueva publicación', $atts);
+					$data['menu'][] = anchor(base_url('admin/publications/publication/create/' . $id), 'crear nueva publicación', $atts);
 					$data['bottomMargin'] = count($data['menu']) * 34;
 
 					$this->load->view('admin/listado_view', $data);
@@ -270,13 +270,13 @@ class Page extends CI_Controller {
 					$data['root_node'] = $root;
 					$data['dim'] = $this->General->getCropImage(8);
 
-					$data['url_rel'] = base_url('admin/gallery');
+					$data['url_rel'] = base_url('admin/gallery/file');
 					$data['url_search'] = base_url("admin/search/galeria");
 
 					$data['urls'] = array(
-						'edit' => base_url('admin/gallery/edit_category'),
-						'delete' => base_url('admin/gallery/delete_category'),
-						'sort' => base_url('admin/gallery/reorder'),
+						'edit' => base_url('admin/gallery/file/edit'),
+						'delete' => base_url('admin/gallery/file/delete'),
+						'sort' => base_url('admin/gallery/file/reorder'),
 					);
 
 					$data['names'] = array(
@@ -311,12 +311,12 @@ class Page extends CI_Controller {
 					$atts = array(
 						'class' => $data['nivel'] . ' ajax boton_listado primero n1 boton'
 					);
-					$data['menu'][] = anchor(base_url('admin/gallery/categories'), 'editar categorías', $atts);
+					$data['menu'][] = anchor(base_url('admin/gallery/category/index'), 'editar categorías', $atts);
 
 					$atts = array(
 						'class' => $data['nivel'] . ' ajax boton_listado importante n2 boton'
 					);
-					$data['menu'][] = anchor(base_url('admin/gallery/create_youtube'), 'a&ntilde;adir video de youtube', $atts);
+					$data['menu'][] = anchor(base_url('admin/gallery/youtube/create'), 'a&ntilde;adir video de youtube', $atts);
 					$data['bottomMargin'] = count($data['menu']) * 34;
 
 					$this->load->view('admin/listadoGallery_view', $data);
@@ -363,10 +363,10 @@ class Page extends CI_Controller {
 
 					$data['items'] = $this->Servicios->getAll('es', $id);
 
-					$data['url_rel'] = base_url('admin/servicios');
-					$data['url_sort'] = base_url('admin/servicios/reorganizar');
-					$data['url_modificar'] = base_url('admin/servicios/modificar');
-					$data['url_eliminar'] = base_url('admin/servicios/eliminar');
+					$data['url_rel'] = base_url('admin/services/service');
+					$data['url_sort'] = base_url('admin/services/service/reorder');
+					$data['url_modificar'] = base_url('admin/services/service/edit');
+					$data['url_eliminar'] = base_url('admin/services/service/delete');
 					$data['url_search'] = base_url("admin/search/servicios");
 
 					$data['search'] = true;
@@ -388,7 +388,7 @@ class Page extends CI_Controller {
 						'id' => 'crearBanner',
 						'class' => $data['nivel'] . ' ajax boton importante n1'
 					);
-					$data['menu'][] = anchor(base_url('admin/servicios/nuevo/' . $id), 'Crear Servicio', $atts);
+					$data['menu'][] = anchor(base_url('admin/services/service/create/' . $id), 'Crear Servicio', $atts);
 					$data['bottomMargin'] = count($data['menu']) * 34;
 
 					$this->load->view('admin/listado_view', $data);
@@ -400,10 +400,10 @@ class Page extends CI_Controller {
 
 					$data['items'] = $this->Calendar->getAll();
 
-					$data['url_rel'] = base_url('admin/calendar');
+					$data['url_rel'] = base_url('admin/calendar/day');
 					$data['url_sort'] = '';
-					$data['url_modificar'] = base_url('admin/calendar/edit');
-					$data['url_eliminar'] = base_url('admin/calendar/delete');
+					$data['url_modificar'] = base_url('admin/calendar/day/edit');
+					$data['url_eliminar'] = base_url('admin/calendar/day/delete');
 					$data['url_search'] = base_url("admin/search/calendar");
 
 					$data['search'] = true;
@@ -424,7 +424,7 @@ class Page extends CI_Controller {
 					$atts = array(
 						'class' => $data['nivel'] . ' ajax boton importante n1'
 					);
-					$data['menu'][] = anchor(base_url('admin/calendar/create'), 'Crear D&iacute;a', $atts);
+					$data['menu'][] = anchor(base_url('admin/calendar/day/create'), 'Crear D&iacute;a', $atts);
 
 					//TODO: finish dynamic fields
 					/*
@@ -451,8 +451,8 @@ class Page extends CI_Controller {
 
 					$data['url_rel'] = base_url('admin/cart');
 					$data['url_sort'] = '';
-					$data['url_modificar'] = base_url('admin/cart/detalle');
-					$data['url_eliminar'] = base_url('admin/cart/eliminar');
+					$data['url_modificar'] = base_url('admin/cart/order/detail');
+					$data['url_eliminar'] = base_url('admin/cart/order/delete');
 					$data['url_search'] = base_url("admin/search/cart");
 
 					$data['search'] = true;
@@ -473,16 +473,16 @@ class Page extends CI_Controller {
 					 * Menu
 					 */
 					$data['menu'] = array();
-					$data['menu'][] = anchor(base_url('admin/cart/ubicaciones'), 'locaciones y Zonas', array('class' => $data['nivel'] . ' ajax boton n7'));
-					$data['menu'][] = anchor(base_url('admin/cart/envios'), 'Envios e Impuestos', array('class' => $data['nivel'] . ' ajax boton n6'));
-					$data['menu'][] = anchor(base_url('admin/cart/descuentos'), 'Descuentos', array('class' => $data['nivel'] . ' ajax boton n5'));
+					$data['menu'][] = anchor(base_url('admin/cart/location/index'), 'locaciones y Zonas', array('class' => $data['nivel'] . ' ajax boton n7'));
+					$data['menu'][] = anchor(base_url('admin/cart/shipping/index'), 'Envios e Impuestos', array('class' => $data['nivel'] . ' ajax boton n6'));
+					$data['menu'][] = anchor(base_url('admin/cart/discount/index'), 'Descuentos', array('class' => $data['nivel'] . ' ajax boton n5'));
 					//TODO entender que hace esto: http://haseydesign.com/flexi-cart/admin_library/user_reward_points
 					//$data['menu'][] = anchor(base_url('admin/cart/recompensas'), 'Puntos de Recompensa', array('class' => $data['nivel'] . ' ajax boton n5'));
 					//$data['menu'][] = anchor(base_url('admin/cart/vouchers'), 'Vouchers', array('class' => $data['nivel'] . ' ajax boton n4'));
-					$data['menu'][] = anchor(base_url('admin/cart/monedas'), 'Monedas', array('class' => $data['nivel'] . ' ajax boton n4'));
-					$data['menu'][] = anchor(base_url('admin/cart/estados'), 'Estados', array('class' => $data['nivel'] . ' ajax boton n3'));
-					$data['menu'][] = anchor(base_url('admin/cart/valores_defecto'), 'Valores por defecto', array('class' => $data['nivel'] . ' ajax boton n2'));
-					$data['menu'][] = anchor(base_url('admin/cart/config'), 'Configuraci&oacute;n', array('class' => $data['nivel'] . ' ajax boton n1'));
+					$data['menu'][] = anchor(base_url('admin/cart/currency/index'), 'Monedas', array('class' => $data['nivel'] . ' ajax boton n4'));
+					$data['menu'][] = anchor(base_url('admin/cart/status/index'), 'Estados', array('class' => $data['nivel'] . ' ajax boton n3'));
+					$data['menu'][] = anchor(base_url('admin/cart/defaults/edit'), 'Valores por defecto', array('class' => $data['nivel'] . ' ajax boton n2'));
+					$data['menu'][] = anchor(base_url('admin/cart/config/edit'), 'Configuraci&oacute;n', array('class' => $data['nivel'] . ' ajax boton n1'));
 
 					$data['bottomMargin'] = count($data['menu']) * 34;
 

@@ -39,16 +39,15 @@ class CMS_Modules {
 	/**************************
 	 * BEGIN: MODULES
 	 *************************/
-	
+
 	/**
-	 * @param $page
-	 * @param $module
-	 * @param $moduleData
+	 * @param stdClass $page
+	 * @param stdClass $module
+	 * @param array $moduleData
 	 * @param $idioma
-	 * @param $data
 	 * @return string
 	 */
-	public function publicaciones($page, $module, $moduleData, $idioma, $data)
+	public function publicaciones(stdClass $page, stdClass $module, array $moduleData, $idioma)
 	{
 		$CI =& get_instance();
 		$noticiaId =  $CI->uri->segment(3, '');
@@ -110,14 +109,12 @@ class CMS_Modules {
 	}
 
 	/**
-	 * @param $module
-	 * @param $moduleData
+	 * @param stdClass $module
+	 * @param array $moduleData
 	 * @param $idioma
-	 * @param $paginaUrl
-	 * @param $data
 	 * @return string
 	 */
-	public function productosCategoria($module, $moduleData, $idioma, $paginaUrl, $data)
+	public function productosCategoria(stdClass $module, array $moduleData, $idioma)
 	{
 		$CI =& get_instance();
 
@@ -169,14 +166,12 @@ class CMS_Modules {
 	}
 
 	/**
-	 * @param $module
-	 * @param $moduleData
+	 * @param stdClass $module
+	 * @param array $moduleData
 	 * @param $idioma
-	 * @param $paginaUrl
-	 * @param $data
 	 * @return string
 	 */
-	public function productosDestacados($module, $moduleData, $idioma, $paginaUrl, $data)
+	public function productosDestacados(stdClass $module, array $moduleData, $idioma)
 	{
 		$CI =& get_instance();
 
@@ -228,12 +223,12 @@ class CMS_Modules {
 	}
 
 	/**
-	 * @param $module
-	 * @param $moduleData
+	 * @param stdClass $module
+	 * @param array $moduleData
 	 * @param $idioma
 	 * @return string
 	 */
-	public function productosDestacadosAzar($module, $moduleData, $idioma)
+	public function productosDestacadosAzar(stdClass $module, array $moduleData, $idioma)
 	{
 		$CI =& get_instance();
 		$moduloId = $CI->uri->segment(3, '');
@@ -275,14 +270,12 @@ class CMS_Modules {
 	}
 
 	/**
-	 * @param $module
-	 * @param $moduleData
+	 * @param stdClass $module
+	 * @param array $moduleData
 	 * @param $idioma
-	 * @param $paginaUrl
-	 * @param $data
 	 * @return string
 	 */
-	public function productosMenu($module, $moduleData, $idioma, $paginaUrl, $data)
+	public function productosMenu(stdClass $module, array $moduleData, $idioma)
 	{
 		$CI =& get_instance();
 		$catalogoPagina = $CI->Modulos->getPageByType(4, $idioma);
@@ -301,13 +294,13 @@ class CMS_Modules {
 	}
 
 	/**
-	 * @param $module
-	 * @param $moduleData
+	 * @param stdClass $module
+	 * @param array $moduleData
 	 * @param $idioma
-	 * @param $data
+	 * @param array $data
 	 * @return string
 	 */
-	public function html($module, $moduleData, $idioma, $data)
+	public function html(stdClass $module, array $moduleData, $idioma, array $data)
 	{
 		$CI =& get_instance();
 
@@ -331,13 +324,11 @@ class CMS_Modules {
 	}
 
 	/**
-	 * @param $module
-	 * @param $moduleData
-	 * @param $idioma
-	 * @param $data
+	 * @param stdClass $module
+	 * @param array $moduleData
 	 * @return string
 	 */
-	public function facebook($module, $moduleData, $idioma, $data)
+	public function facebook(stdClass $module, array $moduleData)
 	{
 		$CI =& get_instance();
 		$moduleData['appId'] = $module->moduloParam1;
@@ -352,7 +343,12 @@ class CMS_Modules {
 		return $html;
 	}
 
-	public function twitter($module, $moduleData, $idioma, $data)
+	/**
+	 * @param stdClass $module
+	 * @param array $moduleData
+	 * @return string
+	 */
+	public function twitter(stdClass $module, array $moduleData)
 	{
 		$CI =& get_instance();
 		$moduleData['user'] =  $module->moduloParam2;
@@ -367,13 +363,12 @@ class CMS_Modules {
 	}
 
 	/**
-	 * @param $module
-	 * @param $moduleData
+	 * @param stdClass $module
+	 * @param array $moduleData
 	 * @param $idioma
-	 * @param $data
 	 * @return string
 	 */
-	public function banner($module, $moduleData, $idioma, $data)
+	public function banner(stdClass $module, array $moduleData, $idioma)
 	{
 		$CI =& get_instance();
 		$banner = $CI->Banners->get($module->moduloParam1, $idioma);
@@ -403,13 +398,12 @@ class CMS_Modules {
 	}
 
 	/**
-	 * @param $module
-	 * @param $moduleData
+	 * @param stdClass $module
+	 * @param array $moduleData
 	 * @param $page
-	 * @param $data
 	 * @return mixed
 	 */
-	public function titulo($module, $moduleData, $page, $data)
+	public function titulo(stdClass $module, array $moduleData, $page)
 	{
 		$CI =& get_instance();
 
@@ -420,14 +414,12 @@ class CMS_Modules {
 	}
 
 	/**
-	 * @param $module
-	 * @param $moduleData
+	 * @param stdClass $module
+	 * @param array $moduleData
 	 * @param $idioma
-	 * @param $paginaUrl
-	 * @param $data
 	 * @return string
 	 */
-	public function faq($module, $moduleData, $idioma, $paginaUrl, $data)
+	public function faq(stdClass $module, array $moduleData, $idioma)
 	{
 		$CI =& get_instance();
 		$moduloId = $CI->uri->segment(3, '');
@@ -476,14 +468,12 @@ class CMS_Modules {
 	}
 
 	/**
-	 * @param $module
-	 * @param $moduleData
+	 * @param stdClass $module
+	 * @param array $moduleData
 	 * @param $idioma
-	 * @param $paginaUrl
-	 * @param $data
 	 * @return string
 	 */
-	public function enlaces($module, $moduleData, $idioma, $paginaUrl, $data)
+	public function enlaces(stdClass $module, array $moduleData, $idioma)
 	{
 		$CI =& get_instance();
 
@@ -541,14 +531,12 @@ class CMS_Modules {
 	}
 
 	/**
-	 * @param $module
-	 * @param $moduleData
+	 * @param stdClass $module
+	 * @param array $moduleData
 	 * @param $idioma
-	 * @param $paginaUrl
-	 * @param $data
 	 * @return string
 	 */
-	public function galeria($module, $moduleData, $idioma, $paginaUrl, $data)
+	public function galeria(stdClass $module, array $moduleData, $idioma)
 	{
 		$CI =& get_instance();
 		$CI->load->library('ion_auth');
@@ -640,13 +628,12 @@ class CMS_Modules {
 	}
 
 	/**
-	 * @param $module
-	 * @param $moduleData
+	 * @param stdClass $module
+	 * @param array $moduleData
 	 * @param $idioma
-	 * @param $data
 	 * @return string
 	 */
-	public function mapa($module, $moduleData, $idioma, $data)
+	public function mapa(stdClass $module, array $moduleData, $idioma)
 	{
 		$CI =& get_instance();
 		$mapa = $CI->Modulos->getMapa($module->moduloParam1, $idioma);
@@ -695,13 +682,12 @@ class CMS_Modules {
 	}
 
 	/**
-	 * @param $module
-	 * @param $moduleData
+	 * @param stdClass $module
+	 * @param array $moduleData
 	 * @param $idioma
-	 * @param $data
 	 * @return string
 	 */
-	public function productoFiltros($module, $moduleData, $idioma, $data)
+	public function productoFiltros(stdClass $module, array $moduleData, $idioma)
 	{
 		$CI =& get_instance();
 		$moduleData['viewTitle'] = $module->moduloMostrarTitulo;
@@ -719,14 +705,12 @@ class CMS_Modules {
 	}
 
 	/**
-	 * @param $module
-	 * @param $moduleData
+	 * @param stdClass $module
+	 * @param array $moduleData
 	 * @param $idioma
-	 * @param $currentPage
-	 * @param $data
 	 * @return string
 	 */
-	public function menu($module, $moduleData, $idioma, $currentPage, $data)
+	public function menu(stdClass $module, array $moduleData, $idioma)
 	{
 		$CI =& get_instance();
 
@@ -744,13 +728,12 @@ class CMS_Modules {
 	}
 
 	/**
-	 * @param $module
-	 * @param $moduleData
+	 * @param stdClass $module
+	 * @param array $moduleData
 	 * @param $idioma
-	 * @param $data
 	 * @return string
 	 */
-	public function productosAzar($module, $moduleData, $idioma, $data)
+	public function productosAzar(stdClass $module, array $moduleData, $idioma)
 	{
 
 		$CI =& get_instance();
@@ -793,13 +776,12 @@ class CMS_Modules {
 	}
 
 	/**
-	 * @param $module
-	 * @param $moduleData
+	 * @param stdClass $module
+	 * @param array $moduleData
 	 * @param $idioma
-	 * @param $data
 	 * @return string
 	 */
-	public function contacto($module, $moduleData, $idioma, $data)
+	public function contacto(stdClass $module, array $moduleData, $idioma)
 	{
 
 		$CI =& get_instance();
@@ -822,13 +804,12 @@ class CMS_Modules {
 	}
 
 	/**
-	 * @param $module
-	 * @param $moduleData
+	 * @param stdClass $module
+	 * @param array $moduleData
 	 * @param $idioma
-	 * @param $data
 	 * @return string
 	 */
-	public function articulo($module, $moduleData, $idioma, $data)
+	public function articulo(stdClass $module, array $moduleData, $idioma)
 	{
 
 		$CI =& get_instance();
@@ -854,12 +835,12 @@ class CMS_Modules {
 	}
 
 	/**
-	 * @param $module
-	 * @param $moduleData
+	 * @param stdClass $module
+	 * @param array $moduleData
 	 * @param $idioma
 	 * @return string
 	 */
-	public function servicios($module, $moduleData, $idioma)
+	public function servicios(stdClass $module, array $moduleData, $idioma)
 	{
 
 		$CI =& get_instance();
@@ -913,12 +894,12 @@ class CMS_Modules {
 	}
 
 	/**
-	 * @param $module
-	 * @param $moduleData
+	 * @param stdClass $module
+	 * @param array $moduleData
 	 * @param $idioma
 	 * @return string
 	 */
-	public function serviciosDestacados($module, $moduleData, $idioma)
+	public function serviciosDestacados(stdClass $module, array $moduleData, $idioma)
 	{
 
 		$CI =& get_instance();
@@ -972,13 +953,13 @@ class CMS_Modules {
 	}
 
 	/**
-	 * @param $module
-	 * @param $page
+	 * @param stdClass $module
+	 * @param stdClass $page
 	 * @param $lang
-	 * @param $paths
+	 * @param array $paths
 	 * @return string
 	 */
-	public function breadcrumbs($module, $page, $lang, $paths)
+	public function breadcrumbs(stdClass $module, stdClass $page, $lang, array $paths)
 	{
 
 		$CI =& get_instance();
@@ -1000,13 +981,13 @@ class CMS_Modules {
 	}
 
 	/**
-	 * @param $module
-	 * @param $moduleData
+	 * @param stdClass $module
+	 * @param stdClass $moduleData
 	 * @param $idioma
-	 * @param $data
+	 * @param array $data
 	 * @return string
 	 */
-	public function direcciones($module, $moduleData, $idioma, $data)
+	public function direcciones(stdClass $module, stdClass $moduleData, $idioma, array $data)
 	{
 
 		$CI =& get_instance();
@@ -1036,13 +1017,11 @@ class CMS_Modules {
 	}
 
 	/**
-	 * @param $module
-	 * @param $moduleData
-	 * @param $idioma
-	 * @param $data
+	 * @param stdClass $module
+	 * @param stdClass $moduleData
 	 * @return string
 	 */
-	public function publicidad($module, $moduleData, $idioma, $data)
+	public function publicidad(stdClass $module, stdClass $moduleData)
 	{
 
 		$CI =& get_instance();
@@ -1087,10 +1066,10 @@ class CMS_Modules {
 
 	/**
 	 * @param $file
-	 * @param $moduleData
+	 * @param array $moduleData
 	 * @return string
 	 */
-	public function loadView($file, $moduleData){
+	public function loadView($file, array $moduleData){
 
 		$CI =& get_instance();
 

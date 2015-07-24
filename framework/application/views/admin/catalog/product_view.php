@@ -148,29 +148,17 @@ if(count($campos) > 0) {
 								<textarea class="tableGridInput" id="input_editor_grid_<?=$row->productoCampoId?>" name="<?=$idioma['idiomaDiminutivo']?>_<?=$row->productoCampoId?>" ><?=$row->productoCampoRelContenido[$idioma['idiomaDiminutivo']]->productoCampoRelContenido?></textarea>
 							</div>
 							<? break; ?>
-							
-						<? case 'imagenes': ?>
-							<a class="nivel4 ajax boton importante" href="<?= base_url()?>admin/catalog/images/<?=$productoId?>">Modificar Imágenes</a>
-                            <? break 2; ?>
-
-                        <? case 'videos': ?>
-                            <a class="nivel4 ajax boton importante" href="<?= base_url()?>admin/catalog/videos/<?=$productoId?>">Modificar Videos</a>
-                            <? break 2; ?>
-
-                        <? case 'audio': ?>
-                            <a class="nivel4 ajax boton importante" href="<?= base_url()?>admin/catalog/audios/<?=$productoId?>">Modificar Audios</a>
-                            <? break 2; ?>
 
                         <? case 'archivos': ?>
-                            <a class="nivel4 ajax boton importante" href="<?= base_url()?>admin/catalog/files/<?=$productoId?>">Modificar Archivos</a>
+                            <a class="nivel4 ajax boton importante" href="<?= base_url()?>admin/catalog/file/index/<?=$productoId?>/<?=$row->productoCampoId?>">Modificar <?=$row->productoCampoValor?></a>
                             <? break 2; ?>
 
                         <? case 'select': ?>
 
                             <? if($row->inputTipoContenido === 'listado predefinido'): ?>
-                            <a class="nivel4 ajax boton importante" href="<?= base_url()?>admin/catalog/predefined_list/<?=$productoId?>/<?=$row->productoCampoId?>">Modificar Listado</a>
+                            <a class="nivel4 ajax boton importante" href="<?= base_url()?>admin/catalog/predefinedList/index/<?=$productoId?>/<?=$row->productoCampoId?>">Modificar <?=$row->productoCampoValor?></a>
                             <? else: ?>
-                            <a class="nivel4 ajax boton importante" href="<?= base_url()?>admin/catalog/field_list/<?=$productoId?>/<?=$row->productoCampoId?>">Modificar Listado</a>
+                            <a class="nivel4 ajax boton importante" href="<?= base_url()?>admin/catalog/field_list/<?=$productoId?>/<?=$row->productoCampoId?>">Modificar <?=$row->productoCampoValor?></a>
                             <? endif ?>
 
                             <? break 2; ?>
@@ -248,7 +236,7 @@ if(count($campos) > 0) {
 </div>
 
 <?php if(count($categorias) > 0): ?>
-<a href="<?= $link; ?>" data-level="nivel2" data-edit-url="catalog/edit_product/" data-delete-url="catalog/delete_product/" class="guardar boton importante n1 productos selectbox <?=$nuevo1?>" ><?=$txt_boton;?></a>
+<a href="<?= $link; ?>" data-level="nivel2" data-edit-url="catalog/product/edit/" data-delete-url="catalog/product/delete/" class="guardar boton importante n1 productos selectbox <?=$nuevo1?>" ><?=$txt_boton;?></a>
 
 <script type="text/javascript">
     tableManager.init();

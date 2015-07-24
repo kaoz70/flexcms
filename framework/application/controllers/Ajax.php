@@ -72,6 +72,9 @@ class Ajax extends CI_Controller {
             case 'servicios':
                 $this->servicios($language, $id, $page);
                 break;
+            case 'facebook_feed':
+                $this->facebook_feed($id);
+                break;
         }
     }
 
@@ -527,6 +530,25 @@ class Ajax extends CI_Controller {
 
 
     }
+
+	public function facebook_feed($id)
+	{
+
+		if($module = $this->Modulos->getModule($id)) {
+
+			$data = array(
+				'url' => $module->moduloParam2,
+				'appId' => $module->moduloParam1,
+				'moduloId' => $module->moduloId,
+				'next_url' =>  $this->session->userdata('next_url'),
+			);
+
+			$this->session->unset_userdata('next_url');
+
+			$this->load->view('modulos/facebook/' . $module->moduloVista, $data);
+		}
+
+	}
 
     /**
      * Get the users location based on the IP

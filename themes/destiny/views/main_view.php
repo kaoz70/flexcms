@@ -40,9 +40,9 @@
 	</script>
 
 	<?php Assets::css_group('system', array_merge($assets_banner_css, array(
-		'packages/foundation/css/normalize.css',
-		'packages/magnific-popup/dist/magnific-popup.css',
-		'packages/bx-slider.js/dist/jquery.bxslider.css',
+		'framework/packages/foundation/css/foundation.css',
+		'framework/packages/magnific-popup/dist/magnific-popup.css',
+		'framework/packages/bx-slider.js/dist/jquery.bxslider.css',
 		'themes/' . $theme . '/css/system.scss',
 		'themes/' . $theme . '/css/global.less',
 		'themes/' . $theme . '/css/global.sass',
@@ -55,7 +55,7 @@
 		'themes/' . $theme . '/css/generated/background.css',
 	)), $theme); ?>
 
-	<script src="<?= base_url('packages/foundation/js/vendor/modernizr.js') ?>"></script>
+	<script src="<?= base_url('framework/packages/foundation/js/vendor/modernizr.js') ?>"></script>
 
 	<script type="text/javascript">
 

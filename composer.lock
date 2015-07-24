@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c6b8461d53ba8723b4fbce3c21bcf836",
+    "hash": "333027298c6f78924ebad323245643b9",
     "packages": [
         {
             "name": "cartalyst/nested-sets",
@@ -94,12 +94,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cartalyst/sentinel.git",
-                "reference": "5deb23847a16c3bce3ac115533d6b34c0936ca74"
+                "reference": "38e21c0353b8c17092933d64f087d4e4bab3eb29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cartalyst/sentinel/zipball/5deb23847a16c3bce3ac115533d6b34c0936ca74",
-                "reference": "5deb23847a16c3bce3ac115533d6b34c0936ca74",
+                "url": "https://api.github.com/repos/cartalyst/sentinel/zipball/38e21c0353b8c17092933d64f087d4e4bab3eb29",
+                "reference": "38e21c0353b8c17092933d64f087d4e4bab3eb29",
                 "shasum": ""
             },
             "require": {
@@ -130,9 +130,6 @@
                 }
             },
             "autoload": {
-                "classmap": [
-                    "src/migrations"
-                ],
                 "psr-4": {
                     "Cartalyst\\Sentinel\\": "src/"
                 }
@@ -177,7 +174,7 @@
                 "php",
                 "security"
             ],
-            "time": "2015-06-25 15:49:58"
+            "time": "2015-07-21 11:58:18"
         },
         {
             "name": "cartalyst/support",
@@ -185,12 +182,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cartalyst/support.git",
-                "reference": "1ba474441bc0d8579e76d2eed67013f66dd97006"
+                "reference": "87a7509b8fcf2318fd4a91e772569f5667b690ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cartalyst/support/zipball/1ba474441bc0d8579e76d2eed67013f66dd97006",
-                "reference": "1ba474441bc0d8579e76d2eed67013f66dd97006",
+                "url": "https://api.github.com/repos/cartalyst/support/zipball/87a7509b8fcf2318fd4a91e772569f5667b690ce",
+                "reference": "87a7509b8fcf2318fd4a91e772569f5667b690ce",
                 "shasum": ""
             },
             "require": {
@@ -246,7 +243,7 @@
                 "laravel",
                 "support"
             ],
-            "time": "2015-02-04 03:35:29"
+            "time": "2015-07-22 07:23:44"
         },
         {
             "name": "compwright/codeigniter-installers",
@@ -1191,12 +1188,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Translation.git",
-                "reference": "ef3e45af7b042a87f64b184f7ebdc809157e0238"
+                "reference": "d049b8bb7085f2d8b413be00336acba3ceceadd4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Translation/zipball/ef3e45af7b042a87f64b184f7ebdc809157e0238",
-                "reference": "ef3e45af7b042a87f64b184f7ebdc809157e0238",
+                "url": "https://api.github.com/repos/symfony/Translation/zipball/d049b8bb7085f2d8b413be00336acba3ceceadd4",
+                "reference": "d049b8bb7085f2d8b413be00336acba3ceceadd4",
                 "shasum": ""
             },
             "require": {
@@ -1244,7 +1241,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-09 16:12:34"
+            "time": "2015-07-10 04:29:01"
         },
         {
             "name": "tubalmartin/cssmin",

@@ -82,7 +82,7 @@ MooEditable.UI.UploadImageDialog = function (editor) {
                 dialogEl = this.el;
 
             myUpload = new Uploader(w, {
-                url: system.base_url + 'assets/admin/php/upload.php',
+                url: system.baseUrl + 'assets/admin/php/upload.php',
                 multiple: false,
                 onItemAdded: function () {
 
@@ -115,7 +115,7 @@ MooEditable.UI.UploadImageDialog = function (editor) {
                         };
 
                         request = new Request({
-                            url: system.base_url + 'admin/imagen/contenido',
+                            url: system.baseUrl + 'admin/imagen/contenido',
                             noCache: true,
                             data: {
                                 imagedata: JSON.encode(imagedata),

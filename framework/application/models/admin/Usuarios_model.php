@@ -275,35 +275,39 @@ class Usuarios_model extends CI_Model {
 
         $campos = $this->input->post('campo');
 
-        foreach($campos as $key => $campo){
+        if($campos) {
+	        foreach($campos as $key => $campo){
 
-            $this->db->where('userFieldId', $key);
-            $this->db->where('userId', $user);
-            $query = $this->db->get('user_fields_rel');
+		        $this->db->where('userFieldId', $key);
+		        $this->db->where('userId', $user);
+		        $query = $this->db->get('user_fields_rel');
 
-            $result = $query->row();
+		        $result = $query->row();
 
-            if(!(bool)$result){
+		        if(!(bool)$result){
 
-                $data = array(
-                    'userFieldId' => $key,
-                    'userId' => $user,
-                    'userFieldRelContent' => $campo
-                );
+			        $data = array(
+				        'userFieldId' => $key,
+				        'userId' => $user,
+				        'userFieldRelContent' => $campo
+			        );
 
-                $this->db->insert('user_fields_rel', $data);
+			        $this->db->insert('user_fields_rel', $data);
 
-            } else {
-                $data = array(
-                    'userFieldRelContent' => $campo
-                );
+		        } else {
+			        $data = array(
+				        'userFieldRelContent' => $campo
+			        );
 
-                $this->db->where('userFieldId', $key);
-                $this->db->where('userId', $user);
-                $this->db->update('user_fields_rel', $data);
-            }
+			        $this->db->where('userFieldId', $key);
+			        $this->db->where('userId', $user);
+			        $this->db->update('user_fields_rel', $data);
+		        }
 
+	        }
         }
+
+
 
 
     }

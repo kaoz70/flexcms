@@ -131,7 +131,7 @@ $config['subclass_prefix'] = 'MY_';
 | Note: This will NOT disable or override the CodeIgniter-specific
 |	autoloading (application/config/autoload.php)
 */
-$config['composer_autoload'] = TRUE;
+$config['composer_autoload'] = FALSE; //Already loading it on index.php
 
 /*
 |--------------------------------------------------------------------------
@@ -498,3 +498,26 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+
+/*
+ * @see http://stackoverflow.com/questions/3700626/namespace-in-php-codeigniter-framework#21858556
+ */
+spl_autoload_extensions('.php'); // Only Autoload PHP Files
+
+spl_autoload_register(function($classname) {
+
+	if (strpos($classname, '\\') !== false) {
+		// Namespaced Classes
+		$classfile = (str_replace('\\', '/', $classname));
+
+		if ($classname[0] !== '/') {
+			$classfile = APPPATH . 'libraries/' . $classfile . '.php';
+		}
+		require($classfile);
+	} else if (strpos($classname, 'interface') !== false) {
+		// Interfaces
+		strtolower($classname);
+		require('application/interfaces/' . $classname . '.php');
+	}
+});

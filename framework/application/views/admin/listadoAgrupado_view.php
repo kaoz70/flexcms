@@ -17,12 +17,12 @@
                     <? if($item[array_key_exists($idx_grupo_id, $item) && !isset($idx_grupo_id_alt) ? $idx_grupo_id : $idx_grupo_id_alt] == $grupo[$idx_grupo_id]): ?>
                         <?if($drag):?>
                             <li class="listado drag" id="<?=$item[$idx_item_id];?>">
-                                <div class="mover">mover</div>
+                                <div class="mover"></div>
                         <? else: ?>
                             <li class="listado" id="<?=$item[$idx_item_id];?>">
                         <?endif?>
                             <a class="nombre modificar <?=$nivel?>" href="<?=$url_modificar . '/' . $item[$idx_item_id]?>"><span><?=$item[$idx_item_nombre]?></span></a>
-                            <a href="<?=$url_eliminar . '/' . $item[$idx_item_id];?>" class="eliminar" >eliminar</a>
+                            <a href="<?=$url_eliminar . '/' . $item[$idx_item_id];?>" class="eliminar" ></a>
                         </li>
                     <? endif; ?>
                 <? endforeach; ?>

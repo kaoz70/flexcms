@@ -57,7 +57,7 @@
 	
 </div>
 
-<a href="<?= $link; ?>" data-level="nivel3" data-edit-url="catalog/edit_category/" data-delete-url="catalog/delete_category/" data-id="<?=$categoriaId?>" data-reorder="catalog/reorder_categories/" class="guardar boton importante n1 tree categoria <?=$nuevo?>" ><?=$txt_boton;?></a>
+<a href="<?= $link; ?>" data-level="nivel3" data-edit-url="catalog/category/edit/" data-delete-url="catalog/category/delete/" data-id="<?=$categoriaId?>" data-reorder="catalog/category/reorder/" class="guardar boton importante n1 tree categoria <?=$nuevo?>" ><?=$txt_boton;?></a>
 
 <script type="text/javascript">
     upload.image('upload-image-category', 'imagen-categoria', '<?=base_url();?>admin/imagen/catalogoCategoria/<?=$categoriaId?>', <?=$cropDimensions->imagenAncho?>, <?=$cropDimensions->imagenAlto?>, <?=$cropDimensions->imagenCrop ? 'true' : 'false'?>);

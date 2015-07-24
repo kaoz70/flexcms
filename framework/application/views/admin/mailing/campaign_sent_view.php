@@ -73,4 +73,4 @@
 
 </div>
 
-<a href="admin/mailing/preview/<?=$id?>" class="nivel3 ajax importante boton n1" >Ver email enviado</a>
+<a href="admin/mailchimp/campaign/preview/<?=$id?>" class="nivel3 ajax importante boton n1" >Ver email enviado</a>

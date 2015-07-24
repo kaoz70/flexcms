@@ -97,7 +97,7 @@ var catalogFilters = {
         targetContainer.addClass('loading');
         targetContainer.fadeOut(function () {
             $.ajax({
-                url: system.base_url + 'search/productFilters',
+                url: system.baseUrl + 'search/productFilters',
                 context: targetContainer,
                 data: {
                     'language': system.lang,

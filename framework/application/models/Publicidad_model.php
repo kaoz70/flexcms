@@ -22,7 +22,7 @@ class Publicidad_model extends CI_Model
 		return $query->row();
 	}
 
-	public function getByPage($paginaId)
+	public function getByPage($paginaId, $type = 0)
 	{
 
 		$date = date('Y-m-d H:i:s');
@@ -30,7 +30,16 @@ class Publicidad_model extends CI_Model
 		$this->db->where('publicidadFechaInicio <', $date);
 		$this->db->where('publicidadFechaFin >', $date);
 		$this->db->where('publicidadEnabled', 1);
-		$this->db->where('paginaId', $paginaId);
+		if($type) {
+			$this->db->where('publicidadTipoId', $type);
+
+			if($type === 3) {
+				$this->db->like('paginaIds', '%"' . $paginaId . '"%');
+			}
+
+		}
+
+		//$this->db->where('paginaId', $paginaId);
 		$query = $this->db->get('publicidad');
 
 		return $query->row();
@@ -45,19 +54,33 @@ class Publicidad_model extends CI_Model
 	function getAll()
 	{
 
-		//Get non popup publicidad
-		$this->db->join('modulos', 'modulos.moduloId = publicidad.moduloId', 'LEFT');
-		$this->db->where('publicidadTipoId !=', 3);
-		$query = $this->db->get('publicidad');
-		$result = $query->result_array();
+		$adverts = $this->db
+			->join('modulos', 'modulos.moduloId = publicidad.moduloId', 'LEFT')
+			->get('publicidad')
+			->result_array();
+
+		//Some adverts are in multiple pages, duplicate them so that we can show them in all pages
+		foreach ($adverts as $key => $advert) {
+			$ids = (array)json_decode($advert['paginaIds']);
+			foreach($ids as $key2 => $id) {
+				$new = $advert;
+				$new['paginaId'] = $id;
+				$adverts[] = $new;
+				if(!$key2) {
+					unset($adverts[$key]);
+				}
+			}
+		}
+
+		//print_r($adverts);
 
 		//Get popup publicidad
-		$this->db->join('paginas', 'paginas.id = publicidad.paginaId', 'LEFT');
+		/*$this->db->join('paginas', 'paginas.id = publicidad.paginaId', 'LEFT');
 		$this->db->where('publicidadTipoId', 3);
 		$query = $this->db->get('publicidad');
-		$result = array_merge($result, $query->result_array());
+		$result = array_merge($result, $query->result_array());*/
 
-		return $result;
+		return $adverts;
 	}
 
 	function add()
@@ -111,7 +134,7 @@ class Publicidad_model extends CI_Model
 			'publicidadTipoId' => $this->input->post('publicidadTipoId'),
 			'publicidadEnabled' => $habilitado,
 			'moduloId' => $this->input->post('moduloId'),
-			'paginaId' => $this->input->post('paginaId'),
+			'paginaIds' => json_encode($this->input->post('paginaIds')),
 		);
 
 		$this->db->insert('publicidad', $data);
@@ -139,7 +162,7 @@ class Publicidad_model extends CI_Model
 			'publicidadTipoId' => $this->input->post('publicidadTipoId'),
 			'publicidadEnabled' => $habilitado,
 			'moduloId' => $this->input->post('moduloId'),
-			'paginaId' => $this->input->post('paginaId'),
+			'paginaIds' => json_encode($this->input->post('paginaIds'))
 		);
 
 		$this->db->where('publicidadId', $id);

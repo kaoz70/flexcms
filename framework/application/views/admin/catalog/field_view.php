@@ -78,7 +78,7 @@
   <?= form_close(); ?>
 </div>
 
-<a id="crear" class="nivel4 ajax boton n2" <?= $inputTipoContenido !== 'listado predefinido' ? 'style="display: none"' : '' ?> href="<?= base_url('admin/catalog/predefined_list_items/'.$campoId) ?>" >Editar Items</a>
+<a id="crear" class="nivel4 ajax boton n2" <?= $inputTipoContenido !== 'listado predefinido' ? 'style="display: none"' : '' ?> href="<?= base_url('admin/catalog/predefinedListItem/index/'.$campoId) ?>" >Editar Items</a>
 <a href="<?= $link; ?>" data-level="nivel3" data-edit-url="catalog/edit_field/" data-delete-url="catalog/delete_field/" class="guardar boton importante n1 <?=$nuevo?>" ><?=$txt_boton;?></a>
 
   

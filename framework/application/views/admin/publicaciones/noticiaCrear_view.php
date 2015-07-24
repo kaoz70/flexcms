@@ -105,8 +105,8 @@ echo form_open('admin/noticias/' . $link, $attributes);
 
 <?= form_close(); ?>
 </div>
-<a href="admin/noticias/galeria/<?=$publicacionId?>" class="nivel3 ajax boton n2" >Galer&iacute;a</a>
-<a href="<?= $link; ?>" data-level="nivel2" data-edit-url="noticias/modificar/" data-delete-url="noticias/eliminar/" class="guardar boton importante n1 no_sort <?=$nuevo?>" ><?=$txt_boton;?></a>
+<a href="admin/publications/image/index/<?=$publicacionId?>" class="nivel3 ajax boton n2" >Galer&iacute;a</a>
+<a href="<?= $link; ?>" data-level="nivel2" data-edit-url="publications/publication/edit/" data-delete-url="publications/publication/delete/" class="guardar boton importante n1 no_sort <?=$nuevo?>" ><?=$txt_boton;?></a>
 
 <script type="text/javascript">
 	initDatePicker();

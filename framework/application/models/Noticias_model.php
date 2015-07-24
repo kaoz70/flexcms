@@ -117,7 +117,7 @@ class Noticias_model extends CI_Model
 		$data = array(
 			'publicacionImagenExtension' => $this->input->post('publicacionImagenExtension'),
 			'publicacionImagenNombre' => $this->input->post('publicacionImagenNombre'),
-			'publicacionImagenCoord' => $this->input->post('publicacionImagenCoord'),
+			'publicacionImagenCoord' => urldecode($this->input->post('publicacionImagenCoord')),
 		);
 
 		$this->db->where('publicacionImagenId', $id);

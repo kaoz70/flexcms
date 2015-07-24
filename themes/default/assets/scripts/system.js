@@ -59,7 +59,7 @@ var search = {
         search.initialSearchString = search.input.val();
 
         search.language = system.lang;
-        search.url = system.base_url;
+        search.url = system.baseUrl;
     },
 
     clickListener : function (event) {
@@ -447,7 +447,7 @@ var catalogFilters = {
         targetContainer.addClass('loading');
         targetContainer.fadeOut(function () {
             $.ajax({
-                url: system.base_url + 'search/productFilters',
+                url: system.baseUrl + 'search/productFilters',
                 context: targetContainer,
                 data: {
                     'language': system.lang,
@@ -891,7 +891,7 @@ $(document).ready(function () {
         });
 
         //Get country list
-        $.getJSON(system.base_url + 'ajax/countries', {
+        $.getJSON(system.baseUrl + 'ajax/countries', {
             type: 'JSON'
         }, function (geonames) {
 
@@ -903,7 +903,7 @@ $(document).ready(function () {
             });
 
             //Get the users location
-            $.getJSON(system.base_url + 'ajax/location', {
+            $.getJSON(system.baseUrl + 'ajax/location', {
                 type: 'JSON'
             }, function (result) {
                 changeCountryInputs(result);
@@ -936,7 +936,7 @@ $(document).ready(function () {
                 $.ajax({
                     type: "POST",
                     dataType: "json",
-                    url: system.base_url + 'ajax/cart/update',
+                    url: system.baseUrl + 'ajax/cart/update',
                     data: form.serialize()
                 })
                     .done(function (data) {

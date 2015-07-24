@@ -26,6 +26,9 @@ class CMS_Gallery {
             $tree->findChildren(9999);
 
             $data['categorias'] = $tree->getChildren();
+            foreach($data['categorias'] as $category) {
+                $category->files = $CI->Downloads->getDownloads((int)$category->id, $idioma);
+            }
 
             if(count($data['categorias']) === 1) {
                 $html .= $this->renderList($data['categorias'][0], $data, $idioma);
@@ -45,8 +48,8 @@ class CMS_Gallery {
             if($categoria){
                 $html .= $this->renderList($categoria, $data, $idioma);
             } else {
-	            //TODO: category not found, not 404
-	            show_my_404(base_url($idioma . '/' . $CI->m_currentPage), $CI->m_config->theme);
+                //TODO: category not found, not 404
+                show_my_404(base_url($idioma . '/' . $CI->m_currentPage), $CI->m_config->theme);
             }
         }
 
@@ -65,6 +68,10 @@ class CMS_Gallery {
         $tree->findChildren(9999);
 
         $data['categorias'] = $tree->getChildren();
+        foreach($data['categorias'] as $category) {
+            $category->files = $CI->Downloads->getDownloads((int)$category->id, $idioma);
+        }
+
         $descargas = $CI->Downloads->getDownloads((int)$categoria['id'], $idioma);
 
         $data['title'] = $categoria['descargaCategoriaNombre'];

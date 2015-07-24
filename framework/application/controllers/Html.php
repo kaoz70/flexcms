@@ -300,7 +300,7 @@ class Html extends CI_Controller {
      */
     private function popup_banners($page)
     {
-        $popup_banner = $this->Publicidad->getByPage($page->paginaId);
+        $popup_banner = $this->Publicidad->getByPage($page->paginaId, 3);
         $popup = '';
 
         if($popup_banner){
@@ -544,19 +544,19 @@ class Html extends CI_Controller {
                             switch ($m_value->paginaModuloTipoId)
                             {
                                 case 1:
-                                    $this->m_views_html .= $this->cms_modules->publicaciones($page, $m_value, $moduleData, $this->m_idioma, $data);
+                                    $this->m_views_html .= $this->cms_modules->publicaciones($page, $m_value, $moduleData, $this->m_idioma);
                                     break;
                                 case 2:
-                                    $this->m_views_html .= $this->cms_modules->productosCategoria($m_value, $moduleData, $this->m_idioma, $this->m_currentPage, $data);
+                                    $this->m_views_html .= $this->cms_modules->productosCategoria($m_value, $moduleData, $this->m_idioma);
                                     break;
                                 case 3:
                                     $this->m_views_html .= $this->cms_modules->html($m_value, $moduleData, $this->m_idioma, $data);
                                     break;
                                 case 4:
-                                    $this->m_views_html .= $this->cms_modules->twitter($m_value, $moduleData, $this->m_idioma, $data);
+                                    $this->m_views_html .= $this->cms_modules->twitter($m_value, $moduleData);
                                     break;
                                 case 5:
-                                    $this->m_views_html .= $this->cms_modules->facebook($m_value, $moduleData, $this->m_idioma, $data);
+                                    $this->m_views_html .= $this->cms_modules->facebook($m_value, $moduleData);
                                     break;
 
                                 //CONTENT
@@ -565,15 +565,15 @@ class Html extends CI_Controller {
                                     break;
 
                                 case 9:
-                                    $this->m_views_html .= $this->cms_modules->banner($m_value, $moduleData, $this->m_idioma, $data);
+                                    $this->m_views_html .= $this->cms_modules->banner($m_value, $moduleData, $this->m_idioma);
                                     break;
 
                                 case 10:
-                                    $this->m_views_html .= $this->cms_modules->productosDestacados($m_value, $moduleData, $this->m_idioma, $this->m_currentPage, $data);
+                                    $this->m_views_html .= $this->cms_modules->productosDestacados($m_value, $moduleData, $this->m_idioma);
                                     break;
 
                                 case 11:
-                                    $this->m_views_html .= $this->cms_modules->productosMenu($m_value, $moduleData, $this->m_idioma, $this->m_currentPage, $data);
+                                    $this->m_views_html .= $this->cms_modules->productosMenu($m_value, $moduleData, $this->m_idioma);
                                     break;
 
                                 case 12:
@@ -581,39 +581,39 @@ class Html extends CI_Controller {
                                     break;
 
                                 case 13:
-                                    $this->m_views_html .= $this->cms_modules->faq($m_value, $moduleData, $this->m_idioma, $this->m_currentPage, $data);
+                                    $this->m_views_html .= $this->cms_modules->faq($m_value, $moduleData, $this->m_idioma);
                                     break;
 
                                 case 14:
-                                    $this->m_views_html .= $this->cms_modules->enlaces($m_value, $moduleData, $this->m_idioma, $this->m_currentPage, $data);
+                                    $this->m_views_html .= $this->cms_modules->enlaces($m_value, $moduleData, $this->m_idioma);
                                     break;
 
                                 case 15:
-                                    $this->m_views_html .= $this->cms_modules->galeria($m_value, $moduleData, $this->m_idioma, $this->m_currentPage, $data);
+                                    $this->m_views_html .= $this->cms_modules->galeria($m_value, $moduleData, $this->m_idioma);
                                     break;
 
                                 case 16:
-                                    $this->m_views_html .= $this->cms_modules->mapa($m_value, $moduleData, $this->m_idioma, $data);
+                                    $this->m_views_html .= $this->cms_modules->mapa($m_value, $moduleData, $this->m_idioma);
                                     break;
 
                                 case 17:
-                                    $this->m_views_html .= $this->cms_modules->productoFiltros($m_value, $moduleData, $this->m_idioma, $data);
+                                    $this->m_views_html .= $this->cms_modules->productoFiltros($m_value, $moduleData, $this->m_idioma);
                                     break;
 
                                 case 18:
-                                    $this->m_views_html .= $this->cms_modules->menu($m_value, $moduleData, $this->m_idioma, $this->m_currentPage, $data);
+                                    $this->m_views_html .= $this->cms_modules->menu($m_value, $moduleData, $this->m_idioma);
                                     break;
 
                                 case 19:
-                                    $this->m_views_html .= $this->cms_modules->productosAzar($m_value, $moduleData, $this->m_idioma, $data);
+                                    $this->m_views_html .= $this->cms_modules->productosAzar($m_value, $moduleData, $this->m_idioma);
                                     break;
 
                                 case 20:
-                                    $this->m_views_html .= $this->cms_modules->contacto($m_value, $moduleData, $this->m_idioma, $data);
+                                    $this->m_views_html .= $this->cms_modules->contacto($m_value, $moduleData, $this->m_idioma);
                                     break;
 
                                 case 21:
-                                    $this->m_views_html .= $this->cms_modules->articulo($m_value, $moduleData, $this->m_idioma, $data);
+                                    $this->m_views_html .= $this->cms_modules->articulo($m_value, $moduleData, $this->m_idioma);
                                     break;
 
                                 case 22:
@@ -629,7 +629,7 @@ class Html extends CI_Controller {
                                     break;
 
                                 case 25:
-                                    $this->m_views_html .= $this->cms_modules->publicidad($m_value, $moduleData, $this->m_idioma, $data);
+                                    $this->m_views_html .= $this->cms_modules->publicidad($m_value, $moduleData);
                                     break;
 
                                 case 26:

@@ -4,15 +4,15 @@
     <?php
 
     $attributes = array('class' => 'form');
-    echo form_open('admin/catalogo/subirDescargaProducto/'.$productoId.'/'.$productoDescargaId, $attributes);
+    echo form_open('admin/catalogo/subirDescargaProducto/'.$productoId.'/'.$productoArchivoId, $attributes);
     ?>
 
     <div class="field">
         <div class="header">General</div>
         <div class="content">
             <div class="input">
-                <label for="productoDescargaNombre">Nombre:</label>
-                <input class="required name" id="productoDescargaNombre" name="productoDescargaNombre" type="text" value="<?=$productoDescargaNombre ?>"/>
+                <label for="productoArchivoNombre">Nombre:</label>
+                <input class="required name" id="productoArchivoNombre" name="productoArchivoNombre" type="text" value="<?=$productoArchivoNombre ?>"/>
             </div>
 
             <fieldset>
@@ -45,20 +45,20 @@
             </fieldset>
 
             <div class="input check">
-                <input type="checkbox" name="productoDescargaEnabled" id="productoDescargaEnabled" <?= $productoDescargaEnabled; ?> />
-				<label for="productoDescargaEnabled">Publicado</label>
+                <input type="checkbox" name="productoArchivoEnabled" id="productoArchivoEnabled" <?= $productoArchivoEnabled; ?> />
+				<label for="productoArchivoEnabled">Publicado</label>
             </div>
         </div>
     </div>
 
-    <input id="upload-fileName" type="hidden" name="productoDescargaArchivo" value="<?=$productoDescargaArchivo; ?>" />
+    <input id="upload-fileName" type="hidden" name="productoArchivoExtension" value="<?=$productoArchivoExtension; ?>" />
     <input id="productoId" type="hidden" name="productoId" value="<?=$productoId; ?>" />
-    <input id="productoDescargaId" type="hidden" name="productoDescargaId" value="<?=$productoDescargaId; ?>" />
+    <input id="productoArchivoId" type="hidden" name="productoArchivoId" value="<?=$productoArchivoId; ?>" />
 
     <?= form_close(); ?>
 </div>
 <a href="<?= $link; ?>" data-level="nivel3" data-edit-url="catalog/edit_file/<?=$productoId?>/" data-delete-url="catalog/delete_file/<?=$productoId?>/" class="guardar boton importante n1 <?=$nuevo?>" ><?=$txt_boton; ?></a>
 
 <script type="text/javascript">
-    upload.file('upload-file', 'upload-fileName', '<?=base_url();?>admin/archivo/producto/<?=$productoId; ?>/<?=$productoDescargaId?>', true);
+    upload.file('upload-file', 'upload-fileName', '<?=base_url();?>admin/archivo/producto/<?=$productoId; ?>/<?=$productoArchivoId?>', true);
 </script>

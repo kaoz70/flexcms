@@ -1,6 +1,6 @@
 <?php
 
-class Link extends CI_Controller {
+class Link extends MY_Controller implements AdminInterface {
 	
 	function __construct()
 	{
@@ -27,9 +27,14 @@ class Link extends CI_Controller {
 		
 	}
 
-	public function create($pagina_id)
+	public function index(){
+
+	}
+
+	public function create()
 	{
 
+		$pagina_id = $this->uri->segment(4);
 		$data['titulo'] = "Nuevo Enlace";
 		$data['txt_boton'] = "Guardar Enlace";
 		$data['txt_botImagen'] = 'Subir Imagen';
@@ -78,7 +83,7 @@ class Link extends CI_Controller {
         $data['enlaceImagenCoord'] = urlencode($enlace->enlaceImagenCoord);
 		
 		$page = $this->Paginas->getPage($enlace->paginaId);
-		$data['paginaNombre'] = $page->paginaNombre;
+		$data['paginaNombre'] = $page['paginaNombre'];
 		$data['paginaId'] = $enlace->paginaId;
         $data['nuevo'] = '';
         $data['removeUrl'] = '';

@@ -61,7 +61,7 @@ echo form_open('admin/contacto/' . $link, $attributes);
 <?= form_close(); ?>
 </div>
 
-<a href="<?= $link; ?>" data-level="nivel2" data-edit-url="contact/edit_address/" data-delete-url="contact/delete_address/" class="guardar boton importante n1 contacto_direccion <?=$nuevo?>" ><?=$txt_boton;?></a>
+<a href="<?= $link; ?>" data-level="nivel2" data-edit-url="contact/address/edit/" data-delete-url="contact/address/delete/" class="guardar boton importante n1 contacto_direccion <?=$nuevo?>" ><?=$txt_boton;?></a>
 
 <script type="text/javascript">
     upload.image('upload-image-address', 'imagen-address', '<?=base_url();?>admin/imagen/contactoDireccion/<?=$direccionId?>', <?=$cropDimensions->imagenAncho?>, <?=$cropDimensions->imagenAlto?>, <?=$cropDimensions->imagenCrop ? 'true' : 'false'?>);

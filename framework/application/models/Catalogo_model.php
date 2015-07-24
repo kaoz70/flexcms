@@ -73,12 +73,12 @@ class Catalogo_model extends CI_Model
 
     public function getProductFiles($productoId, $lang)
     {
-        $this->db->join($lang.'_producto_descargas', $lang.'_producto_descargas.productoDescargaId = producto_descargas.productoDescargaId', 'LEFT');
+        $this->db->join($lang.'_producto_archivos', $lang.'_producto_archivos.productoDescargaId = producto_archivos.productoDescargaId', 'LEFT');
         $this->db->where('productoId', $productoId);
         //$this->db->where('productoDescargaEnabled', 1); //TODO Enable/disable files
-        $this->db->order_by('productoDescargaPosicion', 'desc');
-        $this->db->group_by('producto_descargas.productoDescargaId');
-        $query = $this->db->get('producto_descargas');
+        $this->db->order_by('productoArchivoPosicion', 'desc');
+        $this->db->group_by('producto_archivos.productoDescargaId');
+        $query = $this->db->get('producto_archivos');
 
         return $query->result();
     }
@@ -86,7 +86,7 @@ class Catalogo_model extends CI_Model
     public function getProductImages($productoId, $lang)
     {
         //$this->db->select('productoImagenId, productoImagen, productoId, productoImagenNombre, productoImagenDescripcion');
-        $this->db->join($lang.'_producto_imagenes', $lang.'_producto_imagenes.productoImagenId = producto_imagenes.productoImagenId', 'LEFT');
+        $this->db->join($lang.'_producto_archivos', $lang.'_producto_archivos.productoImagenId = producto_imagenes.productoImagenId', 'LEFT');
         $this->db->where('productoId', $productoId);
         $this->db->where('productoImagenEnabled', 1);
         $this->db->order_by('productoImagenPosicion', 'ASC');

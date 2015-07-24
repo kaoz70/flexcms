@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Archivo extends CI_Controller {
+class Archivo extends MY_Controller {
 	
 	function __construct(){
 		parent::__construct();
@@ -40,22 +40,109 @@ class Archivo extends CI_Controller {
 
     }
 
-    public function productoAudio()
+    public function productoGaleria($productoid, $fieldId)
     {
 
-        $imagedata = $this->input->post('imagedata');
+	    $imagedata = $this->input->post('imagedata');
+	    $filedata = $this->input->post('filedata');
+
+	    $file_id = $this->uri->segment(6, 0);
+
+	    $name = preg_replace("/_|-|\\+/", ' ', $filedata['filename']);
+	    $extension = substr(strrchr($filedata['filename'],'.'),1);
+	    $name = str_replace('.' . $extension, '', $name);
+
+	    $folderpath = "assets/public/files/catalog";
+	    $oldFilePath =  $filedata['temp_path'];
+	    $fileName = time() . '_' . $imagedata['name'];
+	    $newFilepath = $folderpath . '/' . $fileName;
+
+	    if(!$file_id) {
+
+		    $this->db->insert('producto_archivos', array(
+			    'productoArchivoExtension' => $fileName,
+			    'productoId' => $productoid,
+			    'productoCampoId' => $fieldId,
+			    'productoArchivoNombre' => $name,
+		    ));
+
+		    $file_id = $this->db->insert_id();
+
+		    //Add the name to the translations
+		    $idiomas = $this->db->get('idioma')->result();
+		    foreach ($idiomas as $idioma) {
+			    $this->db->insert($idioma->idiomaDiminutivo . '_producto_archivos', array(
+				    'productoDescargaId' => $file_id,
+			    ));
+		    }
+
+	    }
+
+	    $this->moveFile($oldFilePath, $newFilepath, $fileName, $file_id);
+
+
+        /*$imageId = $this->uri->segment(6, 0);
+        $imagedata = (object)$this->input->post('imagedata');
         $filedata = $this->input->post('filedata');
+        $imagedata->path = 'assets/public/images/catalog/gal_';
+        $time = time();
 
-        $prodId = $this->uri->segment(4, 0);
-        $audioId = $this->uri->segment(5, 0);
-        $extension = substr(strrchr($imagedata['name'],'.'),1);
+        if($imageId){
+            $imagedata->id = $imageId;
+            $images = $this->Modulo->getImages(6);
+        }
 
-        $oldFilePath =  $filedata['temp_path'];
-        $newFilepath = "assets/public/audio/catalog/audio_" . $prodId . '_' . $audioId . '.' . $extension;
+        //Insert image to DB, because this is from multiple upload method
+        else {
 
-        $fileName = $imagedata['name'];
+            $name = preg_replace("/_|-|\\+/", ' ', $imagedata->name);
+            $extension = substr(strrchr($imagedata->name,'.'),1);
+            $name = str_replace('.' . $extension, '', $name);
 
-        $this->moveFile($oldFilePath, $newFilepath, $fileName);
+            $this->db->insert('producto_archivos', array(
+                'productoArchivoExtension' => $extension . '?' . $time,
+                'productoArchivoCoord' => json_encode(array(
+                    'top' => 0,
+                    'left' => 0,
+                    'width' => $imagedata->width,
+                    'height' => $imagedata->height,
+                    'scale' => 0,
+                )),
+                'productoId' => $productoid,
+                'productoCampoId' => $fieldId,
+                'productoArchivoNombre' => $name,
+            ));
+            $image_id = $this->db->insert_id();
+
+            //Create the translation fields
+            $idiomas = $this->Idiomas->getLanguages();
+            foreach ($idiomas as $lang) {
+                $this->db->insert($lang['idiomaDiminutivo'] . '_producto_archivos', array(
+                    'productoDescargaId' => $image_id,
+                ));
+            }
+
+            $imagedata->id = $image_id;
+            $imagedata->image_id = $image_id;
+
+            $images = array();
+
+            $bannerData = new stdClass();
+            $bannerData->imagenAlto = $imagedata->cropHeight;
+            $bannerData->imagenAncho = $imagedata->cropWidth;
+            $bannerData->imagenSufijo = '';
+            $bannerData->imagenCrop = 1;
+
+            $images[] = $bannerData;
+
+            $images = array_merge($images, $this->Modulo->getImages(6));
+
+        }
+
+        $manipulationdata = $this->createManipulationData($images);
+
+        $this->imageManipulation($imagedata, $filedata, $manipulationdata, $time);*/
+
     }
 
 	public function galeria()

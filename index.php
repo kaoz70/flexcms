@@ -123,6 +123,9 @@ date_default_timezone_set('UTC');
  */
 include_once $application_folder . '/vendor/autoload.php';
 
+//var_dump(config_item('composer_autoload'));
+//exit;
+
 // --------------------------------------------------------------------
 // END OF USER CONFIGURABLE SETTINGS.  DO NOT EDIT BELOW THIS LINE
 // --------------------------------------------------------------------

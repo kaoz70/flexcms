@@ -259,4 +259,58 @@ class LangWorker extends IlluminateWorker {
 		return $nodes;
 	}
 
+	/**
+	 * Returns the depth of a node in a tree, where
+	 * 0 is a root node, 1 is a root node's direct
+	 * child and so on.
+	 *
+	 * @param  Cartalyst\NestedSets\Nodes\NodeInterface  $node
+	 * @return int
+	 */
+	public function depth(NodeInterface $node)
+	{
+		$attributes = $this->getReservedAttributeNames();
+		$table      = $this->getTable();
+		$keyName    = $this->baseNode->getKeyName();
+		$tree       = $node->getAttribute($attributes['tree']);
+
+		$result = $this
+			->connection->table("$table as node")
+		                ->join(
+			                "$table as parent",
+			                new Expression($this->wrapColumn("node.{$attributes['left']}")),
+			                '>=',
+			                new Expression($this->wrapColumn("parent.{$attributes['left']}"))
+		                )
+		                ->where(
+			                new Expression($this->wrapColumn("node.{$attributes['left']}")),
+			                '<=',
+			                new Expression($this->wrapColumn("parent.{$attributes['right']}"))
+		                )
+		                ->where(
+			                new Expression($this->wrapColumn("node.$keyName")),
+			                '=',
+			                $node->getAttribute($keyName)
+		                )
+		                ->where(
+			                new Expression($this->wrapColumn("node.{$attributes['tree']}")),
+			                '=',
+			                $tree
+		                )
+		                ->where(
+			                new Expression($this->wrapColumn("parent.{$attributes['tree']}")),
+			                '=',
+			                $tree
+		                )
+		                ->orderBy(new Expression($this->wrapColumn("node.{$attributes['left']}")))
+		                ->groupBy(new Expression($this->wrapColumn("node.{$attributes['left']}")))
+		                ->first(array(new Expression(sprintf(
+			                '(count(%s) - 1) as %s',
+			                $this->wrapColumn("parent.$keyName"),
+			                $this->wrap($this->getDepthAttributeName())
+		                ))));
+
+		return $result['depth']; //Extend this method because of this line
+	}
+
 }

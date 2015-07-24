@@ -70,7 +70,7 @@ echo form_open('admin/noticias/' . $link, $attributes);
 <?= form_close(); ?>
 </div>
 
-<a href="<?= $link; ?>" data-level="nivel3" data-edit-url="gallery/edit_category/" data-delete-url="gallery/delete_category/" data-id="<?=$id?>" class="guardar boton importante n1 tree categoria <?=$nuevo?>" ><?=$txt_boton;?></a>
+<a href="<?= $link; ?>" data-level="nivel3" data-edit-url="gallery/category/edit/" data-delete-url="gallery/category/delete/" data-id="<?=$id?>" class="guardar boton importante n1 tree categoria <?=$nuevo?>" ><?=$txt_boton;?></a>
 
 <script type="text/javascript">
     upload.image('upload-image-gallery-category', 'imagen-gallery-category', '<?=base_url();?>admin/imagen/galeriaCategoria/<?=$id?>', <?=$cropDimensions->imagenAncho?>, <?=$cropDimensions->imagenAlto?>, <?=$cropDimensions->imagenCrop ? 'true' : 'false'?>);

@@ -4,19 +4,18 @@
   "assets": {
     "prod": {
       "css": [
-        "packages/hero-slider/css/style.css"
+        "framework/packages/hero-slider/css/style.css"
       ],
       "js": [
-        "packages/hero-slider/js/main.js"
+        "framework/packages/hero-slider/js/main.js"
       ]
     },
     "dev": {
       "css": [
-        "packages/hero-slider/css/style.css"
+        "framework/packages/hero-slider/css/style.css"
       ],
       "js": [
-        "packages/hero-slider/js/drag.js",
-        "packages/hero-slider/js/main.js"
+        "framework/packages/hero-slider/js/main.js"
       ]
     }
   },
