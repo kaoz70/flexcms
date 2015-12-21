@@ -1,0 +1,12 @@
+{
+  "menu": {
+    "show": true,
+    "icon": "notifications",
+    "name": {
+      "es": "Publicidad"
+    },
+    "tooltip": {
+      "es": "Crear publicidad en varias secciones definidas"
+    }
+  }
+}

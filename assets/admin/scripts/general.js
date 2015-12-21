@@ -657,7 +657,7 @@ function initSortables(listado) {
 function reloadPageColumn() {
     "use strict";
 
-    var link = system.baseUrl + "admin/page",
+    var link = system.baseUrl + "admin/structure/get/html",
         request;
 
     request = new Request({
@@ -1115,15 +1115,16 @@ function sendUniqueNameRequest(field, fields, isBlur, validar, elem, request) {
     "use strict";
 
     var jsonRequest = new Request.JSON({
-        url: system.baseUrl + "admin/ajax/unique_name",
+        url: system.baseUrl + "admin/page/uniqueName",
         data: {
-            "nombre": field.get("value"),
-            "seccion": field.get("data-seccion"),
-            "columna": field.get("data-columna"),
-            "id": field.get("data-id"),
-            "columna_id": field.get("data-columna-id")
+            "name": field.get("value"),
+            "lang": field.get("data-lang"),
+            /*"seccion": field.get("data-seccion"),
+            "columna": field.get("data-columna"),*/
+            "id": field.get("data-id")//,
+            //"columna_id": field.get("data-columna-id")
         },
-        onSuccess: function(unique) {
+        onSuccess: function(data) {
 
             var error,
                 errorMessage = field.getNext();
@@ -1134,13 +1135,13 @@ function sendUniqueNameRequest(field, fields, isBlur, validar, elem, request) {
                 text: "Error: Este nombre ya está tomado por otro recurso"
             });
 
-            if (unique && !isBlur) {
-                uniqueNameCount += unique;
+            if (data.unique && !isBlur) {
+                uniqueNameCount += 1;
             }
 
             if (isBlur) {
 
-                if (unique) {
+                if (data.unique) {
 
                     field.addClass("validation-passed");
                     field.removeClass("validation-failed");
@@ -1158,7 +1159,7 @@ function sendUniqueNameRequest(field, fields, isBlur, validar, elem, request) {
                 if (fields.length === uniqueNameCount) {
                     error.dissolve();
                     sendRequest(validar, elem, request);
-                } else if (!unique) {
+                } else if (!data.unique) {
                     nameValidationFailed(field, errorMessage, error);
                 }
 
@@ -1323,219 +1324,224 @@ function clickBotonGuardar(event, elem) {
         },
         onSuccess: function(data) {
 
-            var enabledElem,
-                elemHtml,
-                catHtml,
-                listEl,
-                catEl,
-                elemName,
-                unsubscribe,
-                parentList,
-                previousCatList,
-                pagina = columnaParent.getElements(".pagina_nombre"),
-                nombre = columnaParent.getElement(".name"),
-                appendClass = "",
-                addDataId = "",
-                columnas,
-                myFx,
-                listElClass = "listado drag",
-                firstName,
-                lastName;
+            if (data.error_code.toInt() === 0) {
+                var enabledElem,
+                    elemHtml,
+                    catHtml,
+                    listEl,
+                    catEl,
+                    elemName,
+                    unsubscribe,
+                    parentList,
+                    previousCatList,
+                    pagina = columnaParent.getElements(".pagina_nombre"),
+                    nombre = columnaParent.getElement(".name"),
+                    appendClass = "",
+                    addDataId = "",
+                    columnas,
+                    myFx,
+                    listElClass = "listado drag",
+                    firstName,
+                    lastName;
 
-            elem.set("style", "background-color: #2FC1FB");
-            elem.set("html", "el recurso fue guardado");
+                elem.set("style", "background-color: #2FC1FB");
+                elem.set("html", "el recurso fue guardado");
 
-            if (columnaAnterior) {
-                enabledElem = columnaAnterior.getElements(".enabled");
-            }
-
-            if (elem.hasClass("usuarios")) {
-                firstName = columnaParent.getElement("input[name='first_name']").get("value");
-                lastName = columnaParent.getElement("input[name='last_name']").get("value");
-                elemName = firstName + " " + lastName;
-            } else {
-                if (nombre) {
-                    elemName = nombre.get("value");
-                }
-            }
-
-            //Create New elem //TODO fix this mess
-            if (elem.hasClass("no_sort") && !elem.hasClass("video")) {
-                elemHtml = '<a class="nombre modificar ' + elem.get('data-level') + '" href="' + system.baseUrl + 'admin/' + elem.get('data-edit-url') + data.new_id + '"><span>' + elemName + '</span></a>' +
-                '<a href="' + system.baseUrl + 'admin/' + elem.get('data-delete-url') + data.new_id + '" class="eliminar"></a>';
-            } else if (elem.hasClass("video")) {
-
-                if (elem.hasClass("categoria")) {
-                    appendClass = " categoria";
-                    addDataId = elem.get("data-id");
+                if (columnaAnterior) {
+                    enabledElem = columnaAnterior.getElements(".enabled");
                 }
 
-                listElClass = "video drag";
-
-                var videoIdElem = columnaParent.getElement("input[name='fileName']"),
-                    videoId,
-                    videoLink = system.baseUrl + "admin/" + elem.get("data-edit-url") + data.new_id,
-                    videoDeleteLink = system.baseUrl + "admin/" + elem.get("data-delete-url") + data.new_id;
-
-                if (videoIdElem) {
-                    videoId = columnaParent.getElement("input[name='fileName']").get("value");
+                if (elem.hasClass("usuarios")) {
+                    firstName = columnaParent.getElement("input[name='first_name']").get("value");
+                    lastName = columnaParent.getElement("input[name='last_name']").get("value");
+                    elemName = firstName + " " + lastName;
                 } else {
-                    videoId = data.videoId;
-                }
-
-                elemHtml = '<a class="modificar details ' + elem.get('data-level') + '" href="' + videoLink + '">' +
-                '<img height="64" src="http://img.youtube.com/vi/' + videoId + '/1.jpg" />' +
-                '<div class="nombre"><span>' + elemName + '</span></div>' +
-                '</a>' +
-                '<a href="' + videoDeleteLink + '" data-id="' + addDataId + '" class="eliminar' + appendClass + '"></a>';
-
-            } else {
-
-                if (elem.hasClass("categoria")) {
-                    appendClass = " categoria";
-                    addDataId = elem.get("data-id");
-                }
-
-                elemHtml = '<div class="mover"></div>' +
-                '<a class="nombre modificar ' + elem.get('data-level') + '" href="' + system.baseUrl + 'admin/' + elem.get('data-edit-url') + data.new_id + '"><span>' + elemName + '</span></a>' +
-                '<a href="' + system.baseUrl + 'admin/' + elem.get('data-delete-url') + data.new_id + '" data-id="' + addDataId + '" class="eliminar' + appendClass + '"></a>';
-            }
-
-            if (elem.hasClass("categoria") && elem.hasClass("nuevo")) {
-
-                catHtml = '<h3 class="header">Categoría: ' + elemName + '</h3>' +
-                '<ul id="list_' + elem.get('data-id') + '" class="sorteable content" data-sort="' + system.baseUrl + 'admin/' + elem.get('data-reorder') + data.new_id + '">' +
-                '</ul>';
-
-                catEl = new Element("li", {
-                    "id": data.new_id,
-                    "class": "pagina field",
-                    "style": "display: none",
-                    "html": catHtml
-                });
-
-                previousCatList = elem.getParent(".columnas").getPrevious(".columnas").getPrevious(".columnas").getElement(".contenido_col");
-
-                catEl.inject(previousCatList);
-                catEl.reveal();
-
-                myFx = new Fx.Scroll(previousCatList).toElement(catEl, "y");
-
-            }
-
-            if (elem.hasClass("mailchimp")) {
-                elemHtml = '<a class="nombre modificar ' + elem.get('nivel') + '" href="' + system.baseUrl + 'admin/' + elem.get('modificar') + '/' + data.new_id + '"><span>' + elemName + '</span></a>' +
-                '<a href="' + system.baseUrl + 'admin/' + elem.get('eliminar') + '/' + data.new_id + '" data-id="' + addDataId + '" class="eliminar' + appendClass + '"></a>' +
-                '<a href="' + system.baseUrl + 'admin/' + elem.get('data-unsubscribe-url') + data.new_id + '" class="unsubscribe">desuscribir</a>';
-            }
-
-            if (elem.hasClass("mailchimp-campaign")) {
-                elemHtml = '<a class="nombre modificar ' + elem.get('nivel') + '" href="' + system.baseUrl + 'admin/' + elem.get('modificar') + '/' + data.new_id + '"><span>' + elemName + '</span></a>' +
-                '<a href="' + system.baseUrl + 'admin/' + elem.get('eliminar') + '/' + data.new_id + '" data-id="' + addDataId + '" class="eliminar' + appendClass + '"></a>' +
-                '<a href="' + system.baseUrl + 'admin/' + elem.get('data-send-url') + data.new_id + '" class="nivel3 mailing_send">enviar</a>';
-            }
-
-            if (elem.hasClass("tree")) {
-
-                listElClass = "treedrag";
-
-                elemHtml = '<div class="controls">' +
-                '<div class="mover"></div>' +
-                '<a class="nombre modificar ' + addDataId + ' ' + elem.get('data-level') + '" href="' + system.baseUrl + 'admin/' + elem.get('data-edit-url') + data.new_id + '"><span>' + elemName + '</span></a>' +
-                '<a href="' + system.baseUrl + 'admin/' + elem.get('data-delete-url') + data.new_id + '" class="eliminar"></a>' +
-                '</div>';
-            }
-
-            listEl = new Element("li", {
-                "id": data.new_id,
-                "class": listElClass,
-                "style": "display: none",
-                "html": elemHtml
-            });
-
-            if(elem.hasClass("no_sort")) {
-                listEl.removeClass('drag');
-            }
-
-            if (columnaAnterior !== null && elem.hasClass("nuevo")) {
-
-                if (elem.hasClass("contacto_persona")) {//Contact Person
-                    parentList = columnaAnterior.getElement("#persona");
-                } else if (elem.hasClass("contacto_form")) { //Form Elements
-                    parentList = columnaAnterior.getElement("#list_contacto");
-                } else if (elem.hasClass("contacto_direccion")) { //Form Elements
-                    parentList = columnaAnterior.getElement("#list_direccion");
-                } else if (elem.hasClass("selectbox")) { //Users, products and images
-                    parentList = columnaAnterior.getElement("#list_" + columnaParent.getElement(".selectbox :selected").get("value"));
-                } else if (elem.hasClass("grouped_selectbox")) { //Publicidad
-                    parentList = columnaAnterior.getElement("#list_" + columnaParent.getElement(".selectbox :selected").getParent().get("data-pagina"));
-                } else if (elem.hasClass("mailchimp")) { //Users, products and images
-                    parentList = columnaAnterior.getElement("#subscribed");
-                } else if (elem.hasClass("product_files")) { //Product files
-                    parentList = columnaAnterior.getElement("#product_files");
-                } else { //Rest of the lists
-                    if (pagina.length > 0) { //Multiple lists
-                        parentList = columnaAnterior.getElement("#list_" + pagina.get("id"));
-                    } else { //One list
-                        parentList = columnaAnterior.getElement("ul");
+                    if (nombre) {
+                        elemName = nombre.get("value");
                     }
                 }
 
-                listEl.inject(parentList);
-                listEl.reveal();
+                //Create New elem //TODO fix this mess
+                if (elem.hasClass("no_sort") && !elem.hasClass("video")) {
+                    elemHtml = '<a class="nombre modificar ' + elem.get('data-level') + '" href="' + system.baseUrl + 'admin/' + elem.get('data-edit-url') + data.new_id + '"><span>' + elemName + '</span></a>' +
+                        '<a href="' + system.baseUrl + 'admin/' + elem.get('data-delete-url') + data.new_id + '" class="eliminar"></a>';
+                } else if (elem.hasClass("video")) {
 
-                new Fx.Scroll(columnaAnterior.getElement(".contenido_col")).toElement(listEl, "y");
+                    if (elem.hasClass("categoria")) {
+                        appendClass = " categoria";
+                        addDataId = elem.get("data-id");
+                    }
 
-            }
+                    listElClass = "video drag";
 
-            if (enabledElem && enabledElem[0].getElement(".nombre")) {
-                enabledElem[0].getElement(".nombre span").set("text", elemName);
-            }
+                    var videoIdElem = columnaParent.getElement("input[name='fileName']"),
+                        videoId,
+                        videoLink = system.baseUrl + "admin/" + elem.get("data-edit-url") + data.new_id,
+                        videoDeleteLink = system.baseUrl + "admin/" + elem.get("data-delete-url") + data.new_id;
 
-            if (elem.hasClass("categoria")) {
-                elem.getParent(".columnas").getPrevious(".columnas").getPrevious(".columnas").getElement("#list_" + elem.get("data-id")).getPrevious().set("text", "Categoría: " + elemName);
-            }
+                    if (videoIdElem) {
+                        videoId = columnaParent.getElement("input[name='fileName']").get("value");
+                    } else {
+                        videoId = data.videoId;
+                    }
 
-            //Eliminamos la clase "enabled" de todos los elementos de la columna anterior
-            if (columnaAnterior !== null) {
-                enabledElem.removeClass("enabled");
-            }
+                    elemHtml = '<a class="modificar details ' + elem.get('data-level') + '" href="' + videoLink + '">' +
+                        '<img height="64" src="http://img.youtube.com/vi/' + videoId + '/1.jpg" />' +
+                        '<div class="nombre"><span>' + elemName + '</span></div>' +
+                        '</a>' +
+                        '<a href="' + videoDeleteLink + '" data-id="' + addDataId + '" class="eliminar' + appendClass + '"></a>';
 
-            fadeFx = new Fx.Tween(elem.getParent(".columnas"), {
-                property: "opacity"
-            });
+                } else {
 
-            fadeFx.start(0).chain(function() {
-                if (elem.getParent(".columnas")) {
-                    elem.getParent(".columnas").retrieve("scrollable").terminate();
-                    elem.getParent(".columnas").destroy();
+                    if (elem.hasClass("categoria")) {
+                        appendClass = " categoria";
+                        addDataId = elem.get("data-id");
+                    }
+
+                    elemHtml = '<div class="mover"></div>' +
+                        '<a class="nombre modificar ' + elem.get('data-level') + '" href="' + system.baseUrl + 'admin/' + elem.get('data-edit-url') + data.new_id + '"><span>' + elemName + '</span></a>' +
+                        '<a href="' + system.baseUrl + 'admin/' + elem.get('data-delete-url') + data.new_id + '" data-id="' + addDataId + '" class="eliminar' + appendClass + '"></a>';
                 }
-                levelNum -= 1;
-            });
 
-            //resizeColumn(columnaAnterior);
+                if (elem.hasClass("categoria") && elem.hasClass("nuevo")) {
 
-            initSortables($$("ul.sorteable"));
+                    catHtml = '<h3 class="header">Categoría: ' + elemName + '</h3>' +
+                        '<ul id="list_' + elem.get('data-id') + '" class="sorteable content" data-sort="' + system.baseUrl + 'admin/' + elem.get('data-reorder') + data.new_id + '">' +
+                        '</ul>';
 
-            //Remove all the next columns
-            columnas = columnaParent.getParent().getAllNext();
-            columnas.unshift(columnaParent);
-            fadeColumns(columnas, elem, 0);
+                    catEl = new Element("li", {
+                        "id": data.new_id,
+                        "class": "pagina field",
+                        "style": "display: none",
+                        "html": catHtml
+                    });
 
-            $$(".columnas").each(function(elem, index) {
-                if (index === $$(".columnas").length - 1) {
-                    scrollTo -= elem.getStyle("width").toInt();
+                    previousCatList = elem.getParent(".columnas").getPrevious(".columnas").getPrevious(".columnas").getElement(".contenido_col");
+
+                    catEl.inject(previousCatList);
+                    catEl.reveal();
+
+                    myFx = new Fx.Scroll(previousCatList).toElement(catEl, "y");
+
                 }
-            });
 
-            new Fx.Scroll("contenido", {
-                duration: 500,
-                transition: Fx.Transitions.Cubic.easeOut,
-                wait: false
-            }).start(scrollTo, 0);
+                if (elem.hasClass("mailchimp")) {
+                    elemHtml = '<a class="nombre modificar ' + elem.get('nivel') + '" href="' + system.baseUrl + 'admin/' + elem.get('modificar') + '/' + data.new_id + '"><span>' + elemName + '</span></a>' +
+                        '<a href="' + system.baseUrl + 'admin/' + elem.get('eliminar') + '/' + data.new_id + '" data-id="' + addDataId + '" class="eliminar' + appendClass + '"></a>' +
+                        '<a href="' + system.baseUrl + 'admin/' + elem.get('data-unsubscribe-url') + data.new_id + '" class="unsubscribe">desuscribir</a>';
+                }
 
-            if (elem.hasClass("page")) {
-                reloadPageColumn();
+                if (elem.hasClass("mailchimp-campaign")) {
+                    elemHtml = '<a class="nombre modificar ' + elem.get('nivel') + '" href="' + system.baseUrl + 'admin/' + elem.get('modificar') + '/' + data.new_id + '"><span>' + elemName + '</span></a>' +
+                        '<a href="' + system.baseUrl + 'admin/' + elem.get('eliminar') + '/' + data.new_id + '" data-id="' + addDataId + '" class="eliminar' + appendClass + '"></a>' +
+                        '<a href="' + system.baseUrl + 'admin/' + elem.get('data-send-url') + data.new_id + '" class="nivel3 mailing_send">enviar</a>';
+                }
+
+                if (elem.hasClass("tree")) {
+
+                    listElClass = "treedrag";
+
+                    elemHtml = '<div class="controls">' +
+                        '<div class="mover"></div>' +
+                        '<a class="nombre modificar ' + addDataId + ' ' + elem.get('data-level') + '" href="' + system.baseUrl + 'admin/' + elem.get('data-edit-url') + data.new_id + '"><span>' + elemName + '</span></a>' +
+                        '<a href="' + system.baseUrl + 'admin/' + elem.get('data-delete-url') + data.new_id + '" class="eliminar"></a>' +
+                        '</div>';
+                }
+
+                listEl = new Element("li", {
+                    "id": data.new_id,
+                    "class": listElClass,
+                    "style": "display: none",
+                    "html": elemHtml
+                });
+
+                if(elem.hasClass("no_sort")) {
+                    listEl.removeClass('drag');
+                }
+
+                if (columnaAnterior !== null && elem.hasClass("nuevo")) {
+
+                    if (elem.hasClass("contacto_persona")) {//Contact Person
+                        parentList = columnaAnterior.getElement("#persona");
+                    } else if (elem.hasClass("contacto_form")) { //Form Elements
+                        parentList = columnaAnterior.getElement("#list_contacto");
+                    } else if (elem.hasClass("contacto_direccion")) { //Form Elements
+                        parentList = columnaAnterior.getElement("#list_direccion");
+                    } else if (elem.hasClass("selectbox")) { //Users, products and images
+                        parentList = columnaAnterior.getElement("#list_" + columnaParent.getElement(".selectbox :selected").get("value"));
+                    } else if (elem.hasClass("grouped_selectbox")) { //Publicidad
+                        parentList = columnaAnterior.getElement("#list_" + columnaParent.getElement(".selectbox :selected").getParent().get("data-pagina"));
+                    } else if (elem.hasClass("mailchimp")) { //Users, products and images
+                        parentList = columnaAnterior.getElement("#subscribed");
+                    } else if (elem.hasClass("product_files")) { //Product files
+                        parentList = columnaAnterior.getElement("#product_files");
+                    } else { //Rest of the lists
+                        if (pagina.length > 0) { //Multiple lists
+                            parentList = columnaAnterior.getElement("#list_" + pagina.get("id"));
+                        } else { //One list
+                            parentList = columnaAnterior.getElement("ul");
+                        }
+                    }
+
+                    listEl.inject(parentList);
+                    listEl.reveal();
+
+                    new Fx.Scroll(columnaAnterior.getElement(".contenido_col")).toElement(listEl, "y");
+
+                }
+
+                if (enabledElem && enabledElem[0].getElement(".nombre")) {
+                    enabledElem[0].getElement(".nombre span").set("text", elemName);
+                }
+
+                if (elem.hasClass("categoria")) {
+                    elem.getParent(".columnas").getPrevious(".columnas").getPrevious(".columnas").getElement("#list_" + elem.get("data-id")).getPrevious().set("text", "Categoría: " + elemName);
+                }
+
+                //Eliminamos la clase "enabled" de todos los elementos de la columna anterior
+                if (columnaAnterior !== null) {
+                    enabledElem.removeClass("enabled");
+                }
+
+                fadeFx = new Fx.Tween(elem.getParent(".columnas"), {
+                    property: "opacity"
+                });
+
+                fadeFx.start(0).chain(function() {
+                    if (elem.getParent(".columnas")) {
+                        elem.getParent(".columnas").retrieve("scrollable").terminate();
+                        elem.getParent(".columnas").destroy();
+                    }
+                    levelNum -= 1;
+                });
+
+                //resizeColumn(columnaAnterior);
+
+                initSortables($$("ul.sorteable"));
+
+                //Remove all the next columns
+                columnas = columnaParent.getParent().getAllNext();
+                columnas.unshift(columnaParent);
+                fadeColumns(columnas, elem, 0);
+
+                $$(".columnas").each(function(elem, index) {
+                    if (index === $$(".columnas").length - 1) {
+                        scrollTo -= elem.getStyle("width").toInt();
+                    }
+                });
+
+                new Fx.Scroll("contenido", {
+                    duration: 500,
+                    transition: Fx.Transitions.Cubic.easeOut,
+                    wait: false
+                }).start(scrollTo, 0);
+
+                if (elem.hasClass("page")) {
+                    reloadPageColumn();
+                }
+
+            } else {
+                createAlert(data.message, data.error_message);
             }
 
         },
@@ -1554,18 +1560,19 @@ function clickBotonGuardar(event, elem) {
 
         fields.each(function(field) {
             var jsonRequest = new Request.JSON({
-                url: system.baseUrl + "admin/ajax/unique_name",
+                url: system.baseUrl + "admin/page/uniqueName",
                 onSuccess: function() {
                     if (field.value !== "") {
                         sendUniqueNameRequest(field, fields, false, validar, elem, request);
                     }
                 }
             }).post({
-                    "nombre": field.get("value"),
-                    "seccion": field.get("data-seccion"),
-                    "columna": field.get("data-columna"),
-                    "id": field.get("data-id"),
-                    "columna_id": field.get("data-columna-id")
+                    "name": field.get("value"),
+                    "lang": field.get("data-lang"),
+                    /*"seccion": field.get("data-seccion"),
+                    "columna": field.get("data-columna"),*/
+                    "id": field.get("data-id")//,
+                    //"columna_id": field.get("data-columna-id")
                 });
         });
     } else {
@@ -2180,7 +2187,7 @@ function seccionesAdmin() {
 function requestLoginView(request) {
     "use strict";
     request = new Request.HTML({
-        url: system.baseUrl + "login/form",
+        url: system.baseUrl + "admin/loginForm",
         onSuccess: function(responseTree, responseElements, responseHTML) {
             alertaLogin = new StickyWin({
                 content: responseHTML
@@ -2409,5 +2416,11 @@ window.addEvent("domready", function() {
     menu.store("scrollable", scroll);
 
     var myTips = new Tips(".tooltip");
+
+    $$("label[for]").addEvent("click", function(e) {
+        var target = window[this.htmlFor];
+        target.checked = !target.checked;
+        e.preventDefault();
+    });
 
 });

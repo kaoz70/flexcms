@@ -59,7 +59,7 @@ class Search extends CI_Controller {
 
         foreach ($publicacionPaginas as $pagina)
         {
-            $pagina->publicaciones = $this->Search->publicaciones($query, $language, $pagina->paginaId);
+            $pagina->publicaciones = $this->Search->publicaciones($query, $language, $pagina->id);
 
             if(count($pagina->publicaciones) > 0)
                 array_push($publicaciones, $pagina);

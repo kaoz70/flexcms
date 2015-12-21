@@ -33,5 +33,5 @@ if ( ! function_exists('theme_url'))
  */
 function render_content()
 {
-	return get_instance()->m_views_html;
+	return Html::get_instance()->m_views_html;
 }

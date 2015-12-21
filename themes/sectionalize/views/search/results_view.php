@@ -22,7 +22,7 @@
         <div>
             <a href="<?= base_url($lang . '/' . $pagina->paginaNombreURL . '/' . $row->publicacionUrl) ?>">
                 <? if($row->publicacionImagen): ?>
-                    <img src="<?= base_url('assets/public/images/noticias/noticia_' . $row->publicacionId . '_search.' . $row->publicacionImagen) ?>">
+                    <img src="<?= base_url('assets/public/images/noticias/noticia_' . $row->id . '_search.' . $row->publicacionImagen) ?>">
                 <? endif ?>
                 <?=$row->publicacionNombre?>
             </a>

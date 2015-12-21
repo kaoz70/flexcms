@@ -178,7 +178,8 @@ select.formatBlock-item.toolbar-item {
 input[type="text"],
 input[type="password"],
 textarea {
-  padding: 5px 3px;
+  padding: 0 3px;
+  line-height: 26px;
   width: 100%;
   box-sizing: border-box;
   background: darken($primary-color, 10%);
@@ -644,7 +645,8 @@ hr {
     label {
       width: 100%;
       background: #444;
-      padding: 6px;
+      padding: 0 6px;
+      line-height: 28px;
       box-sizing: border-box;
       display: block;
     }
@@ -674,7 +676,7 @@ hr {
       float: left;
     }
     select {
-      height: 27px;
+      height: 28px;
     }
   }
 
@@ -766,8 +768,7 @@ legend {
 
 [type="checkbox"]:not(:checked),
 [type="checkbox"]:checked {
-  position: absolute;
-  left: -9999px;
+  display: none;
 }
 [type="checkbox"]:not(:checked) + label,
 [type="checkbox"]:checked + label {
@@ -793,7 +794,7 @@ legend {
 [type="checkbox"]:checked + label:after {
   content: '✔';
   position: absolute;
-  top: 4px;
+  top: 0;
   left: 8px;
   font-size: 14px;
   color: #09ad7e;
@@ -1347,9 +1348,18 @@ li.treedrag .controls {
 
   a {
     color: calculateTextColor($primary-color, transparentize($secondary-color, 10%), #B0B0B0);
-    padding: 10px 10px 10px 42px;
+    padding: 4px 10px 4px 0;
     display: block;
     font-size: 10px;
+
+    > * {
+      vertical-align:middle;
+    }
+
+    i {
+      margin-right: 10px;
+    }
+
   }
 
   a.enabled {
@@ -1373,88 +1383,13 @@ li.treedrag .controls {
 
   li {
     position: relative;
+    margin-bottom: 10px;
 
     a {
       background-position: 13px center;
       background-repeat: no-repeat;
     }
 
-  }
-
-  [data-controller="structure"] {
-    background-image: url(../admin/images/menu/ico_estructura.png);
-  }
-
-  #article {
-    background-image: url(../admin/images/menu/ico_articulos.png);
-  }
-
-  #faq {
-    background-image: url(../admin/images/menu/ico_faq.png);
-  }
-
-  #link {
-    background-image: url(../admin/images/menu/ico_enlaces.png);
-  }
-
-  #noticias {
-    background-image: url(../admin/images/menu/ico_publicaciones.png);
-  }
-
-  [data-controller="sliders/slider"] {
-    background-image: url(../admin/images/menu/ico_banners.png);
-  }
-
-  [data-controller="maps/map"] {
-    background-image: url(../admin/images/menu/ico_mapa.png);
-  }
-
-  #catalog {
-    background-image: url(../admin/images/menu/ico_catalogo.png);
-  }
-
-  #gallery {
-    background-image: url(../admin/images/menu/ico_galeria.png);
-  }
-
-  [data-controller="language"] {
-    background-image: url(../admin/images/menu/ico_idiomas.png);
-  }
-
-  [data-controller="contact/contact"] {
-    background-image: url(../admin/images/menu/ico_contacto.png);
-  }
-
-  [data-controller="users/user"] {
-    background-image: url(../admin/images/menu/ico_usuarios.png);
-  }
-
-  [data-controller="stats"] {
-    background-image: url(../admin/images/menu/ico_estadisticas.png);
-  }
-
-  [data-controller="config"] {
-    background-image: url(../admin/images/menu/ico_configuracion.png);
-  }
-
-  #servicios {
-    background-image: url(../admin/images/menu/ico_servicios.png);
-  }
-
-  [data-controller="advert"] {
-    background-image: url(../admin/images/menu/ico_publicidad.png);
-  }
-
-  #cart {
-    background-image: url(../admin/images/menu/ico_cart.png);
-  }
-
-  [data-controller="themes/theme"] {
-    background-image: url(../admin/images/menu/ico_theme.png);
-  }
-
-  [data-controller="mailchimp/main"] {
-    background-image: url(../admin/images/menu/ico_mailing.png);
   }
 
 }
@@ -1545,10 +1480,6 @@ ul#config {
   margin: 0 auto;
   border: 5px solid rgba(255, 255, 255, 0.4);
   margin-bottom: 11px;
-}
-
-textarea {
-  width: 720px;
 }
 
 /*
@@ -1702,6 +1633,15 @@ textarea {
   .remove_row,
   .remove_module {
     @include transition(background, 200ms);
+    i {
+      font-size: 18px;
+      line-height: 27px;
+    }
+  }
+  .remove_module {
+    i {
+      line-height: 23px;
+    }
   }
 
   .module {

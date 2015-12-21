@@ -1,0 +1,13 @@
+{
+  "content": false,
+  "menu": {
+    "show": true,
+    "icon": "send",
+    "name": {
+      "es": "Mailing"
+    },
+    "tooltip": {
+      "es": "Enviar mails masivos"
+    }
+  }
+}

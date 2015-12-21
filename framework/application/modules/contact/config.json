@@ -1,0 +1,12 @@
+{
+  "menu": {
+    "show": true,
+    "icon": "mail",
+    "name": {
+      "es": "Contacto"
+    },
+    "tooltip": {
+      "es": "Formulario de contáctos, personas de contacto"
+    }
+  }
+}

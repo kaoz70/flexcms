@@ -7,6 +7,31 @@
  * Time: 3:41 PM
  */
 
+if ( ! function_exists('important_products'))
+{
+    /**
+     * @param $quantity
+     * @param string $view
+     * @param string $imageSize
+     * @param string $categoria_id
+     *
+     * @return mixed
+     */
+    function important_products($quantity, $view = 'default_view', $imageSize = '', $categoria_id = 'todas')
+    {
+        $CI =& get_instance();
+
+        $catalogoPagina = $CI->Modulos->getPageByType(4, $CI->m_idioma);
+        $data['paginaCatalogoUrl'] = $catalogoPagina->paginaNombreURL;
+        $data['productos'] = $CI->Modulos->getItemsForProductosDestacados($categoria_id, $quantity, 0, $CI->m_idioma);
+        $data['diminutivo'] = $CI->m_idioma;
+        $data['imageSize'] = $imageSize;
+
+        return $CI->load->view('modulos/catalogo/product/' . $view, $data, TRUE);
+
+    }
+}
+
 if ( ! function_exists('publications'))
 {
     /**
@@ -28,6 +53,25 @@ if ( ! function_exists('publications'))
         $data['pagination'] = '';
 
         return $CI->load->view('modulos/publicaciones/' . $view, $data, TRUE);
+
+    }
+}
+
+if ( ! function_exists('article'))
+{
+    /**
+     * @param $article_id
+     * @param string $view
+     * @return mixed
+     */
+    function article($article_id, $view = 'default_view')
+    {
+        $CI =& get_instance();
+
+        $data['articulo'] = $CI->Modulos->articulo($article_id, $CI->m_idioma);
+        $data['diminutivo'] = $CI->m_idioma;
+
+        return $CI->load->view('modulos/articulo/' . $view, $data, TRUE);
 
     }
 }

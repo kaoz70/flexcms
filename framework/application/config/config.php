@@ -305,7 +305,7 @@ $config['cache_query_string'] = FALSE;
 | http://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = 'dksdfjh&8sdlakd)(haskadeeLj';
+$config['encryption_key'] = 'lkjad(7sdk?8jkLsOassd{ds}';
 
 /*
 |--------------------------------------------------------------------------
@@ -499,8 +499,8 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-
 /*
+ * Get Namespaces to Work in Codeigniter
  * @see http://stackoverflow.com/questions/3700626/namespace-in-php-codeigniter-framework#21858556
  */
 spl_autoload_extensions('.php'); // Only Autoload PHP Files

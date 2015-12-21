@@ -2,10 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 
-<div style="border: 1px solid #775353;
-  margin: 10px 0;
-  background-color: #2A1818;
-  padding: 10px;">
+<div>
 
 <h4>A PHP Error was encountered</h4>
 

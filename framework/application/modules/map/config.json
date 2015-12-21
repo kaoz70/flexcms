@@ -1,0 +1,13 @@
+{
+  "content": false,
+  "menu": {
+    "show": true,
+    "icon": "room",
+    "name": {
+      "es": "Mapas"
+    },
+    "tooltip": {
+      "es": "Mapas y ubicaciones"
+    }
+  }
+}

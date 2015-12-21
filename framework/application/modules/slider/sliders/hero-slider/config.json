@@ -1,0 +1,30 @@
+{
+  "name": "hero-slider",
+  "version": "1.0.0",
+  "assets": {
+    "prod": {
+      "css": [
+        "framework/packages/hero-slider/css/style.css"
+      ],
+      "js": [
+        "framework/packages/hero-slider/js/main.js"
+      ]
+    },
+    "dev": {
+      "css": [
+        "framework/packages/hero-slider/css/style.css"
+      ],
+      "js": [
+        "framework/packages/hero-slider/js/main.js"
+      ]
+    }
+  },
+  "docs": "http://codyhouse.co/gem/hero-slider/",
+  "config": {
+    "primaryNav": ".cd-primary-nav",
+    "sliderNav": ".cd-slider-nav",
+    "navigationMarker": ".cd-marker",
+    "autoPlayDelay": 5000,
+    "autoPlay": [true, false]
+  }
+}

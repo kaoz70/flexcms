@@ -121,10 +121,7 @@ date_default_timezone_set('UTC');
 /*
  * Load automatically composer packages
  */
-include_once $application_folder . '/vendor/autoload.php';
-
-//var_dump(config_item('composer_autoload'));
-//exit;
+include_once 'framework/vendor/autoload.php';
 
 // --------------------------------------------------------------------
 // END OF USER CONFIGURABLE SETTINGS.  DO NOT EDIT BELOW THIS LINE
@@ -292,13 +289,21 @@ if (isset($_SERVER['SERVER_SOFTWARE']) &&
 
 }
 
-$rs = $mysqli->query("SELECT `value` FROM `configuracion` WHERE `key` = 'environment'");
+$rs = $mysqli->query("SELECT `value` FROM `config` WHERE `key` = 'environment'");
 
 if($rs) {
     $row = $rs->fetch_row();
     define('ENVIRONMENT', $row[0]);
 } else {
-	die('Could not read the environment from the database.');
+
+	$data = [
+		"heading" => "Error",
+		"message" => "Could not read the environment from the database.",
+	];
+
+	echo \App\View::blade(APPPATH . 'views/errors/html/general.blade.php', $data)->render();
+	exit(1);
+
 }
 
 /*
@@ -325,9 +330,18 @@ switch (ENVIRONMENT)
 
 	default:
 		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
-		echo 'The application environment is not set correctly.';
+
+		$data = [
+			"heading" => "Error",
+			"message" => "The application environment is not set correctly.",
+		];
+
+		echo \App\View::blade(APPPATH . 'views/errors/html/general.blade.php', $data)->render();
 		exit(1); // EXIT_ERROR
 }
+
+//Check if the server meets the App's requirements
+\App\Requirements::check("5.4.0");
 
 /*
  * --------------------------------------------------------------------

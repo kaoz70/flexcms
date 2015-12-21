@@ -23,12 +23,15 @@ if ( ! function_exists('admin_tree'))
 
 		foreach ($nodes as $childNode) {
 
-			if($childNode->temporal != 1) {
+			//Set the translation so that its exposed in the node's variable
+			$childNode->getTranslation('es');
+
+			if($childNode->temporary != 1) {
 				$return .= '<li class="treedrag" id="' . $childNode->id . '">';
 				$return .= '<div class="controls">';
 				$return .= '<div class="mover"></div>';
 				$return .= '<a class="nombre modificar ' .$level . '" href="' . $modify_url . '/' . $childNode->id . '">';
-				$return .= '<span>' . $childNode->$name_param . '</span>';
+				$return .= '<span>' . $childNode->translation->name . '</span>';
 				$return .= '</a>';
 				$return .= '<a href="' . $delete_url . '/' . $childNode->id . '" class="eliminar" ></a>';
 				$return .= '</div>';
@@ -66,13 +69,16 @@ if ( ! function_exists('admin_structure_tree'))
 
 		foreach ($nodes as $childNode) {
 
-			if($childNode->temporal !== 1 AND (in_array($childNode->id, $visible) OR $childNode->getChildren()) ) {
+			if($childNode->temporary !== 1 AND (in_array($childNode->id, $visible) OR $childNode->getChildren()) ) {
+
+				//Set the translation so that its exposed in the node's variable
+				$childNode->getTranslation('es');
 
 				$nivel = in_array($childNode->id, $visible) ? 'nivel1' : 'disabled';
 
 				$return .= '<li>';
 				$return .= '<a class="nombre modificar ' . $nivel . '" href="' . base_url('admin/page/edit') . '/' . $childNode->id . '">';
-				$return .= '<span class="page">' . $childNode->paginaNombre . '</span>';
+				$return .= '<span class="page">' . $childNode->translation->name . '</span>';
 				$return .= '</a>';
 				if (count($childNode->getChildren()) > 0) {
 					$return .= admin_structure_tree($childNode->getChildren(), $visible);
@@ -96,19 +102,19 @@ if ( ! function_exists('admin_select_tree'))
 	 *
 	 * @param $node
 	 * @param $selected_id
-	 * @param $name_param
 	 * @return string
 	 */
-	function admin_select_tree($node, $selected_id, $name_param) {
+	function admin_select_tree($node, $selected_id) {
 
 		$return = '';
 
 		foreach ($node as $childNode) {
 
-			if($childNode->temporal !== 1) {
-				$return .= '<option ' . ((int)$childNode->id === (int)$selected_id ? 'selected' : '') . ' value="' . $childNode->id . '">' . str_repeat("-", $childNode->depth) . ' ' . $childNode->$name_param . '</option>';
+			if((int)$childNode->temporary !== 1) {
+				$childNode->getTranslation('es');
+				$return .= '<option ' . ((int)$childNode->id === (int)$selected_id ? 'selected' : '') . ' value="' . $childNode->id . '">' . str_repeat("-", $childNode->depth) . ' ' . $childNode->translation->name . '</option>';
 				if (count($childNode->getChildren()) > 0) {
-					$return .= admin_select_tree($childNode->getChildren(), $selected_id, $name_param);
+					$return .= admin_select_tree($childNode->getChildren(), $selected_id);
 				}
 			}
 
@@ -271,12 +277,12 @@ if ( ! function_exists('admin_gallery_tree'))
  * Renders the menu
  *
  * @param string $name
- * @param \Cartalyst\NestedSets\Nodes\EloquentNode $tree
+ * @param \App\Category $tree
  * @param array $menu
  * @param array $attributes
  * @param string $view
  */
-function render_menu($name = '', \Cartalyst\NestedSets\Nodes\EloquentNode $tree, array $menu, $attributes = array(), $view = 'pages_view')
+function render_menu($name = '', \App\Category $tree, array $menu, $attributes = array(), $view = 'pages_view')
 {
 	$CI = get_instance();
 	$cache_time = 3000;
@@ -299,12 +305,12 @@ function render_menu($name = '', \Cartalyst\NestedSets\Nodes\EloquentNode $tree,
 /**
  * Generate the menu if there is no cached version
  *
- * @param \Cartalyst\NestedSets\Nodes\EloquentNode $tree
+ * @param \App\Category $tree
  * @param array $menu
  * @param array $attributes
  * @param string $view
  */
-function render_menu_uncached(\Cartalyst\NestedSets\Nodes\EloquentNode $tree, array $menu, $attributes = array(), $view)
+function render_menu_uncached(\App\Category $tree, array $menu, $attributes = array(), $view)
 {
 	$CI = get_instance();
 	$attrs = '';
@@ -318,7 +324,7 @@ function render_menu_uncached(\Cartalyst\NestedSets\Nodes\EloquentNode $tree, ar
 	$data['attrs_array'] = $attributes;
 	$data['view'] = $view;
 	$data['menu'] = $menu;
-	$data['lang'] = $CI->m_idioma;
+	$data['lang'] = Html::get_instance()->language->slug;
 
 	$CI->load->view('menu/' . $view, $data);
 

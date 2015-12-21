@@ -1,0 +1,594 @@
+*{
+	margin:0;
+	padding:0;
+	border:0;
+	outline:none;
+}
+
+a{ 
+	text-decoration: none; 
+}
+
+ul{
+	list-style: none;
+}
+
+body {
+	font-size: 100%;
+	background:#ccc;
+}
+
+
+
+
+
+/* FIRST INSTANCE */
+/* component wrapper for everything, needs to be 100% in size so everything resizes inside of it */
+#componentWrapper{
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:100%;
+	height:420px;
+	
+	/* hide component on beginning until slides initialize */
+	opacity: 0; 
+	filter: alpha(opacity=0); 
+	-ms-filter: "alpha(opacity=0)"; 
+	-khtml-opacity: 0; 
+	-moz-opacity: 0; 
+}
+
+/* holder for all slides, approximately the same size as slides themselves, size and position of this is manipulated in jquery */
+#componentWrapper .componentPlaylist{
+	position:absolute;
+	/*background:green;*/
+}
+
+/* holder for each slide, makes border on slide, 20px bigger in width/height than scaler. */
+#componentWrapper .slide{
+	position:absolute;
+	width:270px;
+	height:390px;
+	overflow:hidden;
+	background:#fff;
+	
+	moz-box-shadow: 2px 2px 5px #222;
+	-webkit-box-shadow: 2px 2px 5px #222;
+	box-shadow: 2px 2px 5px #222;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
+	
+	/*display:none;*/
+}
+
+/* scaler holds slide content */
+#componentWrapper .scaler{
+	position:absolute;
+	top:10px;
+	left:10px;
+	width:250px;
+	height:370px;
+	overflow:hidden;
+	/*background:red;*/
+}
+
+/* image in slide */
+#componentWrapper .stack_img{
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	display:block;
+}
+
+
+
+/* controls */
+#componentWrapper .componentControls{
+	position:absolute;
+	width:30px;
+	height:110px;
+	top:50%;
+	margin-top:-55px;
+	/* horizontally also aligned in jquery */
+	display:none;
+	/*background:red;*/
+}
+
+#componentWrapper .componentControls .controls_next{
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:30px;
+	height:30px;
+}
+
+#componentWrapper .componentControls .controls_toggle{
+	position:absolute;
+	top:40px;
+	left:0px;
+	width:30px;
+	height:30px;
+}
+
+#componentWrapper .componentControls .controls_previous{
+	position:absolute;
+	top:80px;
+	left:0px;
+	width:30px;
+	height:30px;
+}
+
+
+
+/* holder for all captions, important thing is that captions are relatively alligned */
+#componentWrapper .caption_list {
+	position: absolute;
+	bottom:5px;
+	left:20px;
+	display:none;
+}
+
+/*******************************
+CAPTIONS COMPONENT WIDTH <=959px  
+*******************************/
+
+/* first caption */
+#componentWrapper .caption_one {
+	position: relative;
+	left:0px;
+	bottom:0px; 
+	color: #fff; 
+	font-size:20px;
+	font-family:Arial, Helvetica, sans-serif;
+	padding: 5px; 
+	margin-bottom:5px;
+	background-color: rgb(60, 80, 100);
+	background-color: rgba(60, 80, 100, 0.7);
+	float:left;
+	clear:both;
+}
+
+#componentWrapper .caption_one a{
+	color:white;
+	/*text-decoration:underline;*/
+}
+
+#componentWrapper .caption_one a:hover, a:active{
+    text-decoration:underline;
+}
+
+/* second caption */
+#componentWrapper .caption_two {
+	position: relative;
+	left:0px;
+	bottom:0px; 
+	color: #699; 
+	font-size:20px;
+	font-family:Arial, Helvetica, sans-serif;
+	padding: 5px; 
+	margin-bottom:5px;
+	background-color: rgb(0, 0, 0);
+	background-color: rgba(0, 0, 0, 0.7);
+	float:left;
+	clear:both;
+}
+
+/* third caption */
+#componentWrapper .caption_three {
+	position: relative;
+	left:0px;
+	bottom:0px; 
+	color: #9C9; 
+	font-size:20px;
+	font-family:Arial, Helvetica, sans-serif;
+	padding: 5px; 
+	background-color: rgb(10, 30, 70);
+	background-color: rgba(200, 30, 70, 0.7);
+	float:left;
+	clear:both;
+}
+
+/* caption font sizes for different component sizes */
+#componentWrapper .caption_font_large {
+	font-size:20px;
+}
+
+#componentWrapper .caption_font_medium {
+	font-size:17px;
+}
+
+#componentWrapper .caption_font_small {
+	font-size:13px;
+}
+
+
+
+
+/* detail holder */
+#componentWrapper .slide_detail{
+	position:absolute; 
+	width:30px;
+	height:80px;
+	left:20px;
+	top:20px;
+	/*background:red;*/
+}
+
+/* image details for lightbox */
+#componentWrapper .pp_content{
+	position:relative; 
+	display:block;
+	width:30px;
+	height:30px;
+	left:0px;
+	top:0px;
+	margin-bottom:10px;
+}
+
+/* image link */
+#componentWrapper .pp_link{
+	position:relative; 
+	display:block;
+	width:30px;
+	height:30px;
+	left:0px;
+	top:0px;
+}
+
+
+
+
+
+/* google map example */
+#componentWrapper #gmap_canvas{
+	position:absolute; 
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+}
+
+/* youtube direct embed example */
+#componentWrapper #yt_player1{
+	position:absolute; 
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+}
+
+/* vimeo direct embed example */
+#componentWrapper #vm_player_1{
+	position:absolute; 
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+}
+
+
+
+
+/* SECOND INSTANCE */
+/* component wrapper for everything, needs to be 100% in size so everything resizes inside of it */
+#componentWrapper2{
+	position:absolute;
+	left:0px;
+	top:450px;
+	width:100%;
+	height:320px;
+	
+	/* hide component on beginning until slides initialize */
+	opacity: 0; 
+	filter: alpha(opacity=0); 
+	-ms-filter: "alpha(opacity=0)"; 
+	-khtml-opacity: 0; 
+	-moz-opacity: 0; 
+}
+
+/* holder for all slides, approximately the same size as slides themselves, size and position of this is manipulated in jquery */
+#componentWrapper2 .componentPlaylist{
+	position:absolute;
+	/*background:green;*/
+}
+
+/* holder for each slide, makes border on slide, 20px bigger in width/height than scaler. */
+#componentWrapper2 .slide{
+	position:absolute;
+	width:270px;
+	height:220px;
+	overflow:hidden;
+	background:#fff;
+	
+	moz-box-shadow: 2px 2px 5px #222;
+	-webkit-box-shadow: 2px 2px 5px #222;
+	box-shadow: 2px 2px 5px #222;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
+	
+	/*display:none;*/
+}
+
+/* scaler holds slide content */
+#componentWrapper2 .scaler{
+	position:absolute;
+	top:10px;
+	left:10px;
+	width:250px;
+	height:200px;
+	overflow:hidden;
+	/*background:red;*/
+}
+
+/* image in slide */
+#componentWrapper2 .stack_img{
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	display:block;
+}
+
+
+
+/* controls */
+#componentWrapper2 .componentControls{
+	position:absolute;
+	width:30px;
+	height:110px;
+	top:50%;
+	margin-top:-55px;
+	/* horizontally also aligned in jquery */
+	display:none;
+	/*background:red;*/
+}
+
+#componentWrapper2 .componentControls .controls_next{
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:30px;
+	height:30px;
+}
+
+#componentWrapper2 .componentControls .controls_toggle{
+	position:absolute;
+	top:40px;
+	left:0px;
+	width:30px;
+	height:30px;
+}
+
+#componentWrapper2 .componentControls .controls_previous{
+	position:absolute;
+	top:80px;
+	left:0px;
+	width:30px;
+	height:30px;
+}
+
+
+
+/* holder for all captions, important thing is that captions are relatively alligned */
+#componentWrapper2 .caption_list {
+	position: absolute;
+	bottom:5px;
+	left:20px;
+	display:none;
+}
+
+/*******************************
+CAPTIONS COMPONENT WIDTH <=959px  
+*******************************/
+
+/* first caption */
+#componentWrapper2 .caption_one {
+	position: relative;
+	left:0px;
+	bottom:0px; 
+	color: #fff; 
+	font-size:20px;
+	font-family:Arial, Helvetica, sans-serif;
+	padding: 5px; 
+	margin-bottom:5px;
+	background-color: rgb(60, 80, 100);
+	background-color: rgba(60, 80, 100, 0.7);
+	float:left;
+	clear:both;
+}
+
+#componentWrapper2 .caption_one a{
+	color:white;
+	/*text-decoration:underline;*/
+}
+
+#componentWrapper2 .caption_one a:hover, a:active{
+    text-decoration:underline;
+}
+
+/* second caption */
+#componentWrapper2 .caption_two {
+	position: relative;
+	left:0px;
+	bottom:0px; 
+	color: #699; 
+	font-size:20px;
+	font-family:Arial, Helvetica, sans-serif;
+	padding: 5px; 
+	margin-bottom:5px;
+	background-color: rgb(0, 0, 0);
+	background-color: rgba(0, 0, 0, 0.7);
+	float:left;
+	clear:both;
+}
+
+/* third caption */
+#componentWrapper2 .caption_three {
+	position: relative;
+	left:0px;
+	bottom:0px; 
+	color: #9C9; 
+	font-size:20px;
+	font-family:Arial, Helvetica, sans-serif;
+	padding: 5px; 
+	background-color: rgb(10, 30, 70);
+	background-color: rgba(200, 30, 70, 0.7);
+	float:left;
+	clear:both;
+}
+
+/* caption font sizes for different component sizes */
+#componentWrapper2 .caption_font_large {
+	font-size:20px;
+}
+
+#componentWrapper2 .caption_font_medium {
+	font-size:17px;
+}
+
+#componentWrapper2 .caption_font_small {
+	font-size:13px;
+}
+
+/* third caption */
+#componentWrapper2 .caption_four {
+	position: relative;
+	left:0px;
+	bottom:0px; 
+	color: #9C9; 
+	font-size:20px;
+	font-family:Arial, Helvetica, sans-serif;
+	padding: 5px; 
+	background-color: rgb(10, 30, 70);
+	background-color: rgba(200, 30, 70, 0.7);
+	float:left;
+	clear:both;
+}
+
+#componentWrapper2 .caption_four a{
+	color:white;
+	/*text-decoration:underline;*/
+}
+
+#componentWrapper2 .caption_four a:hover, a:active{
+    text-decoration:underline;
+}
+
+
+
+
+
+/* detail holder */
+#componentWrapper2 .slide_detail{
+	position:absolute; 
+	width:30px;
+	height:80px;
+	left:20px;
+	top:20px;
+	/*background:red;*/
+}
+
+/* image details for lightbox */
+#componentWrapper2 .pp_content{
+	position:relative; 
+	display:block;
+	width:30px;
+	height:30px;
+	left:0px;
+	top:0px;
+	margin-bottom:10px;
+}
+
+/* image link */
+#componentWrapper2 .pp_link{
+	position:relative; 
+	display:block;
+	width:30px;
+	height:30px;
+	left:0px;
+	top:0px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* public functions */	
+#publicFunctions{
+	position: absolute;
+	padding: 10px 25px 20px 20px;
+	background:#555;
+	left:50px;
+	top:50px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	color:#fff;
+	list-style:circle;
+	
+	-moz-box-shadow: 2px 2px 5px #222;
+	-webkit-box-shadow: 2px 2px 5px #222;
+	box-shadow: 2px 2px 5px #222;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color='#222222')";
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color='#222222');
+	
+	display:none;
+}
+
+#publicFunctions li a{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	color:#fff;
+}
+
+#publicFunctions li a:hover, #publicFunctions li .current{
+	text-decoration: underline;
+}
+
+
+
+
+/* public functions */	
+#publicFunctions2{
+	position: absolute;
+	padding: 10px 25px 20px 20px;
+	background:#555;
+	right:50px;
+	top:50px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	color:#fff;
+	list-style:circle;
+	
+	-moz-box-shadow: 2px 2px 5px #222;
+	-webkit-box-shadow: 2px 2px 5px #222;
+	box-shadow: 2px 2px 5px #222;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color='#222222')";
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color='#222222');
+	
+	display:none;
+}
+
+#publicFunctions2 li a{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	color:#fff;
+}
+
+#publicFunctions2 li a:hover, #publicFunctions2 li .current{
+	text-decoration: underline;
+}
+

@@ -472,6 +472,7 @@ class Ajax extends CI_Controller {
         //Get the cart items
         $data['mini_cart_items'] = $this->flexi_cart->cart_items();
         $return->mini_cart = $this->load->view('paginas/cart/mini_cart_view', $data, true);
+        $return->count = count($data['mini_cart_items']);
 
 	    $data['return'] = $return;
 

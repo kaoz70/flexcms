@@ -1,0 +1,88 @@
+{
+  "name": "RevolutionSlider",
+  "version": "4.6.4",
+  "assets": {
+    "prod": {
+      "css": [
+        "packages/revolution-slider/css/settings.css"
+      ],
+      "js": [
+        "packages/revolution-slider/js/jquery.themepunch.tools.min.js",
+        "packages/revolution-slider/js/jquery.themepunch.revolution.min.js"
+      ]
+    },
+    "dev": {
+      "css": [
+        "packages/revolution-slider/css/settings.css"
+      ],
+      "js": [
+        "packages/revolution-slider/js/jquery.themepunch.tools.min.js",
+        "packages/revolution-slider/js/jquery.themepunch.revolution.js"
+      ]
+    }
+  },
+  "docs": "http://themes.themepunch.com/?theme=revolution_jq",
+  "config": {
+    "delay": 9000,
+    "startwidth": 960,
+    "startheight": 500,
+    "fullScreenAlignForce": ["off", "on"],
+    "autoHeight": ["off", "on"],
+    "hideTimerBar": ["off", "on"],
+    "hideThumbs": 200,
+    "hideNavDelayOnMobile": 1500,
+    "thumbWidth": 100,
+    "thumbHeight": 50,
+    "thumbAmount": 3,
+    "navigationType": ["bullet", "thumb", "none"],
+    "navigationArrows": ["nextto", "solo", "none"],
+    "navigationInGrid": ["off", "on"],
+    "hideThumbsOnMobile": ["off", "on"],
+    "hideBulletsOnMobile": ["off", "on"],
+    "hideArrowsOnMobile": ["off", "on"],
+    "hideThumbsUnderResoluition": 0,
+    "navigationStyle": ["round","square","navbar","round-old","square-old","navbar-old","preview2"],
+    "navigationHAlign": ["center","Vertical Align top","bottom"],
+    "navigationVAlign": ["bottom","Horizontal Align left","center","right"],
+    "navigationHOffset": 0,
+    "navigationVOffset": 20,
+    "soloArrowLeftHalign": ["left"],
+    "soloArrowLeftValign": ["center"],
+    "soloArrowLeftHOffset": 20,
+    "soloArrowLeftVOffset": 0,
+    "soloArrowRightHalign": ["right"],
+    "soloArrowRightValign": ["center"],
+    "soloArrowRightHOffset": 20,
+    "soloArrowRightVOffset": 0,
+    "keyboardNavigation": ["on","off"],
+    "touchenabled": ["on","off"],
+    "onHoverStop": ["on","off"],
+    "stopLoop": ["off", "on"],
+    "shuffle": ["off", "on"],
+    "stopAtSlide": -1,
+    "stopAfterLoops": -1,
+    "hideCaptionAtLimit": 0,
+    "hideAllCaptionAtLimit": 0,
+    "hideSliderAtLimit": 0,
+    "shadow": 0,
+    "fullWidth": ["off", "on"],
+    "fullScreen": ["off", "on"],
+    "minFullScreenHeight": 0,
+    "fullScreenOffset": "0",
+    "dottedOverlay": ["none","twoxtwo","threexthree","twoxtwowhite","threexthreewhite"],
+    "forceFullWidth": ["off","on"],
+    "spinner": ["spinner0","spinner1","spinner2","spinner3","spinner4","spinner5"],
+    "swipe_treshold": 75,
+    "swipe_min_touches": 1,
+    "drag_block_vertical": [false, true],
+    "parallax": ["off", "on"],
+    "parallaxBgFreeze": ["off", "on"],
+    "parallaxOpacity": ["on", "off"],
+    "parallaxDisableOnMobile": ["off", "on"],
+    "panZoomDisableOnMobile": ["off", "on"],
+    "simplifyAll": ["on", "off"],
+    "minHeight": 0,
+    "nextSlideOnWindowFocus": ["off", "on"],
+    "startDelay": 0
+  }
+}

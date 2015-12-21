@@ -1,0 +1,110 @@
+{
+  "name": "Swiper",
+  "version": "3.0.2",
+  "assets": {
+    "prod": {
+      "css": [
+        "framework/packages/swiper/dist/css/swiper.min.css"
+      ],
+      "js": [
+        "framework/packages/swiper/dist/js/swiper.min.js"
+      ]
+    },
+    "dev": {
+      "css": [
+        "framework/packages/swiper/dist/css/swiper.css"
+      ],
+      "js": [
+        "framework/packages/swiper/dist/js/swiper.js"
+      ]
+    }
+  },
+  "docs": "http://www.idangero.us/swiper/api/",
+  "config": {
+    "initialSlide": 0,
+    "direction": ["horizontal", "vertical"],
+    "speed": 300,
+    "autoplay": 0,
+    "autoplayDisableOnInteraction": [true, false],
+    "watchSlidesProgress": [false, true],
+    "watchVisibility": [false, true],
+    "freeMode": [false, true],
+    "freeModeMomentum": [true, false],
+    "freeModeMomentumRatio": 1,
+    "freeModeMomentumBounce": [true, false],
+    "freeModeMomentumBounceRatio": 1,
+    "effect": ["slide", "fade", "cube", "coverflow"],
+    "cube": {
+      "slideShadows": true,
+      "shadow": true,
+      "shadowOffset": 20,
+      "shadowScale": 0.94
+    },
+    "coverflow": {
+      "rotate": 50,
+      "stretch": 0,
+      "depth": 100,
+      "modifier": 1,
+      "slideShadows" : true
+    },
+    "spaceBetween": 0,
+    "slidesPerView": 1,
+    "slidesPerColumn": 1,
+    "slidesPerColumnFill": ["column", "row"],
+    "slidesPerGroup": 1,
+    "centeredSlides": [false, true],
+    "grabCursor": [false, true],
+    "touchRatio": 1,
+    "touchAngle": 45,
+    "simulateTouch": [true, false],
+    "shortSwipes": [true, false],
+    "longSwipes": [true, false],
+    "longSwipesRatio": 0.5,
+    "longSwipesMs": 300,
+    "followFinger": [true, false],
+    "onlyExternal": [false, true],
+    "threshold": 0,
+    "touchMoveStopPropagation": [true, false],
+    "resistance": [true, false],
+    "resistanceRatio": 0.85,
+    "preventClicks": [true, false],
+    "preventClicksPropagation": [true, false],
+    "releaseFormElements": [true, false],
+    "slideToClickedSlide": [false, true],
+    "allowSwipeToPrev": [true, false],
+    "allowSwipeToNext": [true, false],
+    "noSwiping": [true, false],
+    "noSwipingClass": "swiper-no-swiping",
+    "swipeHandler": null,
+    "pagination": null,
+    "paginationHide": [true, false],
+    "paginationClickable": [false, true],
+    "nextButton": null,
+    "prevButton": null,
+    "scrollbar": null,
+    "scrollbarHide": [true, false],
+    "keyboardControl": [false, true],
+    "mousewheelControl": [false, true],
+    "mousewheelForceToAxis": [false, true],
+    "hashnav": [false, true],
+    "updateOnImagesReady": [true, false],
+    "loop": [false, true],
+    "loopAdditionalSlides": 0,
+    "loopedSlides": null,
+    "control": null,
+    "controlInverse": [false, true],
+    "observer": [false, true],
+    "observeParents": [false, true],
+    "slideClass": "swiper-slide",
+    "slideActiveClass": "swiper-slide-active",
+    "slideVisibleClass": "swiper-slide-visible",
+    "slideDuplicateClass": "swiper-slide-duplicate",
+    "slideNextClass": "swiper-slide-next",
+    "slidePrevClass": "swiper-slide-prev",
+    "wrapperClass": "swiper-wrapper",
+    "bulletClass": "swiper-pagination-bullet",
+    "bulletActiveClass": "swiper-pagination-bullet-active",
+    "paginationHiddenClass": "swiper-pagination-hidden",
+    "buttonDisabledClass": "swiper-button-disabled"
+  }
+}

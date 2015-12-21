@@ -1,0 +1,12 @@
+{
+  "menu": {
+    "show": true,
+    "icon": "color_lens",
+    "name": {
+      "es": "Diseño"
+    },
+    "tooltip": {
+      "es": "Editar como se ve el sitio web"
+    }
+  }
+}

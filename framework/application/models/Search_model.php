@@ -29,9 +29,10 @@ class Search_model extends CI_Model
 
     public function publicaciones($value='', $lang = 'es', $paginaId)
     {
-        $this->db->select('publicaciones.publicacionId as id, publicaciones.paginaId, publicacionFecha, publicacionImagen, publicacionNombre, publicacionTexto');
+        $this->db->select('publicaciones.publicacionId as id, publicaciones.paginaId, publicacionFecha, publicacionImagen, publicacionNombre, publicacionTexto, publicacionUrl, paginaNombreURL');
         $this->db->join($lang.'_publicaciones', $lang.'_publicaciones.publicacionId = publicaciones.publicacionId', 'LEFT');
         $this->db->join('paginas', 'paginas.id = publicaciones.paginaId', 'LEFT');
+        $this->db->join($lang.'_paginas', 'paginas.id = ' . $lang . '_paginas.paginaId', 'LEFT');
         $this->db->where("(`publicaciones`.`paginaId` =  '".$paginaId."'
                 AND `publicaciones`.`publicacionHabilitado` =  1)
                 AND  (`publicacionNombre`  LIKE '%".$value."%'

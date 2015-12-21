@@ -1,0 +1,13 @@
+{
+  "content": false,
+  "menu": {
+    "show": true,
+    "icon": "view_carousel",
+    "name": {
+      "es": "Banners"
+    },
+    "tooltip": {
+      "es": "Banners animados, slideshows"
+    }
+  }
+}

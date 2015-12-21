@@ -1,0 +1,70 @@
+{
+	"name": "cartalyst/themes",
+	"description": "A theme framwork for your next web application. Theme inheritence, powered by Laravel and Assetic, can be used in any application!",
+	"keywords": ["platform", "ecommerce", "laravel", "bootstrap"],
+	"license": "proprietary",
+	"authors": [
+		{
+			"name": "Cartalyst LLC",
+			"email": "help@cartalyst.com"
+		},
+		{
+			"name": "Ben Corlett",
+			"email": "ben.corlett@cartalyst.com",
+			"role": "Developer"
+		},
+		{
+			"name": "Bruno Gaspar",
+			"email": "bruno.gaspar@cartalyst.com",
+			"role": "Developer"
+		},
+		{
+			"name": "Dan Syme",
+			"email": "dan.syme@cartalyst.com",
+			"role": "Project Lead"
+		}
+	],
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "http://packages.cartalyst.com"
+		}
+	],
+	"require": {
+		"php": ">=5.3.0",
+		"cartalyst/dependencies": "~1",
+		"herrera-io/json": "1.0.*",
+		"illuminate/filesystem": "~5.0",
+		"illuminate/support": "~5.0",
+		"illuminate/view": "~5.0",
+		"kriswallsmith/assetic": "~1.2",
+		"cartalyst/resource-watcher": "1.1.*",
+		"symfony/filesystem": "~2.5"
+	},
+	"suggest": {
+		"cartalyst/assetic-filters": "CoffeeScript & SASS PHP compiler.",
+		"oyejorge/less.php": "LESS PHP compiler.",
+		"leafo/scssphp": "SCSS PHP compiler.",
+		"leafo/scssphp-compass": "Compass support for SCSS PHP compiler.",
+		"natxet/CssMin": "CSS PHP minification.",
+		"lmammino/jsmin4assetic": "JavaScript PHP minification."
+	},
+	"require-dev": {
+		"mockery/mockery": "~0.9",
+		"illuminate/events": "~5.0",
+		"illuminate/routing": "~5.0",
+		"illuminate/view": "~5.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"Cartalyst\\Themes\\": "src"
+		}
+	},
+	"extra": {
+		"component": "package",
+		"branch-alias": {
+			"dev-master": "3.0.x-dev"
+		}
+	},
+	"minimum-stability": "stable"
+}

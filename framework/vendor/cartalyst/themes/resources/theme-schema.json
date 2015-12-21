@@ -1,0 +1,35 @@
+{
+	"name": "Theme Info JSON file",
+	"type": "object",
+	"additionalProperties": false,
+	"properties": {
+		"slug": {
+			"type": "string",
+			"description": "The theme's slug. If the theme belongs to an area, prepend the slug with the area plus \"::\". E.g. admin::cartalyst/default",
+			"pattern": "^([a-zA-Z0-9-_\/]+::)?[a-zA-Z0-9-_\/]+$",
+			"required": true
+		},
+		"parent": {
+			"type": "string",
+			"description": "The slug of the parent theme.",
+			"pattern": "^([a-zA-Z0-9-_\/]+::)?[a-zA-Z0-9-_\/]+$"
+		},
+		"name": {
+			"type": "string",
+			"description": "The theme's name."
+		},
+		"author": {
+			"type": "string",
+			"description": "The author's name. This could be their name, nickname or company name."
+		},
+		"description": {
+			"type": "string",
+			"description": "A description of the theme.."
+		},
+		"version": {
+			"type": "string",
+			"description": "The version of the theme. Must match format, Max 2 dots, 3 numbers between dots.",
+			"pattern": "\\d{1,2}(?:\\.\\d{1,2})?(?:\\.\\d{1,2})?$"
+		}
+	}
+}

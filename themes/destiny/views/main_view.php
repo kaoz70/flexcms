@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="<?=$diminutivo?>"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="<?=$diminutivo?>"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang="<?=$diminutivo?>"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="<?=$diminutivo?>"> <!--<![endif]-->
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="<?=$lang->slug?>"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="<?=$lang->slug?>"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang="<?=$lang->slug?>"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="<?=$lang->slug?>"> <!--<![endif]-->
 
 <head>
 	<meta charset="utf-8">
@@ -23,7 +23,7 @@
 	<link type="text/plain" rel="author" href="<?=base_url()?>humans.txt">
 
 	<?php foreach($menu_idiomas as $item): ?>
-		<? if($diminutivo != $item['diminutivo']): ?>
+		<? if($lang->slug != $item['diminutivo']): ?>
 			<link rel="alternate" hreflang="<?=$item['diminutivo'];?>" href="<?=$item['link'];?>" >
 		<? endif ?>
 	<?php endforeach; ?>
@@ -34,7 +34,7 @@
 			<?= !empty($pagPedidos) ? "pag_pedidos: '" . $pagPedidos->paginaNombreURL . "'," . PHP_EOL : ""?>
 			<?= !empty($pagAutenticacion) ? "pag_autenticacion: '" . $pagAutenticacion->paginaNombreURL . "'," . PHP_EOL : ""?>
 			<?= $popup_banner ? "popup_banner: { html:'" . $popup_banner->html . "',id: " . $popup_banner->id . "}," . PHP_EOL : ""?>
-			lang: '<?=$diminutivo?>',
+			lang: '<?=$lang->slug?>',
 			fb_login: false
 		}
 	</script>
@@ -44,15 +44,10 @@
 		'framework/packages/magnific-popup/dist/magnific-popup.css',
 		'framework/packages/bx-slider.js/dist/jquery.bxslider.css',
 		'themes/' . $theme . '/css/system.scss',
-		'themes/' . $theme . '/css/global.less',
-		'themes/' . $theme . '/css/global.sass',
 		'themes/' . $theme . '/css/global.scss',
-		'themes/' . $theme . '/css/pages.less',
-		'themes/' . $theme . '/css/pages.sass',
 		'themes/' . $theme . '/css/pages.scss',
 		'themes/' . $theme . '/packages/font-awesome/css/font-awesome.css',
 		'themes/' . $theme . '/css/mobile_menu.scss',
-		'themes/' . $theme . '/css/generated/background.css',
 	)), $theme); ?>
 
 	<script src="<?= base_url('framework/packages/foundation/js/vendor/modernizr.js') ?>"></script>
@@ -73,9 +68,9 @@
 
 </head>
 
-<body <?=$clase;?>>
+<body class="<?=$page->css_class?>">
 
-<? if($config->facebook_login): ?>
+<? if($config['facebook_login']): ?>
 <script src="<?= base_url('themes/' . $theme . '/scripts/facebook_login.js') ?>"></script>
 <script>init_facebook_login('<?=$config->facebook_app_id?>')</script>
 <? endif ?>
@@ -179,7 +174,8 @@
 		<div class="row">
 			<div class="column large-6" id="submenu">
 				<? foreach ($footermenu as $item): ?>
-					<a class="item_<?=$item['paginaId']?> <?=$item['paginaNombreURL'] == $pagina_url ? 'active' : '' ?> <?=$item['paginaClase']?>" href="<?=base_url($diminutivo.'/'.$item['paginaNombreURL'])?>"><?=$item['paginaNombreMenu']?></a>
+					<? print_r($item) ?>
+					<a class="item_<?=$item['id']?> <?=$item['url'] == $pagina_url ? 'active' : '' ?> <?=$item['css_class']?>" href="<?=base_url($lang->slug.'/'.$item['paginaNombreURL'])?>"><?=$item['paginaNombreMenu']?></a>
 				<? endforeach ?>
 			</div>
 			<div class="column large-6 align-right" id="author">
@@ -232,7 +228,7 @@
 	'packages/flexcms/system.js',
     'packages/formvalidation/dist/js/formValidation.min.js',
     'packages/formvalidation/dist/js/framework/foundation.min.js', //bootstrap.min.js
-    'packages/formvalidation/dist/js/language/' . ($diminutivo === 'es' ? 'es_ES' : 'en_US') . '.js',
+    'packages/formvalidation/dist/js/language/' . ($lang->slug === 'es' ? 'es_ES' : 'en_US') . '.js',
 	'themes/' . $theme . '/scripts/share.js',
 	'themes/' . $theme . '/scripts/custom.js',
 ), $theme); ?>

@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * Part of the Sentinel Social package.
+ *
+ * NOTICE OF LICENSE
+ *
+ * Licensed under the Cartalyst PSL License.
+ *
+ * This source file is subject to the Cartalyst PSL License that is
+ * bundled with this package in the LICENSE file.
+ *
+ * @package    Sentinel Social
+ * @version    2.0.4
+ * @author     Cartalyst LLC
+ * @license    Cartalyst PSL
+ * @copyright  (c) 2011-2015, Cartalyst LLC
+ * @link       http://cartalyst.com
+ */
+
+namespace Cartalyst\Sentinel\Addons\Social\RequestProviders;
+
+interface RequestProviderInterface
+{
+    /**
+     * Get the OAuth 1 temporary credentials identifier from the query string.
+     *
+     * @return string
+     */
+    public function getOAuth1TemporaryCredentialsIdentifier();
+
+    /**
+     * Get the OAuth 1 verifier code from the query string.
+     *
+     * @return string
+     */
+    public function getOAuth1Verifier();
+
+    /**
+     * Get the OAuth 2 code from the query string used to retrieve access tokens.
+     *
+     * @return string
+     */
+    public function getOAuth2Code();
+}

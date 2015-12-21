@@ -1,4 +1,6 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php use Cartalyst\Sentinel\Native\Facades\Sentinel;
+
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Seguridad
 {
@@ -25,12 +27,12 @@ class Seguridad
 	private function checkAdmin()
 	{
 		$CI =& get_instance();
-		$CI->load->library('ion_auth');
+		//$CI->load->library('auth/ion_auth');
         $CI->load->set_admin_theme();
 
-		if ($CI->ion_auth->logged_in())
+		if (Sentinel::check())
 		{
-			if($CI->ion_auth->is_admin() || $CI->ion_auth->in_group('superadmin'))
+			if(Sentinel::inRole('admin') || Sentinel::inRole('superadmin'))
 			{
 				//ADMIN
 			}

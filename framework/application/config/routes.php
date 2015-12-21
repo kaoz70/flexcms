@@ -74,11 +74,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+
+//$route['default_controller'] = 'DefaultController/index'; //Testing HMVC
 $route['default_controller'] = 'html';
 $route['404_override'] = 'errors/e404';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['([a-z]{2})/(.+)'] = "html/$1";
+//Module Admin routes
+$route['admin/slider'] = 'slider';
+$route['admin/slider/(:any)'] = 'slider/$1';
+$route['admin/slider/(:any)/(:any)'] = 'slider/$1/$2';
+$route['admin/slider/(:any)/(:any)/(:any)'] = 'slider/$1/$2/$3';
+
+//$route['([a-z]{2})/(.+)'] = "html/$1";
+
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

@@ -1120,72 +1120,7 @@ class CMS_Modules {
 	}
 
 
-	/**
-	 * Creates the menu and the path to the active node
-	 * @return array
-	 */
-	public function createMenu($idioma)
-	{
-		$CI =& get_instance();
-		$path = $CI->m_breadcrumbs['page']['path'];
 
-		$tree = $this->_getCachedTree($idioma . '_pages_', 'PageTree::allRoot', $idioma);
-
-		//Get the Catalog Content module to check whether to show catalog category submenu in the catalog menu item
-		$catalogModule = $CI->Modulos->getContentModule(4);
-
-		//Check to see if its the catalog page and and if we want to show the category list in the menu item
-		$catalog = array();
-		if($catalogModule && $catalogModule->moduloParam2) {
-			$catalogoPagina = $CI->Modulos->getPageByType(4,$idioma);
-			$catalog = $this->createSpecialMenu('CatalogTree', $idioma, $catalogoPagina, $CI->m_breadcrumbs['catalog']['path']);
-		}
-
-		//Get the Gallery Content module to check whether to show the category submenu in the gallery menu item
-		$galleryModule = $CI->Modulos->getContentModule(6);
-
-		//Check to see if its the gallery page and and if we want to show the category list in the menu item
-		$gallery = array();
-		if($galleryModule && $galleryModule->moduloParam2) {
-			$galleryPagina = $CI->Modulos->getPageByType(6,$idioma);
-			$gallery = $this->createSpecialMenu('GalleryTree', $idioma, $galleryPagina, $CI->m_breadcrumbs['gallery']['path']);
-		}
-
-		return compact('tree', 'path', 'catalog', 'gallery');
-	}
-
-	public function createSpecialMenu($class, $idioma, $page, $path)
-	{
-		$tree = $this->_getCachedTree($idioma . '_' . $class . '_', $class . '::allRoot', $idioma);
-		return compact('tree', 'path', 'page');
-	}
-
-	/**
-	 * Checks if the Tree node is cached, and returns it, or else query again
-	 *
-	 * @param $key
-	 * @param $method
-	 * @param $lang
-	 * @param array $params
-	 * @return mixed
-	 */
-	private function _getCachedTree($key, $method, $lang, $params = array())
-	{
-
-		$CI =& get_instance();
-
-		if ( ! $tree = $CI->cache->get($key)) {
-			$tree = call_user_func_array($method, $params)->first();
-			$tree->lang = $lang;
-			$tree->findChildren(999);
-			if(ENVIRONMENT !== 'development') {
-				$CI->cache->save($key, $tree, $this->m_cache_time);
-			}
-		}
-
-		return $tree;
-
-	}
 
 }
 

@@ -2,21 +2,23 @@
   "name": "Dejabu/FlexCMS",
   "description": "Content Management System",
   "require": {
-    "kriswallsmith/assetic": "1.2.0",
-    "leafo/lessphp": "0.4.0",
-    "leafo/scssphp": "0.1.0",
-    "natxet/CssMin": "3.0.2",
-    "lmammino/jsmin4assetic": "1.0.0",
-    "ptachoire/cssembed": "1.0.2",
+    "kriswallsmith/assetic": "1.3.*",
     "lonnieezell/codeigniter-forensics": "dev-master",
     "gajus/dindent": "2.0.*",
-    "parsecsv/php-parsecsv": "0.4.5",
-    "cartalyst/nested-sets": "2.0.*",
-    "cartalyst/sentinel": "1.0.*",
-    "illuminate/database": "4.2.*",
-    "mrclay/minify": "3.0.*@dev",
-    "facebook/php-sdk-v4" : "4.0.*",
-    "mailchimp/mailchimp": "2.0.*"
+    "mailchimp/mailchimp": "2.0.*",
+    "parsecsv/php-parsecsv": "0.4.*",
+    "mrclay/minify": "2.2.*",
+    "raveren/kint": "^1.0",
+    "illuminate/database": "^5.1",
+    "illuminate/view": "^5.1",
+    "cartalyst/sentinel": "2.0.*",
+    "cartalyst/sentinel-social": "2.0.*",
+    "cartalyst/interpret": "1.1.*",
+    "leafo/scssphp": "0.5.*",
+    "leafo/lessphp": "0.5.*",
+    "cartalyst/nested-sets": "3.0.*",
+    "cartalyst/themes": "3.0.*",
+    "symfony/http-foundation": "^2.7"
   },
   "repositories": [
     {
@@ -29,23 +31,18 @@
     "codeigniter-sparks-dir": "framework/sparks"
   },
   "minimum-stability": "dev",
+  "prefer-stable": true,
   "autoload": {
     "classmap": [
+      "framework/application/controllers",
+      "framework/application/libraries",
       "framework/application/interfaces",
-      "framework/application/models/eloquent",
-      "framework/application/workers",
-      "framework/application/controllers/admin/calendar",
-      "framework/application/controllers/admin/catalog",
-      "framework/application/controllers/admin/contact",
-      "framework/application/controllers/admin/gallery",
-      "framework/application/controllers/admin/maps",
-      "framework/application/controllers/admin/publications",
-      "framework/application/controllers/admin/services",
-      "framework/application/controllers/admin/sliders",
-      "framework/application/controllers/admin/users"
+      "framework/application/modules",
+      "framework/application/models",
+      "framework/application/widgets"
     ]
   },
   "config": {
-    "vendor-dir": "framework/application/vendor"
+    "vendor-dir": "framework/vendor"
   }
 }

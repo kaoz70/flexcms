@@ -1,98 +1,169 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php use App\Config;
 
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+use App\Language;
+use App\Category;
+use Illuminate\Database\Schema\Blueprint;
 
-class Html extends CI_Controller {
+class Html extends MX_Controller {
 
-    public $m_config;
+    /**
+     * Stores the site's configuration data
+     *
+     * @var array
+     */
+    public $config;
+
+    /**
+     * Stores the current theme's configuration data
+     *
+     * @var
+     */
     public $theme_config;
-    public $m_idioma;
-    public $m_currentPage;
+
+    /**
+     * Language data
+     *
+     * @var
+     */
+    public $language;
+
+    /**
+     * Array of views that will be generated
+     * @var
+     */
     public $m_views_html;
 
+    /**
+     * Data array of all the variables that will be passed into the views
+     *
+     * @var
+     */
+    public $data;
+
+    /**
+     * Stores the current page Class
+     * @var
+     */
     private $page;
-    private $m_user;
-    private $m_idioma_object;
-    private $m_cache_time = 3000;
-    public $m_breadcrumbs;
+
+    /**
+     * Stores the current users data
+     *
+     * @var
+     */
+    private $user;
+
+    /**
+     * Time that the site will cache views and database data
+     *
+     * @var int
+     */
+    private $cache_time = 9999;
+
+    /**
+     * Breadcrumb data
+     *
+     * @var
+     */
+    public $breadcrumbs;
+
+    /**
+     * Reference to the Class singleton
+     *
+     * @var	object
+     */
+    private static $instance;
 
     function __construct(){
 
         parent::__construct();
+        self::$instance =& $this;
 
-        $this->load->model('admin/page_model', 'Page');
-        $this->load->model('banners_model', 'Banners');
-        $this->load->model('configuracion_model', 'Config');
+        //$this->load->model('admin/page_model', 'Page');
+        //$this->load->model('banners_model', 'Banners');
+        $this->load->model('config_model', 'Config');
         $this->load->model('estadisticas_model', 'Stats');
-        $this->load->model('idiomas_model', 'Idiomas');
+        $this->load->model('language_model', 'Idiomas');
         $this->load->model('module_model', 'Modulos');
-        $this->load->model('pedido_model', 'Pedido');
-        $this->load->model('contact_model', 'Contact');
-        $this->load->model('publicidad_model', 'Publicidad');
-        $this->load->model('usuarios_model', 'Usuarios');
+        //$this->load->model('pedido_model', 'Pedido');
+        //$this->load->model('contact_model', 'Contact');
+        //$this->load->model('publicidad_model', 'Publicidad');
+        //$this->load->model('usuarios_model', 'Usuarios');
 
-        $this->m_config = $this->Config->get();
+
+        $this->load->module('auth/main');
+        //$this->load->module('cart/main');
+
+        $this->config = Config::get();
+
 
         /*
          * Load these for the language menu
          */
-        $this->load->model('catalogo_model', 'Catalog');
-        $this->load->model('noticias_model', 'Noticias');
-        $this->load->model('descargas_model', 'Downloads');
-        $this->load->model('servicios_model', 'Servicios');
+        //$this->load->model('catalogo_model', 'Catalog');
+        //$this->load->model('noticias_model', 'Noticias');
+        //$this->load->model('descargas_model', 'Downloads');
+        //$this->load->model('servicios_model', 'Servicios');
 
         /*
          * Custom Libraries
          */
-        $this->load->library('CMS_Modules');
+        //$this->load->library('CMS_Modules');
         $this->load->library('CMS_General');
-        $this->load->library('CMS_Authenticate', array('config' => $this->m_config));
+        //$this->load->library('CMS_Authenticate', array('config' => $this->m_config));
         $this->load->library('MyConsole');
 
         $this->load->helper('cache_expire');
-        if (!is_cache_valid('cache_expire',$this->m_cache_time)){
+        if (!is_cache_valid('cache_expire',$this->cache_time)){
             $this->db->cache_delete_all();
         }
 
         //Check if the theme's directory exists, if not use the default one and show an error message
-        if ( ! file_exists(FCPATH . 'themes' . DIRECTORY_SEPARATOR . $this->m_config->theme)) {
+        if ( ! file_exists(FCPATH . 'themes' . DIRECTORY_SEPARATOR . $this->config['theme'])) {
             $this->session->set_flashdata(
                 'error',
-                '<div data-alert class="alert-box">La carpeta: "themes' . DIRECTORY_SEPARATOR . $this->m_config->theme . '" no existe para el tema: <strong>' . $this->m_config->theme . '</strong></br>Se va a utilizar la carpeta <strong>"themes ' . DIRECTORY_SEPARATOR . 'default"</strong> por ahora...</div>'
+                '<div data-alert class="alert-box">La carpeta: "themes' . DIRECTORY_SEPARATOR . $this->config['theme'] . '" no existe para el tema: <strong>' . $this->config['theme'] . '</strong></br>Se va a utilizar la carpeta <strong>"themes ' . DIRECTORY_SEPARATOR . 'default"</strong> por ahora...</div>'
             );
-            $this->m_config->theme = 'default';
+            $this->config['theme'] = 'default';
         }
 
         //Set theme
-        $this->theme_config = $this->load->set_theme($this->m_config->theme);
+        $this->theme_config = $this->load->set_theme($this->config['theme']);
 
-        $this->m_idioma_object = $this->Idiomas->check($this->uri->segment(1, 'es'));
-        $this->m_idioma = $this->m_idioma_object->idiomaDiminutivo;
+        //$this->m_idioma_object = $this->Idiomas->check($this->uri->segment(1, 'es'));
+        $this->language = Language::where('slug', '=', $this->uri->segment(1, 'es'))->first();
 
-        $this->m_user = $this->ion_auth->user()->row();
-        if($this->m_user) {
-            $this->m_user->campos = $this->Usuarios->getCamposUser($this->m_user->id, $this->m_idioma);
+        //print_r($this->language);
+
+        if(!$this->language) {
+            show_error('Ese idioma no existe', 404, 'Error');
         }
+
+        //TODO
+        /*$this->user = $this->ion_auth->user()->row();
+        if($this->user) {
+            $this->user->campos = $this->Usuarios->getCamposUser($this->user->id, $this->language);
+        }*/
 
         // IMPORTANT! This global must be defined BEFORE the flexi cart library is loaded!
         // It is used as a global that is accessible via both models and both libraries, without it, flexi cart will not work.
         $this->flexi = new stdClass;
 
         // Load 'standard' and 'lite' flexi cart libraries.
-        $this->load->library('flexi_cart');
+        //$this->load->library('flexi_cart');
 
         // Load cart data to be displayed via 'Mini Cart' menu.
         $this->mini_cart_data();
 
-        $this->m_currentPage = urldecode($this->uri->segment(2, ''));
-
         //Set any date related configurations
-        setlocale(LC_ALL, $this->m_idioma);
+        setlocale(LC_ALL, $this->language);
         //date_default_timezone_set('America/Guayaquil');
 
         //Load the language file for the Interface Translations
-        $this->lang->load('ui', $this->m_idioma_object->idiomaNombre);
-        $this->lang->load('errors', $this->m_idioma_object->idiomaNombre);
+        $this->lang->load('ui', $this->language->name);
+        $this->lang->load('errors', $this->language->name);
 
         //Checks if the site is offline
         $this->is_offline();
@@ -113,8 +184,9 @@ class Html extends CI_Controller {
     {
 
         //If the URL is a page
+        //TODO fix this
         if($this->uri->segment(1) AND $this->uri->segment(2)) {
-            $this->page($this->uri->segment(2));
+            $this->createPage($this->uri->segment(2));
         }
 
         //If no URL, its the index page
@@ -125,38 +197,31 @@ class Html extends CI_Controller {
     }
 
     /**
+     * Reference to the Class method.
+     *
+     * Returns current Class instance object
+     *
+     * @return object
+     */
+    static function &get_instance()
+    {
+        return self::$instance;
+    }
+
+    /**
      * Index method, called when no URI segment is present, it guesses the users preferred language and redirects to
      * the home page in the correct language or defaults to spanish home page
      */
     private function index()
     {
 
-        $idiomas = $this->Idiomas->getLanguages();
-
-        if(array_key_exists('HTTP_ACCEPT_LANGUAGE', $_SERVER)) {
-
-            $languageArray = array();
-
-            foreach ($idiomas as $value) {
-                $languageArray[] = $value['idiomaDiminutivo'];
-            }
-
-            $this->m_idioma = $this->cms_general->prefered_language($languageArray);
-
+        try {
+            $this->language = Language::preferred();
+            $this->page = Config::siteIndex($this->language->id);
+            $this->createPage($this->page->url);
+        } catch(Exception $e) {
+            show_error($e->getMessage(), 500, 'Error');
         }
-
-        else {
-            $this->m_idioma = 'es';
-        }
-
-        $index = $this->Config->siteIndex($this->m_idioma);
-
-        if($index) {
-            $this->m_currentPage = $index->paginaNombreURL;
-            $this->page($index->paginaNombreURL);
-        }
-        else
-            show_error('Cree una p&aacute;gina y config&uacute;rela para que sea "p&aacute;gina inicial".');
 
     }
 
@@ -167,107 +232,113 @@ class Html extends CI_Controller {
      * @param $name
      * @throws \Gajus\Dindent\Exception\RuntimeException
      */
-    private function page($name)
+    private function createPage($name)
     {
 
-        //Merge the Cart library's data with my data
-        $data = $this->data;
-
         //Show 404 if we cant find the page
-        if(! $page = $this->Page->getPage($name, $this->m_idioma)) {
-            show_my_404(base_url($this->m_idioma.'/'.$name), $this->m_config->theme);
+        if(!$this->page) {
+            show_my_404(base_url($this->language.'/'.$name), $this->config['theme']);
         }
 
-        //Enable Profiler only in testing
-        if((bool)$this->m_config->debug_bar) {
+        //Enable Profiler
+        if((bool)$this->config['debug_bar']) {
             $this->load->add_package_path(APPPATH.'third_party/codeigniter-forensics');
             $this->output->enable_profiler(TRUE);
         }
 
-        $data['page'] = $this->page = $page;
+        $this->data['page'] = $this->page;
 
         //Get any special pages
-        $data['pagPedidos'] = $this->Modulos->getPageByType(9, $this->m_idioma);
-        $data['pagAutenticacion'] = $this->Modulos->getPageByType(11, $this->m_idioma);
+        //$this->data['pagPedidos'] = $this->Modulos->getPageByType(9, $this->language);
+        //$this->data['pagAutenticacion'] = $this->Modulos->getPageByType(11, $this->language);
 
         //Enable full page cache only in production and if no special pages (auth, cart)
-        if(ENVIRONMENT === 'production' AND ! $data['pagPedidos'] AND ! $data['pagAutenticacion']){
-            $this->output->cache($this->m_cache_time);
+        if(ENVIRONMENT === 'production' AND ! $this->data['pagPedidos'] AND ! $this->data['pagAutenticacion']){
+            $this->output->cache($this->cache_time);
         }
 
-        $data['pagina_url'] = $name;
-        $data['config'] = $this->m_config;
-        $data['usuario'] = $this->m_user;
-        $data['menu_idiomas'] = array();
-        $data['diminutivo'] = $this->m_idioma;
-        $data['nombre_sitio'] = $this->m_config->site_name;
-        $data['theme'] = $this->m_config->theme;
-        $data['theme_asset'] = base_url('themes/' . $this->m_config->theme);
-        $data['direcciones'] = $this->Contact->getDirecciones($this->m_idioma);
+        $this->data['pagina_url'] = $name;
+        $this->data['config'] = $this->config;
+        $this->data['usuario'] = $this->user;
+        $this->data['menu_idiomas'] = array();
+        $this->data['lang'] = $this->language;
+        $this->data['nombre_sitio'] = $this->config['site_name'];
+        $this->data['theme'] = $this->config['theme'];
+        $this->data['theme_asset'] = base_url('themes/' . $this->config['theme']);
 
         //Meta tags
-        $data['meta_description'] = $page->paginaDescripcion;
-        $data['meta_keywords'] = implode(',',array_map('trim', explode(',', $page->paginaKeywords))); //Format the keywords (remove any whitespaces)
+        $this->data['meta_description'] = $this->page->data->meta_description;
+        $this->data['meta_keywords'] = implode(',',$this->page->data->meta_keywords);
 
         //OpenGraph data
-        $data['og_image'] = '';
-        $data['og_title'] = '';
-        $data['og_description'] = '';
+        $this->data['og_image'] = '';
+        $this->data['og_title'] = '';
+        $this->data['og_description'] = '';
 
         //Get any popup "publicity" banners on the page
-        $data['popup_banner'] = $this->popup_banners($page);
+        //TODO
+        $this->data['popup_banner'] = $this->popup_banners();
 
         //Get all the banner assets
+        //TODO
         $banner_assets = $this->get_banner_assets();
-        $data['assets_banner_js'] = $banner_assets->js;
-        $data['assets_banner_css'] = $banner_assets->css;
-        $data['assets_banner_cdn'] = $banner_assets->cdn;
+        $this->data['assets_banner_js'] = $banner_assets->js;
+        $this->data['assets_banner_css'] = $banner_assets->css;
 
-        $data['error_message'] = $this->session->flashdata('error');
+        $this->data['error_message'] = $this->session->flashdata('error');
 
         //Generate the page structure
-        $data = $this->generate_structure($page, $data);
+        //$data = $this->generateStructure();
 
         //Create the SEO friendly title
-        $data['titulo'] = $this->create_page_title($page, $data);
-        $data['nombre_sitio'] = $this->m_config->site_name;
-        $data['footermenu'] = $this->Page->getPages($this->m_idioma);
+        //TODO
+        $this->data['titulo'] = $this->create_page_title($this->data);
+        $this->data['nombre_sitio'] = $this->config['site_name'];
+        $this->data['footermenu'] = []; //TODO menu here
 
-        $data['loggedIn'] = $this->ion_auth->logged_in();
+        $this->data['loggedIn'] = $this->ion_auth->logged_in();
 
         //Get the number of items in the Cart
-        $cart_data = $this->flexi_cart->cart_array();
-        $data['cantPedidos'] = count($cart_data['items']);
+        /*$cart_data = $this->flexi_cart->cart_array();
+        $this->data['cantPedidos'] = count($cart_data['items']);*/
 
         //Stats
-        $stats = $this->Stats->getTotalVisits();
-        $data['visitas'] = $stats->hits_total;
-
-        //Add the page class
-        $page->paginaClase ? $data['clase'] = 'class="' . $page->paginaClase . '"' : $data['clase'] = '';
+        /*$stats = $this->Stats->getTotalVisits();
+        $this->data['visitas'] = $stats->hits_total;*/
 
         //Creamos el menu principal
-        $data['menu'] = $this->cms_modules->createMenu($this->m_idioma);
+       // $this->data['menu'] = $this->cms_modules->createMenu($this->language);
+
+        try {
+            $this->data['menu'] = Category::createMenu($this->language->slug);
+            $category = Category::find(18);
+            $category->findChildren(1);
+
+        } catch (Exception $e) {
+            var_dump($e);
+        }
+
+
 
         //Creamos el menu de idioma
-        $data['menu_idiomas'] = $this->create_language_menu($page);
+        //$this->data['menu_idiomas'] = $this->create_language_menu($page);
 
-        Console::log_memory($data, 'Data');
+        Console::log_memory($this->data, 'Data');
 
         /**************************************************************************************************************
          * Print all the views and the HTML after all the logic
          *************************************************************************************************************/
 
-        if( ! $page->paginaEsPopup OR ! $this->input->is_ajax_request()) {
+        if( ! $this->page->popup OR ! $this->input->is_ajax_request()) {
             $this->benchmark->mark('main_view_start');
-            $html = $this->load->view('main_view', $data, TRUE);
+            $html = $this->load->view('main_view', $this->data, TRUE);
             $this->benchmark->mark('main_view_end');
         } else {
             $html = $this->m_views_html;
         }
 
-        //Indent the code in development for better readability
-        if(ENVIRONMENT === 'development') {
+        //Indent the code for better readability
+        if(ENVIRONMENT === 'development' && (bool)$this->config['indent_html']) {
             ini_set('memory_limit', '-1'); //Disable the memory limit on development, no worries here
             $indenter = new \Gajus\Dindent\Indenter();
             $html = $indenter->indent($html); //Indent all the HTML
@@ -276,7 +347,7 @@ class Html extends CI_Controller {
         if(ENVIRONMENT === 'production') {
 
             //Start generating stats in production
-            $this->log_activity($page->paginaId);
+            $this->log_activity($this->page->id);
 
             //Minify HTML
             $html = Minify_HTML::minify($html, array(
@@ -298,9 +369,12 @@ class Html extends CI_Controller {
      * @param $page
      * @return stdClass|string
      */
-    private function popup_banners($page)
+    private function popup_banners()
     {
-        $popup_banner = $this->Publicidad->getByPage($page->paginaId, 3);
+
+        return;
+
+        $popup_banner = $this->Publicidad->getByPage($this->page->id, 3);
         $popup = '';
 
         if($popup_banner){
@@ -319,8 +393,10 @@ class Html extends CI_Controller {
      * @param $page
      * @return string
      */
-    private function create_page_title($page, $data)
+    private function create_page_title($data)
     {
+
+        return '';
 
         //Add an identifier to the title if in development
         $environment = '';
@@ -328,14 +404,14 @@ class Html extends CI_Controller {
             $environment = '[' . strtoupper(ENVIRONMENT) . '] ';
         }
 
-        $title = $environment . $this->m_config->site_name . ' | '; //Site name
+        $title = $environment . $this->config['site_name'] . ' | '; //Site name
         $title .= $this->m_breadcrumbs['page']['names']['nombre']; //Breadcrumb slug
-        if( ! isset($data['meta_title']) && $page->paginaTitulo) {
+        if( ! isset($this->data['meta_title']) && $page->paginaTitulo) {
             $title .= ' - ';
             $title .= $page->paginaTitulo; //Site meta title
-        } else if(isset($data['meta_title'])){
+        } else if(isset($this->data['meta_title'])){
             $title .= ' - ';
-            $title .= $data['meta_title']; //Product / Services meta title
+            $title .= $this->data['meta_title']; //Product / Services meta title
         }
 
         return $title;
@@ -355,6 +431,8 @@ class Html extends CI_Controller {
         $assets->cdn = array();
         $assets->generated = array();
         $banners_path = FCPATH . 'assets/public/banners/';
+
+        return $assets;
 
         $this->benchmark->mark('banners_start');
 
@@ -402,12 +480,18 @@ class Html extends CI_Controller {
 
     /**
      * Generates the page structure (Rows, Columns, Modules)
-     * @param $page
-     * @param $data
      * @return mixed
      */
-    private function generate_structure($page, $data)
+    private function generateStructure()
     {
+
+
+
+
+
+        // return;
+        //$this->data
+        //$this->page
 
         if(property_exists($this->theme_config, 'framework') AND $this->theme_config->framework === 'bootstrap') {
 
@@ -450,15 +534,15 @@ class Html extends CI_Controller {
         //Check if modules are cached
         if ( ! $modules = $this->cache->get('modules'))
         {
-            $modules = $this->Modulos->getPageModules($page->paginaId, $this->m_idioma);
+            $modules = $this->Modulos->getPageModules($page->paginaId, $this->language);
             if(ENVIRONMENT !== 'development') {
-                $this->cache->save('modules', $modules, $this->m_cache_time);
+                $this->cache->save('modules', $modules, $this->cache_time);
             }
         }
 
         $modules_exist = FALSE;
 
-        $this->m_breadcrumbs = $this->paths($page, $this->m_idioma);
+        $this->breadcrumbs = $this->paths($page, $this->language);
 
         //Check and see if the current user has access to the page, or the page is public
         if(
@@ -538,19 +622,19 @@ class Html extends CI_Controller {
 
                             //Creates the Modules
                             $moduleData['titulo'] = $m_value->moduloNombre;
-                            $moduleData['diminutivo'] = $this->m_idioma;
+                            $moduleData['diminutivo'] = $this->language;
                             $moduleData['moduloClase'] = $m_value->moduloClase;
 
                             switch ($m_value->paginaModuloTipoId)
                             {
                                 case 1:
-                                    $this->m_views_html .= $this->cms_modules->publicaciones($page, $m_value, $moduleData, $this->m_idioma);
+                                    $this->m_views_html .= $this->cms_modules->publicaciones($page, $m_value, $moduleData, $this->language);
                                     break;
                                 case 2:
-                                    $this->m_views_html .= $this->cms_modules->productosCategoria($m_value, $moduleData, $this->m_idioma);
+                                    $this->m_views_html .= $this->cms_modules->productosCategoria($m_value, $moduleData, $this->language);
                                     break;
                                 case 3:
-                                    $this->m_views_html .= $this->cms_modules->html($m_value, $moduleData, $this->m_idioma, $data);
+                                    $this->m_views_html .= $this->cms_modules->html($m_value, $moduleData, $this->language, $data);
                                     break;
                                 case 4:
                                     $this->m_views_html .= $this->cms_modules->twitter($m_value, $moduleData);
@@ -565,15 +649,15 @@ class Html extends CI_Controller {
                                     break;
 
                                 case 9:
-                                    $this->m_views_html .= $this->cms_modules->banner($m_value, $moduleData, $this->m_idioma);
+                                    $this->m_views_html .= $this->cms_modules->banner($m_value, $moduleData, $this->language);
                                     break;
 
                                 case 10:
-                                    $this->m_views_html .= $this->cms_modules->productosDestacados($m_value, $moduleData, $this->m_idioma);
+                                    $this->m_views_html .= $this->cms_modules->productosDestacados($m_value, $moduleData, $this->language);
                                     break;
 
                                 case 11:
-                                    $this->m_views_html .= $this->cms_modules->productosMenu($m_value, $moduleData, $this->m_idioma);
+                                    $this->m_views_html .= $this->cms_modules->productosMenu($m_value, $moduleData, $this->language);
                                     break;
 
                                 case 12:
@@ -581,51 +665,51 @@ class Html extends CI_Controller {
                                     break;
 
                                 case 13:
-                                    $this->m_views_html .= $this->cms_modules->faq($m_value, $moduleData, $this->m_idioma);
+                                    $this->m_views_html .= $this->cms_modules->faq($m_value, $moduleData, $this->language);
                                     break;
 
                                 case 14:
-                                    $this->m_views_html .= $this->cms_modules->enlaces($m_value, $moduleData, $this->m_idioma);
+                                    $this->m_views_html .= $this->cms_modules->enlaces($m_value, $moduleData, $this->language);
                                     break;
 
                                 case 15:
-                                    $this->m_views_html .= $this->cms_modules->galeria($m_value, $moduleData, $this->m_idioma);
+                                    $this->m_views_html .= $this->cms_modules->galeria($m_value, $moduleData, $this->language);
                                     break;
 
                                 case 16:
-                                    $this->m_views_html .= $this->cms_modules->mapa($m_value, $moduleData, $this->m_idioma);
+                                    $this->m_views_html .= $this->cms_modules->mapa($m_value, $moduleData, $this->language);
                                     break;
 
                                 case 17:
-                                    $this->m_views_html .= $this->cms_modules->productoFiltros($m_value, $moduleData, $this->m_idioma);
+                                    $this->m_views_html .= $this->cms_modules->productoFiltros($m_value, $moduleData, $this->language);
                                     break;
 
                                 case 18:
-                                    $this->m_views_html .= $this->cms_modules->menu($m_value, $moduleData, $this->m_idioma);
+                                    $this->m_views_html .= $this->cms_modules->menu($m_value, $moduleData, $this->language);
                                     break;
 
                                 case 19:
-                                    $this->m_views_html .= $this->cms_modules->productosAzar($m_value, $moduleData, $this->m_idioma);
+                                    $this->m_views_html .= $this->cms_modules->productosAzar($m_value, $moduleData, $this->language);
                                     break;
 
                                 case 20:
-                                    $this->m_views_html .= $this->cms_modules->contacto($m_value, $moduleData, $this->m_idioma);
+                                    $this->m_views_html .= $this->cms_modules->contacto($m_value, $moduleData, $this->language);
                                     break;
 
                                 case 21:
-                                    $this->m_views_html .= $this->cms_modules->articulo($m_value, $moduleData, $this->m_idioma);
+                                    $this->m_views_html .= $this->cms_modules->articulo($m_value, $moduleData, $this->language);
                                     break;
 
                                 case 22:
-                                    $this->m_views_html .= $this->cms_modules->servicios($m_value, $moduleData, $this->m_idioma);
+                                    $this->m_views_html .= $this->cms_modules->servicios($m_value, $moduleData, $this->language);
                                     break;
 
                                 case 23:
-                                    $this->m_views_html .= $this->cms_modules->breadcrumbs($m_value, $page, $this->m_idioma, $this->m_breadcrumbs);
+                                    $this->m_views_html .= $this->cms_modules->breadcrumbs($m_value, $page, $this->language, $this->breadcrumbs);
                                     break;
 
                                 case 24:
-                                    $this->m_views_html .= $this->cms_modules->direcciones($m_value, $moduleData, $this->m_idioma, $data);
+                                    $this->m_views_html .= $this->cms_modules->direcciones($m_value, $moduleData, $this->language, $data);
                                     break;
 
                                 case 25:
@@ -633,11 +717,11 @@ class Html extends CI_Controller {
                                     break;
 
                                 case 26:
-                                    $this->m_views_html .= $this->cms_modules->productosDestacadosAzar($m_value, $moduleData, $this->m_idioma);
+                                    $this->m_views_html .= $this->cms_modules->productosDestacadosAzar($m_value, $moduleData, $this->language);
                                     break;
 
                                 case 27:
-                                    $this->m_views_html .= $this->cms_modules->serviciosDestacados($m_value, $moduleData, $this->m_idioma);
+                                    $this->m_views_html .= $this->cms_modules->serviciosDestacados($m_value, $moduleData, $this->language);
                                     break;
 
                                 default:
@@ -655,10 +739,10 @@ class Html extends CI_Controller {
 
                 }
                 if(ENVIRONMENT !== 'development' AND
-                    $this->m_currentPage !== $data['pagAutenticacion']->paginaNombreURL AND
-                    $this->m_currentPage !== $data['pagAutenticacion']->paginaNombreURL
+                    $this->m_currentPage !== $this->data['pagAutenticacion']->paginaNombreURL AND
+                    $this->m_currentPage !== $this->data['pagAutenticacion']->paginaNombreURL
                 ){
-                    $this->cache->save('m_views_html', $this->m_views_html, $this->m_cache_time);
+                    $this->cache->save('m_views_html', $this->m_views_html, $this->cache_time);
                 }
             }
 
@@ -670,7 +754,7 @@ class Html extends CI_Controller {
 
             //User is logged in but doesn't have enough access rights
             if($this->ion_auth->logged_in()) {
-                $data['mensaje'] = 'No tiene los privilegios suficientes para ver esta página';
+                $this->data['mensaje'] = 'No tiene los privilegios suficientes para ver esta página';
                 $this->m_views_html .=$this->load->view('paginas/autenticacion/no_privilegios_view', $data, true);
             }
 
@@ -689,7 +773,7 @@ class Html extends CI_Controller {
 
                 $this->m_views_html .= $this->load->view('modulos/row_header_view', $rowData, true);
                 $this->m_views_html .= $this->load->view('modulos/column_header_view', $columnData, true);
-                $this->m_views_html .= $this->cms_authenticate->renderLoginView($data, $this->m_idioma, $data['pagAutenticacion']->paginaNombreURL, '');
+                $this->m_views_html .= $this->cms_authenticate->renderLoginView($data, $this->language, $this->data['pagAutenticacion']->paginaNombreURL, '');
                 $this->m_views_html .= $this->load->view('modulos/column_footer_view', '', true);
                 $this->m_views_html .= $this->load->view('modulos/row_footer_view', $rowData, true);
             }
@@ -714,55 +798,55 @@ class Html extends CI_Controller {
     private function render_page($module, $page, $data)
     {
 
-        $data['moduleClass'] = $module->moduloClase;
+        $this->data['moduleClass'] = $module->moduloClase;
 
         //Check and see what setcion is the page rendering
         switch($module->moduloParam1)
         {
             case 1:
                 $this->load->library('CMS_Article');
-                $this->m_views_html .= $this->cms_article->create($page->paginaId, $data, $this->m_idioma);
+                $this->m_views_html .= $this->cms_article->create($page->paginaId, $data, $this->language);
                 break;
 
             case 2:
                 $this->load->library('CMS_Faq');
-                $this->m_views_html .= $this->cms_faq->create($data, $this->m_idioma);
+                $this->m_views_html .= $this->cms_faq->create($data, $this->language);
                 break;
 
             case 3:
                 $this->load->library('CMS_Contact');
-                $this->m_views_html .= $this->cms_contact->create($data, $this->m_idioma);
+                $this->m_views_html .= $this->cms_contact->create($data, $this->language);
                 break;
 
             case 4:
                 $this->load->library('CMS_Catalog');
-                $catData = $this->cms_catalog->create($page, $data, $this->m_idioma, $this->m_currentPage, $module);
+                $catData = $this->cms_catalog->create($page, $data, $this->language, $this->m_currentPage, $module);
                 $data = $catData->data;
                 $this->m_views_html .= $catData->html;
                 break;
 
             case 5:
                 $this->load->library('CMS_Publications');
-                $return_data = $this->cms_publications->create($page->paginaId, $data, $module, $this->m_idioma);
-                $data['og_image'] = $return_data->og_image;
-                $data['og_title'] = $data['meta_title'] = $return_data->og_title;
-                $data['og_description'] = $data['description'] = strip_tags($return_data->og_description);
+                $return_data = $this->cms_publications->create($page->paginaId, $data, $module, $this->language);
+                $this->data['og_image'] = $return_data->og_image;
+                $this->data['og_title'] = $this->data['meta_title'] = $return_data->og_title;
+                $this->data['og_description'] = $this->data['description'] = strip_tags($return_data->og_description);
                 $this->m_views_html .= $return_data->html;
                 break;
 
             case 6:
                 $this->load->library('CMS_Gallery');
-                $this->m_views_html .= $this->cms_gallery->create($page->paginaId, $data, $this->m_idioma);
+                $this->m_views_html .= $this->cms_gallery->create($page->paginaId, $data, $this->language);
                 break;
 
             case 7:
                 $this->load->library('CMS_Redirect');
-                $this->cms_redirect->create($module, $this->m_idioma);
+                $this->cms_redirect->create($module, $this->language);
                 break;
 
             case 8:
                 $this->load->library('CMS_Sitemap');
-                $this->m_views_html .= $this->cms_sitemap->create($data, $this->m_idioma, $this->m_currentPage);
+                $this->m_views_html .= $this->cms_sitemap->create($data, $this->language, $this->m_currentPage);
                 break;
 
             case 9:
@@ -770,31 +854,31 @@ class Html extends CI_Controller {
                 // Deletes cache for the currently requested URI, we don't need to cache this
                 $this->output->delete_cache();
                 $this->output->cache(0);
-                $this->m_views_html .= $this->cms_shoppingcart->create($data, $this->m_idioma);
+                $this->m_views_html .= $this->cms_shoppingcart->create($data, $this->language);
                 break;
 
             case 10:
                 $this->load->library('CMS_Links');
-                $this->m_views_html .= $this->cms_links->create($page->paginaId, $data, $this->m_idioma);
+                $this->m_views_html .= $this->cms_links->create($page->paginaId, $data, $this->language);
                 break;
 
             case 11:
                 // Deletes cache for the currently requested URI, we don't need to cache this
                 $this->output->delete_cache();
                 $this->output->cache(0);
-                $this->m_views_html .= $this->cms_authenticate->create($data, $this->m_idioma, $this->m_currentPage);
+                $this->m_views_html .= $this->cms_authenticate->create($data, $this->language, $this->m_currentPage);
                 break;
 
             case 12:
                 $this->load->library('CMS_Services');
-                $return_data = $this->cms_services->create($page->paginaId, $data, $this->m_idioma, $module);
+                $return_data = $this->cms_services->create($page->paginaId, $data, $this->language, $module);
                 $data = $return_data->data;
                 $this->m_views_html .= $return_data->html;
                 break;
 
             case 13:
                 $this->load->library('CMS_Calendar');
-                $this->m_views_html .= $this->cms_calendar->create($page->paginaId, $data, $this->m_idioma);
+                $this->m_views_html .= $this->cms_calendar->create($page->paginaId, $data, $this->language);
                 break;
 
         }
@@ -823,10 +907,10 @@ class Html extends CI_Controller {
 
             $diminutivos = array();
             foreach ($idiomas as $diminutivo => $value) {
-                $diminutivos[$value['idiomaDiminutivo']] = $value['idiomaNombre'];
+                $diminutivos[$value['slug']] = $value['name'];
             }
 
-            $page_type = $this->Modulos->getPageType($page->paginaId, $this->m_idioma);
+            $page_type = $this->Modulos->getPageType($page->paginaId, $this->language);
 
             foreach($pageNames as $diminutivo => $pagina)
             {
@@ -852,7 +936,7 @@ class Html extends CI_Controller {
                             $producto = null;
 
                             if($this->uri->segment(4)){
-                                $categoria = $this->Catalog->getCategoryTranslation($this->uri->segment(4), $this->m_idioma, $diminutivo);
+                                $categoria = $this->Catalog->getCategoryTranslation($this->uri->segment(4), $this->language, $diminutivo);
                                 if($categoria) {
                                     $param1 = $categoria->id;
                                     $param2 = $this->uri->segment(4);
@@ -860,7 +944,7 @@ class Html extends CI_Controller {
                             }
 
                             if($this->uri->segment(5)) {
-                                $producto = $this->Catalog->getProductTranslation($this->uri->segment(5), $this->m_idioma, $diminutivo);
+                                $producto = $this->Catalog->getProductTranslation($this->uri->segment(5), $this->language, $diminutivo);
                                 if($producto)
                                     $param3 = $producto->productoUrl;
                             }
@@ -876,7 +960,7 @@ class Html extends CI_Controller {
 
 
                             if($this->uri->segment(3) && !(int)$this->uri->segment(3)){
-                                $publicacion = $this->Noticias->getTranslation($this->uri->segment(3), $this->m_idioma, $diminutivo);
+                                $publicacion = $this->Noticias->getTranslation($this->uri->segment(3), $this->language, $diminutivo);
                                 if($publicacion)
                                     $param1 = $publicacion->publicacionUrl;
                             }
@@ -891,7 +975,7 @@ class Html extends CI_Controller {
                             $categoria = null;
 
                             if($this->uri->segment(3)){
-                                $categoria = $this->Downloads->getCategoryTranslation($this->uri->segment(3), $this->m_idioma, $diminutivo);
+                                $categoria = $this->Downloads->getCategoryTranslation($this->uri->segment(3), $this->language, $diminutivo);
                                 if($categoria)
                                     $param1 = $categoria->descargaCategoriaUrl;
                             }
@@ -926,7 +1010,7 @@ class Html extends CI_Controller {
                             $servicio = null;
 
                             if($this->uri->segment(3)){
-                                $servicio = $this->Servicios->getTranslation($this->m_idioma, $this->uri->segment(3));
+                                $servicio = $this->Servicios->getTranslation($this->language, $this->uri->segment(3));
                                 if($servicio)
                                     $param1 = $servicio->servicioUrl;
                             }
@@ -941,7 +1025,7 @@ class Html extends CI_Controller {
 
                 $params = [$param1, $param2, $param3];
 
-                if($diminutivo == $this->m_idioma)
+                if($diminutivo == $this->language)
                     $activo = 'class="active"';
                 else
                     $activo = '';
@@ -979,14 +1063,14 @@ class Html extends CI_Controller {
         {
             // Start off with the session stuff we know
             $data = array();
-            $data['estadisticaUserIP'] =  $this->input->ip_address();
-            $data['paginaId'] = $pageId;
+            $this->data['estadisticaUserIP'] =  $this->input->ip_address();
+            $this->data['paginaId'] = $pageId;
 
             // Lastly, we need to know when this is happening
-            $data['estadisticaFecha'] = time();
+            $this->data['estadisticaFecha'] = time();
 
             // We don't need it, but we'll log the URI just in case
-            $data['estadisticaUrl'] = uri_string();
+            $this->data['estadisticaUrl'] = uri_string();
 
             // And write it to the database
             $this->db->insert('estadisticas', $data);
@@ -1218,7 +1302,7 @@ class Html extends CI_Controller {
             }
 
             if(ENVIRONMENT !== 'development') {
-                $this->cache->save('paths', $paths, $this->m_cache_time);
+                $this->cache->save('paths', $paths, $this->cache_time);
             }
 
         }
@@ -1232,10 +1316,10 @@ class Html extends CI_Controller {
      */
     private function is_offline(){
         if(ENVIRONMENT === 'offline') {
-            $this->lang->load('errors', $this->m_idioma_object->idiomaNombre);
+            $this->lang->load('errors', $this->language->name);
             set_status_header(503);
-            $data['theme_path'] = base_url('themes/' . $this->m_config->theme);
-            $this->load->view('paginas/offline_view', $data);
+            $this->data['theme_path'] = base_url('themes/' . $this->config['theme']);
+            $this->load->view('paginas/offline_view', $this->data);
             $this->output->_display();
             exit;
         }
@@ -1247,7 +1331,7 @@ class Html extends CI_Controller {
      */
     private function mini_cart_data()
     {
-        $this->data['mini_cart_items'] = $this->flexi_cart->cart_items();
+       // $this->data['mini_cart_items'] = $this->flexi_cart->cart_items();
     }
 
 }
