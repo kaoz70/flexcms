@@ -341,7 +341,7 @@ switch (ENVIRONMENT)
 }
 
 //Check if the server meets the App's requirements
-\App\Requirements::check("5.4.0");
+\App\Requirements::check();
 
 /*
  * --------------------------------------------------------------------
