@@ -4,6 +4,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 use App\Language;
 use App\Category;
+use Cartalyst\Sentinel\Native\Facades\Sentinel;
 use Illuminate\Database\Schema\Blueprint;
 
 class Html extends MX_Controller {
@@ -84,8 +85,8 @@ class Html extends MX_Controller {
         //$this->load->model('admin/page_model', 'Page');
         //$this->load->model('banners_model', 'Banners');
         $this->load->model('config_model', 'Config');
-        $this->load->model('estadisticas_model', 'Stats');
-        $this->load->model('language_model', 'Idiomas');
+        //$this->load->model('estadisticas_model', 'Stats');
+        //$this->load->model('language_model', 'Idiomas');
         $this->load->model('module_model', 'Modulos');
         //$this->load->model('pedido_model', 'Pedido');
         //$this->load->model('contact_model', 'Contact');
@@ -133,7 +134,7 @@ class Html extends MX_Controller {
         $this->theme_config = $this->load->set_theme($this->config['theme']);
 
         //$this->m_idioma_object = $this->Idiomas->check($this->uri->segment(1, 'es'));
-        $this->language = Language::where('slug', '=', $this->uri->segment(1, 'es'))->first();
+        $this->language = Language::find($this->uri->segment(1, 'es'));
 
         //print_r($this->language);
 
@@ -296,7 +297,7 @@ class Html extends MX_Controller {
         $this->data['nombre_sitio'] = $this->config['site_name'];
         $this->data['footermenu'] = []; //TODO menu here
 
-        $this->data['loggedIn'] = $this->ion_auth->logged_in();
+        $this->data['loggedIn'] = Sentinel::check();
 
         //Get the number of items in the Cart
         /*$cart_data = $this->flexi_cart->cart_array();

@@ -39,7 +39,7 @@
 		}
 	</script>
 
-	<?php Assets::css_group('system', array_merge($assets_banner_css, array(
+	<?php \theme\Assets::css_group('system', array_merge($assets_banner_css, array(
 		'framework/packages/foundation/css/foundation.css',
 		'framework/packages/magnific-popup/dist/magnific-popup.css',
 		'framework/packages/bx-slider.js/dist/jquery.bxslider.css',
@@ -198,14 +198,14 @@
 
 <? $this->benchmark->mark('body_html_end'); ?>
 
-<?php Assets::js_group('system', array_merge(array(
+<?php \theme\Assets::js_group('system', array_merge(array(
 	'packages/foundation/js/vendor/jquery.js',
 	'packages/jquery.easing/js/jquery.easing.min.js',
 ), $assets_banner_js), $theme); ?>
 
 <script src="<?= base_url('assets/slideshow_js') ?>"></script>
 
-<?php Assets::js_group('footer', array(
+<?php \theme\Assets::js_group('footer', array(
 	'packages/foundation/js/foundation/foundation.js',
 	//'packages/foundation/js/foundation/foundation.abide.js',
 	'packages/foundation/js/foundation/foundation.alert.js',
