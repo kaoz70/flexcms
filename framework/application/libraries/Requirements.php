@@ -14,6 +14,7 @@ class Requirements {
 	{
 		self::php("5.4.0");
 		self::mod_rewrite();
+		self::pdo();
 	}
 
 	/**
@@ -35,6 +36,16 @@ class Requirements {
 	{
 		if( ! array_key_exists('HTTP_MOD_REWRITE', $_SERVER)) {
 			self::error("Apache module <strong>mod_rewrite</strong> is not available or is not enabled.");
+		}
+	}
+	
+	/**
+	 * Check if PDO class is available, we need this because of Laravel's database connection and Models
+	 */
+	private static function pdo()
+	{
+		if ( ! extension_loaded('pdo')) {
+    		self::error("PHP extension <strong>PDO</strong> is not available or is not enabled.");
 		}
 	}
 
