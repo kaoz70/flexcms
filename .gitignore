@@ -20,3 +20,5 @@ framework/application/sessions/ci_**
 assets/public/audio/**
 assets/public/files/**
 assets/public/images/**
+
+!index.html

@@ -263,10 +263,13 @@ if (isset($_SERVER['SERVER_SOFTWARE']) &&
 			$db['default']['socket']
 		);
 	} catch (mysqli_sql_exception $ex) {
-		die(json_encode(
-			array('code' => $ex->getCode(), 'message' => $ex->getMessage())
-		)
-		);
+		$data = [
+			"heading" => "Error",
+			"message" => $ex->getMessage(),
+		];
+
+		echo \App\View::blade(APPPATH . 'views/errors/html/general.blade.php', $data)->render();
+		exit(1);
 	}
 
 
@@ -281,10 +284,13 @@ if (isset($_SERVER['SERVER_SOFTWARE']) &&
 			$db['default']['database']
 		);
 	} catch (mysqli_sql_exception $ex) {
-		die(json_encode(
-			array('code' => $ex->getCode(), 'message' => $ex->getMessage())
-		)
-		);
+		$data = [
+			"heading" => "Error",
+			"message" => $ex->getMessage(),
+		];
+
+		echo \App\View::blade(APPPATH . 'views/errors/html/general.blade.php', $data)->render();
+		exit(1);
 	}
 
 }
