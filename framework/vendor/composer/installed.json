@@ -56,47 +56,6 @@
         ]
     },
     {
-        "name": "lonnieezell/codeigniter-forensics",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/lonnieezell/codeigniter-forensics.git",
-            "reference": "21b17ffa79f4d205fc266e114ac24bdc162a3661"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/lonnieezell/codeigniter-forensics/zipball/21b17ffa79f4d205fc266e114ac24bdc162a3661",
-            "reference": "21b17ffa79f4d205fc266e114ac24bdc162a3661",
-            "shasum": ""
-        },
-        "require": {
-            "compwright/codeigniter-installers": "*"
-        },
-        "time": "2014-12-19 04:04:12",
-        "type": "codeigniter-third-party",
-        "installation-source": "source",
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Lonnie Ezell",
-                "email": "lonnieezell@gmail.com",
-                "role": "Developer"
-            }
-        ],
-        "description": "A high-powered, customizable Profiler replacement for CodeIgniter.",
-        "homepage": "http://lonnieezell.github.io/codeigniter-forensics/",
-        "keywords": [
-            "codeigniter",
-            "debug",
-            "profiler",
-            "spark"
-        ]
-    },
-    {
         "name": "parsecsv/php-parsecsv",
         "version": "0.4.5",
         "version_normalized": "0.4.5.0",
@@ -2554,5 +2513,46 @@
         ],
         "description": "lessphp is a compiler for LESS written in PHP.",
         "homepage": "http://leafo.net/lessphp/"
+    },
+    {
+        "name": "lonnieezell/codeigniter-forensics",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/lonnieezell/codeigniter-forensics.git",
+            "reference": "78199e00f14a3d5184d6eb2d6903da1ab6ddd625"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/lonnieezell/codeigniter-forensics/zipball/78199e00f14a3d5184d6eb2d6903da1ab6ddd625",
+            "reference": "78199e00f14a3d5184d6eb2d6903da1ab6ddd625",
+            "shasum": ""
+        },
+        "require": {
+            "compwright/codeigniter-installers": "*"
+        },
+        "time": "2016-03-30 13:22:40",
+        "type": "codeigniter-third-party",
+        "installation-source": "source",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Lonnie Ezell",
+                "email": "lonnieezell@gmail.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "A high-powered, customizable Profiler replacement for CodeIgniter.",
+        "homepage": "http://lonnieezell.github.io/codeigniter-forensics/",
+        "keywords": [
+            "codeigniter",
+            "debug",
+            "profiler",
+            "spark"
+        ]
     }
 ]

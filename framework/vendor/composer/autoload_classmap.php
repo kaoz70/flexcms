@@ -63,7 +63,7 @@ return array(
     'Cart_model' => $baseDir . '/framework/application/modules/cart/models/CartAdmin_model.php',
     'Cartalyst\\Sentinel\\Addons\\Social\\AccessMissingException' => $vendorDir . '/cartalyst/sentinel-social/src/Exceptions.php',
     'Catalog' => $baseDir . '/framework/application/modules/catalog/controllers/Catalog.php',
-    'Catalogo_model' => $baseDir . '/framework/application/modules/catalog/models/Catalogo_model.php',
+    'Catalogo_model' => $baseDir . '/framework/application/modules/catalog/models/CatalogoAdmin_model.php',
     'Config' => $baseDir . '/framework/application/modules/admin/controllers/Config.php',
     'Config_model' => $baseDir . '/framework/application/models/Config_model.php',
     'Contact' => $baseDir . '/framework/application/modules/contact/controllers/Contact.php',

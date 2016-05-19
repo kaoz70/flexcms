@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cfa65fc83714fd6a5d26fdf8ce083d83",
+    "hash": "273555bf7b4d16e6e7c2a45f2721b45d",
     "content-hash": "0e280dfc56d21860100eda9f5a03f14d",
     "packages": [
         {
@@ -1684,12 +1684,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lonnieezell/codeigniter-forensics.git",
-                "reference": "21b17ffa79f4d205fc266e114ac24bdc162a3661"
+                "reference": "78199e00f14a3d5184d6eb2d6903da1ab6ddd625"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lonnieezell/codeigniter-forensics/zipball/21b17ffa79f4d205fc266e114ac24bdc162a3661",
-                "reference": "21b17ffa79f4d205fc266e114ac24bdc162a3661",
+                "url": "https://api.github.com/repos/lonnieezell/codeigniter-forensics/zipball/78199e00f14a3d5184d6eb2d6903da1ab6ddd625",
+                "reference": "78199e00f14a3d5184d6eb2d6903da1ab6ddd625",
                 "shasum": ""
             },
             "require": {
@@ -1715,7 +1715,7 @@
                 "profiler",
                 "spark"
             ],
-            "time": "2014-12-19 04:04:12"
+            "time": "2016-03-30 13:22:40"
         },
         {
             "name": "mailchimp/mailchimp",
