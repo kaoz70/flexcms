@@ -25,7 +25,7 @@ if ( ! function_exists('admin_tree'))
 
             //Set the translation so that its exposed in the node's variable
             try {
-                $childNode->getTranslation('es');
+                $childNode->getTranslation('es', 'page');
             } catch (TranslationException $e) {
                 $childNode->translation = new stdClass();
                 $childNode->translation->name = '{missing translation}';
@@ -78,7 +78,7 @@ if ( ! function_exists('admin_structure_tree'))
 
                 //Set the translation so that its exposed in the node's variable
                 try {
-                    $childNode->getTranslation('es');
+                    $childNode->getTranslation('es', 'page');
                 } catch (TranslationException $e) {
                     $childNode->translation = new stdClass();
                     $childNode->translation->name = '{missing translation}';
@@ -122,7 +122,7 @@ if ( ! function_exists('admin_select_tree'))
 
             if((int)$childNode->temporary !== 1) {
                 try {
-                    $childNode->getTranslation('es');
+                    $childNode->getTranslation('es', 'page');
                 } catch (TranslationException $e) {
                     $childNode->translation = new stdClass();
                     $childNode->translation->name = '{missing translation}';

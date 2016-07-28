@@ -46,46 +46,7 @@ class Config extends AdminController {
         $this->load->view('admin/config/social_view', $data);
     }
 
-    /*public function sections(){
-
-        $data['titulo'] = 'Secciones';
-        $data['txt_guardar'] = 'Guardar';
-
-        $data['secciones_todas'] = $this->Config->getSecciones();
-        $data['secciones_cliente'] = $this->Config->getSecciones(1);
-
-        //Remove the duplicate ones. TODO: optimize this code
-        foreach ($data['secciones_todas'] as $key => $seccion_toda)
-        {
-            foreach ($data['secciones_cliente'] as $seccion_cliente)
-            {
-                if($seccion_toda->adminSeccionId === $seccion_cliente->adminSeccionId)
-                {
-                    unset($data['secciones_todas'][$key]);
-                }
-            }
-        }
-
-        $seccionesAdmin = $data['secciones_cliente'];
-        $seccionesAdminArr = array();
-
-        foreach($seccionesAdmin as $sec)
-        {
-            array_push($seccionesAdminArr, $sec->adminSeccionId);
-        }
-
-        $data['seccionesAdmin'] = htmlspecialchars(json_encode($seccionesAdminArr));
-
-        $data['isSuperAdmin'] = FALSE;
-
-        if($this->ion_auth->in_group('superadmin'))
-            $data['isSuperAdmin'] = TRUE;
-
-        $this->load->view('admin/config/secciones_view', $data);
-
-    }
-
-    public function images(){
+    /*public function images(){
         $data['secciones'] = $this->getSectionGroups();
         $data['imagenes'] = $this->Config->getImagenes();
 

@@ -82,7 +82,7 @@ class Category extends BaseModel implements NodeInterface {
             if($childNode->id != $this->id) {
                 try {
 
-                    $translation = $childNode->getTranslation($lang);
+                    $translation = $childNode->getTranslation($lang, 'page');
 
                     if($translation->name === $name) {
                         $unique[] = FALSE;

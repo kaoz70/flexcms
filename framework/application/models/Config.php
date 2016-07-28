@@ -54,7 +54,7 @@ class Config extends Model {
         $page = Category::find($conf['index_page_id']);
 
         if($page) {
-            $page->data = $page->getTranslation($lang);
+            $page->data = $page->getTranslation($lang, 'page');
             return $page;
         } else {
             throw new \Exception('No site index page defined, define one on the backend');
