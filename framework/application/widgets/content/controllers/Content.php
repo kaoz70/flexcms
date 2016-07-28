@@ -15,26 +15,24 @@ use Exception;
 
 class Content implements \WidgetInterface {
 
-	static function admin($id){
+    static function admin($id){
 
-		try {
-			$widget = Widget::find($id);
-			$widget->types = Admin::getContentModules();
-			$widget->data = json_decode($widget->data);
-			return View::blade(APPPATH . 'widgets/content/views/admin.blade.php', $widget)->render();
-		} catch (Exception $e) {
-			show_error($e->getMessage());
-		}
+        try {
+            $widget = Widget::find($id);
+            $widget->types = Admin::getContentModules();
+            $widget->data = json_decode($widget->data);
+            return View::blade(APPPATH . 'widgets/content/views/admin.blade.php', $widget)->render();
+        } catch (Exception $e) {
+            show_error($e->getMessage());
+        }
 
-	}
+    }
 
-	static function run($method){
+    static function run($method){
 
-		// Logic will be written here.
-
-
-	}
+        // Logic will be written here.
 
 
+    }
 
 }

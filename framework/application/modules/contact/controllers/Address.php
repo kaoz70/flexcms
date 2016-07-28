@@ -6,164 +6,141 @@
  * Time: 11:16 AM
  */
 
-namespace contact;
+namespace Contact;
+use App\Language;
+use Illuminate\Database\Eloquent\Model;
+
 $_ns = __NAMESPACE__;
 
 class Address extends \Contact implements \AdminInterface {
 
-	public function index(){
-		return $this->Contacto->getDirecciones('es');
-	}
-	
-	public function create()
-	{
+    const URL_CREATE = 'admin/contact/address/create';
+    const URL_UPDATE = 'admin/contact/address/update';
+    const URL_DELETE = 'admin/contact/address/delete';
+    const URL_INSERT = 'admin/contact/address/insert';
+    const URL_EDIT = 'admin/contact/address/edit';
 
-		$data['idiomas'] = $this->Contacto->idiomas();
+    public function index(){
+        return \Contact\Models\Address::all();
+    }
 
-		$data['direccionId'] = $this->cms_general->generarId('contacto_direcciones');
-		$data['contactoDireccionNombre'] = '';
+    public function create()
+    {
+        $this->_showView(new \Contact\Models\Address(), true);
+    }
 
-		$data['titulo'] = "Crear Direcci&oacute;n";
-		$data['link'] = base_url("admin/contact/address/insert");
-		$data['txt_boton'] = "crear";
-		$data['nuevo'] = 'nuevo';
+    public function insert()
+    {
+        $response = new \stdClass();
+        $response->error_code = 0;
 
-		$data['imagenExtension'] = '';
-		$data['contactoDireccionCoord'] = '';
-		$data['imagenOrig'] = '';
-		$data['cropDimensions'] = $this->General->getCropImage(14);
-		$data['txt_botImagen'] = 'Subir Imagen';
-		$data['imagen'] = '';
+        try{
+            $address =  $this->_store(new \Contact\Models\Address());
+            $address->position = \Contact\Models\Address::all()->count();
+            $address->save();
+            $response->new_id = $address->id;
+        } catch (\Exception $e) {
+            $response = $this->error('Ocurri&oacute; un problema al crear la direcci&oacute;n!', $e);
+        }
 
-		/*
-		 * TRADUCCIONES
-		 */
-		$data['idiomas'] = $this->Idioma->getLanguages();
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
+    }
 
-		foreach ($data['idiomas'] as $key => $idioma)
-		{
-			$traducciones[$idioma['idiomaDiminutivo']] = new \stdClass();
-			$traducciones[$idioma['idiomaDiminutivo']]->contactoDireccion = '';
-		}
+    public function edit($id)
+    {
+        $this->_showView(\Contact\Models\Address::find($id));
+    }
 
-		$data['traducciones'] = $traducciones;
+    public function update($id)
+    {
 
-		$this->load->view('admin/contact/address_view', $data);
-	}
+        $response = new \stdClass();
+        $response->error_code = 0;
 
-	public function insert()
-	{
+        try{
+            $this->_store(\Contact\Models\Address::find($id));
+        } catch (\Exception $e) {
+            $response = $this->error('Ocurri&oacute; un problema al actualizar la direcci&oacute;n!', $e);
+        }
 
-		$response = new \stdClass();
-		$response->error_code = 0;
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
 
-		try{
-			$id = $this->Contacto->addDireccion();
-			$response->new_id = $id;
-		} catch (\Exception $e) {
-			$response = $this->cms_general->error('Ocurri&oacute; un problema al crear la direcci&oacute;n!', $e);
-		}
+    }
 
-		$this->load->view('admin/request/json', array('return' => $response));
+    public function delete($id)
+    {
 
-	}
+        $response = new \stdClass();
+        $response->error_code = 0;
 
-	public function edit($id)
-	{
+        try{
+            $address = \Contact\Models\Address::find($id);
+            $address->delete();
+        } catch (\Exception $e) {
+            $response = $this->cms_general->error('Ocurri&oacute; un problema al eliminar la direcci&oacute;n!', $e);
+        }
 
-		$direccion = $this->Contacto->getDireccion($id);
-		$data['idiomas'] = $this->Contacto->idiomas();
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
 
-		$data['direccionId'] = $direccion->contactoDireccionId;
-		$data['contactoDireccionNombre'] = $direccion->contactoDireccionNombre;
+    }
 
-		$data['titulo'] = "Modificar Direcci&oacute;n";
-		$data['link'] = base_url("admin/contact/address/update/" . $id);
-		$data['txt_boton'] = "modificar";
-		$data['nuevo'] = '';
+    public function reorder()
+    {
+        $response = new \stdClass();
+        $response->error_code = 0;
 
-		$data['imagenExtension'] = $direccion->contactoDireccionImagen;
-		$data['contactoDireccionCoord'] = urlencode($direccion->contactoDireccionCoord);
-		$data['imagenOrig'] = '';
-		$data['cropDimensions'] = $this->General->getCropImage(14);
-		$data['imagen'] = '';
+        try{
+            \Contact\Models\Address::reorder($this->input->post('posiciones'));
+        } catch (\Exception $e) {
+            $response = $this->error('Ocurri&oacute; un problema al reorganizar los campos!', $e);
+        }
 
-		if($direccion->contactoDireccionImagen != '')
-		{
-			$data['txt_botImagen'] = 'Cambiar Imagen';
-			$data['imagen'] = '<img src="' . base_url() . 'assets/public/images/contacto/dir_' . $direccion->contactoDireccionId . '_admin.' . $direccion->contactoDireccionImagen . '" />';
-			$data['imagenOrig'] = base_url() . 'assets/public/images/contacto/dir_' . $direccion->contactoDireccionId . '_orig.' . $direccion->contactoDireccionImagen;
-			$data['imagenExtension'] = $direccion->contactoDireccionImagen;
-		}
-		else
-		{
-			$data['txt_botImagen'] = 'Subir Imagen';
-			$data['imagen'] = '';
-			$data['imagenExtension'] = '';
-			$data['imagenOrig'] = '';
-		}
+        $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );
+    }
 
-		/*
-		 * TRADUCCIONES
-		 */
-		$data['idiomas'] = $this->Idioma->getLanguages();
+    /**
+     * Shows the editor view
+     *
+     * @param Model $model
+     * @param bool $new
+     * @return mixed
+     */
+    public function _showView(Model $model, $new = FALSE)
+    {
+        
+        $data['languages'] = Language::all();
+        $data['address'] = $model;
+        $data['image'] = json_decode($model->image);
+        $data['translations'] = $model->getTranslations('address');
 
-		foreach ($data['idiomas'] as $key => $idioma)
-		{
-			$direccionTraduccion = $this->Contacto->getDireccionTranslation($idioma['idiomaDiminutivo'], $id);
-			$traducciones[$idioma['idiomaDiminutivo']] = new \stdClass();
+        $data['titulo'] = $new ? "Crear Direcci&oacute;n" : "Modificar Direcci&oacute;n";
+        $data['link'] = $new ? base_url(static::URL_INSERT) : base_url(static::URL_UPDATE . '/' . $model->id);
+        $data['edit_url'] = static::URL_EDIT;
+        $data['delete_url'] = static::URL_DELETE;
+        $data['txt_boton'] = $new ? "crear" : 'modificar';
+        $data['nuevo'] = $new ? 'nuevo' : '';
 
-			if($direccionTraduccion) {
-				$traducciones[$idioma['idiomaDiminutivo']]->contactoDireccion = $direccionTraduccion->contactoDireccion;
-			}
-			else {
-				$traducciones[$idioma['idiomaDiminutivo']]->contactoDireccion = '';
-			}
+        $this->load->view('contact/address_view', $data);
 
-		}
+    }
 
-		$data['traducciones'] = $traducciones;
+    /**
+     * Inserts or updates the current model with the provided post data
+     *
+     * @param Model $model
+     * @return mixed
+     */
+    public function _store(Model $model)
+    {
 
-		$this->load->view('admin/contact/address_view', $data);
+        $model->name = $this->input->post('name');
+        $model->position = \Contact\Models\Address::all()->count() + 1;
+        $model->image = $this->input->post('image');
+        $model->save();
 
-	}
+        $model->setTranslations($this->input->post());
 
-	public function update($id)
-	{
+        return $model;
 
-		$response = new \stdClass();
-		$response->error_code = 0;
-
-		try{
-			$id = $this->input->post('direccionId');
-			$this->Contacto->updateDireccion($id);
-		} catch (\Exception $e) {
-			$response = $this->cms_general->error('Ocurri&oacute; un problema al actualizar la direcci&oacute;n!', $e);
-		}
-
-		$this->load->view('admin/request/json', array('return' => $response));
-
-	}
-
-	public function delete($id)
-	{
-
-		$response = new \stdClass();
-		$response->error_code = 0;
-
-		try{
-			$this->Contacto->deleteDireccion($id);
-		} catch (\Exception $e) {
-			$response = $this->cms_general->error('Ocurri&oacute; un problema al eliminar la direcci&oacute;n!', $e);
-		}
-
-		$this->load->view('admin/request/json', array('return' => $response));
-
-	}
-
-	public function reorder()
-	{
-		$this->Contacto->reorderDirecciones();
-	}
-	
+    }
 }

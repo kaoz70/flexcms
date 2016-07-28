@@ -13,4 +13,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model{
 
+    public static function getPlaceholderData()
+    {
+
+        $fields = new \stdClass();
+        $fields->extension = '';
+        $fields->coords = new \stdClass();
+        $fields->coords->top = 0;
+        $fields->coords->left = 0;
+        $fields->coords->width = 0;
+        $fields->coords->height = 0;
+        $fields->coords->scale = 0;
+
+        return $fields;
+
+    }
+
 }

@@ -7,9 +7,9 @@
 
 			<?php foreach($result_contactos as $row):?>
 
-				<li class="listado" id="<?=$row->contactoId?>">
-					<a class="nombre modificar nivel2" href="<?=base_url();?>admin/contact/person/edit/<?=$row->contactoId?>"><span><?=$row->contactoNombre;?></span></a>
-					<a href="<?=base_url();?>admin/contact/person/delete/<?=$row->contactoId?>" class="eliminar" ></a>
+				<li class="listado" id="<?=$row->id?>">
+					<a class="nombre modificar nivel2" href="<?=base_url();?>admin/contact/person/edit/<?=$row->id?>"><span><?=$row->name;?></span></a>
+					<a href="<?=base_url();?>admin/contact/person/delete/<?=$row->id?>" class="eliminar" ></a>
 				</li>
 			
 			<?php endforeach;?>
@@ -22,10 +22,10 @@
 
             <?php foreach($result_direcciones as $row): ?>
 
-                <li class="listado drag" id="<?=$row->contactoDireccionId;?>">
+                <li class="listado drag" id="<?=$row->id;?>">
                     <div class="mover"></div>
-                    <a class="nombre modificar nivel2" href="<?=base_url();?>admin/contact/address/edit/<?=$row->contactoDireccionId;?>"><span><?=$row->contactoDireccionNombre;?></span></a>
-                    <a href="<?=base_url();?>admin/contact/address/delete/<?=$row->contactoDireccionId;?>" class="eliminar" ></a>
+                    <a class="nombre modificar nivel2" href="<?=base_url();?>admin/contact/address/edit/<?=$row->id;?>"><span><?=$row->name;?></span></a>
+                    <a href="<?=base_url();?>admin/contact/address/delete/<?=$row->id;?>" class="eliminar" ></a>
                 </li>
 
             <?php endforeach;?>
@@ -40,10 +40,10 @@
 
 			<?php foreach($result_elementos as $row): ?>
 			
-				<li class="listado drag" id="<?=$row->contactoCampoId;?>">
+				<li class="listado drag" id="<?=$row->id;?>">
 					<div class="mover"></div>
-					<a class="nombre modificar nivel2" href="<?=base_url();?>admin/contact/field/edit/<?=$row->contactoCampoId;?>"><span><?=$row->contactoCampoValor;?></span></a>
-					<a href="<?=base_url();?>admin/contact/field/delete/<?=$row->contactoCampoId;?>" class="eliminar" ></a>
+					<a class="nombre modificar nivel2" href="<?=base_url();?>admin/contact/field/edit/<?=$row->id;?>"><span><?=$row->name;?></span></a>
+					<a href="<?=base_url();?>admin/contact/field/delete/<?=$row->id;?>" class="eliminar" ></a>
 				</li>
 			
 			<?php endforeach;?>

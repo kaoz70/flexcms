@@ -11,39 +11,39 @@ namespace App;
 
 class Content extends BaseModel {
 
-	protected $table = 'content';
+    protected $table = 'content';
 
-	/**
-	 * Get all content pages (the ones that can be edited)
-	 *
-	 * @param bool|false $only_ids
-	 *
-	 * @return array
-	 */
-	static function getEditable($only_ids = FALSE)
-	{
+    /**
+     * Get all content pages (the ones that can be edited)
+     *
+     * @param bool|false $only_ids
+     *
+     * @return array
+     */
+    static function getEditable($only_ids = FALSE)
+    {
 
-		if($only_ids) {
+        //Get any content widget
+        $content = Widget::where('type', 'content')
+            ->join('categories', 'categories.id', '=', 'category_id')
+            ->get();
 
-			$content = Widget::where('type', '=', 'content')
-			             ->join('categories', 'categories.id', '=', 'category_id')
-			             ->get();
+        //Do we want to return only page ids?
+        if($only_ids) {
 
-			$ids = [];
+            $ids = [];
 
-			foreach($content as $page){
-				$ids[] = $page->id;
-			}
+            foreach($content as $page){
+                $ids[] = $page->id;
+            }
 
-			return $ids;
+            return $ids;
 
-		}
+        }
 
-		return Widget::where('type', '=', 'content')
-		             ->join('categories', 'categories.id', '=', 'category_id')
-		             ->get();
+        return $content;
 
-	}
+    }
 
 
 

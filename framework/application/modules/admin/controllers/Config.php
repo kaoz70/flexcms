@@ -1,52 +1,52 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Config extends AdminController {
-	 
-	public function index()
-	{
+
+    public function index()
+    {
         $this->load->view('admin/config/index_view');
-	}
+    }
 
     public function general(){
 
-        $data['config'] = $this->Config->get();
+        $data['config'] = \App\Config::get();
         $data['titulo'] = 'General';
         $data['txt_guardar'] = 'Guardar Configuraci&oacute;n';
-        $data['paginas'] = $this->Paginas->getPages();
+        $data['paginas'] = \App\Content::all();
         $data['themes'] = directory_map('./themes/', 1);
 
         //keep folders
         foreach ($data['themes'] as $key => $path) {
 
-	        //Remove any slash or backslash
-	        $path = str_replace('/', '', $path);
-	        $path = str_replace('\\', '', $path);
+            //Remove any slash or backslash
+            $path = str_replace('/', '', $path);
+            $path = str_replace('\\', '', $path);
 
-	        $data['themes'][$key] = $path;
-	        //Remove any files
+            $data['themes'][$key] = $path;
+            //Remove any files
             if(strpos($path, '.')){
                 unset($data['themes'][$key]);
             }
         }
 
-        $data['isSuperAdmin'] = FALSE;
+        /*$data['isSuperAdmin'] = FALSE;
 
         if($this->ion_auth->in_group('superadmin'))
-            $data['isSuperAdmin'] = TRUE;
+            $data['isSuperAdmin'] = TRUE;*/
 
         $this->load->view('admin/config/general_view', $data);
 
     }
 
-	public function social()
-	{
-		$data['config'] = $this->Config->get();
-		$data['titulo'] = 'Social';
-		$data['txt_guardar'] = 'Guardar Configuraci&oacute;n';
-		$this->load->view('admin/config/social_view', $data);
-	}
+    public function social()
+    {
+        $data['config'] = $this->Config->get();
+        $data['titulo'] = 'Social';
+        $data['txt_guardar'] = 'Guardar Configuraci&oacute;n';
+        $this->load->view('admin/config/social_view', $data);
+    }
 
-    public function sections(){
+    /*public function sections(){
 
         $data['titulo'] = 'Secciones';
         $data['txt_guardar'] = 'Guardar';
@@ -213,25 +213,25 @@ class Config extends AdminController {
         }
 
         return$groups;
-    }
-	
-	public function save()
-	{
+    }*/
+
+    public function save()
+    {
 
         $response = new stdClass();
         $response->error_code = 0;
 
         try{
-            $this->Config->save();
+            \App\Config::saveData($this->input->post());
         } catch (Exception $e) {
-            $response = $this->cms_general->error('Ocurri&oacute; un problema al guardar!', $e);
+            $response = $this->error('Ocurri&oacute; un problema al guardar!', $e);
         }
 
-        $this->load->view('admin/request/json', array('return' => $response));
+        $this->load->view(static::RESPONSE_VIEW, array(static::RESPONSE_VAR => $response));
 
-	}
+    }
 
-    public function save_sections(){
+    /*public function save_sections(){
 
         $response = new stdClass();
         $response->error_code = 0;
@@ -244,7 +244,7 @@ class Config extends AdminController {
 
         $this->load->view('admin/request/json', array('return' => $response));
 
-    }
-	
-	
+    }*/
+
+
 }

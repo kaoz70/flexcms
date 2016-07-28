@@ -12,6 +12,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Translation extends Model {
 
-	protected $fillable = [ 'parent_id', 'language_id', 'type' ];
+    protected $fillable = [ 'parent_id', 'language_id', 'type' ];
 
 }

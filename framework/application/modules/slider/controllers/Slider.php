@@ -2,36 +2,22 @@
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Slider extends BaseController implements AdminInterface {
-	 
-	function __construct(){
-		parent::__construct();
-		/*$this->load->helper('text');
-		
-		$this->load->library('image_lib');
-		
-		$this->load->model('banners_model', 'Banners');
-		$this->load->model('admin/page_model', 'Paginas');
-		$this->load->model('configuracion_model', 'Config');
-		$this->load->model('idiomas_model', 'Idioma');
-		
-		$this->load->library('Seguridad');
-        $this->load->library('CMS_General');
+class Slider extends AdminController implements AdminInterface {
 
-		$this->seguridad->init();*/
-		
-	}
-	
-	public function index()
-	{
+    const URL_CREATE = 'admin/slider/create';
+    const URL_UPDATE = 'admin/slider/update';
+    const URL_DELETE = 'admin/slider/delete';
+    const URL_INSERT = 'admin/slider/insert';
+    const URL_EDIT = 'admin/slider/edit';
+
+    public function index()
+    {
 
         $data['items'] = \App\Slider::all();
 
-        $data['url_rel'] = base_url('admin/sliders/slider');
+        $data['url_edit'] = base_url(static::URL_EDIT);
+        $data['url_delete'] = base_url(static::URL_DELETE);
         $data['url_sort'] = '';
-        $data['url_edit'] = base_url('admin/slider/edit');
-        $data['url_eliminar'] = base_url('admin/slider/delete');
-        $data['url_modificar'] = base_url('admin/slider/edit');
         $data['url_search'] = '';
 
         $data['search'] = false;
@@ -39,84 +25,63 @@ class Slider extends BaseController implements AdminInterface {
         $data['nivel'] = 'nivel2';
         $data['list_id'] = 'banners';
 
-        $data['idx_id'] = 'id';
-        $data['idx_nombre'] = 'name';
-
-        $data['txt_titulo'] = 'Banners';
+        $data['title'] = 'Banners';
 
         /*
          * Menu
          */
-        $data['menu'] = array();
-
-        $atts = array(
+        $data['menu'][] = anchor(base_url(static::URL_CREATE), 'crear nuevo banner', [
             'id' => 'crearBanner',
             'class' => $data['nivel'] . ' nivel2 ajax boton importante n2'
-        );
-        $data['menu'][] = anchor(base_url('admin/slider/create'), 'crear nuevo banner', $atts);
+        ]);
 
-        $atts = array(
+        $data['menu'][] = anchor(base_url('admin/slider/field'), 'editar template', [
             'id' => 'editarTemplateBanner',
             'class' => $data['nivel'] . ' nivel2 ajax boton n1'
-        );
-        $data['menu'][] = anchor(base_url('admin/slider/field'), 'editar template', $atts);
+        ]);
         $data['bottomMargin'] = count($data['menu']) * 34;
 
-        $this->load->view('admin/listado_view', $data);
-	}
-	
-	public function create()
-	{
-		$this->_showView($this->insert()->id, TRUE);
-	}
+        $this->load->view('admin/list_view', $data);
+    }
 
-	public function insert()
-	{
-		$slider = new \App\Slider();
-		$slider->save();
-		return $slider;
-	}
+    public function create()
+    {
+        $this->_showView($this->insert(), TRUE);
+    }
 
-	public function edit($id)
-	{
-		$this->_showView($id);
-	}
+    public function insert()
+    {
+        $slider = new \App\Slider();
+        $slider->save();
+        $slider = \App\Slider::find($slider->id);
+        return $slider;
+    }
 
-	public function _showView( $id, $new = false ) {
+    public function edit($id)
+    {
+        $this->_showView(\App\Slider::find($id));
+    }
 
-		$data = \App\Slider::find($id)->toArray();
-		$data['banner_config'] = \App\Slider::getTypes();
-		$config = json_decode($data['config'], TRUE);
-		$data['config'] = $config ? $config : [];
-		$data['nuevo'] = $new;
-		$data['removeUrl'] = $new ? base_url("admin/slider/delete/" . $id) : '';
-		$data['titulo'] = $new ? "Crear Slider" : "Modificar Slider";
-		$data['txt_boton'] = $new ? "crear" : "modificar";
-		$data['link'] = base_url("admin/slider/update/" . $id);
-
-		$this->load->view('slider_view', $data);
-	}
-
-	public function update($id)
-	{
+    public function update($id)
+    {
 
         $response = new stdClass();
         $response->error_code = 0;
 
         try{
             $slider = \App\Slider::find($id);
-	        $slider->store($this->input->post());
+            $slider->store($this->input->post());
             $response->new_id = $this->input->post('id');
         } catch (Exception $e) {
             $response = $this->error('Ocurri&oacute; un problema al actualizar el banner!', $e);
         }
 
-        $this->load->view('admin/request/json', [ 'return' => $response ] );
+        $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );
 
-	}
-	
-	public function delete($id)
-	{
+    }
+
+    public function delete($id)
+    {
 
         $response = new stdClass();
         $response->error_code = 0;
@@ -124,19 +89,50 @@ class Slider extends BaseController implements AdminInterface {
         try{
             $slider = \App\Slider::find($id);
 
-	        //TODO remove slider's images
+            //TODO remove slider's images here
 
-	        $slider->delete();
+            $slider->delete();
         } catch (Exception $e) {
             $response = $this->error('Ocurri&oacute; un problema al eliminar el banner!', $e);
         }
 
-        $this->load->view('admin/request/json', [ 'return' => $response ] );
+        $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );
 
-	}
+    }
 
-	public function reorder($id){
+    public function reorder($id){
 
-	}
+    }
 
+    /**
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param bool $new
+     * @return mixed
+     */
+    public function _showView(\Illuminate\Database\Eloquent\Model $model, $new = FALSE)
+    {
+
+        $data = $model->toArray();
+        $data['banner_config'] = \App\Slider::getTypes();
+        $config = isset($data['config']) ? json_decode($data['config'], TRUE) : null;
+        $data['config'] = $config ? $config : [];
+        $data['nuevo'] = $new;
+        $data['removeUrl'] = $new ? base_url(static::URL_DELETE . '/' . $model->id) : '';
+        $data['titulo'] = $new ? "Crear Slider" : "Modificar Slider";
+        $data['txt_boton'] = $new ? "crear" : "modificar";
+        $data['link'] = base_url("admin/slider/update/" . $model->id);
+
+        $this->load->view('slider_view', $data);
+    }
+
+    /**
+     * Inserts or updates the current model with the provided post data
+     *
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @return mixed
+     */
+    public function _store(\Illuminate\Database\Eloquent\Model $model)
+    {
+        // TODO: Implement _store() method.
+    }
 }

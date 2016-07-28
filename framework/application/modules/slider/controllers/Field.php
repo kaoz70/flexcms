@@ -9,171 +9,180 @@
 namespace slider;
 $_ns = __NAMESPACE__;
 
+use Illuminate\Database\Eloquent\Model;
 use stdClass;
 use Exception;
 
-class Field extends \Slider implements \AdminInterface {
+class Field extends \Field implements \AdminInterface {
 
-	public function index()
-	{
+    const FIELD_SECTION = 'slider';
 
-		$data['items'] = \App\Field::where('section', 'slider')
-			->orderBy('position')
-			->get();
+    const URL_CREATE = 'admin/slider/field/create';
+    const URL_UPDATE = 'admin/slider/field/update/';
+    const URL_DELETE = 'admin/slider/field/delete';
+    const URL_INSERT = 'admin/slider/field/insert';
+    const URL_EDIT = 'admin/slider/field/edit';
+    const URL_REORDER = 'admin/slider/field/reorder';
 
-		$data['url_rel'] = base_url('admin/slider/field');
-		$data['url_sort'] = base_url('admin/slider/field/reorder/' . 1); // NO param necessary (1)
-		$data['url_modificar'] = base_url('admin/slider/field/edit');
-		$data['url_eliminar'] = base_url('admin/slider/field/delete');
-		$data['url_search'] = '';
+    public function index()
+    {
 
-		$data['search'] = false;
-		$data['drag'] = true;
-		$data['nivel'] = 'nivel3';
-		$data['list_id'] = 'banner_campos';
+        $data['items'] = \App\Field::where('section', static::FIELD_SECTION)
+            ->orderBy('position')
+            ->get();
 
-		$data['idx_id'] = 'id';
-		$data['idx_nombre'] = 'name';
+        $data['title'] = 'Editar Template';
+        $data['list_id'] = 'banner_campos';
+        $data['nivel'] = 'nivel3';
 
-		$data['txt_titulo'] = 'Editar Template';
+        $data['search'] = false;
+        $data['drag'] = true;
 
-		/*
-		 * Menu
-		 */
-		$data['menu'] = array();
+        $data['url_sort'] = base_url(static::URL_REORDER);
+        $data['url_edit'] = base_url(static::URL_EDIT);
+        $data['url_delete'] = base_url(static::URL_DELETE);
 
-		$atts = array(
-			'id' => 'crearBanner',
-			'class' => $data['nivel'] . ' ajax boton n1'
-		);
-		$data['menu'][] = anchor(base_url('admin/slider/field/create'), 'Crear Nuevo Elemento', $atts);
-		$data['bottomMargin'] = count($data['menu']) * 34;
+        /*
+         * MENU
+         */
+        $data['menu'][] = anchor(base_url('admin/slider/field/create'), 'Crear Nuevo Elemento', [
+            'id' => 'crearBanner',
+            'class' => $data['nivel'] . ' ajax boton n1'
+        ]);
+        $data['bottomMargin'] = count($data['menu']) * 34;
 
-		$this->load->view('admin/listado_view', $data);
-	}
+        $this->load->view('admin/list_view', $data);
+    }
 
-	public function create()
-	{
-		try {
-			$this->_showView();
-		} catch (Exception $e) {
-			$this->error('Error', $e);
-		}
+    public function create()
+    {
+        try {
+            $this->_showView(new \App\Field());
+        } catch (Exception $e) {
+            $this->error('Error', $e);
+        }
 
-	}
+    }
 
-	public function edit($id)
-	{
+    public function edit($id)
+    {
 
-		try {
-			$this->_showView($id, false);
-		} catch (Exception $e) {
-			$this->error('Error', $e);
-		}
+        try {
+            $this->_showView(\App\Field::findOrNew($id), false);
+        } catch (Exception $e) {
+            $this->error('Error', $e);
+        }
 
-	}
+    }
 
-	public function _showView( $id = null, $new = true ) {
+    /**
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param bool $new
+     * @return mixed
+     */
+    public function _showView(\Illuminate\Database\Eloquent\Model $model, $new = FALSE)
+    {
 
-		$field = \App\Field::findOrNew($id);
-		$data = $field->toArray();
+        $field = $model;
+        $data = $field->toArray();
 
-		$data['titulo'] = 'Elemento';
-		$data['nuevo'] = $new;
+        $data['titulo'] = 'Elemento';
+        $data['nuevo'] = $new;
 
-		$data['inputs'] = \App\Input::where('section', 'slider')->get();
-		$data['translations'] = $field->getTranslations();
+        $data['inputs'] = \App\Input::where('section', static::FIELD_SECTION)->get();
+        $data['translations'] = $field->getTranslations('slider_field');
 
-		$data['txt_boton'] = 'Guardar';
-		$data['link'] = $new ? base_url('admin/slider/field/insert') : base_url('admin/slider/field/update/' . $id);
+        $data['txt_boton'] = 'Guardar';
+        $data['link'] = $new ? base_url(static::URL_INSERT) : base_url(static::URL_UPDATE . $model->id);
 
-		$this->load->view('field_view',$data);
-	}
+        $this->load->view('field_view',$data);
 
-	public function insert()
-	{
+    }
 
-		$response = new stdClass();
-		$response->error_code = 0;
+    public function insert()
+    {
 
-		try{
-			$field = $this->_store(new \Slider\Models\Field());
-			$field->position = \App\Field::where('section', 'slider')->get()->count();
-			$field->save();
-			$response->new_id = $field->id;
-		} catch (Exception $e) {
-			$response = $this->error('Ocurri&oacute; un problema al crear el campo!', $e);
-		}
+        $response = new stdClass();
+        $response->error_code = 0;
 
-		$this->load->view('admin/request/json', [ 'return' => $response ] );
+        try{
+            $field = $this->_store(new \Slider\Models\Field());
+            $field->position = \App\Field::where('section', static::FIELD_SECTION)->get()->count();
+            $field->save();
+            $response->new_id = $field->id;
+        } catch (Exception $e) {
+            $response = $this->error('Ocurri&oacute; un problema al crear el campo!', $e);
+        }
 
-	}
-	public function update($id)
-	{
+        $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );
 
-		$response = new stdClass();
-		$response->error_code = 0;
+    }
+    public function update($id)
+    {
 
-		try{
-			$response->new_id = $this->_store(\Slider\Models\Field::find($id))->id;
-		} catch (Exception $e) {
-			$response = $this->error('Ocurri&oacute; un problema al modificar el campo!', $e);
-			var_dump($response);
-		}
+        $response = new stdClass();
+        $response->error_code = 0;
 
-		$this->load->view('admin/request/json', [ 'return' => $response ] );
+        try{
+            $response->new_id = $this->_store(\Slider\Models\Field::find($id))->id;
+        } catch (Exception $e) {
+            $response = $this->error('Ocurri&oacute; un problema al modificar el campo!', $e);
+            var_dump($response);
+        }
 
-	}
+        $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );
 
-	private function _store(\Slider\Models\Field $model) {
+    }
 
-		$input = $this->input->post();
+    public function _store(Model $model) {
 
-		$model->css_class = $this->input->post('css_class');
-		$model->section = 'slider';
-		$model->name = $this->input->post('name');
-		$model->input_id = $this->input->post('input_id');
-		$model->label_enabled = $this->input->post('label_enabled');
-		$model->required = $this->input->post('required');
-		$model->save();
+        $input = $this->input->post();
 
-		//Update the content's translations
-		$model->setTranslations($input);
+        $model->css_class = $this->input->post('css_class');
+        $model->section = 'slider';
+        $model->name = $this->input->post('name');
+        $model->input_id = $this->input->post('input_id');
+        $model->label_enabled = $this->input->post('label_enabled');
+        $model->required = $this->input->post('required');
+        $model->save();
 
-		return $model;
-	}
+        //Update the content's translations
+        $model->setTranslations($input);
 
-	public function delete($id)
-	{
+        return $model;
+    }
 
-		$response = new stdClass();
-		$response->error_code = 0;
+    public function delete($id)
+    {
 
-		try{
-			$field = \App\Field::find($id);
-			$field->delete();
-		} catch (Exception $e) {
-			$response = $this->error('Ocurri&oacute; un problema al eliminar el art&iacute;culo!', $e);
-		}
+        $response = new stdClass();
+        $response->error_code = 0;
 
-		$this->load->view('admin/request/json', [ 'return' => $response ] );
+        try{
+            $field = \App\Field::find($id);
+            $field->delete();
+        } catch (Exception $e) {
+            $response = $this->error('Ocurri&oacute; un problema al eliminar el art&iacute;culo!', $e);
+        }
 
-	}
+        $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );
 
-	public function reorder($id)
-	{
+    }
 
-		$response = new stdClass();
-		$response->error_code = 0;
+    public function reorder()
+    {
 
-		try{
-			\App\Field::reorder($this->input->post('posiciones'), 'slider');
-		} catch (Exception $e) {
-			$response = $this->error('Ocurri&oacute; un problema al reorganizar los campos!', $e);
-		}
+        $response = new stdClass();
+        $response->error_code = 0;
 
-		$this->load->view('admin/request/json', [ 'return' => $response ] );
+        try{
+            \App\Field::reorder($this->input->post('posiciones'), static::FIELD_SECTION);
+        } catch (Exception $e) {
+            $response = $this->error('Ocurri&oacute; un problema al reorganizar los campos!', $e);
+        }
 
-	}
+        $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );
+
+    }
 
 }

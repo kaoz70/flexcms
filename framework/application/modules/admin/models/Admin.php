@@ -11,54 +11,53 @@ namespace App;
 
 class Admin {
 
-	static private function getFolders()
-	{
-		$path = APPPATH . 'modules/';
-		$folders = [];
-		foreach (new \DirectoryIterator($path) as $file) {
-			if ($file->isDot()) continue;
-			if ($file->isDir()) {
-				$folders[] = $file->getFilename();
-			}
-		}
+    const PATH = APPPATH . 'modules/';
 
-		return $folders;
+    static private function getFolders()
+    {
+        $folders = [];
+        foreach (new \DirectoryIterator(static::PATH) as $file) {
+            if ($file->isDot()) continue;
+            if ($file->isDir()) {
+                $folders[] = $file->getFilename();
+            }
+        }
 
-	}
+        return $folders;
 
-	static function getModules()
-	{
-		$path = APPPATH . 'modules/';
-		$items = [];
+    }
 
-		//Get menu item data
-		foreach (self::getFolders() as $folder) {
-			$config = json_decode(file_get_contents($path . DIRECTORY_SEPARATOR . $folder . DIRECTORY_SEPARATOR . 'config.json'));
-			$config->menu->controller = 'admin/'  . $folder;
-			if($config->menu->show) {
-				$items[$folder] = $config->menu;
-			}
-		}
+    static function getModules()
+    {
+        $items = [];
 
-		return $items;
+        //Get menu item data
+        foreach (static::getFolders() as $folder) {
+            $config = json_decode(file_get_contents(static::PATH . DIRECTORY_SEPARATOR . $folder . DIRECTORY_SEPARATOR . 'config.json'));
+            $config->menu->controller = $folder;
+            if($config->menu->show) {
+                $items[$folder] = $config->menu;
+            }
+        }
 
-	}
+        return $items;
 
-	static function getContentModules()
-	{
+    }
 
-		$path = APPPATH . 'modules/';
-		$items = [];
+    static function getContentModules()
+    {
 
-		//Get menu item data
-		foreach (self::getFolders() as $folder) {
-			$config = json_decode(file_get_contents($path . DIRECTORY_SEPARATOR . $folder . DIRECTORY_SEPARATOR . 'config.json'));
-			if(isset($config->content) && $config->content) {
-				$items[$folder] = $config;
-			}
-		}
+        $items = [];
 
-		return $items;
-	}
+        //Get menu item data
+        foreach (static::getFolders() as $folder) {
+            $config = json_decode(file_get_contents(static::PATH . DIRECTORY_SEPARATOR . $folder . DIRECTORY_SEPARATOR . 'config.json'));
+            if(isset($config->content) && $config->content) {
+                $items[$folder] = $config;
+            }
+        }
+
+        return $items;
+    }
 
 }

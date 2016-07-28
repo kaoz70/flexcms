@@ -6,126 +6,121 @@
  * Time: 11:14 AM
  */
 
-namespace contact;
+namespace Contact;
+use App\Language;
+use Contact\Models\Contact;
+use Illuminate\Database\Eloquent\Model;
+
 $_ns = __NAMESPACE__;
 
 class Person extends \Contact implements \AdminInterface {
-	
-	public function index(){
-		return $this->Contacto->getContacts('es');
-	}
 
-	public function create()
-	{
+    const URL_CREATE = 'admin/contact/person/create';
+    const URL_UPDATE = 'admin/contact/person/update/';
+    const URL_DELETE = 'admin/contact/person/delete/';
+    const URL_INSERT = 'admin/contact/person/insert';
+    const URL_EDIT = 'admin/contact/person/edit/';
 
-		$data['idiomas'] = $this->Contacto->idiomas();
+    public function index(){
+        return Contact::all();
+    }
 
-		$data['contactoId'] = $this->cms_general->generarId('contactos');
-		$data['contactoEmail'] = '';
+    public function create()
+    {
+        $this->_showView(new Contact(), true);
+    }
 
-		$data['titulo'] = "Crear Contacto";
-		$data['link'] = base_url("admin/contact/person/insert");
-		$data['txt_boton'] = "crear";
-		$data['nuevo'] = 'nuevo';
+    public function edit($id)
+    {
+        $this->_showView(Contact::find($id));
+    }
 
-		/*
-		 * TRADUCCIONES
-		 */
-		$data['idiomas'] = $this->Idioma->getLanguages();
+    public function insert()
+    {
 
-		foreach ($data['idiomas'] as $key => $idioma)
-		{
-			$traducciones[$idioma['idiomaDiminutivo']] = new \stdClass();
-			$traducciones[$idioma['idiomaDiminutivo']]->contactoNombre = '';
-		}
+        $response = new \stdClass();
+        $response->error_code = 0;
 
-		$data['traducciones'] = $traducciones;
+        try{
+            $person = $this->_store(new Contact());
+            $response->new_id = $person->id;
+        } catch (\Exception $e) {
+            $response = $this->error('Ocurri&oacute; un problema al crear el contacto!', $e);
+        }
 
-		$this->load->view('admin/contact/person_view', $data);
-	}
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
 
-	public function insert()
-	{
+    }
 
-		$response = new \stdClass();
-		$response->error_code = 0;
 
-		try{
-			$id = $this->Contacto->addContact();
-			$response->new_id = $id;
-		} catch (\Exception $e) {
-			$response = $this->cms_general->error('Ocurri&oacute; un problema al crear el contacto!', $e);
-		}
+    public function update($id)
+    {
 
-		$this->load->view('admin/request/json', array('return' => $response));
+        $response = new \stdClass();
+        $response->error_code = 0;
 
-	}
+        try{
+            $this->_store(Contact::find($id));
+        } catch (\Exception $e) {
+            $response = $this->error('Ocurri&oacute; un problema al actualizar el contacto!', $e);
+        }
 
-	public function edit($id)
-	{
-		$contact= $this->Contacto->getContact($id);
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
 
-		$data['titulo'] = "Modificar Contacto";
-		$data['txt_boton'] = "modificar";
-		$data['link'] = base_url("admin/contact/person/update/" . $contact->contactoId);
-		$data['contactoId'] = $contact->contactoId;
-		$data['contactoEmail'] = $contact->contactoEmail;
-		$data['nuevo'] = '';
+    }
 
-		/*
-		 * TRADUCCIONES
-		 */
-		$data['idiomas'] = $this->Idioma->getLanguages();
+    public function delete($id)
+    {
 
-		$traducciones = array();
+        $response = new \stdClass();
+        $response->error_code = 0;
 
-		foreach ($data['idiomas'] as $key => $idioma)
-		{
-			$contactoTraduccion = $this->Contacto->getContactoTranslation($idioma['idiomaDiminutivo'], $id);
-			$traducciones[$idioma['idiomaDiminutivo']] = new \stdClass();
-			if(isset($contactoTraduccion->contactoNombre)) {
-				$traducciones[$idioma['idiomaDiminutivo']]->contactoNombre = $contactoTraduccion->contactoNombre;
-			} else {
-				$traducciones[$idioma['idiomaDiminutivo']]->contactoNombre = '';
-			}
+        try{
+            $contact = Contact::find($id);
+            $contact->delete();
+        } catch (\Exception $e) {
+            $response = $this->error('Ocurri&oacute; un problema al actualizar el contacto!', $e);
+        }
 
-		}
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
 
-		$data['traducciones'] = $traducciones;
+    }
 
-		$this->load->view('admin/contact/person_view', $data);
-	}
+    /**
+     * Shows the editor view
+     *
+     * @param Model $model
+     * @param bool $new
+     * @return mixed
+     */
+    public function _showView(Model $model, $new = FALSE)
+    {
+        $data['idiomas'] = Language::all();
 
-	public function update($id)
-	{
+        $data['person'] = $model;
 
-		$response = new \stdClass();
-		$response->error_code = 0;
+        $data['titulo'] = $new ? "Crear Contacto" : 'Modificar Contacto';
+        $data['link'] = $new ? base_url(static::URL_INSERT) : base_url(static::URL_UPDATE) . '/' . $model->id;
+        $data['txt_boton'] = $new ? "crear" : 'modificar';
+        $data['nuevo'] = $new ? 'nuevo' : '';
+        $data['edit_url'] = static::URL_EDIT;
+        $data['delete_url'] = static::URL_DELETE;
 
-		try{
-			$this->Contacto->updateContact($id);
-		} catch (\Exception $e) {
-			$response = $this->cms_general->error('Ocurri&oacute; un problema al actualizar el contacto!', $e);
-		}
+        $this->load->view('contact/person_view', $data);
+    }
 
-		$this->load->view('admin/request/json', array('return' => $response));
+    /**
+     * Inserts or updates the current model with the provided post data
+     *
+     * @param Model $model
+     * @return mixed
+     */
+    public function _store(Model $model)
+    {
+        $model->name = $this->input->post('name');
+        $model->email = $this->input->post('email');
+        $model->save();
+        return $model;
+    }
 
-	}
-
-	public function delete($id)
-	{
-
-		$response = new \stdClass();
-		$response->error_code = 0;
-
-		try{
-			$this->Contacto->deleteContact($id);
-		} catch (\Exception $e) {
-			$response = $this->cms_general->error('Ocurri&oacute; un problema al actualizar el contacto!', $e);
-		}
-
-		$this->load->view('admin/request/json', array('return' => $response));
-
-	}
-	
 }

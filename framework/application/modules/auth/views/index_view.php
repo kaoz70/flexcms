@@ -7,27 +7,32 @@
 <ul class="contenido_col searchResults" style="bottom: 71px;">
 
     <? foreach($roles as $role): ?>
-        <li class="pagina field">
+        <? if($role->id != 4): ?>
+            <li class="pagina field">
 
-            <h3 class="header"><?=$role->name?></h3>
+                <h3 class="header"><?=$role->name?></h3>
 
-            <ul id="list_<?=$role->id?>" class="content" >
-                <? foreach($role->users() as $user_key => $user): ?>
-                    <li class="listado" id="<?=$user->user_id?>">
-                        <a class="nombre modificar nivel2" href="<?=base_url();?>auth/admin/user/edit/<?=$user->user_id?>"><span><?=$user->first_name?> <?=$user->last_name?></span></a>
-                        <? if($user->user_id != 1): ?>
-                        <a href="<?=base_url();?>auth/admin/user/delete/<?=$user->user_id?>" class="eliminar" ></a>
-                        <? endif; ?>
-                    </li>
-                <? endforeach; ?>
-            </ul>
-
-        </li>
-    <? endforeach; ?>
+                <ul id="list_<?=$role->id?>" class="content" >
+                    <?php foreach($users as $user_key => $user): ?>
+                        <? if($user->inRole($role)):?>
+                            <li class="listado" id="<?=$user->id?>">
+                                <a class="nombre modificar nivel2" href="<?=$url_edit;?><?=$user->id?>"><span><?=$user->first_name?> <?=$user->last_name?></span></a>
+                                <?php if($user->id != 1): ?>
+                                    <a href="<?=$url_delete;?><?=$user->id?>" class="eliminar" >eliminar</a>
+                                <?php endif; ?>
+                            </li>
+                        <?php endif; ?>
+                    <?php  endforeach; ?>
+                </ul>
+            </li>
+        <? endif ?>
+    <?php  endforeach; ?>
 
 </ul>
-<a id="crear" class="nivel2 ajax boton importante n2" href="<?=base_url();?>auth/admin/user/create"><?=$txt_usuarios;?></a>
-<a class="nivel2 ajax boton n1" href="<?=base_url();?>auth/admin/field">Template</a>
+<a id="crear" class="nivel2 ajax boton importante n4" href="<?=$url_create;?>"><?=$txt_usuarios;?></a>
+<a class="nivel2 ajax boton n3" href="<?=base_url();?>admin/auth/roles">Roles</a>
+<a class="nivel2 ajax boton n2" href="<?=base_url();?>admin/auth/field">Template</a>
+<a class="nivel2 ajax boton n1" href="<?=base_url();?>admin/auth/config">Configuraci&oacute;n</a>
 
 <script type="text/javascript">
     search.init('<?=base_url("admin/search/usuarios")?>', 'es');

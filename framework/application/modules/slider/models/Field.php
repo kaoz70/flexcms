@@ -8,25 +8,28 @@
 
 namespace Slider\Models;
 
-
 use App\Language;
 use App\Translation;
 
 class Field extends \App\Field {
 
-	public function setTranslations($input)
-	{
-		foreach(Language::all() as $lang){
+    public function setTranslations($input)
+    {
+        foreach(Language::all() as $lang){
 
-			$trans_data = [
-				'label' => $input['label'][$lang->id],
-			];
+            $trans_data = [
+                'label' => $input['label'][$lang->id],
+            ];
 
-			$trans = Translation::firstOrNew(['language_id' => $lang->id, 'parent_id' => $this->id, 'type' => 'field']);
-			$trans->data = json_encode($trans_data);
-			$trans->save();
+            $trans = Translation::firstOrNew([
+                'language_id' => $lang->id,
+                'parent_id' => $this->id,
+                'type' => 'slider_field'
+            ]);
+            $trans->data = json_encode($trans_data);
+            $trans->save();
 
-		}
-	}
+        }
+    }
 
 }

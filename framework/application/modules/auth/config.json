@@ -1,6 +1,13 @@
 {
   "content": true,
   "menu": {
-    "show": false
+    "show": true,
+    "icon": "account_circle",
+    "name": {
+      "es": "Usuarios"
+    },
+    "tooltip": {
+      "es": "Usuarios del sistema: administradores, registrados, etc"
+    }
   }
 }

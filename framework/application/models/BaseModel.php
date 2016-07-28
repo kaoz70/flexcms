@@ -11,58 +11,68 @@ use Illuminate\Database\Eloquent\Model;
  */
 class BaseModel extends Model {
 
-	/**
-	 * Returns the content's translation as a json decoded object/array
-	 *
-	 * @param $lang
-	 *
-	 * @return mixed
-	 * @throws \Exception
-	 */
-	public function getTranslation($lang)
-	{
+    /**
+     * Returns the content's translation as a json decoded object/array
+     *
+     * @param $lang
+     * @param $type
+     * @return mixed
+     * @throws \TranslationException
+     */
+    public function getTranslation($lang, $type)
+    {
 
-		try {
+        $translation = $this->hasOne('App\Translation', 'parent_id')
+            ->where('language_id', $lang)
+            ->where('type', $type)
+            ->first();
 
-			$translation = $this->hasOne('App\Translation', 'parent_id')
-			                    ->where('language_id', $lang)
-			                    ->first();
+        if($translation) {
+            $this->translation = json_decode($translation->data);
+            return $this->translation;
+        } else {
+            throw new \TranslationException("Content translation does not exist");
+        }
 
-			if($translation) {
-				$this->translation = json_decode($translation->data);
-				return $this->translation;
-			} else {
-				throw new \Exception("Content translation does not exist");
-			}
+    }
 
-		} catch (\Exception $e) {
-			throw new \Exception($e->getMessage());
-		}
+    /**
+     * Get all the translations available for the content
+     *
+     * @param $type
+     * @return array
+     */
+    public function getTranslations($type)
+    {
 
-	}
+        $languages = Language::all();
+        $arr = [];
 
-	/**
-	 * Get all the translations available for the content
-	 *
-	 * @return array
-	 */
-	public function getTranslations()
-	{
+        foreach($languages as $lang) {
+            try {
+                $arr[$lang->id] = $this->getTranslation($lang->id, $type);
+            } catch (\TranslationException $e) {
+                //No translation available
+                $arr[$lang->id] = '';
+            }
+        }
 
-		$languages = Language::all();
-		$arr = [];
+        return $arr;
 
-		foreach($languages as $lang) {
-			try {
-				$arr[$lang->id] = $this->getTranslation($lang->id);
-			} catch (\Exception $e) {
-				//No translation available
-				$arr[$lang->id] = '';
-			}
-		}
+    }
 
-		return $arr;
+    protected static function reorder($inputs, $section)
+    {
 
-	}
+        //Get the ids
+        $ids = json_decode($inputs, true);
+
+        for($i = 0 ; $i < static::get()->count() ; $i++){
+            $row = static::find($ids[$i]);
+            $row->position = $i + 1;
+            $row->save();
+        }
+
+    }
 
 }

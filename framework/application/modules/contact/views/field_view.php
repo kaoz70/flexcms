@@ -1,75 +1,80 @@
 <h2><?=$titulo;?><a class="cerrar" href="#" >cancelar</a></h2>
 <div class="contenido_col">
-	<?php
+    <?php
 
-	$attributes = array('class' => 'form');
-	echo form_open('admin/contacto/' . $link, $attributes);
-	?>
-	
-	<div class="field">
-		<div class="header">General</div>
-		<div class="content">
-			
-			<fieldset>
-				<legend>Etiqueta</legend>
-				<? foreach ($idiomas as $key => $idioma): ?>
-					<div>
-					<label for="<?=$idioma['idiomaDiminutivo']?>_contactoCampoValor"><?=$idioma['idiomaNombre']?></label>
-					<? if(count($traducciones[$idioma['idiomaDiminutivo']]) > 0):?>
-						<input class="required name" name="<?=$idioma['idiomaDiminutivo']?>_contactoCampoValor" type="text" value="<?=$traducciones[$idioma['idiomaDiminutivo']]->contactoCampoValor?>"/>
-					<? else: ?>
-						<input class="required name" name="<?=$idioma['idiomaDiminutivo']?>_contactoCampoValor" type="text" value=""/>
-					<? endif ?>
-					</div>
-				<? endforeach ?>
-			</fieldset>
+    $attributes = array('class' => 'form');
+    echo form_open('admin/contacto/' . $link, $attributes);
+    ?>
+
+    <div class="field">
+        <div class="header">General</div>
+        <div class="content">
+
+            <div class="input">
+                <label for="css_class">Clase:</label>
+                <input class="required name" id="name" name="name" type="text" value="<?=$field->name?>"/>
+            </div>
+
+            <fieldset>
+                <legend>Etiqueta</legend>
+
+                <? foreach ($translations as $key => $trans): ?>
+                    <label for="label_<?=$key?>"><?= \App\Language::find($key)->name ?></label>
+                    <input class=""
+                           id="label_<?=$key?>"
+                           name="label[<?=$key?>]"
+                           type="text"
+                           value="<?= isset($trans->label) ? $trans->label : '' ?>"/>
+                <? endforeach ?>
+
+            </fieldset>
 
             <fieldset>
                 <legend>Placeholder</legend>
-                <? foreach ($idiomas as $key => $idioma): ?>
-                    <div>
-                        <label for="<?=$idioma['idiomaDiminutivo']?>_contactoCampoPlaceholder"><?=$idioma['idiomaNombre']?></label>
-                        <? if(count($traducciones[$idioma['idiomaDiminutivo']]) > 0):?>
-                            <input name="<?=$idioma['idiomaDiminutivo']?>_contactoCampoPlaceholder" type="text" value="<?=$traducciones[$idioma['idiomaDiminutivo']]->contactoCampoPlaceholder?>"/>
-                        <? else: ?>
-                            <input name="<?=$idioma['idiomaDiminutivo']?>_contactoCampoPlaceholder" type="text" value=""/>
-                        <? endif ?>
-                    </div>
-                <? endforeach ?>
-            </fieldset>
-		
-			<div class="input">
-				<label for="inputId">Tipo:</label>
-				<select id="inputId" name="inputId">
-					<?php foreach ($inputs as $row) : ?>
-					<?php 
-						if($inputId == $row->inputId)
-							$selected = "selected";
-						else
-							$selected = '';
-					?>
-					<option value="<?=$row->inputId;?>" <?=$selected;?> ><?=$row->inputTipoContenido;?></option>
-					<?php endforeach;?>
-				</select>
-			</div>
-			<div class="input">
-				<label for="contactoCampoClase">Clase:</label>
-				<input id="contactoCampoClase" name="contactoCampoClase" type="text" value="<?=$contactoCampoClase?>"/>
-			</div>
 
-            <div class="input check">
-                <input id="contactoCampoRequerido" name="contactoCampoRequerido" type="checkbox" <?=$contactoCampoRequerido?> />
-				<label for="contactoCampoRequerido">Obligatorio</label>
+                <? foreach ($translations as $key => $trans): ?>
+                    <label for="placeholder_<?=$key?>"><?= \App\Language::find($key)->name ?></label>
+                    <input class=""
+                           id="placeholder_<?=$key?>"
+                           name="placeholder[<?=$key?>]"
+                           type="text"
+                           value="<?= isset($trans->label) ? $trans->placeholder : '' ?>"/>
+                <? endforeach ?>
+
+            </fieldset>
+
+            <div class="input">
+                <label for="input_id">Tipo:</label>
+                <select id="input_id" name="input_id">
+                    <? foreach ($inputs as $row) : ?>
+                    <option value="<?=$row->id;?>" <?=$field->input_id === $row->id ? 'selected' : '' ?> ><?=$row->content;?></option>
+                    <? endforeach;?>
+                </select>
             </div>
 
             <div class="input">
-                <label for="contactoCampoValidacion">Validación:</label>
-                <input id="contactoCampoValidacion" name="contactoCampoValidacion" type="text" value="<?=$contactoCampoValidacion?>"/>
+                <label for="css_class">Clase:</label>
+                <input id="css_class" name="css_class" type="text" value="<?=$field->css_class?>"/>
             </div>
 
-		</div>
+            <div class="input check">
+                <input id="required" name="required" type="checkbox" <?=$field->required ? 'checked' : '' ?> />
+                <label for="required">Obligatorio</label>
+            </div>
 
-	</div>
+            <div class="input check">
+                <input id="enabled" name="enabled" type="checkbox" <?=$field->enabled ? 'checked' : '' ?> />
+                <label for="enabled">Publicado</label>
+            </div>
+
+            <div class="input">
+                <label for="validation">Validación:</label>
+                <input id="validation" name="validation" type="text" value="<?=$field->validation?>"/>
+            </div>
+
+        </div>
+
+    </div>
 
     <div class="field">
         <div class="header">Ayuda</div>
@@ -104,8 +109,7 @@
 
         </div>
     </div>
-	
-	<input id="contactoCampoId" type="hidden" name="contactoCampoId" value="<?=$contactoCampoId;?>" />
-	<?= form_close();?>
+
+    <?= form_close();?>
 </div>
-<a href="<?= $link;?>" data-level="nivel2" data-edit-url="contact/field/edit/" data-delete-url="contact/field/delete/" class="guardar boton importante n1 contacto_form <?=$nuevo?>" ><?=$txt_boton;?></a>
+<a href="<?= $link;?>" data-level="nivel2" data-edit-url="<?= $edit_url ?>" data-delete-url="<?= $delete_url ?>" class="guardar boton importante n1 contacto_form <?=$nuevo?>" ><?=$txt_boton;?></a>

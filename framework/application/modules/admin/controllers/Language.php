@@ -1,141 +1,135 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Language extends MY_Controller implements AdminInterface {
-	
-	var $txt_boton = '';
-	var $pagina_info = array();
-	var $link;
-	 
-	function __construct(){
-		parent::__construct();
-		
-		$this->load->model('idiomas_model', 'Idiomas');
-		$this->load->model('admin/page_model', 'Paginas');
+class Language extends AdminController implements AdminInterface {
 
-		$this->load->library('Seguridad');
-		$this->seguridad->init();
-		
-	}
-	
-	public function index()
-	{
+    const URL_CREATE = 'admin/language/create';
+    const URL_UPDATE = 'admin/language/update/';
+    const URL_DELETE = 'admin/language/delete/';
+    const URL_INSERT = 'admin/language/insert';
+    const URL_EDIT = 'admin/language/edit/';
 
-		$data['items'] = $this->Idiomas->getLanguages();
+    public function index()
+    {
 
-		$data['url_rel'] = base_url('admin/language');
-		$data['url_sort'] = base_url('admin/language/reorder');
-		$data['url_modificar'] = base_url('admin/language/edit');
-		$data['url_eliminar'] = base_url('admin/language/delete');
-		$data['url_search'] = '';
+        $data['items'] = \App\Language::all();
 
-		$data['search'] = false;
-		$data['drag'] = false;
-		$data['nivel'] = 'nivel2';
-		$data['list_id'] = 'idiomas';
+        $data['url_edit'] = base_url(static::URL_EDIT);
+        $data['url_delete'] = base_url(static::URL_DELETE);
+        $data['url_sort'] = '';
 
-		$data['idx_id'] = 'idiomaId';
-		$data['idx_nombre'] = 'idiomaNombre';
+        $data['search'] = false;
+        $data['drag'] = false;
+        $data['nivel'] = 'nivel2';
+        $data['list_id'] = 'idiomas';
 
-		$data['txt_titulo'] = 'Idiomas';
+        $data['title'] = 'Idiomas';
 
-		/*
-		 * Menu
-		 */
-		$data['menu'] = array();
+        /*
+         * MENU
+         */
+        $data['menu'][] = anchor(base_url(static::URL_CREATE), 'crear nuevo idioma', [
+            'id' => 'crear',
+            'class' => $data['nivel'] . ' ajax importante n1 boton'
+        ]);
+        $data['bottomMargin'] = count($data['menu']) * 34;
 
-		$atts = array(
-			'id' => 'crear',
-			'class' => $data['nivel'] . ' ajax importante n1 boton'
-		);
+        $this->load->view('admin/list_view', $data);
 
-		$data['menu'][] = anchor(base_url('admin/language/create'), 'crear nuevo idioma', $atts);
-		$data['bottomMargin'] = count($data['menu']) * 34;
+    }
 
-		$this->load->view('admin/listado_view', $data);
+    public function create()
+    {
+        $this->_showView(new \App\Language(), true);
+    }
 
-	}
-	
-	public function create()
-	{
-		$data['titulo'] = "Crear Idioma";
-		$data['link'] = base_url("admin/language/insert");
-		$data['txt_boton'] = "crear";
-        $data['nuevo'] = 'nuevo';
-		
-		$idioma = new stdClass();
-		$idioma->idiomaNombre = '';
-		$idioma->idiomaDiminutivo = '';
-		
-		$data['result'] = $idioma;
-		
-		$this->load->view('admin/idiomaCrear_view', $data);
-	}
-	
-	public function edit($id)
-	{
-		$data['result'] = $this->Idiomas->getLanguageInfo($id); //Datos de cada idioma
-		$data['titulo'] = "Modificar Idioma";
-		$data['txt_boton'] = "modificar";
-		$data['link'] = base_url("admin/language/update/" . $data['result']->idiomaId);
-        $data['nuevo'] = '';
-		
-		$this->load->view('admin/idiomaCrear_view', $data);
-	}
-	
-	public function update($id)
-	{
+    public function edit($id)
+    {
+        $this->_showView(\App\Language::find($id));
+    }
 
-		$response = new stdClass();
-		$response->error_code = 0;
+    public function update($id)
+    {
 
-		try{
-			$this->Idiomas->updateLanguage();
-		} catch (Exception $e) {
-			$response = $this->cms_general->error('Ocurri&oacute; un problema al actualizar el idioma!', $e);
-		}
+        $response = new stdClass();
+        $response->error_code = 0;
 
-		$this->load->view('admin/request/json', array('return' => $response));
+        try{
+            $this->_store(\App\Language::find($id));
+        } catch (Exception $e) {
+            $response = $this->error('Ocurri&oacute; un problema al actualizar el idioma!', $e);
+        }
 
-	}
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
 
-	public function insert()
-	{
-		$response = new stdClass();
-		$response->error_code = 0;
+    }
 
-		try{
-			$id = $this->Idiomas->addLanguage();
-			$response->new_id = $id;
-		} catch (Exception $e) {
-			$response = $this->cms_general->error('Ocurri&oacute; un problema al crear el idioma!', $e);
-		}
+    public function insert()
+    {
+        $response = new stdClass();
+        $response->error_code = 0;
 
-		$this->load->view('admin/request/json', array('return' => $response));
-	}
+        try{
+            $lang = $this->_store(new App\Language());
+            $response->new_id = $lang->id;
+        } catch (Exception $e) {
+            $response = $this->error('Ocurri&oacute; un problema al crear el idioma!', $e);
+        }
 
-	//Dummy function
-	public function reorder($id)
-	{
-		return;
-	}
-	
-	public function delete($id)
-	{
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
+    }
 
-		$response = new stdClass();
-		$response->error_code = 0;
+    public function delete($id)
+    {
 
-		try{
+        $response = new stdClass();
+        $response->error_code = 0;
 
-			$this->Idiomas->deleteLanguage($id);
-		} catch (Exception $e) {
-			$response = $this->cms_general->error('Ocurri&oacute; un problema al crear el idioma!', $e);
-		}
+        try{
+            $lang = \App\Language::find($id);
+            $lang->delete();
+        } catch (Exception $e) {
+            $response = $this->cms_general->error('Ocurri&oacute; un problema al crear el idioma!', $e);
+        }
 
-		$this->load->view('admin/request/json', array('return' => $response));
-		
-		
-	}
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
+
+    }
+
+    /**
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param bool $new
+     * @return mixed
+     */
+    public function _showView(\Illuminate\Database\Eloquent\Model $model, $new = FALSE)
+    {
+
+        $data['titulo'] = $new ? "Crear Idioma" : "Modificar Idioma";
+        $data['link'] = $new ? base_url(static::URL_INSERT) : base_url(static::URL_UPDATE . $model->id);
+        $data['txt_boton'] = $new ? "crear" : "modificar";
+        $data['nuevo'] = $new ? 'nuevo' : '';
+
+        $data['lang'] = $model;
+
+        $data['url_edit'] = base_url(static::URL_EDIT);
+        $data['url_delete'] = base_url(static::URL_DELETE);
+
+        $this->load->view('admin/lang_view', $data);
+
+    }
+
+    /**
+     * Inserts or updates the current model with the provided post data
+     *
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @return mixed
+     */
+    public function _store(\Illuminate\Database\Eloquent\Model $model)
+    {
+        $model->name = $this->input->post('name');
+        $model->id = $this->input->post('id');
+        $model->save();
+        return $model;
+    }
 }
 
 /* End of file welcome.php */

@@ -9,60 +9,69 @@ use Illuminate\Database\Eloquent\Model;
  */
 interface AdminInterface {
 
-	/**
-	 * List of items
-	 *
-	 * @return mixed
-	 */
-	public function index();
+    /**
+     * List of items
+     *
+     * @return mixed
+     */
+    public function index();
 
-	/**
-	 * Create form interface
-	 *
-	 * @return mixed
-	 */
-	public function create();
+    /**
+     * Create form interface
+     *
+     * @return mixed
+     */
+    public function create();
 
-	/**
-	 * Edit form interface
-	 *
-	 * @param $id
-	 *
-	 * @return mixed
-	 */
-	public function edit($id);
+    /**
+     * Edit form interface
+     *
+     * @param $id
+     *
+     * @return mixed
+     */
+    public function edit($id);
 
-	/**
-	 * Insert the item into database
-	 *
-	 * @return mixed
-	 */
-	public function insert();
+    /**
+     * Insert the item into database
+     *
+     * @return mixed
+     */
+    public function insert();
 
-	/**
-	 * Update the item in the database
-	 *
-	 * @param $id
-	 *
-	 * @return mixed
-	 */
-	public function update($id);
+    /**
+     * Update the item in the database
+     *
+     * @param $id
+     *
+     * @return mixed
+     */
+    public function update($id);
 
-	/**
-	 * Remove the item from the database
-	 *
-	 * @param $id
-	 *
-	 * @return mixed
-	 */
-	public function delete($id);
+    /**
+     * Remove the item from the database
+     *
+     * @param $id
+     *
+     * @return mixed
+     */
+    public function delete($id);
 
-	/**
-	 * @param $id
-	 * @param bool $new
-	 *
-	 * @return mixed
-	 */
-	public function _showView($id, $new = FALSE);
+    /**
+     * Shows the editor view
+     *
+     * @param Model $model
+     * @param bool $new
+     * @return mixed
+     */
+    public function _showView(Model $model, $new = FALSE);
+
+    /**
+     * Inserts or updates the current model with the provided post data
+     *
+     * @param Model $model
+     * @return mixed
+     */
+    public function _store(Model $model);
 
 }

@@ -80,11 +80,23 @@ $route['default_controller'] = 'html';
 $route['404_override'] = 'errors/e404';
 $route['translate_uri_dashes'] = FALSE;
 
-//Module Admin routes
+//Admin module routes
 $route['admin/slider'] = 'slider';
 $route['admin/slider/(:any)'] = 'slider/$1';
 $route['admin/slider/(:any)/(:any)'] = 'slider/$1/$2';
 $route['admin/slider/(:any)/(:any)/(:any)'] = 'slider/$1/$2/$3';
+
+//Auth module routes
+$route['admin/auth'] = 'auth';
+$route['admin/auth/(:any)'] = 'auth/$1';
+$route['admin/auth/(:any)/(:any)'] = 'auth/$1/$2';
+$route['admin/auth/(:any)/(:any)/(:any)'] = 'auth/$1/$2/$3';
+
+//Contact module routes
+$route['admin/contact'] = 'contact';
+$route['admin/contact/(:any)'] = 'contact/$1';
+$route['admin/contact/(:any)/(:any)'] = 'contact/$1/$2';
+$route['admin/contact/(:any)/(:any)/(:any)'] = 'contact/$1/$2/$3';
 
 //$route['([a-z]{2})/(.+)'] = "html/$1";
 
