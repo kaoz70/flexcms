@@ -15,10 +15,11 @@ framework/application/cache/pages/http**
 framework/application/cache/database/**
 framework/application/cache/assetic/**
 framework/application/cache/views/**
-framework/application/logs/**
 framework/application/sessions/ci_**
 assets/public/audio/**
 assets/public/files/**
 assets/public/images/**
 
-!index.html
+.idea/
+framework/application/logs/
+themes/destiny/cache/
