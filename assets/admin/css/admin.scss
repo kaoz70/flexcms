@@ -67,6 +67,8 @@ $mod_menu_color: #ff621f;
   [type="checkbox"]:not(:checked) + label:before,
   [type="checkbox"]:checked + label:before,
   input[type="text"],
+  input[type="number"],
+  input[type="email"],
   select {
     background: darken($bg-color, 30%);
   }
@@ -77,11 +79,15 @@ $mod_menu_color: #ff621f;
   }
 
   input[type="text"],
+  input[type="number"],
+  input[type="email"],
   select {
     color: white;
   }
 
   select,
+  input[type="number"],
+  input[type="email"],
   input[type="text"] {
     border-color: darken($bg-color, 40%);
     box-shadow: inset 0px 0px 4px darken($bg-color, 40%);
@@ -129,6 +135,8 @@ select,
 input[type="text"],
 input[type="password"],
 input[type="submit"],
+input[type="number"],
+input[type="email"],
 #logout, .boton.importante,
 .contenido .boton.enabled,
 form#login,
@@ -177,6 +185,8 @@ select.formatBlock-item.toolbar-item {
 
 input[type="text"],
 input[type="password"],
+input[type="number"],
+input[type="email"],
 textarea {
   padding: 0 3px;
   line-height: 26px;
@@ -652,6 +662,8 @@ hr {
     }
 
     select:not(.toolbar-item),
+    input[type="number"],
+    input[type="email"],
     input[type="text"],
     input[type="password"] {
       width: 100%;

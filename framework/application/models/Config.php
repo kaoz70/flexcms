@@ -62,4 +62,10 @@ class Config extends Model {
 
     }
 
+    static function theme()
+    {
+        $conf = static::get();
+        return $conf['theme'];
+    }
+
 }

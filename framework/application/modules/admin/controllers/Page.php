@@ -1,519 +1,514 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Page extends BaseController {
-	
-	var $txt_boton = '';
-	var $pagina_info = array();
-	var $link;
-	var $mptt;
-
-	function __construct(){
-
-		parent::__construct();
-		/*$this->load->helper('text');
-		$this->load->model('admin/page_model', 'Paginas');
-		$this->load->model('admin/module_model', 'Modulo');
-		$this->load->model('configuracion_model', 'Config');
-		$this->load->model('idiomas_model', 'Idioma');
-
-		$this->load->model('admin/general_model', 'General');
-		$this->load->model('noticias_model', 'Noticias');
-		$this->load->model('article_model', 'Articles');
-		$this->load->model('faq_model', 'Faq');
-		$this->load->model('admin/catalogo_model', 'Catalogo');
-		$this->load->model('descargas_model', 'Descargas');
-		$this->load->model('enlaces_model', 'Enlaces');
-		$this->load->model('servicios_model', 'Servicios');
-		$this->load->model('calendar_model', 'Calendar');
-
-		// IMPORTANT! This global must be defined BEFORE the flexi cart library is loaded!
-		// It is used as a global that is accessible via both models and both libraries, without it, flexi cart will not work.
-		$this->flexi = new stdClass;
-
-		// Load 'admin' flexi cart library by default.
-		$this->load->library('flexi_cart_admin');
-
-		$this->load->model('admin/cart_model', 'Cart');
-
-		$this->load->library('ion_auth');
-		
-		$this->load->library('Seguridad');
-		$this->load->library('CMS_General');
-
-		$config = $this->Config->get();
-		$this->theme = $config->theme;
-
-		$this->seguridad->init();*/
-		
-	}
-
-	/**
-	 * Show the website's structure
-	 */
-	public function index()
-	{
-		$root = PageTree::allRoot()->first();
-		$root->findChildren(999);
-		$this->load->view('admin/request/html', array(
-			'return' => admin_structure_tree($root->getChildren(), $this->Modulo->getContentPages())
-		));
-	}
-	
-	public function edit($id)
-	{
 
-		//Get the page
-		$page = $this->Paginas->getPage((int)$id);
+    var $txt_boton = '';
+    var $pagina_info = array();
+    var $link;
+    var $mptt;
 
-		//Get any content modules
-		$content = $this->Modulo->getContentByPage($id);
+    function __construct(){
 
-		$data['txt_titulo'] = $page->paginaNombreMenu;
+        parent::__construct();
+        /*$this->load->helper('text');
+        $this->load->model('admin/page_model', 'Paginas');
+        $this->load->model('admin/module_model', 'Modulo');
+        $this->load->model('configuracion_model', 'Config');
+        $this->load->model('idiomas_model', 'Idioma');
 
-		foreach ($content as $module) {
-
-			switch ($module->moduloParam1) {
+        $this->load->model('admin/general_model', 'General');
+        $this->load->model('noticias_model', 'Noticias');
+        $this->load->model('article_model', 'Articles');
+        $this->load->model('faq_model', 'Faq');
+        $this->load->model('admin/catalogo_model', 'Catalogo');
+        $this->load->model('descargas_model', 'Descargas');
+        $this->load->model('enlaces_model', 'Enlaces');
+        $this->load->model('servicios_model', 'Servicios');
+        $this->load->model('calendar_model', 'Calendar');
 
-				//Articles
-				case 1:
-
-					$data['items'] = $this->Articles->getByPage($id, 'es');
-					$data['grupos'] = $this->Modulo->getContentByType(1);
-
-					$data['url_rel'] = base_url('admin/article');
-					$data['url_sort'] = base_url('admin/article/reorder/' . $id);
-					$data['url_modificar'] = base_url('admin/article/edit');
-					$data['url_eliminar'] = base_url('admin/article/delete');
-					$data['url_search'] = base_url("admin/search/articles");
-
-					$data['search'] = true;
-					$data['drag'] = true;
-					$data['nivel'] = 'nivel2';
-					$data['list_id'] = 'article_' . $id;
-
-					$data['idx_nombre'] = 'articuloTitulo';
-					$data['idx_id'] = 'articuloId';
+        // IMPORTANT! This global must be defined BEFORE the flexi cart library is loaded!
+        // It is used as a global that is accessible via both models and both libraries, without it, flexi cart will not work.
+        $this->flexi = new stdClass;
 
-					/*
-					 * Menu
-					 */
-					$data['menu'] = array();
-
-					$atts = array(
-						'id' => 'crear',
-						'class' => $data['nivel'] . ' ajax boton importante n1'
-					);
+        // Load 'admin' flexi cart library by default.
+        $this->load->library('flexi_cart_admin');
 
-					$data['menu'][] = anchor(base_url('admin/article/create/' . $id), 'crear nuevo artículo', $atts);
-					$data['bottomMargin'] = count($data['menu']) * 34;
+        $this->load->model('admin/cart_model', 'Cart');
 
-					$this->load->view('admin/listado_view', $data);
+        $this->load->library('ion_auth');
 
-					break;
+        $this->load->library('Seguridad');
+        $this->load->library('CMS_General');
 
-				//FAQ
-				case 2:
+        $config = $this->Config->get();
+        $this->theme = $config->theme;
 
-					$data['items'] = $this->Faq->getByPage($id, 'es');
+        $this->seguridad->init();*/
 
-					$data['url_rel'] = base_url('admin/faq');
-					$data['url_sort'] = base_url('admin/faq/reorder');
-					$data['url_modificar'] = base_url('admin/faq/edit');
-					$data['url_eliminar'] = base_url('admin/faq/delete');
-					$data['url_search'] = '';
+    }
 
-					$data['search'] = false;
-					$data['drag'] = true;
-					$data['nivel'] = 'nivel2';
-					$data['list_id'] = 'faqs';
+    /**
+     * Show the website's structure
+     */
+    public function index()
+    {
+        $root = PageTree::allRoot()->first();
+        $root->findChildren(999);
+        $this->load->view('admin/request/html', array(
+            'return' => admin_structure_tree($root->getChildren(), $this->Modulo->getContentPages())
+        ));
+    }
 
-					$data['idx_id'] = 'faqId';
-					$data['idx_nombre'] = 'faqPregunta';
+    public function edit($id)
+    {
 
-					$data['txt_titulo'] = 'Preguntas Frecuentes';
-					$data['txt_grupoNombre'] = 'Página';
+        //Get the content module
+        $contentWidget = \App\Widget::getContentWidget($id);
+        $contentType = $contentWidget->getData();
+        $class = '\\' . $contentType->content_type . '\Content';
 
-					/*
-					 * Menu
-					 */
-					$data['menu'] = array();
+        //Get the content's index page
+        $class::index($id);
 
-					$atts = array(
-						'id' => 'crear',
-						'class' => $data['nivel'] . ' ajax importante n1 boton'
-					);
+        return;
 
-					$data['menu'][] = anchor(base_url('admin/faq/create/' . $id), 'crear nueva pregunta', $atts);
-					$data['bottomMargin'] = count($data['menu']) * 34;
 
-					$this->load->view('admin/listado_view', $data);
 
-					break;
 
-				//Catalog
-				case 4:
 
-					$root = CatalogTree::allRoot()->first();
-					$root->findChildren(999);
 
-					$data['root_node'] = $root;
 
-					$data['url_rel'] = base_url('admin/catalog');
-					$data['url_search'] = base_url("admin/search/productos");
+        switch ($contentType->content_type) {
 
-					$data['urls'] = array(
-						'edit' => base_url('admin/catalog/product/edit'),
-						'delete' => base_url('admin/catalog/product/delete'),
-						'sort' => base_url('admin/catalog/product/reorder'),
-					);
+            //Articles
+            /*case 1:
 
-					$data['names'] = array(
-						'category' => 'productoCategoriaNombre' ,
-						'item' => 'productoNombre',
-					);
+                $data['items'] = $this->Articles->getByPage($id, 'es');
+                $data['grupos'] = $this->Modulo->getContentByType(1);
 
-					$data['item_methods'] = array(
-						'library' => 'Catalogo' ,
-						'method' => 'getProductos',
-					);
+                $data['url_rel'] = base_url('admin/article');
+                $data['url_sort'] = base_url('admin/article/reorder/' . $id);
+                $data['url_modificar'] = base_url('admin/article/edit');
+                $data['url_eliminar'] = base_url('admin/article/delete');
+                $data['url_search'] = base_url("admin/search/articles");
 
-					$data['search'] = true;
-					$data['drag'] = true;
-					$data['nivel'] = 'nivel2';
-					$data['list_id'] = 'catalogo';
+                $data['search'] = true;
+                $data['drag'] = true;
+                $data['nivel'] = 'nivel2';
+                $data['list_id'] = 'article_' . $id;
 
-					$data['idx_nombre'] = 'productoCategoriaNombre';
-					$data['idx_grupo_id'] = 'categoriaId';
-					$data['idx_item_id'] = 'productoId';
-					$data['idx_item_nombre'] = 'productoNombre';
+                $data['idx_nombre'] = 'articuloTitulo';
+                $data['idx_id'] = 'articuloId';
 
-					$data['txt_titulo'] = 'Cat&aacute;logo';
-					$data['txt_grupoNombre'] = 'Categoría';
 
+                $data['menu'] = array();
 
-					/*
-					 * Menu
-					 */
-					$data['menu'] = array();
+                $atts = array(
+                    'id' => 'crear',
+                    'class' => $data['nivel'] . ' ajax boton importante n1'
+                );
 
-					$atts = array(
-						'id' => 'crear',
-						'class' => $data['nivel'] . ' ajax boton importante n4'
-					);
-					$data['menu'][] = anchor(base_url('admin/catalog/product/create'), 'crear nuevo producto', $atts);
+                $data['menu'][] = anchor(base_url('admin/article/create/' . $id), 'crear nuevo artículo', $atts);
+                $data['bottomMargin'] = count($data['menu']) * 34;
 
-					$atts = array(
-						'id' => 'crear',
-						'class' => $data['nivel'] . ' ajax boton n3'
-					);
-					$data['menu'][] = anchor(base_url('admin/catalog/category'), 'categor&iacute;as', $atts);
+                $this->load->view('admin/listado_view', $data);
 
-					$atts = array(
-						'id' => 'crear',
-						'class' => $data['nivel'] . ' ajax boton n2'
-					);
-					$data['menu'][] = anchor(base_url('admin/catalog/field'), 'template', $atts);
+                break;
 
-					$atts = array(
-						'id' => 'crear',
-						'class' => $data['nivel'] . ' ajax boton n1'
-					);
-					$data['menu'][] = anchor(base_url('admin/catalog/config'), 'configuracion', $atts);
-					$data['bottomMargin'] = count($data['menu']) * 34;
+            //FAQ
+            case 2:
 
-					$this->load->view('admin/listadoCategorias_view', $data);
+                $data['items'] = $this->Faq->getByPage($id, 'es');
 
-					break;
+                $data['url_rel'] = base_url('admin/faq');
+                $data['url_sort'] = base_url('admin/faq/reorder');
+                $data['url_modificar'] = base_url('admin/faq/edit');
+                $data['url_eliminar'] = base_url('admin/faq/delete');
+                $data['url_search'] = '';
 
-				//Publications
-				case 5:
+                $data['search'] = false;
+                $data['drag'] = true;
+                $data['nivel'] = 'nivel2';
+                $data['list_id'] = 'faqs';
 
-					$data['items'] = $this->Noticias->getByPage($id, 'es');
+                $data['idx_id'] = 'faqId';
+                $data['idx_nombre'] = 'faqPregunta';
 
-					$data['url_rel'] = base_url('admin/publications/publication');
-					$data['url_sort'] = '';
-					$data['url_modificar'] = base_url('admin/publications/publication/edit');
-					$data['url_eliminar'] = base_url('admin/publications/publication/delete');
-					$data['url_search'] = base_url("admin/search/publicaciones");
+                $data['txt_titulo'] = 'Preguntas Frecuentes';
+                $data['txt_grupoNombre'] = 'Página';
 
-					$data['search'] = true;
-					$data['drag'] = false;
-					$data['nivel'] = 'nivel2';
-					$data['list_id'] = 'pub_' . $id;
 
-					$data['idx_nombre'] = 'publicacionNombre';
-					$data['idx_id'] = 'publicacionId';
+                $data['menu'] = array();
 
-					/*
-					 * Menu
-					 */
-					$data['menu'] = array();
+                $atts = array(
+                    'id' => 'crear',
+                    'class' => $data['nivel'] . ' ajax importante n1 boton'
+                );
 
-					$atts = array(
-						'id' => 'crear',
-						'class' => $data['nivel'] . ' ajax boton importante n1'
-					);
+                $data['menu'][] = anchor(base_url('admin/faq/create/' . $id), 'crear nueva pregunta', $atts);
+                $data['bottomMargin'] = count($data['menu']) * 34;
 
-					$data['menu'][] = anchor(base_url('admin/publications/publication/create/' . $id), 'crear nueva publicación', $atts);
-					$data['bottomMargin'] = count($data['menu']) * 34;
+                $this->load->view('admin/listado_view', $data);
 
-					$this->load->view('admin/listado_view', $data);
+                break;*/
 
-					break;
+            //Catalog
+            case 4:
 
-				//Gallery
-				case 6:
+                $root = CatalogTree::allRoot()->first();
+                $root->findChildren(999);
 
-					$root = GalleryTree::allRoot()->first();
-					$root->findChildren(999);
+                $data['root_node'] = $root;
 
-					$data['root_node'] = $root;
-					$data['dim'] = $this->General->getCropImage(8);
+                $data['url_rel'] = base_url('admin/catalog');
+                $data['url_search'] = base_url("admin/search/productos");
 
-					$data['url_rel'] = base_url('admin/gallery/file');
-					$data['url_search'] = base_url("admin/search/galeria");
+                $data['urls'] = array(
+                    'edit' => base_url('admin/catalog/product/edit'),
+                    'delete' => base_url('admin/catalog/product/delete'),
+                    'sort' => base_url('admin/catalog/product/reorder'),
+                );
 
-					$data['urls'] = array(
-						'edit' => base_url('admin/gallery/file/edit'),
-						'delete' => base_url('admin/gallery/file/delete'),
-						'sort' => base_url('admin/gallery/file/reorder'),
-					);
+                $data['names'] = array(
+                    'category' => 'productoCategoriaNombre' ,
+                    'item' => 'productoNombre',
+                );
 
-					$data['names'] = array(
-						'category' => 'descargaCategoriaNombre' ,
-						'item' => 'descargaNombre',
-					);
+                $data['item_methods'] = array(
+                    'library' => 'Catalogo' ,
+                    'method' => 'getProductos',
+                );
 
-					$data['item_methods'] = array(
-						'library' => 'Descargas' ,
-						'method' => 'getDownloads',
-					);
+                $data['search'] = true;
+                $data['drag'] = true;
+                $data['nivel'] = 'nivel2';
+                $data['list_id'] = 'catalogo';
 
-					$data['search'] = true;
-					$data['drag'] = true;
-					$data['nivel'] = 'nivel2';
-					$data['list_id'] = 'descargas';
-					$data['view'] = 'nodes/gallery';
+                $data['idx_nombre'] = 'productoCategoriaNombre';
+                $data['idx_grupo_id'] = 'categoriaId';
+                $data['idx_item_id'] = 'productoId';
+                $data['idx_item_nombre'] = 'productoNombre';
 
-					$data['idx_nombre'] = 'descargaCategoriaNombre';
-					$data['idx_grupo_id'] = 'id';
-					$data['idx_item_id'] = 'descargaId';
-					$data['idx_item_nombre'] = 'descargaNombre';
+                $data['txt_titulo'] = 'Cat&aacute;logo';
+                $data['txt_grupoNombre'] = 'Categoría';
 
-					$data['txt_titulo'] = 'Galería';
-					$data['txt_grupoNombre'] = 'Categoría';
 
-					/*
-					 * Menu
-					 */
-					$data['menu'] = array();
+                /*
+                 * Menu
+                 */
+                $data['menu'] = array();
 
-					$atts = array(
-						'class' => $data['nivel'] . ' ajax boton_listado primero n1 boton'
-					);
-					$data['menu'][] = anchor(base_url('admin/gallery/category/index'), 'editar categorías', $atts);
+                $atts = array(
+                    'id' => 'crear',
+                    'class' => $data['nivel'] . ' ajax boton importante n4'
+                );
+                $data['menu'][] = anchor(base_url('admin/catalog/product/create'), 'crear nuevo producto', $atts);
 
-					$atts = array(
-						'class' => $data['nivel'] . ' ajax boton_listado importante n2 boton'
-					);
-					$data['menu'][] = anchor(base_url('admin/gallery/youtube/create'), 'a&ntilde;adir video de youtube', $atts);
-					$data['bottomMargin'] = count($data['menu']) * 34;
+                $atts = array(
+                    'id' => 'crear',
+                    'class' => $data['nivel'] . ' ajax boton n3'
+                );
+                $data['menu'][] = anchor(base_url('admin/catalog/category'), 'categor&iacute;as', $atts);
 
-					$this->load->view('admin/listadoGallery_view', $data);
+                $atts = array(
+                    'id' => 'crear',
+                    'class' => $data['nivel'] . ' ajax boton n2'
+                );
+                $data['menu'][] = anchor(base_url('admin/catalog/field'), 'template', $atts);
 
-					break;
+                $atts = array(
+                    'id' => 'crear',
+                    'class' => $data['nivel'] . ' ajax boton n1'
+                );
+                $data['menu'][] = anchor(base_url('admin/catalog/config'), 'configuracion', $atts);
+                $data['bottomMargin'] = count($data['menu']) * 34;
 
-				//Links
-				case 10:
+                $this->load->view('admin/listadoCategorias_view', $data);
 
-					$data['items'] = $this->Enlaces->getAll('es', FALSE);
+                break;
 
-					$data['url_rel'] = base_url('admin/link');
-					$data['url_sort'] = base_url('admin/link/reorder/');
-					$data['url_modificar'] = base_url('admin/link/edit/');
-					$data['url_eliminar'] = base_url('admin/link/delete/');
+            //Publications
+            /*case 5:
 
-					$data['search'] = false;
-					$data['drag'] = true;
-					$data['nivel'] = 'nivel2';
-					$data['list_id'] = 'link_' . $id;
+                $data['items'] = $this->Noticias->getByPage($id, 'es');
 
-					$data['idx_nombre'] = 'enlaceTexto';
-					$data['idx_id'] = 'enlaceId';
+                $data['url_rel'] = base_url('admin/publications/publication');
+                $data['url_sort'] = '';
+                $data['url_modificar'] = base_url('admin/publications/publication/edit');
+                $data['url_eliminar'] = base_url('admin/publications/publication/delete');
+                $data['url_search'] = base_url("admin/search/publicaciones");
 
-					/*
-					 * Menu
-					 */
-					$data['menu'] = array();
+                $data['search'] = true;
+                $data['drag'] = false;
+                $data['nivel'] = 'nivel2';
+                $data['list_id'] = 'pub_' . $id;
 
-					$atts = array(
-						'id' => 'crear',
-						'class' => $data['nivel'] . ' ajax boton importante n1'
-					);
+                $data['idx_nombre'] = 'publicacionNombre';
+                $data['idx_id'] = 'publicacionId';
 
-					$data['menu'][] = anchor(base_url('admin/link/create/' . $id), 'crear nuevo enlace', $atts);
-					$data['bottomMargin'] = count($data['menu']) * 34;
 
-					$this->load->view('admin/listado_view', $data);
+                $data['menu'] = array();
 
-					break;
+                $atts = array(
+                    'id' => 'crear',
+                    'class' => $data['nivel'] . ' ajax boton importante n1'
+                );
 
-				//Services
-				case 12:
+                $data['menu'][] = anchor(base_url('admin/publications/publication/create/' . $id), 'crear nueva publicación', $atts);
+                $data['bottomMargin'] = count($data['menu']) * 34;
 
-					$data['items'] = $this->Servicios->getAll('es', $id);
+                $this->load->view('admin/listado_view', $data);
 
-					$data['url_rel'] = base_url('admin/services/service');
-					$data['url_sort'] = base_url('admin/services/service/reorder');
-					$data['url_modificar'] = base_url('admin/services/service/edit');
-					$data['url_eliminar'] = base_url('admin/services/service/delete');
-					$data['url_search'] = base_url("admin/search/servicios");
+                break;*/
 
-					$data['search'] = true;
-					$data['drag'] = true;
-					$data['nivel'] = 'nivel2';
-					$data['list_id'] = 'serv';
+            //Gallery
+            case 6:
 
-					$data['idx_id'] = 'servicioId';
-					$data['idx_nombre'] = 'servicioTitulo';
+                $root = GalleryTree::allRoot()->first();
+                $root->findChildren(999);
 
-					$data['txt_titulo'] = 'Servicios';
+                $data['root_node'] = $root;
+                $data['dim'] = $this->General->getCropImage(8);
 
-					/*
-					 * Menu
-					 */
-					$data['menu'] = array();
+                $data['url_rel'] = base_url('admin/gallery/file');
+                $data['url_search'] = base_url("admin/search/galeria");
 
-					$atts = array(
-						'id' => 'crearBanner',
-						'class' => $data['nivel'] . ' ajax boton importante n1'
-					);
-					$data['menu'][] = anchor(base_url('admin/services/service/create/' . $id), 'Crear Servicio', $atts);
-					$data['bottomMargin'] = count($data['menu']) * 34;
+                $data['urls'] = array(
+                    'edit' => base_url('admin/gallery/file/edit'),
+                    'delete' => base_url('admin/gallery/file/delete'),
+                    'sort' => base_url('admin/gallery/file/reorder'),
+                );
 
-					$this->load->view('admin/listado_view', $data);
+                $data['names'] = array(
+                    'category' => 'descargaCategoriaNombre' ,
+                    'item' => 'descargaNombre',
+                );
 
-					break;
+                $data['item_methods'] = array(
+                    'library' => 'Descargas' ,
+                    'method' => 'getDownloads',
+                );
 
-				//Calendar
-				case 13:
+                $data['search'] = true;
+                $data['drag'] = true;
+                $data['nivel'] = 'nivel2';
+                $data['list_id'] = 'descargas';
+                $data['view'] = 'nodes/gallery';
 
-					$data['items'] = $this->Calendar->getAll();
+                $data['idx_nombre'] = 'descargaCategoriaNombre';
+                $data['idx_grupo_id'] = 'id';
+                $data['idx_item_id'] = 'descargaId';
+                $data['idx_item_nombre'] = 'descargaNombre';
 
-					$data['url_rel'] = base_url('admin/calendar/day');
-					$data['url_sort'] = '';
-					$data['url_modificar'] = base_url('admin/calendar/day/edit');
-					$data['url_eliminar'] = base_url('admin/calendar/day/delete');
-					$data['url_search'] = base_url("admin/search/calendar");
+                $data['txt_titulo'] = 'Galería';
+                $data['txt_grupoNombre'] = 'Categoría';
 
-					$data['search'] = true;
-					$data['drag'] = false;
-					$data['nivel'] = 'nivel2';
-					$data['list_id'] = 'calendar';
+                /*
+                 * Menu
+                 */
+                $data['menu'] = array();
 
-					$data['idx_id'] = 'id';
-					$data['idx_nombre'] = 'date';
+                $atts = array(
+                    'class' => $data['nivel'] . ' ajax boton_listado primero n1 boton'
+                );
+                $data['menu'][] = anchor(base_url('admin/gallery/category/index'), 'editar categorías', $atts);
 
-					$data['txt_titulo'] = 'Calendario';
+                $atts = array(
+                    'class' => $data['nivel'] . ' ajax boton_listado importante n2 boton'
+                );
+                $data['menu'][] = anchor(base_url('admin/gallery/youtube/create'), 'a&ntilde;adir video de youtube', $atts);
+                $data['bottomMargin'] = count($data['menu']) * 34;
 
-					/*
-					 * Menu
-					 */
-					$data['menu'] = array();
+                $this->load->view('admin/listadoGallery_view', $data);
 
-					$atts = array(
-						'class' => $data['nivel'] . ' ajax boton importante n1'
-					);
-					$data['menu'][] = anchor(base_url('admin/calendar/day/create'), 'Crear D&iacute;a', $atts);
+                break;
 
-					//TODO: finish dynamic fields
-					/*
-					$atts = array(
-						'class' => $data['nivel'] . ' ajax boton n1'
-					);
-					$data['menu'][] = anchor(base_url('admin/calendar/fields'), 'Template', $atts);*/
+            //Links
+            case 10:
 
-					$data['bottomMargin'] = count($data['menu']) * 34;
+                $data['items'] = $this->Enlaces->getAll('es', FALSE);
 
-					$this->load->view('admin/listado_view', $data);
+                $data['url_rel'] = base_url('admin/link');
+                $data['url_sort'] = base_url('admin/link/reorder/');
+                $data['url_modificar'] = base_url('admin/link/edit/');
+                $data['url_eliminar'] = base_url('admin/link/delete/');
 
-					break;
+                $data['search'] = false;
+                $data['drag'] = true;
+                $data['nivel'] = 'nivel2';
+                $data['list_id'] = 'link_' . $id;
 
-				//Cart
-				case 9:
+                $data['idx_nombre'] = 'enlaceTexto';
+                $data['idx_id'] = 'enlaceId';
 
-					// Get an array of all saved orders.
-					// Using a flexi cart SQL function, set the order the order data so that dates are listed newest to oldest.
-					$this->flexi_cart_admin->sql_order_by($this->flexi_cart_admin->db_column('order_summary', 'date'), 'desc');
-					$data['items'] = $this->flexi_cart_admin->get_db_order_array();
-					$this->flexi_cart_admin->sql_clear();
-					$data['grupos'] = $this->flexi_cart_admin->get_db_order_status_array();;
+                /*
+                 * Menu
+                 */
+                $data['menu'] = array();
 
-					$data['url_rel'] = base_url('admin/cart');
-					$data['url_sort'] = '';
-					$data['url_modificar'] = base_url('admin/cart/order/detail');
-					$data['url_eliminar'] = base_url('admin/cart/order/delete');
-					$data['url_search'] = base_url("admin/search/cart");
+                $atts = array(
+                    'id' => 'crear',
+                    'class' => $data['nivel'] . ' ajax boton importante n1'
+                );
 
-					$data['search'] = true;
-					$data['drag'] = false;
-					$data['nivel'] = 'nivel2';
-					$data['list_id'] = '';
+                $data['menu'][] = anchor(base_url('admin/link/create/' . $id), 'crear nuevo enlace', $atts);
+                $data['bottomMargin'] = count($data['menu']) * 34;
 
-					$data['idx_nombre'] = 'ord_status_description';
-					$data['idx_grupo_id'] = 'ord_status_id';
-					$data['idx_grupo_id_alt'] = 'ord_status';
-					$data['idx_item_id'] = 'ord_order_number';
-					$data['idx_item_nombre'] = 'ord_order_number';
+                $this->load->view('admin/listado_view', $data);
 
-					$data['txt_titulo'] = 'Carrito de Compras';
-					$data['txt_grupoNombre'] = 'Estado';
+                break;
 
-					/*
-					 * Menu
-					 */
-					$data['menu'] = array();
-					$data['menu'][] = anchor(base_url('admin/cart/location/index'), 'locaciones y Zonas', array('class' => $data['nivel'] . ' ajax boton n7'));
-					$data['menu'][] = anchor(base_url('admin/cart/shipping/index'), 'Envios e Impuestos', array('class' => $data['nivel'] . ' ajax boton n6'));
-					$data['menu'][] = anchor(base_url('admin/cart/discount/index'), 'Descuentos', array('class' => $data['nivel'] . ' ajax boton n5'));
-					//TODO entender que hace esto: http://haseydesign.com/flexi-cart/admin_library/user_reward_points
-					//$data['menu'][] = anchor(base_url('admin/cart/recompensas'), 'Puntos de Recompensa', array('class' => $data['nivel'] . ' ajax boton n5'));
-					//$data['menu'][] = anchor(base_url('admin/cart/vouchers'), 'Vouchers', array('class' => $data['nivel'] . ' ajax boton n4'));
-					$data['menu'][] = anchor(base_url('admin/cart/currency/index'), 'Monedas', array('class' => $data['nivel'] . ' ajax boton n4'));
-					$data['menu'][] = anchor(base_url('admin/cart/status/index'), 'Estados', array('class' => $data['nivel'] . ' ajax boton n3'));
-					$data['menu'][] = anchor(base_url('admin/cart/defaults/edit'), 'Valores por defecto', array('class' => $data['nivel'] . ' ajax boton n2'));
-					$data['menu'][] = anchor(base_url('admin/cart/config/edit'), 'Configuraci&oacute;n', array('class' => $data['nivel'] . ' ajax boton n1'));
+            //Services
+            /*case 12:
 
-					$data['bottomMargin'] = count($data['menu']) * 34;
+                $data['items'] = $this->Servicios->getAll('es', $id);
 
-					$this->load->view('admin/listadoAgrupado_view', $data);
+                $data['url_rel'] = base_url('admin/services/service');
+                $data['url_sort'] = base_url('admin/services/service/reorder');
+                $data['url_modificar'] = base_url('admin/services/service/edit');
+                $data['url_eliminar'] = base_url('admin/services/service/delete');
+                $data['url_search'] = base_url("admin/search/servicios");
 
-					break;
+                $data['search'] = true;
+                $data['drag'] = true;
+                $data['nivel'] = 'nivel2';
+                $data['list_id'] = 'serv';
 
-			}
+                $data['idx_id'] = 'servicioId';
+                $data['idx_nombre'] = 'servicioTitulo';
 
-		}
+                $data['txt_titulo'] = 'Servicios';
 
-	}
+                $data['menu'] = array();
 
-	/**
-	 * Checks if the name of the page will be unique, we do this because the name is transformed into the
-	 * page's slug and we cant have any duplicates
-	 */
-	public function uniqueName(){
+                $atts = array(
+                    'id' => 'crearBanner',
+                    'class' => $data['nivel'] . ' ajax boton importante n1'
+                );
+                $data['menu'][] = anchor(base_url('admin/services/service/create/' . $id), 'Crear Servicio', $atts);
+                $data['bottomMargin'] = count($data['menu']) * 34;
 
-		$id = $this->input->post('id');
-		$name = $this->input->post('name');
-		$lang = $this->input->post('lang');
+                $this->load->view('admin/listado_view', $data);
 
-		$category = \App\Category::find($id);
+                break;*/
 
-		$this->load->view('admin/request/json', [
-			'return' => [
-				'unique' => $category->isUniqueName($name, $lang)
-			]
-		]);
+            //Calendar
+            case 13:
 
-	}
+                $data['items'] = $this->Calendar->getAll();
+
+                $data['url_rel'] = base_url('admin/calendar/day');
+                $data['url_sort'] = '';
+                $data['url_modificar'] = base_url('admin/calendar/day/edit');
+                $data['url_eliminar'] = base_url('admin/calendar/day/delete');
+                $data['url_search'] = base_url("admin/search/calendar");
+
+                $data['search'] = true;
+                $data['drag'] = false;
+                $data['nivel'] = 'nivel2';
+                $data['list_id'] = 'calendar';
+
+                $data['idx_id'] = 'id';
+                $data['idx_nombre'] = 'date';
+
+                $data['txt_titulo'] = 'Calendario';
+
+                /*
+                 * Menu
+                 */
+                $data['menu'] = array();
+
+                $atts = array(
+                    'class' => $data['nivel'] . ' ajax boton importante n1'
+                );
+                $data['menu'][] = anchor(base_url('admin/calendar/day/create'), 'Crear D&iacute;a', $atts);
+
+                //TODO: finish dynamic fields
+                /*
+                $atts = array(
+                    'class' => $data['nivel'] . ' ajax boton n1'
+                );
+                $data['menu'][] = anchor(base_url('admin/calendar/fields'), 'Template', $atts);*/
+
+                $data['bottomMargin'] = count($data['menu']) * 34;
+
+                $this->load->view('admin/listado_view', $data);
+
+                break;
+
+            //Cart
+            case 9:
+
+                // Get an array of all saved orders.
+                // Using a flexi cart SQL function, set the order the order data so that dates are listed newest to oldest.
+                $this->flexi_cart_admin->sql_order_by($this->flexi_cart_admin->db_column('order_summary', 'date'), 'desc');
+                $data['items'] = $this->flexi_cart_admin->get_db_order_array();
+                $this->flexi_cart_admin->sql_clear();
+                $data['grupos'] = $this->flexi_cart_admin->get_db_order_status_array();;
+
+                $data['url_rel'] = base_url('admin/cart');
+                $data['url_sort'] = '';
+                $data['url_modificar'] = base_url('admin/cart/order/detail');
+                $data['url_eliminar'] = base_url('admin/cart/order/delete');
+                $data['url_search'] = base_url("admin/search/cart");
+
+                $data['search'] = true;
+                $data['drag'] = false;
+                $data['nivel'] = 'nivel2';
+                $data['list_id'] = '';
+
+                $data['idx_nombre'] = 'ord_status_description';
+                $data['idx_grupo_id'] = 'ord_status_id';
+                $data['idx_grupo_id_alt'] = 'ord_status';
+                $data['idx_item_id'] = 'ord_order_number';
+                $data['idx_item_nombre'] = 'ord_order_number';
+
+                $data['txt_titulo'] = 'Carrito de Compras';
+                $data['txt_grupoNombre'] = 'Estado';
+
+                /*
+                 * Menu
+                 */
+                $data['menu'] = array();
+                $data['menu'][] = anchor(base_url('admin/cart/location/index'), 'locaciones y Zonas', array('class' => $data['nivel'] . ' ajax boton n7'));
+                $data['menu'][] = anchor(base_url('admin/cart/shipping/index'), 'Envios e Impuestos', array('class' => $data['nivel'] . ' ajax boton n6'));
+                $data['menu'][] = anchor(base_url('admin/cart/discount/index'), 'Descuentos', array('class' => $data['nivel'] . ' ajax boton n5'));
+                //TODO entender que hace esto: http://haseydesign.com/flexi-cart/admin_library/user_reward_points
+                //$data['menu'][] = anchor(base_url('admin/cart/recompensas'), 'Puntos de Recompensa', array('class' => $data['nivel'] . ' ajax boton n5'));
+                //$data['menu'][] = anchor(base_url('admin/cart/vouchers'), 'Vouchers', array('class' => $data['nivel'] . ' ajax boton n4'));
+                $data['menu'][] = anchor(base_url('admin/cart/currency/index'), 'Monedas', array('class' => $data['nivel'] . ' ajax boton n4'));
+                $data['menu'][] = anchor(base_url('admin/cart/status/index'), 'Estados', array('class' => $data['nivel'] . ' ajax boton n3'));
+                $data['menu'][] = anchor(base_url('admin/cart/defaults/edit'), 'Valores por defecto', array('class' => $data['nivel'] . ' ajax boton n2'));
+                $data['menu'][] = anchor(base_url('admin/cart/config/edit'), 'Configuraci&oacute;n', array('class' => $data['nivel'] . ' ajax boton n1'));
+
+                $data['bottomMargin'] = count($data['menu']) * 34;
+
+                $this->load->view('admin/listadoAgrupado_view', $data);
+
+                break;
+
+        }
+
+    }
+
+    /**
+     * Checks if the name of the page will be unique, we do this because the name is transformed into the
+     * page's slug and we cant have any duplicates
+     */
+    public function uniqueName(){
+
+        $id = $this->input->post('id');
+        $name = $this->input->post('name');
+        $lang = $this->input->post('lang');
+
+        $category = \App\Category::find($id);
+
+        $this->load->view('admin/request/json', [
+            'return' => [
+                'unique' => $category->isUniqueName($name, $lang)
+            ]
+        ]);
+
+    }
 
 }

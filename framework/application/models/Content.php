@@ -45,6 +45,27 @@ class Content extends BaseModel {
 
     }
 
+    public function setTranslations($input)
+    {
+        foreach(Language::all() as $lang){
 
+            $trans_data = [
+                'name' => $input['name'][$lang->id],
+                'content' => $input['content'][$lang->id],
+                'meta_keywords' => array_map('trim', explode(',', $input['meta_keywords'][$lang->id])),
+                'meta_description' => $input['meta_description'][$lang->id],
+                'meta_title' => $input['meta_title'][$lang->id],
+            ];
+
+            $trans = Translation::firstOrNew([
+                'language_id' => $lang->id,
+                'parent_id' => $this->id,
+                'type' => 'content'
+            ]);
+            $trans->data = json_encode($trans_data);
+            $trans->save();
+
+        }
+    }
 
 }

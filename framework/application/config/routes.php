@@ -98,6 +98,12 @@ $route['admin/contact/(:any)'] = 'contact/$1';
 $route['admin/contact/(:any)/(:any)'] = 'contact/$1/$2';
 $route['admin/contact/(:any)/(:any)/(:any)'] = 'contact/$1/$2/$3';
 
+//Content module routes
+$route['admin/content'] = 'content';
+$route['admin/content/(:any)'] = 'content/$1';
+$route['admin/content/(:any)/(:any)'] = 'content/$1/$2';
+$route['admin/content/(:any)/(:any)/(:any)'] = 'content/$1/$2/$3';
+
 //$route['([a-z]{2})/(.+)'] = "html/$1";
 
 
