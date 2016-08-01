@@ -84,6 +84,10 @@ class Widget extends Model implements \WidgetInterface {
         return json_decode($this->data);
     }
 
+    /**
+     * @param $page_id
+     * @return Widget
+     */
     public static function getContentWidget($page_id)
     {
         return static::where('category_id', $page_id)

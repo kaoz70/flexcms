@@ -21,7 +21,9 @@
 
             <a data-id="<?=$item->id;?>"
                class="nombre <?= isset($select) && $select ? 'seleccionar' : 'modificar ' . $nivel?> <?= isset($add_class) ? $add_class : ''?>"
-               href="<?=$url_edit . '/' . $item->id;?>"><span><?=$item->name?></span></a>
+               href="<?=$url_edit . '/' . $item->id;?>">
+                <span><?=isset($item->translation) ? $item->translation->name : $item->name?></span>
+            </a>
 
             <? if(!isset($select) || (isset($select) && !$select)): ?>
                 <a href="<?=$url_delete . '/' . $item->id;?>" class="eliminar" ></a>

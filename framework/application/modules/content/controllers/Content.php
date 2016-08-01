@@ -20,8 +20,8 @@ class Content extends \AdminController implements \ContentInterface
 {
 
     const URL_CREATE = 'admin/content/create/';
-    const URL_UPDATE = 'admin/content/update';
-    const URL_DELETE = 'admin/content/delete';
+    const URL_UPDATE = 'admin/content/update/';
+    const URL_DELETE = 'admin/content/delete/';
     const URL_INSERT = 'admin/content/insert';
     const URL_EDIT = 'admin/content/edit';
     const URL_REORDER = 'admin/content/reorder/';
@@ -36,8 +36,9 @@ class Content extends \AdminController implements \ContentInterface
 
         $page = Category::find($page_id);
         $widget = Widget::getContentWidget($page_id);
+        $contentOrder = $widget->getConfig()->order;
 
-        $data['items'] = \App\Content::where('category_id', $page_id)->get();
+        $data['items'] = \App\Content::getByPage($page_id, 'es', $contentOrder);
         $data['title'] = $page->getTranslation('es', 'page')->name;
 
         $data['url_sort'] = base_url(static::URL_REORDER . $page_id);
@@ -173,7 +174,7 @@ class Content extends \AdminController implements \ContentInterface
         $data['nuevo'] = $new ? 'nuevo' : '';
         $data['edit_url'] = static::URL_EDIT;
         $data['delete_url'] = static::URL_DELETE;
-        $data['link'] = $new ? base_url(static::URL_INSERT) : base_url(static::URL_UPDATE);
+        $data['link'] = $new ? base_url(static::URL_INSERT) : base_url(static::URL_UPDATE . $model->id);
         $data['translations'] = $model->getTranslations('content');
         $data['txt_boton'] = $new ? 'Crear' : 'Modificar';
 
@@ -193,7 +194,7 @@ class Content extends \AdminController implements \ContentInterface
         $model->css_class = $this->input->post('css_class');
         $model->enabled = (bool) $this->input->post('enabled');
         $model->important = (bool) $this->input->post('important');
-        $model->category_id = (bool) $this->input->post('page_id');
+        $model->category_id = $this->input->post('page_id');
         $model->publication_start = $this->input->post('publication_start');
         $model->publication_end = $this->input->post('publication_end');
         $model->save();
@@ -258,6 +259,20 @@ class Content extends \AdminController implements \ContentInterface
     private function getViews($theme, $view)
     {
         return preg_grep("~^{$view}_.*\.(php)$~", scandir(FCPATH . 'themes/' . $theme . '/views/pages/content/'));
+    }
+
+    public function reorder($page_id)
+    {
+        $response = new stdClass();
+        $response->error_code = 0;
+
+        try{
+            \App\Content::reorder($this->input->post('posiciones'), $page_id);
+        } catch (Exception $e) {
+            $response = $this->error('Ocurri&oacute; un problema al reorganizar el contenido!', $e);
+        }
+
+        $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );
     }
 
 }

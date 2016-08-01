@@ -80,12 +80,12 @@
         <div class="content">
             <div class="input small">
                 <label for="publication_start">Fecha Inicio Publicaci&oacute;n:</label>
-                <input id="publication_start" class="fecha" name="publication_start" type="text" value="<?=$content->publication_start?>"/>
+                <input id="publication_start" class="fecha" name="publication_start" type="datetime" value="<?=$content->publication_start?>"/>
             </div>
 
             <div class="input small">
                 <label for="publication_end">Fecha Fin Publicaci&oacute;n:</label>
-                <input id="publication_end" class="fecha" name="publication_end" type="text" value="<?=$content->publication_end?>"/>
+                <input id="publication_end" class="fecha" name="publication_end" type="datetime" value="<?=$content->publication_end?>"/>
             </div>
 
             <div class="input check">
@@ -107,7 +107,7 @@
                     <textarea id="<?=$key?>_editor"
                               name="meta_keywords[<?=$key?>]"
                               rows="5"
-                              cols="85"><?= isset($trans->meta_keywords) ? $trans->meta_keywords : '' ?></textarea>
+                              cols="85"><?= isset($trans->meta_keywords) ? implode(', ', $trans->meta_keywords) : '' ?></textarea>
                 <? endforeach ?>
             </fieldset>
 

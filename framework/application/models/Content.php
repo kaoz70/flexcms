@@ -9,9 +9,66 @@
 
 namespace App;
 
+use Illuminate\Support\Collection;
+
 class Content extends BaseModel {
 
     protected $table = 'content';
+
+    const PAGE_ID = 'category_id';
+    const TYPE = 'content';
+
+    /**
+     * Get all the page's contents
+     *
+     * @param $page_id
+     * @param $lang
+     * @param $order
+     * @return Collection
+     */
+    static function getByPage($page_id, $lang, $order)
+    {
+
+        switch ($order) {
+            case 'date_asc':
+                $orderCol = 'created_at';
+                $orderDirection = 'asc';
+                break;
+            case 'date_desc':
+                $orderCol = 'created_at';
+                $orderDirection = 'desc';
+                break;
+            default: //manual
+                $orderCol = 'position';
+                $orderDirection = 'asc';
+                break;
+        }
+
+        $content = static::where(static::PAGE_ID, $page_id)
+            ->orderBy($orderCol, $orderDirection)
+            ->get();
+
+        foreach ($content as &$c){
+            $c->getTranslation($lang, static::TYPE);
+        }
+
+        return $content;
+
+    }
+
+    /**
+     * Get one content detail
+     *
+     * @param $content_id
+     * @param $lang
+     * @return Content
+     */
+    static function get($content_id, $lang)
+    {
+        $content = static::find($content_id);
+        $content->getTranslation($lang, static::TYPE);
+        return $content;
+    }
 
     /**
      * Get all content pages (the ones that can be edited)
@@ -24,8 +81,8 @@ class Content extends BaseModel {
     {
 
         //Get any content widget
-        $content = Widget::where('type', 'content')
-            ->join('categories', 'categories.id', '=', 'category_id')
+        $content = Widget::where('type', static::TYPE)
+            ->join('categories', 'categories.id', '=', static::PAGE_ID)
             ->get();
 
         //Do we want to return only page ids?
@@ -60,12 +117,28 @@ class Content extends BaseModel {
             $trans = Translation::firstOrNew([
                 'language_id' => $lang->id,
                 'parent_id' => $this->id,
-                'type' => 'content'
+                'type' => static::TYPE
             ]);
             $trans->data = json_encode($trans_data);
             $trans->save();
 
         }
+    }
+
+    protected static function reorder($inputs, $page_id)
+    {
+
+        //Get the ids
+        $ids = json_decode($inputs, true);
+
+        for($i = 0 ; $i < static::where(static::PAGE_ID, $page_id)->get()->count() ; $i++){
+
+            $row = static::find($ids[$i]);
+            $row->position = $i + 1;
+            $row->save();
+
+        }
+
     }
 
 }
