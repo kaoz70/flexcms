@@ -10,6 +10,7 @@ namespace auth;
 $_ns = __NAMESPACE__;
 
 use App\Input;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use stdClass;
 use Exception;
@@ -19,7 +20,7 @@ class Field extends \Field implements \AdminInterface {
     const FIELD_SECTION = 'user';
 
     const URL_CREATE = 'admin/auth/field/create';
-    const URL_UPDATE = 'admin/auth/field/update';
+    const URL_UPDATE = 'admin/auth/field/update/';
     const URL_DELETE = 'admin/auth/field/delete';
     const URL_INSERT = 'admin/auth/field/insert';
     const URL_EDIT = 'admin/auth/field/edit';
@@ -74,7 +75,7 @@ class Field extends \Field implements \AdminInterface {
             $field = $this->_store(new \Auth\Models\Field());
             $field->position = \App\Field::where('section', static::FIELD_SECTION)->get()->count();
             $field->save();
-            $field->createUserField();
+            $field->createChildTableFields(User::where('temporary', 0)->get(), static::FIELD_SECTION);
             $response->new_id = $field->id;
         } catch (Exception $e) {
             $response = $this->error('Ocurri&oacute; un problema al insertar el campo!', $e);
@@ -150,11 +151,11 @@ class Field extends \Field implements \AdminInterface {
         $data['titulo'] = $new ? 'Crear Campo' : 'Editar Campo';
 
         $data['txt_boton'] = $new ? 'Crear' : 'Modificar';
-        $data['link']  = $new ? base_url(static::URL_INSERT) : base_url(static::URL_UPDATE . '/' . $field->id);
+        $data['link']  = $new ? base_url(static::URL_INSERT) : base_url(static::URL_UPDATE . $field->id);
         $data['nuevo'] = $new ? 'nuevo' : '';
 
         $data['inputs'] = Input::where('section', static::FIELD_SECTION)->get();
-        $data['translations'] = $field->getTranslations('user_field');
+        $data['translations'] = $field->getTranslations(static::FIELD_SECTION . '_field');
 
         $this->load->view('auth/field_view', $data);
     }

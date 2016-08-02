@@ -7,244 +7,225 @@
  */
 
 namespace catalog;
+use App\Translation;
+use Exception;
+use Illuminate\Database\Eloquent\Model;
+use stdClass;
+
 $_ns = __NAMESPACE__;
 
 
-class Category extends \Catalog implements \AdminInterface {
+class Category extends \AdminController implements \AdminInterface {
 
-	/**
-	 * List all the categories
-	 */
-	public function index()
-	{
-		$root = \CatalogTree::allRoot()->first();
-		$root->findChildren(999);
+    const SECTION = 'catalog';
+    const URL_CREATE = 'admin/catalog/category/create/';
+    const URL_UPDATE = 'admin/catalog/category/update/';
+    const URL_DELETE = 'admin/catalog/category/delete/';
+    const URL_INSERT = 'admin/catalog/category/insert';
+    const URL_EDIT = 'admin/catalog/category/edit';
+    const URL_REORDER = 'admin/catalog/category/reorder/';
 
-		$depth = 0;
-		foreach (\CatalogTree::allLeaf() as $leaf) {
-			if($depth < $leaf->getDepth()) {
-				$depth = $leaf->getDepth();
-			}
-		}
+    static protected $PAGE_ID;
 
-		$data['root_node'] = $root;
-		$data['tree_size'] = $depth;
+    /**
+     * List all the categories
+     */
+    public function index()
+    {
 
-		$data['txt_nuevo'] = 'crear nueva categoría';
-		$data['titulo'] = 'Categorías';
+        $page_id = $this->uri->segment(5);
 
-		$data['edit_url'] = base_url('admin/catalog/category/edit');
-		$data['delete_url'] = base_url('admin/catalog/category/delete');
-		$data['name'] = 'productoCategoriaNombre';
+        $root = \App\Category::find($page_id);
+        $root->findChildren(999);
 
-		$data['id'] = 'catalogo_tree';
+        //FIXME: check if this is correct
+        $depth = 0;
+        foreach (\App\Category::allLeaf() as $leaf) {
+            if($depth < $leaf->getDepth()) {
+                $depth = $leaf->getDepth();
+            }
+        }
 
-		$data['url_reorganizar'] = base_url('admin/catalog/category/reorder');
-		$data['url_rel'] = base_url('admin/catalog/categories');
+        $data['root_node'] = $root;
+        $data['tree_size'] = $depth;
 
-		$data['nivel'] = 'nivel3';
+        $data['txt_nuevo'] = 'crear nueva categoría';
+        $data['titulo'] = 'Categorías';
 
-		/*
-		 * Menu
-		 */
-		$data['menu'] = array();
+        $data['url_sort'] = base_url(static::URL_REORDER . $page_id);
+        $data['url_edit'] = base_url(static::URL_EDIT);
+        $data['url_delete'] = base_url(static::URL_DELETE);
 
-		$atts = array(
-			'id' => 'crear',
-			'class' => $data['nivel'] . ' ajax boton importante n1'
-		);
-		$data['menu'][] = anchor(base_url('admin/catalog/category/create'), 'crear nueva categoría', $atts);
+        $data['id'] = 'catalogo_tree';
+        $data['nivel'] = 'nivel3';
+        $data['section'] = static::SECTION . '_category';
 
-		$data['bottomMargin'] = count($data['menu']) * 34;
+        /*
+         * MENU
+         */
+        $data['menu'][] = anchor(base_url(static::URL_CREATE . $page_id), 'crear nueva categoría', [
+            'id' => 'crear',
+            'class' => $data['nivel'] . ' ajax boton importante n1'
+        ]);
 
-		$this->load->view('admin/listadoArbol_view', $data);
-	}
+        $data['bottomMargin'] = count($data['menu']) * 34;
 
-	/**
-	 * Create a new category
-	 */
-	public function create()
-	{
+        $this->load->view('admin/listadoArbol_view', $data);
+    }
 
-		$id = $this->insert();
+    /**
+     * Create a new category
+     */
+    public function create()
+    {
+        $this->_showView(new \catalog\models\Category(), true);
+    }
 
-		$data['titulo'] = 'Nueva Categor&iacute;a';
-		$data['label_nombre'] = 'Nombre';
-		$data['nombre'] = '';
-		$data['txt_boton'] = 'Crear Categoría';
-		$data['txt_botImagen'] = 'Subir Imagen';
-		$data['link'] = base_url('admin/catalog/category/update/' . $id);
-		$data['removeUrl'] = base_url('admin/catalog/category/delete/' . $id);
-		$data['imagen'] = '';
-		$data['imagenOrig'] = '';
-		$data['imagenExtension'] = '';
-		$data['categoriaId'] = $id;
-		$data['nuevo'] = 'nuevo';
-		$data['cropDimensions'] = $this->General->getCropImage(7);
-		$data['categoriaImagenCoord'] = '';
+    /**
+     * Insert the category in the DB
+     * @return mixed
+     */
+    public function insert()
+    {
+        $response = new stdClass();
+        $response->error_code = 0;
 
-		/*
-		   * TRADUCCIONES
-		   */
-		$data['idiomas'] = $this->Idioma->getLanguages();
+        try{
 
-		foreach ($data['idiomas'] as $key => $idioma) {
-			$traducciones[$idioma['idiomaDiminutivo']] = new \stdClass();
-			$traducciones[$idioma['idiomaDiminutivo']]->productoCategoriaNombre = '';
-			$traducciones[$idioma['idiomaDiminutivo']]->productoCategoriaDescripcion = '';
-		}
+            //Create the new page
+            $node = new \catalog\models\Category();
+            $node->makeLastChildOf(\App\Category::find($this->input->post('page_id')));
+            $node->temporary = 0;
+            $this->_store($node);
+            $response->new_id = $node->id;
 
-		$data['traducciones'] = $traducciones;
+        } catch (Exception $e) {
+            $response = $this->error('Ocurri&oacute; un problema al insertar la categor&iacute;a!', $e);
+        }
 
-		$this->load->view('admin/catalog/category_view',$data);
-	}
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
+    }
 
-	/**
-	 * Insert the category in the DB
-	 * @return mixed
-	 */
-	public function insert()
-	{
-		return $this->Catalogo->insertCategory($this->cms_general);
-	}
+    /**
+     * Edit the category data
+     * @param $id
+     * @return string
+     */
+    public function edit($id)
+    {
+        $this->_showView(\App\Category::find($id));
+    }
 
-	/**
-	 * Edit the category data
-	 * @param $id
-	 * @return string
-	 */
-	public function edit($id)
-	{
+    /**
+     * Update the category in the DB
+     * @param $id
+     * @return string
+     */
+    public function update($id)
+    {
 
-		$data['titulo'] = 'Editar Categor&iacute;a';
-		$data['label_nombre'] = 'Nombre';
+        $response = new \stdClass();
+        $response->error_code = 0;
 
-		$categoria = $this->Catalogo->getCategory($id);
+        try{
+            $this->_store(\catalog\models\Category::find($id));
+            $response->new_id = $id;
+        } catch (\Exception $e) {
+            $response = $this->error('Ocurri&oacute; un problema al modificar la categor&iacute;a!', $e);
+        }
 
-		$data['txt_boton'] = 'Modificar Categoría';
-		$data['txt_botImagen'] = 'Subir Imagen';
-		$data['link'] = base_url('admin/catalog/category/update/' . $categoria->id);
-		$data['imagen'] = '';
-		$data['imagenOrig'] = '';
-		$data['imagenExtension'] = '';
-		$data['removeUrl'] = '';
-		$data['categoriaId'] = $categoria->id;
-		$data['nuevo'] = '';
-		$data['cropDimensions'] = $this->General->getCropImage(7);
-		$data['categoriaImagenCoord'] = urlencode($categoria->categoriaImagenCoord);
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
 
-		if($categoria->categoriaImagen != '')
-		{
-			//Eliminamos el cache del navegador
-			$extension = $categoria->categoriaImagen;
-			$extension = preg_replace('/\?+\d{0,}/', '', $extension);
-			$data['imagen'] = '<img src="' . base_url() . 'assets/public/images/catalog/cat_' . $categoria->id . '_admin.' . $extension . '" />';
-			$data['imagenOrig'] = base_url() . 'assets/public/images/catalog/cat_' . $categoria->id . '_orig.' . $extension;
-			$data['imagenExtension'] = $categoria->categoriaImagen;
-		}
+    }
 
-		/*
-		   * TRADUCCIONES
-		   */
-		$data['idiomas'] = $this->Idioma->getLanguages();
+    /**
+     * Delete the category from the DB
+     * @param $id
+     * @return string
+     */
+    public function delete($id)
+    {
 
-		foreach ($data['idiomas'] as $key => $idioma) {
-			$categoriaTraduccion = $this->Catalogo->getCategoriaTranslation($idioma['idiomaDiminutivo'], $id);
-			$traducciones[$idioma['idiomaDiminutivo']] = new \stdClass();
-			if($categoriaTraduccion) {
-				$traducciones[$idioma['idiomaDiminutivo']]->productoCategoriaNombre = $categoriaTraduccion->productoCategoriaNombre;
-				$traducciones[$idioma['idiomaDiminutivo']]->productoCategoriaDescripcion = $categoriaTraduccion->productoCategoriaDescripcion;
-			}
-			else {
-				$traducciones[$idioma['idiomaDiminutivo']]->productoCategoriaNombre = '';
-				$traducciones[$idioma['idiomaDiminutivo']]->productoCategoriaDescripcion = '';
-			}
+        $response = new \stdClass();
+        $response->error_code = 0;
 
-		}
+        try{
 
-		$data['traducciones'] = $traducciones;
+            //Delete the node with children
+            $node = \catalog\models\Category::find($id);
+            $node->delete();
 
-		$this->load->view('admin/catalog/category_view',$data);
-	}
+            //Delete the category's translations
+            $translations = Translation::where('parent_id', $id)->where('type', static::SECTION . '_category');
+            $translations->delete();
 
-	/**
-	 * Update the category in the DB
-	 * @param $id
-	 * @return string
-	 */
-	public function update($id)
-	{
+        } catch (\Exception $e) {
+            $response = $this->error('Ocurri&oacute; un problema al eliminar la categor&iacute;a!', $e);
+        }
 
-		$response = new \stdClass();
-		$response->error_code = 0;
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
 
-		try{
-			$this->Catalogo->updateCategory($this->cms_general);
-			$response->new_id = $id;
-		} catch (\Exception $e) {
-			$response = $this->cms_general->error('Ocurri&oacute; un problema al modificar la categor&iacute;a!', $e);
-		}
+    }
 
-		$this->load->view('admin/request/json', array('return' => $response));
+    /**
+     * Reorder the categories
+     * @return string
+     */
+    public function reorder($page_id)
+    {
 
-	}
+        $response = new \stdClass();
+        $response->error_code = 0;
 
-	/**
-	 * Delete the category from the DB
-	 * @param $id
-	 * @return string
-	 */
-	public function delete($id)
-	{
+        try{
+            $pages = \catalog\models\Category::find($page_id);
+            $pages->mapTree(json_decode($this->input->post('posiciones'), true));
+        } catch (\Exception $e) {
+            $response = $this->error('Ocurri&oacute; un problema al reorganizar las categor&iacute;as!', $e);
+        }
 
-		$category = $this->Catalogo->getCategory($id);
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
 
-		//Eliminamos las imagenes del producto
-		if($category AND $category->categoriaImagen != '')
-		{
-			$extension = $category->categoriaImagen;
-			$extension = preg_replace('/\?+\d{0,}/', '', $extension);
+    }
 
-			if(file_exists('./assets/public/images/catalog/cat_' . $id . '.' . $extension))
-				unlink('./assets/public/images/catalog/cat_' . $id . '.' . $extension);
-		}
+    /**
+     * Shows the editor view
+     *
+     * @param Model $model
+     * @param bool $new
+     * @return mixed
+     */
+    public function _showView(Model $model, $new = FALSE)
+    {
 
-		$response = new \stdClass();
-		$response->error_code = 0;
+        $data['category'] = $model;
+        $data['title'] = $new ? 'Nueva Categor&iacute;a' : 'Editar Categor&iacute;a';
+        $data['txt_boton'] = $new ? 'Crear Categoría' : 'Modificar Categoría';
+        $data['link'] = $new ? base_url(static::URL_INSERT) : base_url(static::URL_UPDATE . $model->id);
+        $data['nuevo'] = $new ? 'nuevo' : '';
+        $data['page_id'] = $this->uri->segment(5);
 
-		$response = new \stdClass();
-		$response->error_code = 0;
+        $data['url_edit'] = static::URL_EDIT;
+        $data['url_delete'] = static::URL_DELETE;
+        $data['url_reorder'] = static::URL_REORDER;
 
-		try{
-			$node = \CatalogTree::find($id);
-			$node->deleteWithChildren();
-		} catch (\Exception $e) {
-			$response = $this->cms_general->error('Ocurri&oacute; un problema al eliminar la categor&iacute;a!', $e);
-		}
+        $data['translations'] = $model->getTranslations(static::SECTION . '_category');
 
-		$this->load->view('admin/request/json', array('return' => $response));
+        $this->load->view('catalog/category_view',$data);
 
-	}
+    }
 
-	/**
-	 * Reorder the categories
-	 * @return string
-	 */
-	public function reorder()
-	{
-
-		$response = new \stdClass();
-		$response->error_code = 0;
-
-		try{
-			$pages = \CatalogTree::find(1);
-			$pages->mapTree(json_decode($this->input->post('posiciones'), true));
-		} catch (\Exception $e) {
-			$response = $this->cms_general->error('Ocurri&oacute; un problema al reorganizar las categor&iacute;as!', $e);
-		}
-
-		$this->load->view('admin/request/json', array('return' => $response));
-
-	}
-	
+    /**
+     * Inserts or updates the current model with the provided post data
+     *
+     * @param Model $model
+     * @return mixed
+     */
+    public function _store(Model $model)
+    {
+        $model->type = static::SECTION;
+        $model->save();
+        $model->setTranslations($this->input->post());
+        return $model;
+    }
 }

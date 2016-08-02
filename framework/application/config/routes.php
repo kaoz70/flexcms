@@ -80,29 +80,20 @@ $route['default_controller'] = 'html';
 $route['404_override'] = 'errors/e404';
 $route['translate_uri_dashes'] = FALSE;
 
-//Admin module routes
-$route['admin/slider'] = 'slider';
-$route['admin/slider/(:any)'] = 'slider/$1';
-$route['admin/slider/(:any)/(:any)'] = 'slider/$1/$2';
-$route['admin/slider/(:any)/(:any)/(:any)'] = 'slider/$1/$2/$3';
+//Set the admin routes
+foreach (new DirectoryIterator(APPPATH . 'modules/') as $item) {
 
-//Auth module routes
-$route['admin/auth'] = 'auth';
-$route['admin/auth/(:any)'] = 'auth/$1';
-$route['admin/auth/(:any)/(:any)'] = 'auth/$1/$2';
-$route['admin/auth/(:any)/(:any)/(:any)'] = 'auth/$1/$2/$3';
+    if($item->isDot()) continue;
+    $name = $item->getFilename();
 
-//Contact module routes
-$route['admin/contact'] = 'contact';
-$route['admin/contact/(:any)'] = 'contact/$1';
-$route['admin/contact/(:any)/(:any)'] = 'contact/$1/$2';
-$route['admin/contact/(:any)/(:any)/(:any)'] = 'contact/$1/$2/$3';
+    //Admin module routes
+    $route["admin/{$name}"] = $name;
+    $route["admin/{$name}/(:any)"] = $name . '/$1';
+    $route["admin/{$name}/(:any)/(:any)"] = $name . '/$1/$2';
+    $route["admin/{$name}/(:any)/(:any)/(:any)"] = $name . '/$1/$2/$3';
+    $route["admin/{$name}/(:any)/(:any)/(:any)/(:any)"] = $name . '/$1/$2/$3/$4';
 
-//Content module routes
-$route['admin/content'] = 'content';
-$route['admin/content/(:any)'] = 'content/$1';
-$route['admin/content/(:any)/(:any)'] = 'content/$1/$2';
-$route['admin/content/(:any)/(:any)/(:any)'] = 'content/$1/$2/$3';
+}
 
 //$route['([a-z]{2})/(.+)'] = "html/$1";
 

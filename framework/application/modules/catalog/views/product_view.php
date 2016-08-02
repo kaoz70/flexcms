@@ -1,245 +1,247 @@
-<h2><?=$titulo; ?><a class="cerrar" href="#" data-delete="<?=$removeUrl?>" >cancelar</a></h2>
+<h2><?=$title; ?><a class="cerrar" href="#" >cancelar</a></h2>
 
-<?
+<div class="contenido_col">
 
-$style = '';
+    <?php if($categories || $product->category_id): ?>
 
-if(count($campos) > 0) {
-    foreach($campos as $row) {
-        switch($row->inputTipoNombre) {
-            case 'textarea':
-                $style = 'style="width: 780px"';
-                break;
-        }
-    }
-}
+    <?=form_open('admin/catalogo/' . $link, array('class' => 'form'));?>
 
-?>
+    <div class="field">
+        <div class="header">General</div>
+        <div class="content">
+
+            <fieldset>
+                <legend>Nombre</legend>
+                <? foreach ($translations as $key => $trans): ?>
+                    <label for="name_<?=$key?>"><?= \App\Language::find($key)->name ?></label>
+                    <input class="required name"
+                           name="name[<?=$key?>]"
+                           type="text"
+                           value="<?= isset($trans->name) ? $trans->name : '' ?>"
+                    />
+                <? endforeach ?>
+            </fieldset>
 
 
-<div class="contenido_col" <?=$style?>>
-	
-	<?php if(count($categorias) > 0): ?>
-
-	<?=form_open('admin/catalogo/' . $link, array('class' => 'form'));?>
-	
-	<div class="field">
-		<div class="header">General</div>
-		<div class="content">
-			<input type="hidden" name="productoId" value="<?=$productoId;?>" />
-			
-			<fieldset>
-				<legend>Nombre</legend>
-				<? foreach ($idiomas as $key => $idioma): ?>
-					<div class="input small">
-					<label for="<?=$idioma['idiomaDiminutivo']?>_productoNombre"><?=$idioma['idiomaNombre']?></label>
-					<? if(count($traducciones[$idioma['idiomaDiminutivo']]) > 0):?>
-						<input class="required name unique-name" data-seccion="<?=$idioma['idiomaDiminutivo']?>_productos" data-columna="productoUrl" data-columna-id="productoId" data-id="<?=$productoId;?>" name="<?=$idioma['idiomaDiminutivo']?>_productoNombre" type="text" value="<?=$traducciones[$idioma['idiomaDiminutivo']]->productoNombre?>"/>
-					<? else: ?>
-						<input class="required name unique-name" data-seccion="<?=$idioma['idiomaDiminutivo']?>_productos" data-columna="productoUrl" data-columna-id="productoId" data-id="<?=$productoId;?>" name="<?=$idioma['idiomaDiminutivo']?>_productoNombre" type="text" value=""/>
-					<? endif ?>
-					</div>
-				<? endforeach ?>
-			</fieldset>
-			
-            <fieldset id="upload-image-product">
-                <legend><?=$txt_botImagen;?></legend>
+            <!--<fieldset id="upload-image-product">
+                <legend><?/*=$txt_botImagen;*/?></legend>
                 <div>
                     <input class="fileselect" type="file" name="fileselect[]" />
                     <div class="filedrag">o arrastre el archivo aquí</div>
                 </div>
                 <ul class="list">
-                    <? if($imagen != ''): ?>
+                    <?/* if($imagen != ''): */?>
                         <li class="image">
-                            <?=$imagen?>
+                            <?/*=$imagen*/?>
                         </li>
-                    <? endif; ?>
+                    <?/* endif; */?>
                 </ul>
-            </fieldset>
-			
+            </fieldset>-->
+
             <div class="input">
-                <label for="categoriaId">Categor&iacute;a</label>
-                <select class="selectbox" id="categoriaId" name="categoriaId">
-                    <?= admin_select_tree($categorias, $categoriaId, 'productoCategoriaNombre') ?>
+                <label for="category_id">Categor&iacute;a</label>
+                <select class="selectbox" id="category_id" name="category_id">
+                    <?= admin_select_tree($categories, $product->category_id) ?>
                 </select>
             </div>
 
-			<div class="input small">
-				<label for="stock_quantity">Stock</label>
-				<input id="stock_quantity" name="stock_quantity" type="text" value="<?= isset($stock_quantity) ? $stock_quantity : '' ?>">
-			</div>
+            <div class="input small">
+                <label for="stock_quantity">Stock</label>
+                <input id="stock_quantity" name="stock_quantity" type="text" value="<?= $product->stock_quantity ?>">
+            </div>
 
-			<div class="input small">
-				<label for="weight">Peso</label>
-				<input id="weight" name="weight" type="text" value="<?= isset($weight) ? $weight : '' ?>">
-			</div>
+            <div class="input small">
+                <label for="weight">Peso</label>
+                <input id="weight" name="weight" type="text" value="<?= $product->weight ?>">
+            </div>
 
-			<div class="input check">
-				<input id="productoDeldia" type="checkbox" name="productoDeldia" value="s" <?=$checkedPD;?>/>
-				<label for="productoDeldia">Producto Destacado</label>
-			</div>
+            <div class="input check">
+                <input id="important" type="checkbox" name="important" value="1" <?=$product->important ? 'checked' : ''?>/>
+                <label for="important">Producto Destacado</label>
+            </div>
 
-			<div class="input check">
-				<input id="productoEnable" name="productoEnable" type="checkbox"  value="s" <?=$habilitado;?> />
-				<label for="productoEnable">Habilitado</label>
-			</div>
+            <div class="input check">
+                <input id="enabled" name="enabled" type="checkbox"  value="1" <?=$product->enabled ? 'checked' : ''?> />
+                <label for="enabled">Publicado</label>
+            </div>
 
-		</div>
-	</div>
-	<? if(count($campos) > 0): ?>
-	<div class="field">
-		<div class="header">Campos</div>
-		
-		<div class="content">
-			<?php foreach($campos as $row) : ?>
-			
-			<fieldset>
-				<legend><?=$row->productoCampoValor?></legend>
-				<? foreach ($idiomas as $key => $idioma): ?>
-				<div>
+        </div>
+    </div>
+        
+    <? if($fields): ?>
+    <div class="field">
+        <div class="header">Campos</div>
 
-                    <? if($row->inputTipoNombre != 'imagenes' && $row->inputTipoNombre != 'videos' && $row->inputTipoNombre != 'archivos' && $row->inputTipoNombre != 'audio' && $row->inputTipoNombre != 'select'): ?>
-					<label><?=$idioma['idiomaNombre']?></label>
-                    <? endif ?>
+        <div class="content">
 
-					<? switch($row->inputTipoNombre):
-					
-						case 'input': ?>
-							<? if(isset($row->productoCampoRelContenido[$idioma['idiomaDiminutivo']]->productoCampoRelContenido)): ?>
-							<input type="text" name="<?=$idioma['idiomaDiminutivo']?>_<?=$row->productoCampoId?>" value="<?=$row->productoCampoRelContenido[$idioma['idiomaDiminutivo']]->productoCampoRelContenido?>">
-							<? else: ?>
-							<input type="text" name="<?=$idioma['idiomaDiminutivo']?>_<?=$row->productoCampoId?>" value="">
-							<? endif ?>
-							<? break; ?>
-							
-						<? case 'textarea': ?>
-							<textarea id="<?=$idioma['idiomaDiminutivo']?>_editor_<?=$row->productoCampoId?>" class="editor" rows="20" cols="85" name="<?=$idioma['idiomaDiminutivo']?>_<?=$row->productoCampoId?>"><?=$row->productoCampoRelContenido[$idioma['idiomaDiminutivo']]->productoCampoRelContenido?></textarea>
-							<script type="text/javascript">initEditor("<?=$idioma['idiomaDiminutivo']?>_editor_<?=$row->productoCampoId?>");</script>
-							<? break; ?>
-							
-						<? case 'tabla': ?>
-							<div class="table_editor">
-								<div class="tbleColumnCont">
-                                    <table>
-                                        <tr>
-                                            <td class="no_edit">
-                                                <? if($row->productoCampoRelContenido[$idioma['idiomaDiminutivo']]->productoCampoRelContenido == ''): ?>
-                                                    <table class="tableGrid" id="<?=$idioma['idiomaDiminutivo']?>_editor_grid_<?=$row->productoCampoId?>">
-                                                        <tbody>
-                                                        <tr>
-                                                            <th>nombre cabecera</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <td></td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                <? else : ?>
-                                                    <?=$row->productoCampoRelContenido[$idioma['idiomaDiminutivo']]->productoCampoRelContenido?>
-                                                <? endif; ?>
-                                            </td>
-                                            <td class="no_edit">
-                                                <div class="add_column"></div>
-                                            </td>
-                                        </tr>
-                                    </table>
-								</div>
-								<div class="add_row"></div>
-								<textarea class="tableGridInput" id="input_editor_grid_<?=$row->productoCampoId?>" name="<?=$idioma['idiomaDiminutivo']?>_<?=$row->productoCampoId?>" ><?=$row->productoCampoRelContenido[$idioma['idiomaDiminutivo']]->productoCampoRelContenido?></textarea>
-							</div>
-							<? break; ?>
+            <?php foreach($fields as $field): ?>
 
-                        <? case 'archivos': ?>
-                            <a class="nivel4 ajax boton importante" href="<?= base_url()?>admin/catalog/file/index/<?=$productoId?>/<?=$row->productoCampoId?>">Modificar <?=$row->productoCampoValor?></a>
-                            <? break 2; ?>
+            <fieldset>
+                <legend><?=$field->name?></legend>
 
-                        <? case 'select': ?>
+                <? foreach ($translations as $key => $trans): ?>
 
-                            <? if($row->inputTipoContenido === 'listado predefinido'): ?>
+                    <?
+                    //Set the language to use for the field
+                    $field->setLang($key);
+                    ?>
+
+                    <label for="name_<?=$key?>"><?= \App\Language::find($key)->name ?></label>
+
+                    <? switch($field->input()->content): case 'texto': ?>
+
+                        <div class="input">
+                            <label for="field[<?=$field->id?>][<?=$key?>]"><?=$field->name?></label>
+                            <input id="field[<?=$field->id?>][<?=$key?>]" type="text" class="" name="field[<?=$field->id?>][<?=$key?>]" value="<?=$field->fieldData($product)->data?>" />
+                        </div>
+
+                    <? break ?>
+
+                    <? case 'texto multilinea': ?>
+                        <div class="input">
+                            <label for="field[<?=$field->id?>][<?=$key?>]"><?=$field->name?></label>
+                            <textarea class="editor" id="field[<?=$field->id?>][<?=$key?>]" name="field[<?=$field->id?>][<?=$key?>]" rows="20" cols="85"><?=$field->fieldData($product)->data?></textarea>
+                        </div>
+                    <?break?>
+
+                    <? case 'tabla': ?>
+                        <div class="table_editor">
+                            <div class="tbleColumnCont">
+                                <table>
+                                    <tr>
+                                        <td class="no_edit">
+                                            <? if($row->productoCampoRelContenido[$idioma['idiomaDiminutivo']]->productoCampoRelContenido == ''): ?>
+                                                <table class="tableGrid" id="<?=$idioma['idiomaDiminutivo']?>_editor_grid_<?=$row->productoCampoId?>">
+                                                    <tbody>
+                                                    <tr>
+                                                        <th>nombre cabecera</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            <? else : ?>
+                                                <?=$row->productoCampoRelContenido[$idioma['idiomaDiminutivo']]->productoCampoRelContenido?>
+                                            <? endif; ?>
+                                        </td>
+                                        <td class="no_edit">
+                                            <div class="add_column"></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="add_row"></div>
+                            <textarea class="tableGridInput" id="input_editor_grid_<?=$row->productoCampoId?>" name="<?=$idioma['idiomaDiminutivo']?>_<?=$row->productoCampoId?>" ><?=$row->productoCampoRelContenido[$idioma['idiomaDiminutivo']]->productoCampoRelContenido?></textarea>
+                        </div>
+                        <? break; ?>
+
+                    <? case 'archivos': ?>
+                        <a class="nivel4 ajax boton importante" href="<?= base_url()?>admin/catalog/file/index/<?=$productoId?>/<?=$row->productoCampoId?>">Modificar <?=$row->productoCampoValor?></a>
+                        <? break 2; ?>
+
+                    <? case 'select': ?>
+
+                        <? if($row->inputTipoContenido === 'listado predefinido'): ?>
                             <a class="nivel4 ajax boton importante" href="<?= base_url()?>admin/catalog/predefinedList/index/<?=$productoId?>/<?=$row->productoCampoId?>">Modificar <?=$row->productoCampoValor?></a>
-                            <? else: ?>
+                        <? else: ?>
                             <a class="nivel4 ajax boton importante" href="<?= base_url()?>admin/catalog/field_list/<?=$productoId?>/<?=$row->productoCampoId?>">Modificar <?=$row->productoCampoValor?></a>
-                            <? endif ?>
+                        <? endif ?>
 
-                            <? break 2; ?>
+                        <? break 2; ?>
 
-						<? default: ?>
-							
-					<? endswitch ?>
-				</div>
-				<? endforeach ?>
-			</fieldset>
-			
-	        <?php endforeach; ?>
-		</div>
-	</div>
-	<? endif ?>
+                    <? default: ?>
 
-		<div class="field">
-			<div class="header">SEO</div>
-			<div class="content">
 
-				<fieldset>
-					<legend>Palabras Clave</legend>
-					<small>Separados por coma ","</small>
-					<? foreach ($idiomas as $key => $idioma): ?>
-						<div>
-							<label for="<?=$idioma['idiomaDiminutivo']?>_productoKeywords"><?=$idioma['idiomaNombre']?></label>
-							<? if(count($traducciones[$idioma['idiomaDiminutivo']]) > 0):?>
-								<input name="<?=$idioma['idiomaDiminutivo']?>_productoKeywords" type="text" value="<?=$traducciones[$idioma['idiomaDiminutivo']]->productoKeywords?>"/>
-							<? else: ?>
-								<input name="<?=$idioma['idiomaDiminutivo']?>_productoKeywords" type="text" value=""/>
-							<? endif ?>
-						</div>
-					<? endforeach ?>
-				</fieldset>
+                    <? endswitch ?>
 
-				<fieldset>
-					<legend>T&iacute;tulo</legend>
-					<? foreach ($idiomas as $key => $idioma): ?>
-						<div>
-							<label for="<?=$idioma['idiomaDiminutivo']?>_productoMetaTitulo"><?=$idioma['idiomaNombre']?></label>
-							<? if(count($traducciones[$idioma['idiomaDiminutivo']]) > 0):?>
-								<input name="<?=$idioma['idiomaDiminutivo']?>_productoMetaTitulo" type="text" value="<?=$traducciones[$idioma['idiomaDiminutivo']]->productoMetaTitulo?>"/>
-							<? else: ?>
-								<input name="<?=$idioma['idiomaDiminutivo']?>_productoMetaTitulo" type="text" value=""/>
-							<? endif ?>
-						</div>
-					<? endforeach ?>
-				</fieldset>
+                <? endforeach ?>
 
-				<fieldset>
-					<legend>Descripci&oacute;n</legend>
-					<? foreach ($idiomas as $key => $idioma): ?>
-						<div>
-							<label for="<?=$idioma['idiomaDiminutivo']?>_productoDescripcion"><?=$idioma['idiomaNombre']?></label>
-							<? if(count($traducciones[$idioma['idiomaDiminutivo']]) > 0):?>
-								<textarea style="width: 100%; resize: vertical" name="<?=$idioma['idiomaDiminutivo']?>_productoDescripcion" ><?= $traducciones[$idioma['idiomaDiminutivo']]->productoDescripcion ?></textarea>
-							<? else: ?>
-								<textarea style="width: 100%; resize: vertical" name="<?=$idioma['idiomaDiminutivo']?>_productoDescripcion" ></textarea>
-							<? endif ?>
-						</div>
-					<? endforeach ?>
-				</fieldset>
+            </fieldset>
 
-			</div>
-		</div>
-	
-	<input id="imagen-producto" type="hidden" name="productoImagen" value="<?=$imagenExtension;?>" data-orig="<?=$imagenOrig?>" />
-    <input class="coord" type="hidden" name="productoImagenCoord" value="<?=$productoImagenCoord;?>" />
-	<?= form_close(); ?>
-	
-	<?php else: ?>
-	<div class="error">Necesita crear primero una categoría para poder crear un producto</div>
-	<?php endif?>
-	
+            <? endforeach; ?>
+        </div>
+    </div>
+    <? endif ?>
+
+    <div class="field">
+        <div class="header">SEO</div>
+        <div class="content">
+
+            <div class="input">
+
+                <fieldset>
+                    <legend>Meta Keywords</legend>
+                    <? foreach ($translations as $key => $trans): ?>
+                        <label for="meta_keywords_<?=$key?>"><?= \App\Language::find($key)->name ?></label>
+                        <textarea name="meta_keywords[<?=$key?>]" ><?= isset($trans->meta_keywords) ? implode(', ', $trans->meta_keywords) : '' ?></textarea>
+                    <? endforeach ?>
+                </fieldset>
+
+            </div>
+
+            <div class="input">
+
+                <fieldset>
+                    <legend>Meta Descripción</legend>
+                    <? foreach ($translations as $key => $trans): ?>
+                        <label for="meta_description_<?=$key?>"><?= \App\Language::find($key)->name ?></label>
+                        <textarea name="meta_description[<?=$key?>]" ><?= isset($trans->meta_description) ? $trans->meta_description : '' ?></textarea>
+                    <? endforeach ?>
+                </fieldset>
+
+            </div>
+
+            <div class="input">
+
+                <fieldset>
+                    <legend>Meta Titulo</legend>
+                    <? foreach ($translations as $key => $trans): ?>
+                        <label for="meta_title_<?=$key?>"><?= \App\Language::find($key)->name ?></label>
+                        <textarea name="meta_title[<?=$key?>]" ><?= isset($trans->meta_title) ? $trans->meta_title : '' ?></textarea>
+                    <? endforeach ?>
+                </fieldset>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="header">Azanzado</div>
+        <div class="content">
+
+            <div class="input">
+                <label for="css_class">clase</label>
+                <input id="css_class" type="text" name="css_class" value="<?= $product->css_class ?>" />
+            </div>
+
+            <div class="input">
+                <label for="visible_to" class="required">Visible para</label>
+                <select id="visible_to" name="visible_to">
+                    <option value="public">Public</option>
+                    <? foreach ($groups as $key => $group): ?>
+                        <option <?= $product->visible_to == $group->slug ? 'selected="selected"' : '' ?> value="<?=$group->slug?>"><?=$group->name?></option>
+                    <? endforeach ?>
+                </select>
+            </div>
+
+        </div>
+    </div>
+
+    <?= form_close(); ?>
+
+    <?php else: ?>
+    <div class="error">Necesita crear primero una categoría para poder crear un producto</div>
+    <?php endif?>
+
 </div>
 
-<?php if(count($categorias) > 0): ?>
-<a href="<?= $link; ?>" data-level="nivel2" data-edit-url="catalog/product/edit/" data-delete-url="catalog/product/delete/" class="guardar boton importante n1 productos selectbox <?=$nuevo1?>" ><?=$txt_boton;?></a>
+<?php if($categories): ?>
+<a href="<?= $link; ?>" data-level="nivel2" data-edit-url="<?=$url_edit?>" data-delete-url="<?= $url_delete ?>" class="guardar boton importante n1 productos selectbox <?=$nuevo?>" ><?=$txt_boton;?></a>
 
-<script type="text/javascript">
+<!--<script type="text/javascript">
     tableManager.init();
-    upload.image('upload-image-product', 'imagen-producto', '<?=base_url();?>admin/imagen/producto/<?=$productoId?>', <?=$cropDimensions->imagenAncho?>, <?=$cropDimensions->imagenAlto?>, <?=$cropDimensions->imagenCrop ? 'true' : 'false'?>);
-</script>
+    upload.image('upload-image-product', 'imagen-producto', '<?/*=base_url();*/?>admin/imagen/producto/<?/*=$productoId*/?>', <?/*=$cropDimensions->imagenAncho*/?>, <?/*=$cropDimensions->imagenAlto*/?>, <?/*=$cropDimensions->imagenCrop ? 'true' : 'false'*/?>);
+</script>-->
 <?php endif?>

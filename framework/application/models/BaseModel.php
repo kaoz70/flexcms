@@ -11,20 +11,41 @@ use Illuminate\Database\Eloquent\Model;
  */
 class BaseModel extends Model {
 
+    private $lang;
+
+    /**
+     * @param mixed $lang
+     */
+    public function setLang($lang)
+    {
+        $this->lang = $lang;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLang()
+    {
+        return $this->lang;
+    }
+
     /**
      * Returns the content's translation as a json decoded object/array
      *
      * @param $lang
-     * @param $type
      * @return mixed
      * @throws \TranslationException
      */
-    public function getTranslation($lang, $type)
+    public function getTranslation($lang)
     {
+
+        if(!$this->type) {
+            throw new \TranslationException("Please set the model's type");
+        }
 
         $translation = $this->hasOne('App\Translation', 'parent_id')
             ->where('language_id', $lang)
-            ->where('type', $type)
+            ->where('type', $this->type)
             ->first();
 
         if($translation) {

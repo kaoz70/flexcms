@@ -16,7 +16,7 @@ use App\User;
 
 class Field extends \App\Field {
 
-    protected $table = 'fields';
+    protected $section = 'user';
 
     public function setTranslations($input)
     {
@@ -36,21 +36,6 @@ class Field extends \App\Field {
             $trans->save();
 
         }
-    }
-
-    public function createUserField()
-    {
-
-        $users = User::where('temporary', 0)->get();
-
-        foreach ($users as $user) {
-            $fieldData = new FieldData();
-            $fieldData->parent_id = $user->id;
-            $fieldData->field_id = $this->id;
-            $fieldData->section = 'user';
-            $fieldData->save();
-        }
-
     }
 
 }

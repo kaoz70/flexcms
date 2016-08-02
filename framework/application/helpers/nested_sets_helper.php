@@ -9,11 +9,11 @@ if ( ! function_exists('admin_tree'))
      * @param $level
      * @param $modify_url
      * @param $delete_url
-     * @param $name_param
+     * @param $section
      * @param string $attributes
      * @return string
      */
-    function admin_tree($nodes, $level, $modify_url, $delete_url, $name_param, $attributes = '') {
+    function admin_tree($nodes, $level, $modify_url, $delete_url, $section, $attributes = '') {
 
         if ($attributes !== '') {
             $attributes = _stringify_attributes($attributes);
@@ -25,7 +25,7 @@ if ( ! function_exists('admin_tree'))
 
             //Set the translation so that its exposed in the node's variable
             try {
-                $childNode->getTranslation('es', 'page');
+                $childNode->getTranslation('es', $section);
             } catch (TranslationException $e) {
                 $childNode->translation = new stdClass();
                 $childNode->translation->name = '{missing translation}';
@@ -41,7 +41,7 @@ if ( ! function_exists('admin_tree'))
                 $return .= '<a href="' . $delete_url . '/' . $childNode->id . '" class="eliminar" ></a>';
                 $return .= '</div>';
                 if (count($childNode->getChildren()) > 0) {
-                    $return .= admin_tree($childNode->getChildren(), $level, $modify_url, $delete_url, $name_param);
+                    $return .= admin_tree($childNode->getChildren(), $level, $modify_url, $delete_url, $section);
                 }
                 $return .= '</li>';
             }
@@ -78,7 +78,7 @@ if ( ! function_exists('admin_structure_tree'))
 
                 //Set the translation so that its exposed in the node's variable
                 try {
-                    $childNode->getTranslation('es', 'page');
+                    $childNode->getTranslation('es');
                 } catch (TranslationException $e) {
                     $childNode->translation = new stdClass();
                     $childNode->translation->name = '{missing translation}';
@@ -122,7 +122,7 @@ if ( ! function_exists('admin_select_tree'))
 
             if((int)$childNode->temporary !== 1) {
                 try {
-                    $childNode->getTranslation('es', 'page');
+                    $childNode->getTranslation('es');
                 } catch (TranslationException $e) {
                     $childNode->translation = new stdClass();
                     $childNode->translation->name = '{missing translation}';
@@ -150,11 +150,10 @@ if ( ! function_exists('admin_cat_tree'))
      * @param $level
      * @param array $item_methods
      * @param array $urls
-     * @param array $names
      * @param array $attributes
      * @return string
      */
-    function admin_cat_tree($node, $level, array $item_methods, array $urls, array $names, $attributes = array()) {
+    function admin_cat_tree($node, $level, array $item_methods, array $urls, $attributes = array()) {
 
         $attrs = '';
         $CI = get_instance();
@@ -169,18 +168,33 @@ if ( ! function_exists('admin_cat_tree'))
 
             if($childNode->temporal !== 1) {
 
+                try {
+                    $childNode->getTranslation('es');
+                } catch (TranslationException $e) {
+                    $childNode->translation = new stdClass();
+                    $childNode->translation->name = '{missing translation}';
+                }
+
                 //Get the items
-                $items = $CI->$item_methods['library']->$item_methods['method']((int)$childNode->id);
+                $items = $item_methods['class']::$item_methods['method']((int)$childNode->id);
 
                 $return .= '<li class="pagina field" id="' . $childNode->id . '">';
-                $return .= '<h3 class="header">Categoría: ' . $childNode->$names['category'] . '</h3>';
+                $return .= '<h3 class="header">Categoría: ' . $childNode->translation->name . '</h3>';
                 $return .= '<ul id="list_' . $childNode->id . '" class="sorteable content" data-sort="' . $urls['sort'] . '/' . $childNode->id . '">';
 
                 foreach ($items as $item) {
+
+                    try {
+                        $item->getTranslation('es');
+                    } catch (TranslationException $e) {
+                        $item->translation = new stdClass();
+                        $item->translation->name = '{missing translation}';
+                    }
+
                     $return .= '<li class="listado drag" id="' . $item->id . '">
                                     <div class="mover"></div>
                                     <a class="nombre modificar ' . $level . '" href="' . $urls['edit'] . '/' . $item->id . '">
-                                        <span>' . $item->$names['item'] . '</span>
+                                        <span>' . $item->translation->name . '</span>
                                     </a>
                                     <a href="' . $urls['delete'] . '/' . $item->id . '" class="eliminar"></a>
                                 </li>';
@@ -189,7 +203,7 @@ if ( ! function_exists('admin_cat_tree'))
                 $return .= '</ul>';
                 $return .= '<script type="text/javascript">initSortables($("list_'.$childNode->id.'"));</script>';
                 if (count($childNode->getChildren()) > 0) {
-                    $return .= admin_cat_tree($childNode->getChildren(), $level, $item_methods, $urls, $names);
+                    $return .= admin_cat_tree($childNode->getChildren(), $level, $item_methods, $urls);
                 }
                 $return .= '</li>';
             }

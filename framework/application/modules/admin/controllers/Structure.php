@@ -52,11 +52,11 @@ class Structure extends BaseController implements AdminInterface {
         $data['titulo'] = 'Estructura';
         $data['id'] = 'pagina_tree';
 
-        $data['url_reorganizar'] = base_url(static::URL_REORDER);
-
-        $data['edit_url'] = base_url(static::URL_EDIT);
-        $data['delete_url'] = base_url(static::URL_DELETE);
+        $data['url_edit'] = base_url(static::URL_EDIT);
+        $data['url_delete'] = base_url(static::URL_DELETE);
+        $data['url_sort'] = base_url(static::URL_REORDER);
         $data['name'] = 'paginaNombre';
+        $data['section'] = 'page';
 
         $data['nivel'] = 'nivel2';
 
@@ -90,7 +90,7 @@ class Structure extends BaseController implements AdminInterface {
      */
     public function edit($id)
     {
-        $this->_showView(Category::find($id));
+        $this->_showView(\admin\Category::find($id));
     }
 
     /**
@@ -100,7 +100,7 @@ class Structure extends BaseController implements AdminInterface {
      */
     public function insert()
     {
-        return Category::insertTemporary('page');
+        return \admin\Category::insertTemporary('page');
     }
 
     /**

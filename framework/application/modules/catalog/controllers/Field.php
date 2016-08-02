@@ -7,209 +7,197 @@
  */
 
 namespace catalog;
+use App\Input;
+use App\Translation;
+use catalog\models\Product;
+use Exception;
+use Illuminate\Database\Eloquent\Model;
+use stdClass;
+
 $_ns = __NAMESPACE__;
 
-class Field extends \Catalog implements \AdminInterface {
+class Field extends \Field implements \AdminInterface {
 
-	public function index()
-	{
+    const FIELD_SECTION = 'product';
 
-		$data['items'] = $this->Catalogo->getCampos();
+    const URL_CREATE = 'admin/catalog/field/create';
+    const URL_UPDATE = 'admin/catalog/field/update';
+    const URL_DELETE = 'admin/catalog/field/delete';
+    const URL_INSERT = 'admin/catalog/field/insert';
+    const URL_EDIT = 'admin/catalog/field/edit';
+    const URL_REORDER = 'admin/catalog/field/reorder';
 
-		$data['url_rel'] = base_url('admin/catalog/field');
-		$data['url_sort'] = base_url('admin/catalog/field/reorder');
-		$data['url_modificar'] = base_url('admin/catalog/field/edit');
-		$data['url_eliminar'] = base_url('admin/catalog/field/delete');
-		$data['url_search'] = '';
+    public function index()
+    {
 
-		$data['search'] = false;
-		$data['drag'] = true;
-		$data['nivel'] = 'nivel3';
-		$data['list_id'] = 'elementos';
+        $data['items'] = \App\Field::where('section', static::FIELD_SECTION)
+            ->orderBy('position')
+            ->get();
 
-		$data['idx_id'] = 'productoCampoId';
-		$data['idx_nombre'] = 'productoCampoValor';
+        $data['title'] = 'Campos';
+        $data['list_id'] = 'campos';
+        $data['nivel'] = 'nivel3';
 
-		$data['txt_titulo'] = 'Editar Template';
+        $data['search'] = false;
+        $data['drag'] = true;
 
-		/*
-		 * Menu
-		 */
-		$data['menu'] = array();
+        $data['url_sort'] = base_url(static::URL_REORDER);
+        $data['url_edit'] = base_url(static::URL_EDIT);
+        $data['url_delete'] = base_url(static::URL_DELETE);
 
-		$atts = array(
-			'id' => 'crearBanner',
-			'class' => $data['nivel'] . ' ajax boton importante n1'
-		);
-		$data['menu'][] = anchor(base_url('admin/catalog/field/create'), 'Crear Nuevo Elemento', $atts);
-		$data['bottomMargin'] = count($data['menu']) * 34;
+        $data['menu'][] = anchor(base_url(static::URL_CREATE), 'Crear Campo', [
+            'class' => $data['nivel'] . ' ajax boton importante n1'
+        ]);
 
-		$this->load->view('admin/listado_view', $data);
-	}
+        $data['bottomMargin'] = count($data['menu']) * 34;
 
-	public function create()
-	{
-		$data['titulo'] = 'Nuevo Elemento';
-		$data['habilitado']	= 'checked="checked"';
+        $this->load->view('admin/list_view', $data);
 
-		$data['campoId'] = $this->cms_general->generarId('producto_campos');
-		$data['inputId'] = '';
-		$checked = 'checked="checked"';
-		$data['checkedVerNombre'] = $checked;
-		$data['checkedVerModulo'] = $checked;
-		$data['checkedVerListado'] = $checked;
-		$data['checkedVerPedido'] = $checked;
-		$data['checkedHabilitado'] = $checked;
-		$data['checkedVerFiltro'] = $checked;
-		$data['inputs'] = $this->Catalogo->getInputs();
-		$data['productoCampoClase'] = '';
-		$data['txt_boton'] = 'Guardar Elemento';
-		$data['link']  = base_url('admin/catalog/field/insert');
-		$data['nuevo'] = 'nuevo';
+    }
 
-		/*
-		   * TRADUCCIONES
-		   */
-		$data['idiomas'] = $this->Idioma->getLanguages();
+    public function create()
+    {
+        $field = new \App\Field();
+        $field->section = static::FIELD_SECTION;
+        $field->data = null;
+        $this->_showView($field, true);
+    }
 
-		foreach ($data['idiomas'] as $key => $idioma)
-		{
-			$traducciones[$idioma['idiomaDiminutivo']] = new \stdClass();
-			$traducciones[$idioma['idiomaDiminutivo']]->productoCampoValor = '';
-		}
+    public function insert()
+    {
 
-		$data['traducciones'] = $traducciones;
+        $response = new stdClass();
+        $response->error_code = 0;
 
-		$this->load->view('admin/catalog/field_view',$data);
-	}
-	
-	public function edit($id)
-	{
-		$campo = $this->Catalogo->getDatosCampo($id);
+        try{
 
-		$data['titulo'] = 'Modificar Elemento';
-		$data['campoId'] = $id;
-		$data['habilitado']	= 'checked="checked"';
+            $field = $this->_store(new \Catalog\Models\Field());
+            $field->position = \App\Field::where('section', static::FIELD_SECTION)->get()->count();
+            $field->save();
 
-		$data['inputId'] = $campo->inputId;;
-		$checked = 'checked="checked"';
+            //Create the field for any products already in the database
+            $field->createChildTableFields(Product::where('temporary', 0)->get(), static::FIELD_SECTION);
+            $response->new_id = $field->id;
 
-		$data['checkedVerNombre'] = '';
-		$data['checkedVerModulo'] = '';
-		$data['checkedVerFiltro'] = '';
-		$data['checkedVerModulo'] = '';
-		$data['checkedVerPedido'] = '';
-		$data['checkedHabilitado'] = '';
-		$data['checkedVerListado'] = '';
+        } catch (Exception $e) {
+            $response = $this->error('Ocurri&oacute; un problema al insertar el campo!', $e);
+        }
 
-		if($campo->productoCampoMostrarNombre)
-			$data['checkedVerNombre'] = $checked;
+        $this->load->view(static::RESPONSE_VIEW, array(static::RESPONSE_VAR => $response));
 
-		if($campo->productoCampoVerModulo)
-			$data['checkedVerModulo'] = $checked;
+    }
 
-		if($campo->productoCampoVerListado)
-			$data['checkedVerListado'] = $checked;
+    public function edit($id)
+    {
+        $this->_showView(\App\Field::find($id));
+    }
 
-		if($campo->productoCampoVerPedido)
-			$data['checkedVerPedido'] = $checked;
+    public function update($id)
+    {
 
-		if($campo->productoCampoHabilitado)
-			$data['checkedHabilitado'] = $checked;
+        $response = new stdClass();
+        $response->error_code = 0;
 
-		if($campo->productoCampoVerFiltro)
-			$data['checkedVerFiltro'] = $checked;
+        try{
+            $response->new_id = $this->_store(\Catalog\Models\Field::find($id))->id;
+        } catch (Exception $e) {
+            $response = $this->error('Ocurri&oacute; un problema al actualizar el campo!', $e);
+        }
 
-		$data['inputs'] = $this->Catalogo->getInputs();
-		$data['productoCampoClase'] = $campo->productoCampoClase;
-		$data['txt_boton'] = 'Modificar Elemento';
-		$data['link']  = base_url('admin/catalog/field/update/' . $id);
-		$data['nuevo'] = '';
+        $this->load->view(static::RESPONSE_VIEW, array(static::RESPONSE_VAR => $response));
 
-		/*
-		   * TRADUCCIONES
-		   */
-		$data['idiomas'] = $this->Idioma->getLanguages();
+    }
 
-		foreach ($data['idiomas'] as $key => $idioma)
-		{
-			$campoTraduccion = $this->Catalogo->getCampoTranslation($idioma['idiomaDiminutivo'], $id);
-			$traducciones[$idioma['idiomaDiminutivo']] = new \stdClass();
-			if($campoTraduccion)
-				$traducciones[$idioma['idiomaDiminutivo']]->productoCampoValor = $campoTraduccion->productoCampoValor;
-			else
-				$traducciones[$idioma['idiomaDiminutivo']]->productoCampoValor = '';
-		}
+    public function delete($id)
+    {
 
-		$data['traducciones'] = $traducciones;
+        $response = new stdClass();
+        $response->error_code = 0;
 
-		$this->load->view('admin/catalog/field_view',$data);
+        try{
 
-	}
+            //Delete the field
+            $field = \App\Field::find($id);
+            $field->delete();
 
-	public function insert()
-	{
+            //Delete the field's translations
+            $translations = Translation::where('parent_id', $id)->where('type', static::FIELD_SECTION . '_field');
+            $translations->delete();
 
-		$response = new \stdClass();
-		$response->error_code = 0;
+        } catch (Exception $e) {
+            $response = $this->error('Ocurri&oacute; un problema al eliminar el campo!', $e);
+        }
 
-		try{
-			$id =  $this->Catalogo->guardarCampo($this->cms_general);
-			$response->new_id = $id;
-		} catch (Exception $e) {
-			$response = $this->cms_general->error('Ocurri&oacute; un problema al crear el campo!', $e);
-		}
+        $this->load->view(static::RESPONSE_VIEW, array(static::RESPONSE_VAR => $response));
 
-		$this->load->view('admin/request/json', array('return' => $response));
+    }
 
-	}
+    public function reorder()
+    {
+        $response = new stdClass();
+        $response->error_code = 0;
 
-	public function update($id)
-	{
+        try{
+            \App\Field::reorder($this->input->post('posiciones'), static::FIELD_SECTION);
+        } catch (Exception $e) {
+            $response = $this->error('Ocurri&oacute; un problema al reorganizar los campos!', $e);
+        }
 
-		$response = new \stdClass();
-		$response->error_code = 0;
+        $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );
+    }
 
-		try{
-			$this->Catalogo->updateCampo($this->cms_general, $id);
-		} catch (Exception $e) {
-			$response = $this->cms_general->error('Ocurri&oacute; un problema al actualizar el campo!', $e);
-		}
+    /**
+     * @param Model $field
+     * @param bool $new
+     * @return mixed
+     */
+    public function _showView(Model $field, $new = FALSE)
+    {
 
-		$this->load->view('admin/request/json', array('return' => $response));
+        $data['field'] = $field;
+        $data['data'] = json_decode($field->data);
 
-	}
+        $data['titulo'] = $new ? 'Crear Campo' : 'Editar Campo';
 
-	public function delete($id)
-	{
+        $data['txt_boton'] = $new ? 'Crear' : 'Modificar';
+        $data['link']  = $new ? base_url(static::URL_INSERT) : base_url(static::URL_UPDATE . '/' . $field->id);
+        $data['nuevo'] = $new ? 'nuevo' : '';
 
-		$response = new \stdClass();
-		$response->error_code = 0;
+        $data['url_edit'] = static::URL_EDIT;
+        $data['url_delete'] = static::URL_DELETE;
 
-		try{
-			$this->Catalogo->deleteCampo($id);
-		} catch (Exception $e) {
-			$response = $this->cms_general->error('Ocurri&oacute; un problema al actualizar el campo!', $e);
-		}
+        $data['inputs'] = Input::where('section', static::FIELD_SECTION)->get();
+        $data['translations'] = $field->getTranslations(static::FIELD_SECTION . '_field');
 
-		$this->load->view('admin/request/json', array('return' => $response));
+        $this->load->view('catalog/field_view', $data);
+    }
 
-	}
+    public function _store(Model $model) {
 
-	public function reorder($id)
-	{
+        $input = $this->input->post();
 
-		$response = new \stdClass();
-		$response->error_code = 0;
+        $model->css_class = $this->input->post('css_class');
+        $model->section = static::FIELD_SECTION;
+        $model->name = $this->input->post('name');
+        $model->input_id = $this->input->post('input_id');
+        $model->label_enabled = (bool) $this->input->post('label_enabled');
+        $model->enabled = (bool) $this->input->post('enabled');
 
-		try{
-			$this->Catalogo->reorderTemplateElements();
-		} catch (Exception $e) {
-			$response = $this->cms_general->error('Ocurri&oacute; un problema al reorganizar los campos!', $e);
-		}
+        //Custom user field data
+        $data = [
+            'view_in_widget' => (bool) $this->input->post('view_in_widget'),
+            'view_in_list' => (bool) $this->input->post('view_in_list'),
+            'view_in_cart' => (bool) $this->input->post('view_in_cart'),
+            'view_in_filters' => (bool) $this->input->post('view_in_filters'),
+        ];
+        $model->data = json_encode($data);
 
-		$this->load->view('admin/request/json', array('return' => $response));
+        $model->save();
 
-	}
-	
+        //Update the content's translations
+        $model->setTranslations($input);
+
+        return $model;
+    }
+
 }

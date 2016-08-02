@@ -97,16 +97,24 @@
                             <? switch($field->input()->content): case 'texto': ?>
 
                                 <div class="input">
-                                    <label for="campo[<?=$field->id?>]"><?=$field->name?></label>
-                                    <input id="campo[<?=$field->id?>]" type="text" class="" name="campo[<?=$field->id?>]" value="<?=$field->fieldData($user)->data?>" />
+                                    <label for="field[<?=$field->id?>]"><?=$field->name?></label>
+                                    <input id="field[<?=$field->id?>]"
+                                           type="text"
+                                           class=""
+                                           name="field[<?=$field->id?>]"
+                                           value="<?=$field->fieldData($user)->data?>" />
                                 </div>
 
                             <? break ?>
 
                             <? case 'texto multilinea': ?>
                                 <div class="input">
-                                    <label for="campo[<?=$field->id?>]"><?=$field->name?></label>
-                                    <textarea class="editor" id="campo[<?=$field->id?>]" name="campo[<?=$field->id?>]" rows="20" cols="85"><?=$field->fieldData($user)->data?></textarea>
+                                    <label for="field[<?=$field->id?>]"><?=$field->name?></label>
+                                    <textarea class="editor"
+                                              id="field[<?=$field->id?>]"
+                                              name="field[<?=$field->id?>]"
+                                              rows="20"
+                                              cols="85"><?=$field->fieldData($user)->data?></textarea>
                                 </div>
                             <?break?>
 
@@ -127,18 +135,18 @@
                             }
 
                             ?>
-                            <input id="campo[<?=$field->id?>][<?=$key?>]" class="campo_<?=$field->id?>" type="checkbox" style="<?=$display?>" <?=$checked?> name="campo[<?=$field->id?>][<?=$key?>]" />
+                            <input id="field[<?=$field->id?>][<?=$key?>]" class="field_<?=$field->id?>" type="checkbox" style="<?=$display?>" <?=$checked?> name="field[<?=$field->id?>][<?=$key?>]" />
                             <? $count++ ?>
                             <? endforeach ?>
                                 <script type="text/javascript">
-                                    checkboxEnablerLanguage('.campo_<?=$field->id?>');
+                                    checkboxEnablerLanguage('.field_<?=$field->id?>');
                                 </script>
                             <?break?>
 
                             <? case 'fecha': ?>
                                 <div class="input">
-                                    <label for="campo[<?=$field->id?>]"><?=$field->name?></label>
-                                    <input id="campo[<?=$field->id?>]" type="text" class="fecha" name="campo[<?=$field->id?>]" value="<?=$field->fieldData($user)->data?>" />
+                                    <label for="field[<?=$field->id?>]"><?=$field->name?></label>
+                                    <input id="field[<?=$field->id?>]" type="text" class="fecha" name="field[<?=$field->id?>]" value="<?=$field->fieldData($user)->data?>" />
                                 </div>
                                 <script type="text/javascript">
                                     initDatePicker();
@@ -147,8 +155,8 @@
 
                             <? case 'país': ?>
                                 <div class="input">
-                                    <label for="campo[<?=$field->id?>]"><?=$field->name?></label>
-                                    <select id="campo[<?=$field->id?>]" name="campo[<?=$field->id?>]">
+                                    <label for="field[<?=$field->id?>]"><?=$field->name?></label>
+                                    <select id="field[<?=$field->id?>]" name="field[<?=$field->id?>]">
                                         <? foreach($countries as $country): ?>
                                             <option value="<?=$country->country_id?>" <?= $country->country_id === $field->fieldData($user)->data ? 'selected' : '' ?>><?=$country->short_name?></option>
                                         <? endforeach ?>

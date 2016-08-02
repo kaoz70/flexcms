@@ -26,7 +26,7 @@ class Content extends BaseModel {
      * @param $order
      * @return Collection
      */
-    static function getByPage($page_id, $lang, $order)
+    static function getByPage($page_id, $lang, $order = 'manual')
     {
 
         switch ($order) {
@@ -81,7 +81,7 @@ class Content extends BaseModel {
     {
 
         //Get any content widget
-        $content = Widget::where('type', static::TYPE)
+        $content = Widget::where('widgets.type', static::TYPE)
             ->join('categories', 'categories.id', '=', static::PAGE_ID)
             ->get();
 

@@ -73,22 +73,7 @@ class User extends Model {
         }
 
         //Set the user fields
-        $fields = Field::where('section', static::SECTION)->get();
-
-        foreach ($fields as $field) {
-
-            $fieldData = FieldData::userData($user, $field);
-            if(!$fieldData) {
-                $fieldData = new FieldData();
-                $fieldData->parent_id = $user->id;
-                $fieldData->field_id = $field->id;
-                $fieldData->section = static::SECTION;
-            }
-
-            $fieldData->data = $post['campo'][$field->id];
-            $fieldData->save();
-
-        }
+        FieldData::setData($user, static::SECTION, $post);
 
         //Activate the user
         static::activate((bool)$post['active'], $user);

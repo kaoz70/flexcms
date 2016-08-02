@@ -6,11 +6,10 @@
 </div>
 <? endif ?>
 
-<?= admin_cat_tree($root_node->getChildren(), $nivel, $item_methods, $urls, $names, array(
+<?= admin_cat_tree($root_node->getChildren(), $nivel, $item_methods, $urls, array(
         'id' => $list_id,
         'class' => $search ? 'contenido_col listado_general searchResults' : 'contenido_col listado_general',
         'style' => "bottom: {$bottomMargin}px",
-        'rel' => $url_rel,
     ))
 ?>
 

@@ -9,7 +9,11 @@
 namespace App;
 
 
+use Illuminate\Database\Eloquent\Model;
+
 class Field extends BaseModel {
+
+    protected $section;
 
     protected static function reorder($inputs, $section)
     {
@@ -32,10 +36,33 @@ class Field extends BaseModel {
         return $this->belongsTo('App\Input')->first();
     }
 
-    public function fieldData($user)
+    /**
+     * Creates the fields for any current user, product, slideshow, etc
+     *
+     * @param $rows
+     * @param $section
+     */
+    public function createChildTableFields($rows, $section)
     {
 
-        $fieldData = FieldData::userData($user, $this);
+        foreach ($rows as $row) {
+            $fieldData = new FieldData();
+            $fieldData->parent_id = $row->id;
+            $fieldData->field_id = $this->id;
+            $fieldData->section = $section;
+            $fieldData->save();
+        }
+
+    }
+
+    /**
+     * @param Model $model
+     * @return FieldData|mixed
+     */
+    public function fieldData(Model $model)
+    {
+
+        $fieldData = FieldData::getData($model, $this, $this->section);
 
         if(!$fieldData) {
             $fieldData = new FieldData();

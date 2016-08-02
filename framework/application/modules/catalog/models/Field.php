@@ -6,29 +6,31 @@
  * Time: 4:14 PM
  */
 
-namespace Contact\Models;
+namespace Catalog\Models;
 
 
 use App\FieldData;
 use App\Language;
 use App\Translation;
 use App\User;
+use Illuminate\Database\Eloquent\Model;
 
 class Field extends \App\Field {
 
-    public function setTranslations($input, $section)
+    protected $section = 'product';
+
+    public function setTranslations($input)
     {
         foreach(Language::all() as $lang){
 
             $trans_data = [
                 'label' => $input['label'][$lang->id],
-                'placeholder' => $input['placeholder'][$lang->id],
             ];
 
             $trans = Translation::firstOrNew([
                 'language_id' => $lang->id,
                 'parent_id' => $this->id,
-                'type' => $section
+                'type' => 'product_field'
             ]);
             $trans->data = json_encode($trans_data);
             $trans->save();
@@ -36,18 +38,18 @@ class Field extends \App\Field {
         }
     }
 
-    public function createChildTableFields()
+    public function fieldData(Model $model)
     {
 
-        $users = User::where('temporary', 0)->get();
+        $fieldData = parent::fieldData($model);
+        $translation = Translation::where('parent_id', $fieldData->id)
+            ->where('language_id', $this->getLang())
+            ->where('type', 'product_field_data')
+            ->first();
 
-        foreach ($users as $user) {
-            $fieldData = new FieldData();
-            $fieldData->parent_id = $user->id;
-            $fieldData->field_id = $this->id;
-            $fieldData->section = 'user';
-            $fieldData->save();
-        }
+        return $translation ?: (object) [
+            'data' => ''
+        ];
 
     }
 
