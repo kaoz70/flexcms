@@ -54,6 +54,16 @@ echo form_open('admin/paginas/' . $link, $attributes);
                             <label for="enabled">Habilitado</label>
                         </div>
 
+                        <div class="input">
+                            <label for="group_visibility" class="required">Visible para</label>
+                            <select id="group_visibility" name="group_visibility">
+                                <option value="0">Public</option>
+                                <? foreach ($roles as $key => $role): ?>
+                                    <option <?= $group_visibility == $role->id ? 'selected="selected"' : '' ?> value="<?=$role->id?>"><?=$role->name?></option>
+                                <? endforeach ?>
+                            </select>
+                        </div>
+
                     </div>
                 </div>
 
@@ -62,59 +72,8 @@ echo form_open('admin/paginas/' . $link, $attributes);
                     <div class="content">
 
                         <div class="input">
-
-                            <fieldset>
-                                <legend>Meta Keywords</legend>
-                                <? foreach ($translations as $key => $trans): ?>
-                                    <label for="meta_keywords_<?=$key?>"><?= \App\Language::find($key)->name ?></label>
-                                    <textarea name="meta_keywords[<?=$key?>]" ><?= isset($trans->meta_keywords) ? implode(', ', $trans->meta_keywords) : '' ?></textarea>
-                                <? endforeach ?>
-                            </fieldset>
-
-                        </div>
-
-                        <div class="input">
-
-                            <fieldset>
-                                <legend>Meta Descripción</legend>
-                                <? foreach ($translations as $key => $trans): ?>
-                                    <label for="meta_description_<?=$key?>"><?= \App\Language::find($key)->name ?></label>
-                                    <textarea name="meta_description[<?=$key?>]" ><?= isset($trans->meta_description) ? $trans->meta_description : '' ?></textarea>
-                                <? endforeach ?>
-                            </fieldset>
-
-                        </div>
-
-                        <div class="input">
-
-                            <fieldset>
-                                <legend>Meta Titulo</legend>
-                                <? foreach ($translations as $key => $trans): ?>
-                                    <label for="meta_title_<?=$key?>"><?= \App\Language::find($key)->name ?></label>
-                                    <textarea name="meta_title[<?=$key?>]" ><?= isset($trans->meta_title) ? $trans->meta_title : '' ?></textarea>
-                                <? endforeach ?>
-                            </fieldset>
-
-                        </div>
-
-                        <div class="input">
                             <label for="css_class">clase</label>
                             <input id="css_class" type="text" name="css_class" value="<?= $css_class ?>" />
-                        </div>
-
-                        <div class="input check">
-                            <input id="popup" type="checkbox" name="popup" value="1" <?= $popup ? 'checked' : '' ?> />
-                            <label for="popup">Mostrar en Popup</label>
-                        </div>
-
-                        <div class="input">
-                            <label for="group_visibility" class="required">Visible para</label>
-                            <select id="group_visibility" name="group_visibility">
-                                <option value="0">Public</option>
-                                <? foreach ($groups as $key => $group): ?>
-                                    <option <?= $group_visibility == $group->id ? 'selected="selected"' : '' ?> value="<?=$group->id?>"><?=$group->name?></option>
-                                <? endforeach ?>
-                            </select>
                         </div>
 
                     </div>

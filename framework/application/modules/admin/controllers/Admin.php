@@ -48,6 +48,12 @@ class Admin extends AdminController {
     public function index()
     {
 
+       /* $reset = Sentinel::findById(1);
+
+        Sentinel::update($reset, [
+            'password' => 'admin'
+        ]);*/
+
         $user = Sentinel::getUser();
         $this->site_config = Config::get();
         $data['title'] = $this->site_config['site_name'];
@@ -149,7 +155,7 @@ class Admin extends AdminController {
                     throw new Exception("No tiene acceso a esta secci&oacute;n");
                 }
 
-                if ( $this->input->is_ajax_request()) {
+                if ($this->input->is_ajax_request()) {
                     $data['return'] = "Login success";
                     $this->load->view( 'admin/request/html', $data );
                 } else {

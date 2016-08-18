@@ -126,7 +126,7 @@ class Structure extends BaseController implements AdminInterface {
         $root->findChildren(999);
         $data['pages'] = $root->getChildren();
 
-        $data['groups'] =  \App\Role::all();
+        $data['roles'] =  \App\Role::all();
 
         $data['titulo'] = $new ? "Crear Pagina" : "Modificar Pagina";
         $data['txt_boton'] = $new ? "crear" : "modificar";
@@ -145,7 +145,7 @@ class Structure extends BaseController implements AdminInterface {
         $response->error_code = 0;
 
         try{
-            Category::updatePage($id, $this->input->post());
+            \admin\Category::updatePage($id, $this->input->post());
             $response->new_id = $id;
         } catch (Exception $e) {
             $response = $this->error('Ocurri&oacute; un problema al actualizar la p&aacute;gina!', $e);

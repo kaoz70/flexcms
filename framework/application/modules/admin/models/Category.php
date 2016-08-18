@@ -12,15 +12,12 @@ namespace admin;
 use App\Language;
 use App\Translation;
 use App\Widget;
-use Cartalyst\NestedSets\Nodes\NodeTrait;
 use Cartalyst\NestedSets\Nodes\NodeInterface;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class Category extends \App\Category implements NodeInterface {
 
     protected $section = 'page';
-
-    use NodeTrait;
 
     /**
      * Inserts a temporary node into the category
@@ -125,6 +122,7 @@ class Category extends \App\Category implements NodeInterface {
         $page->enabled = $input['enabled'];
         $page->group_visibility = $input['group_visibility'];
         $page->data = $input['data'];
+        $page->popup = (bool) $input['popup'];
         $page->save();
 
     }
@@ -133,16 +131,29 @@ class Category extends \App\Category implements NodeInterface {
     {
         foreach(Language::all() as $lang){
 
-            $trans_data = [
-                'name' => $input['name'][$lang->id],
-                'menu_name' => $input['menu_name'][$lang->id],
-                //remove the space if any from the start and end of each keyword, create an array
-                'meta_keywords' => array_map('trim', explode(',', $input['meta_keywords'][$lang->id])),
-                'meta_description' => $input['meta_description'][$lang->id],
-                'meta_title' => $input['meta_title'][$lang->id],
-            ];
-
             $trans = Translation::firstOrNew(['language_id' => $lang->id, 'parent_id' => $this->id, 'type' => $this->section]);
+            $trans_data = json_decode($trans->data);
+
+            $trans_data->name = $input['name'][$lang->id];
+            $trans_data->menu_name = $input['menu_name'][$lang->id];
+
+            //We update this form two different places so we have to check if they are sending the data
+
+            if(isset($input['meta_keywords'])){
+                //remove the space if any from the start and end of each keyword, create an array
+                $trans_data->meta_keywords = array_map('trim', explode(',', $input['meta_keywords'][$lang->id]));
+            }
+
+            if(isset($input['meta_description'])){
+                //remove the space if any from the start and end of each keyword, create an array
+                $trans_data->meta_description = $input['meta_description'][$lang->id];
+            }
+
+            if(isset($input['meta_title'])){
+                //remove the space if any from the start and end of each keyword, create an array
+                $trans_data->meta_title = $input['meta_title'][$lang->id];
+            }
+
             $trans->data = json_encode($trans_data);
             $trans->save();
 

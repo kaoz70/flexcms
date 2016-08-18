@@ -16,7 +16,7 @@ class Content extends BaseModel {
     protected $table = 'content';
 
     const PAGE_ID = 'category_id';
-    const TYPE = 'content';
+    protected $type = 'content';
 
     /**
      * Get all the page's contents
@@ -49,7 +49,7 @@ class Content extends BaseModel {
             ->get();
 
         foreach ($content as &$c){
-            $c->getTranslation($lang, static::TYPE);
+            $c->getTranslation($lang);
         }
 
         return $content;
@@ -66,7 +66,7 @@ class Content extends BaseModel {
     static function get($content_id, $lang)
     {
         $content = static::find($content_id);
-        $content->getTranslation($lang, static::TYPE);
+        $content->getTranslation($lang);
         return $content;
     }
 
@@ -81,7 +81,7 @@ class Content extends BaseModel {
     {
 
         //Get any content widget
-        $content = Widget::where('widgets.type', static::TYPE)
+        $content = Widget::where('widgets.type', 'content')
             ->join('categories', 'categories.id', '=', static::PAGE_ID)
             ->get();
 

@@ -50,14 +50,14 @@ class Page extends BaseController {
     /**
      * Show the website's structure
      */
-    public function index()
+    /*public function index()
     {
         $root = PageTree::allRoot()->first();
         $root->findChildren(999);
         $this->load->view('admin/request/html', array(
             'return' => admin_structure_tree($root->getChildren(), $this->Modulo->getContentPages())
         ));
-    }
+    }*/
 
     public function edit($id)
     {

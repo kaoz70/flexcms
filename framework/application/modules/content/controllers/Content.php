@@ -218,6 +218,11 @@ class Content extends \AdminController implements \ContentInterface
         $data['config'] = $widget->getConfig();
         $data['save_url'] = base_url(static::URL_SAVE_CONFIG . $widget_id);
 
+        $category = \admin\Category::find($widget->category_id);
+        $data['translations'] = $category->getTranslations('page');
+        $data['page'] = $category;
+        $data['roles'] =  \App\Role::all();
+
         $theme = Config::theme();
         $data['list_views'] = $this->getViews($theme, 'list');
         $data['detail_views'] = $this->getViews($theme, 'detail');
@@ -239,8 +244,19 @@ class Content extends \AdminController implements \ContentInterface
         $response->error_code = 0;
 
         try{
+
+            //Update the widget's config
             $widget = Widget::find($widget_id);
             $widget->setConfig($this->input->post());
+
+            //Update the page's config
+            $page = \admin\Category::find($widget->category_id);
+            $page->popup = (bool) $this->input->post('popup');
+            $page->enabled = $this->input->post('enabled');
+            $page->group_visibility = $this->input->post('group_visibility');
+            $page->setTranslations($this->input->post());
+            $page->save();
+
         } catch (Exception $e) {
             $response = $this->error('Ocurri&oacute; un problema guardar la configuraci&oacute;n!', $e);
         }

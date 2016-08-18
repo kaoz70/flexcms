@@ -25,13 +25,13 @@ if ( ! function_exists('admin_tree'))
 
             //Set the translation so that its exposed in the node's variable
             try {
-                $childNode->getTranslation('es', $section);
+                $childNode->getTranslation('es');
             } catch (TranslationException $e) {
                 $childNode->translation = new stdClass();
                 $childNode->translation->name = '{missing translation}';
             }
 
-            if($childNode->temporary != 1) {
+            if($childNode->temporary != 1 && $childNode->type === $section) {
                 $return .= '<li class="treedrag" id="' . $childNode->id . '">';
                 $return .= '<div class="controls">';
                 $return .= '<div class="mover"></div>';

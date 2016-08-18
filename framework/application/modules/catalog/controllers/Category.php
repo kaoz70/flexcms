@@ -58,7 +58,7 @@ class Category extends \AdminController implements \AdminInterface {
 
         $data['id'] = 'catalogo_tree';
         $data['nivel'] = 'nivel3';
-        $data['section'] = static::SECTION . '_category';
+        $data['section'] = static::SECTION;
 
         /*
          * MENU
