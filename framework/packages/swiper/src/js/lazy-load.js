@@ -7,11 +7,11 @@ s.lazy = {
         if (typeof index === 'undefined') return;
         if (typeof loadInDuplicate === 'undefined') loadInDuplicate = true;
         if (s.slides.length === 0) return;
-        
+
         var slide = s.slides.eq(index);
         var img = slide.find('.swiper-lazy:not(.swiper-lazy-loaded):not(.swiper-lazy-loading)');
         if (slide.hasClass('swiper-lazy') && !slide.hasClass('swiper-lazy-loaded') && !slide.hasClass('swiper-lazy-loading')) {
-            img.add(slide[0]);
+            img = img.add(slide[0]);
         }
         if (img.length === 0) return;
 
@@ -19,17 +19,25 @@ s.lazy = {
             var _img = $(this);
             _img.addClass('swiper-lazy-loading');
             var background = _img.attr('data-background');
-            var src = _img.attr('data-src');
-            s.loadImage(_img[0], (src || background), false, function () {
+            var src = _img.attr('data-src'),
+                srcset = _img.attr('data-srcset');
+            s.loadImage(_img[0], (src || background), srcset, false, function () {
                 if (background) {
-                    _img.css('background-image', 'url(' + background + ')');
+                    _img.css('background-image', 'url("' + background + '")');
                     _img.removeAttr('data-background');
                 }
                 else {
-                    _img.attr('src', src);
-                    _img.removeAttr('data-src');
+                    if (srcset) {
+                        _img.attr('srcset', srcset);
+                        _img.removeAttr('data-srcset');
+                    }
+                    if (src) {
+                        _img.attr('src', src);
+                        _img.removeAttr('data-src');
+                    }
+
                 }
-                    
+
                 _img.addClass('swiper-lazy-loaded').removeClass('swiper-lazy-loading');
                 slide.find('.swiper-lazy-preloader, .preloader').remove();
                 if (s.params.loop && loadInDuplicate) {
@@ -45,10 +53,10 @@ s.lazy = {
                 }
                 s.emit('onLazyImageReady', s, slide[0], _img[0]);
             });
-            
+
             s.emit('onLazyImageLoad', s, slide[0], _img[0]);
         });
-            
+
     },
     load: function () {
         var i;
@@ -64,17 +72,21 @@ s.lazy = {
                 }
             }
             else {
-                s.lazy.loadImageInSlide(s.activeIndex);    
+                s.lazy.loadImageInSlide(s.activeIndex);
             }
         }
         if (s.params.lazyLoadingInPrevNext) {
-            if (s.params.slidesPerView > 1) {
+            if (s.params.slidesPerView > 1 || (s.params.lazyLoadingInPrevNextAmount && s.params.lazyLoadingInPrevNextAmount > 1)) {
+                var amount = s.params.lazyLoadingInPrevNextAmount;
+                var spv = s.params.slidesPerView;
+                var maxIndex = Math.min(s.activeIndex + spv + Math.max(amount, spv), s.slides.length);
+                var minIndex = Math.max(s.activeIndex - Math.max(spv, amount), 0);
                 // Next Slides
-                for (i = s.activeIndex + s.params.slidesPerView; i < s.activeIndex + s.params.slidesPerView + s.params.slidesPerView; i++) {
+                for (i = s.activeIndex + s.params.slidesPerView; i < maxIndex; i++) {
                     if (s.slides[i]) s.lazy.loadImageInSlide(i);
                 }
                 // Prev Slides
-                for (i = s.activeIndex - s.params.slidesPerView; i < s.activeIndex ; i++) {
+                for (i = minIndex; i < s.activeIndex ; i++) {
                     if (s.slides[i]) s.lazy.loadImageInSlide(i);
                 }
             }

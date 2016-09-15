@@ -32,6 +32,7 @@ class Content extends \AdminController implements \ContentInterface
     public static function index($page_id)
     {
 
+        //We use this because we are in a static context
         $CI = &get_instance();
 
         $page = Category::find($page_id);
@@ -53,11 +54,9 @@ class Content extends \AdminController implements \ContentInterface
 
         //MENU
         $data['menu'][] = anchor(base_url(static::URL_CONFIG . $widget->id), 'configuraci&oacute;n', [
-            'id' => 'crear',
             'class' => $data['nivel'] . ' ajax boton n1'
         ]);
         $data['menu'][] = anchor(base_url(static::URL_CREATE . $page_id), 'crear nuevo contenido', [
-            'id' => 'crear',
             'class' => $data['nivel'] . ' ajax boton importante n2'
         ]);
         $data['bottomMargin'] = count($data['menu']) * 34;

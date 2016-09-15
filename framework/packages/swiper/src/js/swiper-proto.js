@@ -15,7 +15,7 @@ Swiper.prototype = {
     ====================================================*/
     browser: {
         ie: window.navigator.pointerEnabled || window.navigator.msPointerEnabled,
-        ieTouch: (window.navigator.msPointerEnabled && window.navigator.msMaxTouchPoints > 1) || (window.navigator.pointerEnabled && window.navigator.maxTouchPoints > 1),
+        ieTouch: (window.navigator.msPointerEnabled && window.navigator.msMaxTouchPoints > 1) || (window.navigator.pointerEnabled && window.navigator.maxTouchPoints > 1)
     },
     /*==================================================
     Devices
@@ -27,7 +27,7 @@ Swiper.prototype = {
         var ipod = ua.match(/(iPod)(.*OS\s([\d_]+))?/);
         var iphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/);
         return {
-            ios: ipad || iphone || ipad,
+            ios: ipad || iphone || ipod,
             android: android
         };
     })(),

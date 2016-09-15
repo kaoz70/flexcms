@@ -74,7 +74,7 @@ if ( ! function_exists('admin_structure_tree'))
 
         foreach ($nodes as $childNode) {
 
-            if($childNode->temporary !== 1 AND (in_array($childNode->id, $visible) OR $childNode->getChildren()) ) {
+            if($childNode->temporary !== 1 && $childNode->type === 'page' && (in_array($childNode->id, $visible) || $childNode->getChildren()) ) {
 
                 //Set the translation so that its exposed in the node's variable
                 try {

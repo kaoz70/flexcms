@@ -183,7 +183,7 @@ class Field extends \Field implements \AdminInterface {
         $model->label_enabled = (bool) $this->input->post('label_enabled');
         $model->enabled = (bool) $this->input->post('enabled');
 
-        //Custom user field data
+        //Custom field data
         $data = [
             'view_in_widget' => (bool) $this->input->post('view_in_widget'),
             'view_in_list' => (bool) $this->input->post('view_in_list'),

@@ -48,6 +48,16 @@
                 </ul>
             </fieldset>-->
 
+            <div class="input">
+                <label for="group_visibility" class="required">Visible para</label>
+                <select id="group_visibility" name="group_visibility">
+                    <option value="public">Public</option>
+                    <? foreach ($groups as $key => $group): ?>
+                        <option <?= $category->group_visibility == $group->slug ? 'selected="selected"' : '' ?> value="<?=$group->slug?>"><?=$group->name?></option>
+                    <? endforeach ?>
+                </select>
+            </div>
+
         </div>
     </div>
 

@@ -36,19 +36,4 @@ class Field extends \App\Field {
         }
     }
 
-    public function createChildTableFields()
-    {
-
-        $users = User::where('temporary', 0)->get();
-
-        foreach ($users as $user) {
-            $fieldData = new FieldData();
-            $fieldData->parent_id = $user->id;
-            $fieldData->field_id = $this->id;
-            $fieldData->section = 'user';
-            $fieldData->save();
-        }
-
-    }
-
 }
