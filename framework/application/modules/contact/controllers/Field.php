@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 use stdClass;
 use Exception;
 
-class Field extends \Contact implements \AdminInterface {
+class Field extends \AdminController implements \AdminParentInterface {
 
     const FIELD_SECTION = 'contact';
     const TRANSLATION_SECTION = 'contact_field';
@@ -25,30 +25,60 @@ class Field extends \Contact implements \AdminInterface {
     const URL_DELETE = 'admin/contact/field/delete';
     const URL_INSERT = 'admin/contact/field/insert';
     const URL_EDIT = 'admin/contact/field/edit';
+    const URL_REORDER = 'admin/contact/field/reorder';
 
-    public function index(){
-        return Field::orderBy('position')->get();
+    public function index($parent_id){
+
+        $data['items'] = \App\Field::where('section', static::FIELD_SECTION)
+            ->where('parent_id', $parent_id)
+            ->orderBy('position')
+            ->get();
+
+        $data['title'] = 'Editar Template';
+        $data['list_id'] = 'contact_campos';
+        $data['nivel'] = 'nivel3';
+
+        $data['search'] = false;
+        $data['drag'] = true;
+
+        $data['url_sort'] = base_url(static::URL_REORDER);
+        $data['url_edit'] = base_url(static::URL_EDIT);
+        $data['url_delete'] = base_url(static::URL_DELETE);
+
+        /*
+         * MENU
+         */
+        $data['menu'][] = anchor(base_url('admin/contact/field/create/' . $parent_id), 'Crear Nuevo Elemento', [
+            'id' => 'crearCampo',
+            'class' => $data['nivel'] . ' ajax boton n1'
+        ]);
+        $data['bottomMargin'] = count($data['menu']) * 34;
+
+        $this->load->view('admin/list_view', $data);
     }
 
-    public function create()
+    public function create($parent_id)
     {
-        $this->_showView(new \Contact\Models\Field(), true);
+        $model = new Models\Field();
+        $model->parent_id = $parent_id;
+        $this->_showView($model, true);
     }
 
     public function edit($id)
     {
-        $this->_showView(\Contact\Models\Field::find($id));
+        $this->_showView(Models\Field::find($id));
     }
 
-    public function insert()
+    public function insert($parent_id)
     {
 
         $response = new stdClass();
         $response->error_code = 0;
 
         try{
-            $field = $this->_store(new \Contact\Models\Field());
-            $field->position = \Contact\Models\Field::where('section', static::FIELD_SECTION)->count();
+            $field = $this->_store(new Models\Field());
+            $field->position = Models\Field::where('section', static::FIELD_SECTION)->count();
+            $field->parent_id = $parent_id;
             $field->save();
             $response->new_id = $field->id;
         } catch (Exception $e) {
@@ -65,7 +95,7 @@ class Field extends \Contact implements \AdminInterface {
         $response->error_code = 0;
 
         try{
-            $this->_store(\Contact\Models\Field::find($id));
+            $this->_store(Models\Field::find($id));
         } catch (Exception $e) {
             $response = $this->error('Ocurri&oacute; un problema al actualizar la el campo!', $e);
         }
@@ -82,7 +112,7 @@ class Field extends \Contact implements \AdminInterface {
 
         try{
 
-            $field = \Contact\Models\Field::find($id);
+            $field = Models\Field::find($id);
             $field->delete();
 
             //Delete any translations
@@ -122,7 +152,7 @@ class Field extends \Contact implements \AdminInterface {
 
         $data['field'] = $model;
         $data['titulo'] = $new ? "Crear Elemento" : 'Editar Elemento';
-        $data['link'] = $new ? base_url(static::URL_INSERT) : base_url(static::URL_UPDATE . '/' . $model->id);
+        $data['link'] = $new ? base_url(static::URL_INSERT . '/' . $model->parent_id) : base_url(static::URL_UPDATE . '/' . $model->id);
         $data['txt_boton'] = $new ? "crear" : 'Modificar Elemento';
         $data['nuevo'] = $new ? 'nuevo' : '';
         $data['inputs'] = Input::where('section', static::FIELD_SECTION)->get();

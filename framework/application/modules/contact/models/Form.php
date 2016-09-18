@@ -13,28 +13,26 @@ use App\BaseModel;
 use App\Language;
 use App\Translation;
 
-class Address extends BaseModel
+class Form extends BaseModel
 {
 
-    protected $table = 'addresses';
-
-    public function setTranslations($input)
+    /*public function setTranslations($input)
     {
         foreach(Language::all() as $lang){
 
             $trans_data = [
-                'address' => $input['address'][$lang->id],
+                'name' => $input['name'][$lang->id],
             ];
 
             $trans = Translation::firstOrNew([
                 'language_id' => $lang->id,
                 'parent_id' => $this->id,
-                'type' => 'address'
+                'type' => 'form'
             ]);
             $trans->data = json_encode($trans_data);
             $trans->save();
 
         }
-    }
+    }*/
 
 }

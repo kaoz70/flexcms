@@ -3,10 +3,10 @@
     "show": true,
     "icon": "mail",
     "name": {
-      "es": "Contacto"
+      "es": "Formularios"
     },
     "tooltip": {
-      "es": "Formulario de contáctos, personas de contacto"
+      "es": "Formularios de contactos"
     }
   }
 }

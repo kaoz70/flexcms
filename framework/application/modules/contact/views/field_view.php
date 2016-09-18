@@ -63,7 +63,7 @@
             </div>
 
             <div class="input check">
-                <input id="enabled" name="enabled" type="checkbox" <?=$field->enabled ? 'checked' : '' ?> />
+                <input id="enabled" name="enabled" type="checkbox" <?=$field->enabled || $nuevo ? 'checked' : '' ?> />
                 <label for="enabled">Publicado</label>
             </div>
 

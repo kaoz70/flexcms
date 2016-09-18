@@ -9,10 +9,8 @@
 namespace Contact\Models;
 
 
-use App\FieldData;
 use App\Language;
 use App\Translation;
-use App\User;
 
 class Field extends \App\Field {
 

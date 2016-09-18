@@ -21,7 +21,7 @@ class Field extends BaseModel {
         //Get the ids
         $ids = json_decode($inputs, true);
 
-        for($i = 0 ; $i < static::where('section', $section)->get()->count() ; $i++){
+        for($i = 0 ; $i < count($ids) ; $i++){
 
             $row = static::find($ids[$i]);
             $row->position = $i + 1;
