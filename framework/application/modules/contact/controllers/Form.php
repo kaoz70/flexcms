@@ -96,7 +96,6 @@ class Form extends \Contact implements \AdminInterface {
         
         $data['languages'] = Language::all();
         $data['form'] = $model;
-        $data['translations'] = $model->getTranslations('form');
         $data['people'] = Models\Contact::all();
 
         $data['titulo'] = $new ? "Crear Formulario" : "Modificar Formulario";

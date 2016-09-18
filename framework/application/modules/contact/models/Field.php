@@ -14,7 +14,9 @@ use App\Translation;
 
 class Field extends \App\Field {
 
-    public function setTranslations($input, $section)
+    protected $type = 'contact_field';
+
+    public function setTranslations($input)
     {
         foreach(Language::all() as $lang){
 
@@ -26,7 +28,7 @@ class Field extends \App\Field {
             $trans = Translation::firstOrNew([
                 'language_id' => $lang->id,
                 'parent_id' => $this->id,
-                'type' => $section
+                'type' => $this->type,
             ]);
             $trans->data = json_encode($trans_data);
             $trans->save();

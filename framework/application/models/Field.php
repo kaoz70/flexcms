@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 class Field extends BaseModel {
 
     protected $section;
+    protected $type = null;
 
     protected static function reorder($inputs, $section)
     {

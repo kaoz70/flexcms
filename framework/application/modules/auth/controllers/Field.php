@@ -33,10 +33,15 @@ class Field extends \Field implements \AdminParentInterface {
 
     public function create($parent_id = null)
     {
-        $field = new \App\Field();
+        $field = new \Auth\Models\Field();
         $field->section = static::FIELD_SECTION;
         $field->data = null;
         $this->_showView($field, true);
+    }
+
+    public function edit($id)
+    {
+        $this->_showView(\Auth\Models\Field::find($id));
     }
 
     public function insert($parent_id = null)
@@ -46,51 +51,15 @@ class Field extends \Field implements \AdminParentInterface {
         $response->error_code = 0;
 
         try{
+
             $field = $this->_store(new \Auth\Models\Field());
             $field->position = \App\Field::where('section', static::FIELD_SECTION)->get()->count();
             $field->save();
-            $field->createChildTableFields(User::where('temporary', 0)->get(), static::FIELD_SECTION);
+
             $response->new_id = $field->id;
+
         } catch (Exception $e) {
             $response = $this->error('Ocurri&oacute; un problema al insertar el campo!', $e);
-        }
-
-        $this->load->view(static::RESPONSE_VIEW, array(static::RESPONSE_VAR => $response));
-
-    }
-
-    public function edit($id)
-    {
-        $this->_showView(\Auth\Models\Field::find($id));
-    }
-
-    public function update($id)
-    {
-
-        $response = new stdClass();
-        $response->error_code = 0;
-
-        try{
-            $response->new_id = $this->_store(\Auth\Models\Field::find($id))->id;
-        } catch (Exception $e) {
-            $response = $this->error('Ocurri&oacute; un problema al actualizar el campo!', $e);
-        }
-
-        $this->load->view(static::RESPONSE_VIEW, array(static::RESPONSE_VAR => $response));
-
-    }
-
-    public function delete($id)
-    {
-
-        $response = new stdClass();
-        $response->error_code = 0;
-
-        try{
-            $field = \App\Field::find($id);
-            $field->delete();
-        } catch (Exception $e) {
-            $response = $this->error('Ocurri&oacute; un problema al eliminar el campo!', $e);
         }
 
         $this->load->view(static::RESPONSE_VIEW, array(static::RESPONSE_VAR => $response));
@@ -115,14 +84,17 @@ class Field extends \Field implements \AdminParentInterface {
         $data['nuevo'] = $new ? 'nuevo' : '';
 
         $data['inputs'] = Input::where('section', static::FIELD_SECTION)->get();
-        $data['translations'] = $field->getTranslations(static::FIELD_SECTION . '_field');
+
+        try {
+            $data['translations'] = $field->getTranslations(static::FIELD_SECTION . '_field');
+        } catch (\RuntimeException $e) {
+            echo $e->getMessage();
+        }
 
         $this->load->view('auth/field_view', $data);
     }
 
     public function _store(Model $model) {
-
-        $input = $this->input->post();
 
         $model->css_class = $this->input->post('css_class');
         $model->section = static::FIELD_SECTION;
@@ -144,7 +116,8 @@ class Field extends \Field implements \AdminParentInterface {
         $model->save();
 
         //Update the content's translations
-        $model->setTranslations($input);
+        $model = \Auth\Models\Field::find($model->id);
+        $model->setTranslations($this->input->post());
 
         return $model;
     }

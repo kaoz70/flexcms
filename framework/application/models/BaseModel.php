@@ -1,6 +1,8 @@
 <?php
 
 namespace App;
+use Gajus\Dindent\Exception\RuntimeException;
+use Herrera\Json\Exception\Exception;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -40,7 +42,7 @@ class BaseModel extends Model {
     {
 
         if(!$this->type) {
-            throw new \TranslationException("Please set the model's type");
+            throw new \RuntimeException("Please set the model's type");
         }
 
         $translation = $this->hasOne('App\Translation', 'parent_id')
@@ -50,6 +52,7 @@ class BaseModel extends Model {
 
         if($translation) {
             $this->translation = json_decode($translation->data);
+
             return $this->translation;
         } else {
             throw new \TranslationException("Content translation does not exist");
@@ -62,6 +65,7 @@ class BaseModel extends Model {
      *
      * @param $type
      * @return array
+     * @throws RuntimeException
      */
     public function getTranslations($type)
     {
@@ -75,6 +79,8 @@ class BaseModel extends Model {
             } catch (\TranslationException $e) {
                 //No translation available
                 $arr[$lang->id] = '';
+            } catch (RuntimeException $e) {
+                throw new RuntimeException($e->getMessage());
             }
         }
 

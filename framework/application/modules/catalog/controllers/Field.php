@@ -34,10 +34,15 @@ class Field extends \Field implements \AdminParentInterface {
 
     public function create($parent_id = null)
     {
-        $field = new \App\Field();
+        $field = new \Catalog\Models\Field();
         $field->section = static::FIELD_SECTION;
         $field->data = null;
         $this->_showView($field, true);
+    }
+
+    public function edit($id)
+    {
+        $this->_showView(\Catalog\Models\Field::find($id));
     }
 
     public function insert($parent_id = null)
@@ -64,50 +69,17 @@ class Field extends \Field implements \AdminParentInterface {
 
     }
 
-    public function edit($id)
-    {
-        $this->_showView(\App\Field::find($id));
-    }
-
-    public function update($id)
-    {
-
-        $response = new stdClass();
-        $response->error_code = 0;
-
-        try{
-            $response->new_id = $this->_store(\Catalog\Models\Field::find($id))->id;
-        } catch (Exception $e) {
-            $response = $this->error('Ocurri&oacute; un problema al actualizar el campo!', $e);
-        }
-
-        $this->load->view(static::RESPONSE_VIEW, array(static::RESPONSE_VAR => $response));
-
-    }
-
     public function delete($id)
     {
 
-        $response = new stdClass();
-        $response->error_code = 0;
+        //Delete any translations
+        Translation::where('parent_id', $id)->where('type', static::FIELD_SECTION . '_field')->delete();
 
-        try{
-
-            //Delete the field
-            $field = \App\Field::find($id);
-            $field->delete();
-
-            //Delete the field's translations
-            $translations = Translation::where('parent_id', $id)->where('type', static::FIELD_SECTION . '_field');
-            $translations->delete();
-
-        } catch (Exception $e) {
-            $response = $this->error('Ocurri&oacute; un problema al eliminar el campo!', $e);
-        }
-
-        $this->load->view(static::RESPONSE_VIEW, array(static::RESPONSE_VAR => $response));
+        //Delete the field
+        parent::delete($id);
 
     }
+
 
     /**
      * @param Model $field
@@ -158,6 +130,7 @@ class Field extends \Field implements \AdminParentInterface {
         $model->save();
 
         //Update the content's translations
+        $model = \Catalog\Models\Field::find($model->id);
         $model->setTranslations($input);
 
         return $model;

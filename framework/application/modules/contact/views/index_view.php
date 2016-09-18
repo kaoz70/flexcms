@@ -7,8 +7,7 @@
 
             <?php foreach($people as $row): ?>
 
-                <li class="listado drag" id="<?=$row->id;?>">
-                    <div class="mover"></div>
+                <li class="listado" id="<?=$row->id;?>">
                     <a class="nombre modificar nivel2" href="<?=base_url();?>admin/contact/person/edit/<?=$row->id;?>"><span><?=$row->name;?></span></a>
                     <a href="<?=base_url();?>admin/contact/person/delete/<?=$row->id;?>" class="eliminar" ></a>
                 </li>
@@ -23,8 +22,7 @@
 
             <?php foreach($forms as $row): ?>
 
-                <li class="listado drag" id="<?=$row->id;?>">
-                    <div class="mover"></div>
+                <li class="listado" id="<?=$row->id;?>">
                     <a class="nombre modificar nivel2" href="<?=base_url();?>admin/contact/form/edit/<?=$row->id;?>"><span><?=$row->name;?></span></a>
                     <a href="<?=base_url();?>admin/contact/form/delete/<?=$row->id;?>" class="eliminar" ></a>
                 </li>

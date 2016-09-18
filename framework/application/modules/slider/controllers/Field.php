@@ -17,10 +17,10 @@ class Field extends \Field implements \AdminParentInterface {
 
     const FIELD_SECTION = 'slider';
 
-    const URL_CREATE = 'admin/slider/field/create';
+    const URL_CREATE = 'admin/slider/field/create/';
     const URL_UPDATE = 'admin/slider/field/update/';
     const URL_DELETE = 'admin/slider/field/delete';
-    const URL_INSERT = 'admin/slider/field/insert';
+    const URL_INSERT = 'admin/slider/field/insert/';
     const URL_EDIT = 'admin/slider/field/edit';
     const URL_REORDER = 'admin/slider/field/reorder';
 
@@ -38,37 +38,7 @@ class Field extends \Field implements \AdminParentInterface {
 
     public function edit($id)
     {
-
-        try {
-            $this->_showView(\Slider\Models\Field::findOrNew($id), false);
-        } catch (Exception $e) {
-            $this->error('Error', $e);
-        }
-
-    }
-
-    /**
-     * @param \Illuminate\Database\Eloquent\Model $model
-     * @param bool $new
-     * @return mixed
-     */
-    public function _showView(\Illuminate\Database\Eloquent\Model $model, $new = FALSE)
-    {
-
-        $field = $model;
-        $data = $field->toArray();
-
-        $data['titulo'] = 'Elemento';
-        $data['nuevo'] = $new;
-
-        $data['inputs'] = \App\Input::where('section', static::FIELD_SECTION)->get();
-        $data['translations'] = $field->getTranslations('slider_field');
-
-        $data['txt_boton'] = 'Guardar';
-        $data['link'] = $new ? base_url(static::URL_INSERT . '/' . $model->parent_id) : base_url(static::URL_UPDATE . $model->id);
-
-        $this->load->view('field_view',$data);
-
+        $this->_showView(\Slider\Models\Field::find($id));
     }
 
     public function insert($parent_id)
@@ -90,20 +60,28 @@ class Field extends \Field implements \AdminParentInterface {
         $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );
 
     }
-    public function update($id)
+
+    /**
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param bool $new
+     * @return mixed
+     */
+    public function _showView(\Illuminate\Database\Eloquent\Model $model, $new = FALSE)
     {
 
-        $response = new stdClass();
-        $response->error_code = 0;
+        $field = $model;
+        $data = $field->toArray();
 
-        try{
-            $response->new_id = $this->_store(\Slider\Models\Field::find($id))->id;
-        } catch (Exception $e) {
-            $response = $this->error('Ocurri&oacute; un problema al modificar el campo!', $e);
-            var_dump($response);
-        }
+        $data['titulo'] = 'Elemento';
+        $data['nuevo'] = $new;
 
-        $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );
+        $data['inputs'] = \App\Input::where('section', static::FIELD_SECTION)->get();
+        $data['translations'] = $field->getTranslations('slider_field');
+
+        $data['txt_boton'] = 'Guardar';
+        $data['link'] = $new ? base_url(static::URL_INSERT . $model->parent_id) : base_url(static::URL_UPDATE . $model->id);
+
+        $this->load->view('field_view',$data);
 
     }
 
@@ -120,26 +98,10 @@ class Field extends \Field implements \AdminParentInterface {
         $model->save();
 
         //Update the content's translations
+        $model = \Slider\Models\Field::find($model->id);
         $model->setTranslations($input);
 
         return $model;
-    }
-
-    public function delete($id)
-    {
-
-        $response = new stdClass();
-        $response->error_code = 0;
-
-        try{
-            $field = \App\Field::find($id);
-            $field->delete();
-        } catch (Exception $e) {
-            $response = $this->error('Ocurri&oacute; un problema al eliminar el art&iacute;culo!', $e);
-        }
-
-        $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );
-
     }
 
 }

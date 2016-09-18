@@ -1,4 +1,6 @@
 <?php
+use App\Translation;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Created by PhpStorm.
@@ -10,6 +12,7 @@ class Field extends AdminController
 {
 
     const FIELD_SECTION = '';
+    const TRANSLATION_SECTION = '';
 
     const URL_CREATE = '';
     const URL_UPDATE = '';
@@ -48,6 +51,41 @@ class Field extends AdminController
         $this->load->view('admin/list_view', $data);
     }
 
+    public function update($id)
+    {
+
+        $response = new stdClass();
+        $response->error_code = 0;
+
+        try{
+            $response->new_id = $this->_store(\App\Field::find($id))->id;
+        } catch (Exception $e) {
+            $response = $this->error('Ocurri&oacute; un problema al actualizar el campo!', $e);
+        }
+
+        $this->load->view(static::RESPONSE_VIEW, array(static::RESPONSE_VAR => $response));
+
+    }
+
+    public function delete($id)
+    {
+
+        $response = new stdClass();
+        $response->error_code = 0;
+
+        try{
+
+            $field = \App\Field::find($id);
+            $field->delete();
+
+        } catch (Exception $e) {
+            $response = $this->error('Ocurri&oacute; un problema al eliminar el campo!', $e);
+        }
+
+        $this->load->view(static::RESPONSE_VIEW, array(static::RESPONSE_VAR => $response));
+
+    }
+
     public function reorder()
     {
 
@@ -61,6 +99,16 @@ class Field extends AdminController
         }
 
         $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );
+
+    }
+
+    public function _showView(Model $field, $new = FALSE)
+    {
+
+    }
+
+    public function _store(Model $model)
+    {
 
     }
 

@@ -20,23 +20,23 @@ class Field extends \Field implements \AdminParentInterface {
     const FIELD_SECTION = 'contact';
     const TRANSLATION_SECTION = 'contact_field';
 
-    const URL_CREATE = 'admin/contact/field/create';
+    const URL_CREATE = 'admin/contact/field/create/';
     const URL_UPDATE = 'admin/contact/field/update';
     const URL_DELETE = 'admin/contact/field/delete';
-    const URL_INSERT = 'admin/contact/field/insert';
+    const URL_INSERT = 'admin/contact/field/insert/';
     const URL_EDIT = 'admin/contact/field/edit';
     const URL_REORDER = 'admin/contact/field/reorder';
-
-    public function create($parent_id)
-    {
-        $model = new Models\Field();
-        $model->parent_id = $parent_id;
-        $this->_showView($model, true);
-    }
 
     public function edit($id)
     {
         $this->_showView(Models\Field::find($id));
+    }
+
+    public function create($parent_id = null)
+    {
+        $model = new Models\Field();
+        $model->parent_id = $parent_id;
+        $this->_showView($model, true);
     }
 
     public function insert($parent_id)
@@ -58,41 +58,15 @@ class Field extends \Field implements \AdminParentInterface {
         $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
 
     }
-    public function update($id)
-    {
 
-        $response = new stdClass();
-        $response->error_code = 0;
-
-        try{
-            $this->_store(Models\Field::find($id));
-        } catch (Exception $e) {
-            $response = $this->error('Ocurri&oacute; un problema al actualizar la el campo!', $e);
-        }
-
-        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
-
-    }
-    //elimino campos en DB
     public function delete($id)
     {
 
-        $response = new stdClass();
-        $response->error_code = 0;
+        //Delete any translations
+        Translation::where('parent_id', $id)->where('type', static::TRANSLATION_SECTION)->delete();
 
-        try{
-
-            $field = Models\Field::find($id);
-            $field->delete();
-
-            //Delete any translations
-            Translation::where('parent_id', $id)->where('type', static::TRANSLATION_SECTION)->delete();
-
-        } catch (Exception $e) {
-            $response = $this->error('Ocurri&oacute; un problema al eliminar la el campo!', $e);
-        }
-
-        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
+        //Delete the field
+        parent::delete($id);
 
     }
 
@@ -108,13 +82,15 @@ class Field extends \Field implements \AdminParentInterface {
 
         $data['field'] = $model;
         $data['titulo'] = $new ? "Crear Elemento" : 'Editar Elemento';
-        $data['link'] = $new ? base_url(static::URL_INSERT . '/' . $model->parent_id) : base_url(static::URL_UPDATE . '/' . $model->id);
+        $data['link'] = $new ? base_url(static::URL_INSERT . $model->parent_id) : base_url(static::URL_UPDATE . '/' . $model->id);
         $data['txt_boton'] = $new ? "crear" : 'Modificar Elemento';
         $data['nuevo'] = $new ? 'nuevo' : '';
         $data['inputs'] = Input::where('section', static::FIELD_SECTION)->get();
-        $data['translations'] = $model->getTranslations(static::TRANSLATION_SECTION);
+
         $data['edit_url'] = static::URL_EDIT;
         $data['delete_url'] = static::URL_DELETE;
+
+        $data['translations'] = $model->getTranslations(static::TRANSLATION_SECTION);
 
         $this->load->view('contact/field_view', $data);
 
@@ -140,7 +116,8 @@ class Field extends \Field implements \AdminParentInterface {
         $model->save();
 
         //Update the content's translations
-        $model->setTranslations($this->input->post(), static::TRANSLATION_SECTION);
+        $model = Models\Field::find($model->id);
+        $model->setTranslations($this->input->post());
 
         return $model;
 
