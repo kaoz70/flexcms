@@ -16,7 +16,7 @@ use stdClass;
 
 $_ns = __NAMESPACE__;
 
-class Field extends \Field implements \AdminInterface {
+class Field extends \Field implements \AdminParentInterface {
 
     const FIELD_SECTION = 'product';
 
@@ -27,35 +27,12 @@ class Field extends \Field implements \AdminInterface {
     const URL_EDIT = 'admin/catalog/field/edit';
     const URL_REORDER = 'admin/catalog/field/reorder';
 
-    public function index()
+    public function index($parent_id = null)
     {
-
-        $data['items'] = \App\Field::where('section', static::FIELD_SECTION)
-            ->orderBy('position')
-            ->get();
-
-        $data['title'] = 'Campos';
-        $data['list_id'] = 'campos';
-        $data['nivel'] = 'nivel3';
-
-        $data['search'] = false;
-        $data['drag'] = true;
-
-        $data['url_sort'] = base_url(static::URL_REORDER);
-        $data['url_edit'] = base_url(static::URL_EDIT);
-        $data['url_delete'] = base_url(static::URL_DELETE);
-
-        $data['menu'][] = anchor(base_url(static::URL_CREATE), 'Crear Campo', [
-            'class' => $data['nivel'] . ' ajax boton importante n1'
-        ]);
-
-        $data['bottomMargin'] = count($data['menu']) * 34;
-
-        $this->load->view('admin/list_view', $data);
-
+        parent::index($parent_id);
     }
 
-    public function create()
+    public function create($parent_id = null)
     {
         $field = new \App\Field();
         $field->section = static::FIELD_SECTION;
@@ -63,7 +40,7 @@ class Field extends \Field implements \AdminInterface {
         $this->_showView($field, true);
     }
 
-    public function insert()
+    public function insert($parent_id = null)
     {
 
         $response = new stdClass();
@@ -130,20 +107,6 @@ class Field extends \Field implements \AdminInterface {
 
         $this->load->view(static::RESPONSE_VIEW, array(static::RESPONSE_VAR => $response));
 
-    }
-
-    public function reorder()
-    {
-        $response = new stdClass();
-        $response->error_code = 0;
-
-        try{
-            \App\Field::reorder($this->input->post('posiciones'), static::FIELD_SECTION);
-        } catch (Exception $e) {
-            $response = $this->error('Ocurri&oacute; un problema al reorganizar los campos!', $e);
-        }
-
-        $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );
     }
 
     /**

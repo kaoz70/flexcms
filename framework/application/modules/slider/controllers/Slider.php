@@ -8,7 +8,7 @@ class Slider extends AdminController implements AdminInterface {
     const URL_UPDATE = 'admin/slider/update';
     const URL_DELETE = 'admin/slider/delete';
     const URL_INSERT = 'admin/slider/insert';
-    const URL_EDIT = 'admin/slider/edit';
+    const URL_EDIT = 'admin/slider/image/index/';
 
     public function index()
     {
@@ -31,13 +31,7 @@ class Slider extends AdminController implements AdminInterface {
          * Menu
          */
         $data['menu'][] = anchor(base_url(static::URL_CREATE), 'crear nuevo banner', [
-            'id' => 'crearBanner',
-            'class' => $data['nivel'] . ' nivel2 ajax boton importante n2'
-        ]);
-
-        $data['menu'][] = anchor(base_url('admin/slider/field'), 'editar template', [
-            'id' => 'editarTemplateBanner',
-            'class' => $data['nivel'] . ' nivel2 ajax boton n1'
+            'class' => $data['nivel'] . ' nivel2 ajax boton importante n1'
         ]);
         $data['bottomMargin'] = count($data['menu']) * 34;
 

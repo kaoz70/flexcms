@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.15.1
+-- version 4.4.15.5
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 02-08-2016 a las 19:40:14
--- Versión del servidor: 5.6.28
--- Versión de PHP: 5.6.17
+-- Tiempo de generación: 18-09-2016 a las 04:56:26
+-- Versión del servidor: 5.6.30
+-- Versión de PHP: 5.5.35
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `flexcms17`
+-- Base de datos: `flexcms`
 --
 
 -- --------------------------------------------------------
@@ -42,30 +42,6 @@ CREATE TABLE IF NOT EXISTS `activations` (
 
 INSERT INTO `activations` (`id`, `user_id`, `code`, `completed`, `completed_at`, `created_at`, `updated_at`) VALUES
 (6, 1, 'tN8O7WyAbtLjOG1qqxigRtMh12EWMo0i', 1, '2015-11-26 19:30:55', '2015-11-26 19:30:55', '2015-11-26 19:30:55');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `addresses`
---
-
-CREATE TABLE IF NOT EXISTS `addresses` (
-  `id` int(10) unsigned NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
-  `position` int(11) DEFAULT NULL,
-  `image` tinytext,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `addresses`
---
-
-INSERT INTO `addresses` (`id`, `name`, `position`, `image`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Quito', 1, NULL, NULL, '2016-07-29 01:56:34', NULL),
-(4, '3', 2, NULL, NULL, '2016-07-29 01:56:34', NULL);
 
 -- --------------------------------------------------------
 
@@ -171,7 +147,7 @@ INSERT INTO `categories` (`id`, `tree`, `lft`, `rgt`, `css_class`, `enabled`, `p
 (18, 1, 8, 21, '', 1, 0, '', '', '{"structure":[{"class":"","expanded":0,"columns":[{"class":"","span":{"large":"12","medium":"12","small":"12"},"offset":{"large":"0","medium":"0","small":"0"},"push":{"large":"0","medium":"0","small":"0"},"pull":{"large":"0","medium":"0","small":"0"},"widgets":[14],"modules":[]}]},{"class":"","expanded":0,"columns":[{"class":"","span":{"large":"12","medium":"12","small":"12"},"offset":{"large":"0","medium":"0","small":"0"},"push":{"large":"0","medium":"0","small":"0"},"pull":{"large":"0","medium":"0","small":"0"},"widgets":[],"modules":[]},{"class":"","span":{"large":"12","medium":"12","small":"12"},"offset":{"large":"0","medium":"0","small":"0"},"push":{"large":"0","medium":"0","small":"0"},"pull":{"large":"0","medium":"0","small":"0"},"widgets":[],"modules":[]},{"class":"","span":{"large":"12","medium":"12","small":"12"},"offset":{"large":"0","medium":"0","small":"0"},"push":{"large":"0","medium":"0","small":"0"},"pull":{"large":"0","medium":"0","small":"0"},"widgets":[],"modules":[]},{"class":"","span":{"large":"12","medium":"12","small":"12"},"offset":{"large":"0","medium":"0","small":"0"},"push":{"large":"0","medium":"0","small":"0"},"pull":{"large":"0","medium":"0","small":"0"},"widgets":[],"modules":[]}]},{"class":"","expanded":0,"columns":[{"class":"","span":{"large":"12","medium":"12","small":"12"},"offset":{"large":"0","medium":"0","small":"0"},"push":{"large":"0","medium":"0","small":"0"},"pull":{"large":"0","medium":"0","small":"0"},"widgets":[]}]}]}', 0, NULL, 'page', '2014-12-19 22:59:27', '2016-08-01 22:21:55', NULL, 0),
 (23, 1, 6, 7, 'index', 1, 0, NULL, NULL, '{"structure":[{"class":"","expanded":0,"columns":[{"class":"","span":{"large":"12","medium":"12","small":"12"},"offset":{"large":"0","medium":"0","small":"0"},"push":{"large":"0","medium":"0","small":"0"},"pull":{"large":"0","medium":"0","small":"0"},"widgets":[20]}]}]}', 0, NULL, 'page', '2015-09-11 17:53:09', '2016-08-01 16:02:21', NULL, 0),
 (28, 1, 17, 20, NULL, 1, 0, NULL, NULL, NULL, 0, NULL, 'catalog', '2016-08-01 21:38:22', '2016-08-01 22:21:55', NULL, NULL),
-(30, 1, 18, 19, NULL, 1, 0, NULL, NULL, NULL, 0, NULL, 'catalog', '2016-08-01 22:21:39', '2016-08-01 22:21:55', NULL, NULL);
+(30, 1, 18, 19, NULL, 1, 0, NULL, NULL, NULL, 0, NULL, 'catalog', '2016-08-01 22:21:39', '2016-09-15 02:08:59', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -200,7 +176,7 @@ CREATE TABLE IF NOT EXISTS `config` (
   `value` varchar(255) NOT NULL,
   `group` varchar(45) DEFAULT 'general',
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `config`
@@ -223,7 +199,9 @@ INSERT INTO `config` (`id`, `key`, `value`, `group`, `updated_at`) VALUES
 (17, 'facebook_app_secret', '', 'auth', '2016-07-28 22:53:22'),
 (18, 'twitter_login', '0', 'auth', '2016-07-29 03:55:44'),
 (19, 'twitter_consumer_key', '', 'auth', '2016-07-28 22:41:29'),
-(20, 'twitter_consumer_secret', '', 'auth', '2016-07-28 22:41:29');
+(20, 'twitter_consumer_secret', '', 'auth', '2016-07-28 22:41:29'),
+(21, 'menu_show_categories', '1', 'catalog', '2016-09-15 07:36:17'),
+(22, 'menu_show_products', '1', 'catalog', '2016-09-15 07:36:17');
 
 -- --------------------------------------------------------
 
@@ -232,7 +210,7 @@ INSERT INTO `config` (`id`, `key`, `value`, `group`, `updated_at`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `contacts` (
-  `id` int(11) NOT NULL,
+  `id` int(11) unsigned NOT NULL,
   `name` varchar(45) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `image` tinytext,
@@ -240,14 +218,15 @@ CREATE TABLE IF NOT EXISTS `contacts` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `contacts`
 --
 
 INSERT INTO `contacts` (`id`, `name`, `email`, `image`, `temporary`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(3, 'Asd', 'asd@ass.com', NULL, 1, '2016-07-28 19:21:07', '2016-07-29 00:21:07', NULL);
+(3, 'Asd', 'asd@ass.com', NULL, 1, '2016-07-28 19:21:07', '2016-07-29 00:21:07', NULL),
+(4, 'Miguel', 'miguel@dejabu.ec', NULL, 1, '2016-09-18 08:52:25', '2016-09-18 08:52:25', NULL);
 
 -- --------------------------------------------------------
 
@@ -278,8 +257,8 @@ CREATE TABLE IF NOT EXISTS `content` (
 --
 
 INSERT INTO `content` (`id`, `image`, `css_class`, `category_id`, `enabled`, `temporary`, `important`, `publication_start`, `publication_end`, `module`, `data`, `position`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(2, NULL, '7', 23, 0, 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL, 2, '2016-07-30 04:16:55', '2016-08-01 20:46:00', NULL),
-(3, NULL, '', 23, 0, 1, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL, 1, '2016-08-01 20:35:09', '2016-08-01 20:46:00', NULL);
+(2, NULL, '7', 23, 0, 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL, 2, '2016-07-30 04:16:55', '2016-09-04 00:25:09', NULL),
+(3, NULL, '', 23, 0, 1, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL, 1, '2016-08-01 20:35:09', '2016-09-04 00:25:09', NULL);
 
 -- --------------------------------------------------------
 
@@ -304,19 +283,24 @@ CREATE TABLE IF NOT EXISTS `fields` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `fields`
 --
 
 INSERT INTO `fields` (`id`, `input_id`, `parent_id`, `position`, `css_class`, `section`, `name`, `label_enabled`, `required`, `validation`, `data`, `view_in`, `enabled`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(2, 9, NULL, 1, '33', 'slider', '12', 1, NULL, NULL, NULL, NULL, 1, '2015-12-08 19:23:45', '2016-07-26 19:48:33', NULL),
-(3, 9, NULL, 2, '3d', 'slider', '32', NULL, NULL, NULL, NULL, NULL, 1, '2015-12-08 20:07:03', '2016-07-26 19:48:33', NULL),
+(2, 9, NULL, 2, '33', 'slider', '12', 1, NULL, NULL, NULL, NULL, 1, '2015-12-08 19:23:45', '2016-09-18 04:03:29', NULL),
+(3, 9, NULL, 1, '3d', 'slider', '32', NULL, NULL, NULL, NULL, NULL, 1, '2015-12-08 20:07:03', '2016-09-18 04:03:29', NULL),
 (15, 25, NULL, 1, '', 'user', 'Phone', 0, 0, '', '{"type":"profile","cart_order_col":"","two_checkout_name":""}', NULL, 0, '2016-07-27 17:58:46', '2016-07-28 18:12:19', NULL),
 (20, 8, NULL, 1, '', 'contact', 'asd', NULL, 0, '', NULL, NULL, 0, '2016-07-28 22:26:06', '2016-07-28 22:27:40', NULL),
 (21, 8, NULL, 2, '', 'contact', '2', NULL, 0, '', NULL, NULL, 0, '2016-07-28 22:26:19', '2016-07-28 22:27:40', NULL),
-(29, 12, NULL, 1, '', 'product', 'Description', 1, NULL, NULL, '{"view_in_widget":true,"view_in_list":true,"view_in_cart":true,"view_in_filters":true}', NULL, 1, '2016-08-01 20:27:18', '2016-08-01 20:27:18', NULL);
+(29, 12, NULL, 1, '', 'product', 'Description', 1, NULL, NULL, '{"view_in_widget":true,"view_in_list":true,"view_in_cart":true,"view_in_filters":true}', NULL, 1, '2016-08-01 20:27:18', '2016-09-18 04:56:03', NULL),
+(31, 14, NULL, 2, '', 'product', 'text', 0, NULL, NULL, '{"view_in_widget":false,"view_in_list":false,"view_in_cart":false,"view_in_filters":false}', NULL, 0, '2016-09-15 02:37:09', '2016-09-18 04:56:03', NULL),
+(34, 13, '1', 5, '4', 'contact', 'asddd', NULL, 1, '55', NULL, NULL, 1, '2016-09-18 03:51:46', '2016-09-18 03:51:46', NULL),
+(35, 8, '2', 2, '', 'contact', '3333', NULL, 0, '', NULL, NULL, 0, '2016-09-18 03:54:40', '2016-09-18 04:03:18', NULL),
+(36, 8, '2', 1, '', 'contact', '44', NULL, 0, '', NULL, NULL, 1, '2016-09-18 03:56:48', '2016-09-18 04:03:18', NULL),
+(37, 9, '12', 0, '', 'slider', 'asd', NULL, NULL, NULL, NULL, NULL, 1, '2016-09-18 04:33:13', '2016-09-18 04:33:13', NULL);
 
 -- --------------------------------------------------------
 
@@ -333,7 +317,7 @@ CREATE TABLE IF NOT EXISTS `field_data` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `field_data`
@@ -359,6 +343,29 @@ CREATE TABLE IF NOT EXISTS `files` (
   `temporary` tinyint(1) DEFAULT NULL,
   `type` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `forms`
+--
+
+CREATE TABLE IF NOT EXISTS `forms` (
+  `id` int(10) unsigned NOT NULL,
+  `contact_id` int(10) unsigned DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `forms`
+--
+
+INSERT INTO `forms` (`id`, `contact_id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 3, 'Contacto', '2016-09-18 08:30:57', '2016-09-18 08:30:57', NULL),
+(2, 4, 'CV', '2016-09-18 08:52:36', '2016-09-18 08:52:36', NULL);
 
 -- --------------------------------------------------------
 
@@ -550,7 +557,7 @@ CREATE TABLE IF NOT EXISTS `persistences` (
   `code` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `persistences`
@@ -575,7 +582,8 @@ INSERT INTO `persistences` (`id`, `user_id`, `code`, `created_at`, `updated_at`)
 (17, 1, 'BD4LvSr4nwJ3LT3MNvESDODIxPCUZlqE', '2016-07-26 21:03:13', '2016-07-26 21:03:13'),
 (18, 1, 'Em8lD3b4oDVztJVzjv1VklmGa7NVajGC', '2016-07-27 22:18:08', '2016-07-27 22:18:08'),
 (20, 1, 'qrcMLe8W6QTAdxzrH4tncb2DedSVgblf', '2016-07-27 22:18:56', '2016-07-27 22:18:56'),
-(21, 1, '20FGNyFPPGjHRWANeolaFTDxaNFKA5dX', '2016-07-27 22:19:54', '2016-07-27 22:19:54');
+(21, 1, '20FGNyFPPGjHRWANeolaFTDxaNFKA5dX', '2016-07-27 22:19:54', '2016-07-27 22:19:54'),
+(22, 1, 'TdGu3NZqGVBAzMz7eAGbFC5OCUVFCAxK', '2016-09-04 00:17:14', '2016-09-04 00:17:14');
 
 -- --------------------------------------------------------
 
@@ -613,7 +621,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -745,7 +753,7 @@ CREATE TABLE IF NOT EXISTS `sliders` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `sliders`
@@ -754,8 +762,7 @@ CREATE TABLE IF NOT EXISTS `sliders` (
 INSERT INTO `sliders` (`id`, `name`, `class`, `type`, `width`, `height`, `enabled`, `temporary`, `config`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (12, 'Swiper', '', 'Swiper', 1024, 261, 1, 0, '{\n    "initialSlide": 0,\n    "direction": "horizontal",\n    "speed": 300,\n    "autoplay": 0,\n    "autoplayDisableOnInteraction": true,\n    "watchSlidesProgress": false,\n    "watchVisibility": false,\n    "freeMode": false,\n    "freeModeMomentum": true,\n    "freeModeMomentumRatio": 1,\n    "freeModeMomentumBounce": true,\n    "freeModeMomentumBounceRatio": 1,\n    "effect": "coverflow",\n    "cube": {\n        "slideShadows": 1,\n        "shadow": 1,\n        "shadowOffset": 20,\n        "shadowScale": 0.94\n    },\n    "coverflow": {\n        "rotate": 50,\n        "stretch": 0,\n        "depth": 100,\n        "modifier": 1,\n        "slideShadows": 1\n    },\n    "spaceBetween": 0,\n    "slidesPerView": 3,\n    "slidesPerColumn": 1,\n    "slidesPerColumnFill": "column",\n    "slidesPerGroup": 1,\n    "centeredSlides": false,\n    "grabCursor": false,\n    "touchRatio": 1,\n    "touchAngle": 45,\n    "simulateTouch": true,\n    "shortSwipes": true,\n    "longSwipes": true,\n    "longSwipesRatio": 0.5,\n    "longSwipesMs": 300,\n    "followFinger": true,\n    "onlyExternal": false,\n    "threshold": 0,\n    "touchMoveStopPropagation": true,\n    "resistance": true,\n    "resistanceRatio": 0.85,\n    "preventClicks": true,\n    "preventClicksPropagation": true,\n    "releaseFormElements": true,\n    "slideToClickedSlide": false,\n    "allowSwipeToPrev": true,\n    "allowSwipeToNext": true,\n    "noSwiping": true,\n    "noSwipingClass": "swiper-no-swiping",\n    "swipeHandler": null,\n    "pagination": null,\n    "paginationHide": true,\n    "paginationClickable": false,\n    "nextButton": null,\n    "prevButton": null,\n    "scrollbar": null,\n    "scrollbarHide": true,\n    "keyboardControl": false,\n    "mousewheelControl": false,\n    "mousewheelForceToAxis": false,\n    "hashnav": false,\n    "updateOnImagesReady": true,\n    "loop": false,\n    "loopAdditionalSlides": 0,\n    "loopedSlides": null,\n    "control": null,\n    "controlInverse": false,\n    "observer": false,\n    "observeParents": false,\n    "slideClass": "swiper-slide",\n    "slideActiveClass": "swiper-slide-active",\n    "slideVisibleClass": "swiper-slide-visible",\n    "slideDuplicateClass": "swiper-slide-duplicate",\n    "slideNextClass": "swiper-slide-next",\n    "slidePrevClass": "swiper-slide-prev",\n    "wrapperClass": "swiper-wrapper",\n    "bulletClass": "swiper-pagination-bullet",\n    "bulletActiveClass": "swiper-pagination-bullet-active",\n    "paginationHiddenClass": "swiper-pagination-hidden",\n    "buttonDisabledClass": "swiper-button-disabled"\n}', NULL, '2016-07-26 19:59:33', NULL),
 (73, 'bxSlider', '', 'bxSlider', 200, 200, 1, 0, '{\n    "mode": "horizontal",\n    "speed": 700,\n    "slideMargin": 0,\n    "startSlide": 0,\n    "randomStart": false,\n    "infiniteLoop": true,\n    "hideControlOnEnd": false,\n    "easing": "linear",\n    "captions": false,\n    "ticker": false,\n    "tickerHover": false,\n    "adaptiveHeight": true,\n    "adaptiveHeightSpeed": 500,\n    "video": false,\n    "preloadImages": "all",\n    "pager": true,\n    "pagerType": "full",\n    "pagerShortSeparator": " \\/ ",\n    "controls": true,\n    "nextText": "Next",\n    "prevText": "Prev",\n    "autoControls": false,\n    "startText": "Start",\n    "stopText": "Stop",\n    "auto": true,\n    "pause": 8000,\n    "autoStart": true,\n    "autoDirection": "next",\n    "autoHover": false,\n    "autoDelay": 0,\n    "minSlides": 1,\n    "maxSlides": 1,\n    "moveSlides": 0,\n    "slideWidth": 0\n}', NULL, NULL, NULL),
-(75, 'Stack', '', 'StackGallery', 500, 500, 1, 0, '{\n    "slideshowLayout": "horizontalLeft",\n    "slideshowDirection": "forward",\n    "controlsAlignment": "rightCenter",\n    "fullSize": 1,\n    "slideshowDelay": 3000,\n    "slideshowOn": 1,\n    "useRotation": 1,\n    "swipeOn": 0\n}', NULL, NULL, NULL),
-(87, NULL, NULL, NULL, 800, 600, 1, 1, NULL, '2016-07-28 17:00:03', '2016-07-28 17:00:03', NULL);
+(75, 'Stack', '', 'StackGallery', 500, 500, 1, 0, '{\n    "slideshowLayout": "horizontalLeft",\n    "slideshowDirection": "forward",\n    "controlsAlignment": "rightCenter",\n    "fullSize": 1,\n    "slideshowDelay": 3000,\n    "slideshowOn": 1,\n    "useRotation": 1,\n    "swipeOn": 0\n}', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -784,47 +791,16 @@ CREATE TABLE IF NOT EXISTS `throttle` (
   `ip` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `throttle`
 --
 
 INSERT INTO `throttle` (`id`, `user_id`, `type`, `ip`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'global', NULL, '2015-11-25 23:06:01', '2015-11-25 23:06:01'),
-(2, NULL, 'ip', '127.0.0.1', '2015-11-25 23:06:01', '2015-11-25 23:06:01'),
-(3, NULL, 'global', NULL, '2015-11-25 23:06:38', '2015-11-25 23:06:38'),
-(4, NULL, 'ip', '127.0.0.1', '2015-11-25 23:06:38', '2015-11-25 23:06:38'),
-(5, NULL, 'global', NULL, '2015-11-25 23:07:32', '2015-11-25 23:07:32'),
-(6, NULL, 'ip', '127.0.0.1', '2015-11-25 23:07:32', '2015-11-25 23:07:32'),
-(7, NULL, 'global', NULL, '2015-11-25 23:07:41', '2015-11-25 23:07:41'),
-(8, NULL, 'ip', '127.0.0.1', '2015-11-25 23:07:41', '2015-11-25 23:07:41'),
-(9, NULL, 'global', NULL, '2015-11-25 23:09:19', '2015-11-25 23:09:19'),
-(10, NULL, 'ip', '127.0.0.1', '2015-11-25 23:09:19', '2015-11-25 23:09:19'),
-(11, NULL, 'global', NULL, '2015-11-25 23:12:04', '2015-11-25 23:12:04'),
-(12, NULL, 'ip', '127.0.0.1', '2015-11-25 23:12:04', '2015-11-25 23:12:04'),
-(13, NULL, 'global', NULL, '2015-11-26 00:08:27', '2015-11-26 00:08:27'),
-(14, NULL, 'ip', '127.0.0.1', '2015-11-26 00:08:27', '2015-11-26 00:08:27'),
-(15, NULL, 'global', NULL, '2015-11-26 00:42:40', '2015-11-26 00:42:40'),
-(16, NULL, 'ip', '127.0.0.1', '2015-11-26 00:42:40', '2015-11-26 00:42:40'),
-(17, NULL, 'global', NULL, '2015-11-26 00:43:06', '2015-11-26 00:43:06'),
-(18, NULL, 'ip', '127.0.0.1', '2015-11-26 00:43:06', '2015-11-26 00:43:06'),
-(19, NULL, 'global', NULL, '2015-11-26 00:52:09', '2015-11-26 00:52:09'),
-(20, NULL, 'ip', '127.0.0.1', '2015-11-26 00:52:09', '2015-11-26 00:52:09'),
-(21, NULL, 'global', NULL, '2015-11-26 00:53:06', '2015-11-26 00:53:06'),
-(22, NULL, 'ip', '127.0.0.1', '2015-11-26 00:53:06', '2015-11-26 00:53:06'),
-(23, NULL, 'global', NULL, '2015-11-26 00:58:04', '2015-11-26 00:58:04'),
-(24, NULL, 'ip', '127.0.0.1', '2015-11-26 00:58:04', '2015-11-26 00:58:04'),
-(25, NULL, 'global', NULL, '2015-11-26 00:59:00', '2015-11-26 00:59:00'),
-(26, NULL, 'ip', '127.0.0.1', '2015-11-26 00:59:00', '2015-11-26 00:59:00'),
-(27, NULL, 'global', NULL, '2015-11-26 00:59:12', '2015-11-26 00:59:12'),
-(28, NULL, 'ip', '127.0.0.1', '2015-11-26 00:59:12', '2015-11-26 00:59:12'),
-(29, NULL, 'global', NULL, '2015-11-26 01:06:59', '2015-11-26 01:06:59'),
-(30, NULL, 'ip', '127.0.0.1', '2015-11-26 01:06:59', '2015-11-26 01:06:59'),
-(31, NULL, 'global', NULL, '2015-11-26 01:07:16', '2015-11-26 01:07:16'),
-(32, NULL, 'ip', '127.0.0.1', '2015-11-26 01:07:16', '2015-11-26 01:07:16'),
-(33, NULL, 'global', NULL, '2015-11-26 01:08:39', '2015-11-26 01:08:39'),
-(34, NULL, 'ip', '127.0.0.1', '2015-11-26 01:08:39', '2015-11-26 01:08:39');
+(1, NULL, 'global', NULL, '2016-09-04 00:13:59', '2016-09-04 00:13:59'),
+(2, NULL, 'ip', '::1', '2016-09-04 00:13:59', '2016-09-04 00:13:59'),
+(3, 1, 'user', NULL, '2016-09-04 00:13:59', '2016-09-04 00:13:59');
 
 -- --------------------------------------------------------
 
@@ -841,7 +817,7 @@ CREATE TABLE IF NOT EXISTS `translations` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `translations`
@@ -860,7 +836,16 @@ INSERT INTO `translations` (`id`, `parent_id`, `language_id`, `type`, `data`, `c
 (46, 3, 'es', 'content', '{"name":"2","content":"","meta_keywords":[""],"meta_description":"","meta_title":""}', '2016-08-01 15:35:10', '2016-08-01 15:35:10', NULL),
 (54, 29, 'es', 'product_field', '{"label":"Description"}', '2016-08-01 20:27:18', '2016-08-01 20:27:18', NULL),
 (55, 28, 'es', 'catalog', '{"name":"1","description":"2a"}', '2016-08-01 21:38:23', '2016-08-01 22:04:15', NULL),
-(57, 30, 'es', 'catalog', '{"name":"2","description":"2"}', '2016-08-01 22:21:39', '2016-08-01 22:21:39', NULL);
+(57, 30, 'es', 'catalog', '{"name":"2","description":"2"}', '2016-08-01 22:21:39', '2016-08-01 22:21:39', NULL),
+(59, 31, 'es', 'product_field', '{"label":"text"}', '2016-09-15 02:37:09', '2016-09-15 02:37:09', NULL),
+(61, 3, 'es', 'product_field_data', '3', '2016-09-15 02:40:09', '2016-09-15 02:40:09', NULL),
+(62, 4, 'es', 'product_field_data', '123', '2016-09-15 02:40:09', '2016-09-15 02:40:09', NULL),
+(63, 32, 'es', 'contact_field', '{"label":"1","placeholder":"2"}', '2016-09-18 03:41:48', '2016-09-18 03:41:48', NULL),
+(64, 33, 'es', 'contact_field', '{"label":"1","placeholder":"2"}', '2016-09-18 03:41:57', '2016-09-18 03:41:57', NULL),
+(65, 34, 'es', 'contact_field', '{"label":"3","placeholder":"5"}', '2016-09-18 03:51:46', '2016-09-18 03:51:46', NULL),
+(66, 35, 'es', 'contact_field', '{"label":"","placeholder":""}', '2016-09-18 03:54:40', '2016-09-18 03:54:40', NULL),
+(67, 36, 'es', 'contact_field', '{"label":"","placeholder":""}', '2016-09-18 03:56:48', '2016-09-18 03:56:48', NULL),
+(68, 37, 'es', 'slider_field', '{"label":"dsa"}', '2016-09-18 04:33:13', '2016-09-18 04:34:17', NULL);
 
 -- --------------------------------------------------------
 
@@ -888,7 +873,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `permissions`, `last_login`, `first_name`, `last_name`, `image_extension`, `image_coord`, `temporary`, `created_at`, `updated_at`) VALUES
-(1, 'miguel@dejabu.ec', '$2y$10$r9QMNsbMaBWJDMpg8v/P5OFRxo77fah0pZ02gPrKkYezJFXCqefu6', NULL, '2016-07-27 22:19:55', 'Miguel', 'Suarez', NULL, NULL, 0, '2015-11-25 22:41:58', '2016-07-28 01:57:23');
+(1, 'miguel@dejabu.ec', '$2y$10$PWH1K0k81TJTa.INQpYBruRkcR71WuWyxW.h4sVrigadCgv240bKu', NULL, '2016-09-04 00:17:14', 'Miguel', 'Suarez', NULL, NULL, 0, '2015-11-25 22:41:58', '2016-09-04 00:17:14');
 
 -- --------------------------------------------------------
 
@@ -931,12 +916,6 @@ INSERT INTO `widgets` (`id`, `category_id`, `view`, `class`, `enabled`, `type`, 
 ALTER TABLE `activations`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_activations_user_id_idx` (`user_id`);
-
---
--- Indices de la tabla `addresses`
---
-ALTER TABLE `addresses`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `adverts`
@@ -1015,6 +994,14 @@ ALTER TABLE `files`
   ADD PRIMARY KEY (`id`),
   ADD KEY `descargaCategoriaId_d` (`parent_id`),
   ADD KEY `descargaCategoriaId_idx` (`parent_id`);
+
+--
+-- Indices de la tabla `forms`
+--
+ALTER TABLE `forms`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_UNIQUE` (`id`),
+  ADD KEY `fk_contact_id_forms_idx` (`contact_id`);
 
 --
 -- Indices de la tabla `images`
@@ -1148,8 +1135,7 @@ ALTER TABLE `stats`
 -- Indices de la tabla `throttle`
 --
 ALTER TABLE `throttle`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `user_id_UNIQUE` (`user_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `translations`
@@ -1184,11 +1170,6 @@ ALTER TABLE `widgets`
 ALTER TABLE `activations`
   MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT de la tabla `addresses`
---
-ALTER TABLE `addresses`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
---
 -- AUTO_INCREMENT de la tabla `adverts`
 --
 ALTER TABLE `adverts`
@@ -1212,12 +1193,12 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT de la tabla `config`
 --
 ALTER TABLE `config`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT de la tabla `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `content`
 --
@@ -1227,17 +1208,22 @@ ALTER TABLE `content`
 -- AUTO_INCREMENT de la tabla `fields`
 --
 ALTER TABLE `fields`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT de la tabla `field_data`
 --
 ALTER TABLE `field_data`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `files`
 --
 ALTER TABLE `files`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `forms`
+--
+ALTER TABLE `forms`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `images`
 --
@@ -1272,7 +1258,7 @@ ALTER TABLE `map_locations`
 -- AUTO_INCREMENT de la tabla `persistences`
 --
 ALTER TABLE `persistences`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT de la tabla `predefined_lists`
 --
@@ -1282,7 +1268,7 @@ ALTER TABLE `predefined_lists`
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `reminders`
 --
@@ -1297,17 +1283,17 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `sliders`
 --
 ALTER TABLE `sliders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=88;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=77;
 --
 -- AUTO_INCREMENT de la tabla `throttle`
 --
 ALTER TABLE `throttle`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `translations`
 --
 ALTER TABLE `translations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=63;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=69;
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
@@ -1339,6 +1325,12 @@ ALTER TABLE `content`
 --
 ALTER TABLE `field_data`
   ADD CONSTRAINT `fk_field_data_field_id` FOREIGN KEY (`field_id`) REFERENCES `fields` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `forms`
+--
+ALTER TABLE `forms`
+  ADD CONSTRAINT `fk_contact_id_forms` FOREIGN KEY (`contact_id`) REFERENCES `contacts` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `translations`

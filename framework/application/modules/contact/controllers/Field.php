@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 use stdClass;
 use Exception;
 
-class Field extends \AdminController implements \AdminParentInterface {
+class Field extends \Field implements \AdminParentInterface {
 
     const FIELD_SECTION = 'contact';
     const TRANSLATION_SECTION = 'contact_field';
@@ -26,36 +26,6 @@ class Field extends \AdminController implements \AdminParentInterface {
     const URL_INSERT = 'admin/contact/field/insert';
     const URL_EDIT = 'admin/contact/field/edit';
     const URL_REORDER = 'admin/contact/field/reorder';
-
-    public function index($parent_id){
-
-        $data['items'] = \App\Field::where('section', static::FIELD_SECTION)
-            ->where('parent_id', $parent_id)
-            ->orderBy('position')
-            ->get();
-
-        $data['title'] = 'Editar Template';
-        $data['list_id'] = 'contact_campos';
-        $data['nivel'] = 'nivel3';
-
-        $data['search'] = false;
-        $data['drag'] = true;
-
-        $data['url_sort'] = base_url(static::URL_REORDER);
-        $data['url_edit'] = base_url(static::URL_EDIT);
-        $data['url_delete'] = base_url(static::URL_DELETE);
-
-        /*
-         * MENU
-         */
-        $data['menu'][] = anchor(base_url('admin/contact/field/create/' . $parent_id), 'Crear Nuevo Elemento', [
-            'id' => 'crearCampo',
-            'class' => $data['nivel'] . ' ajax boton n1'
-        ]);
-        $data['bottomMargin'] = count($data['menu']) * 34;
-
-        $this->load->view('admin/list_view', $data);
-    }
 
     public function create($parent_id)
     {
@@ -124,20 +94,6 @@ class Field extends \AdminController implements \AdminParentInterface {
 
         $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
 
-    }
-
-    public function reorder()
-    {
-        $response = new stdClass();
-        $response->error_code = 0;
-
-        try{
-            \App\Field::reorder($this->input->post('posiciones'), static::FIELD_SECTION);
-        } catch (Exception $e) {
-            $response = $this->error('Ocurri&oacute; un problema al reorganizar los campos!', $e);
-        }
-
-        $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );
     }
 
     /**

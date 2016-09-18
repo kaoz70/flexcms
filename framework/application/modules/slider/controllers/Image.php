@@ -7,26 +7,28 @@
  */
 
 namespace slider;
+use App\Slider;
+use Illuminate\Database\Eloquent\Model;
+
 $_ns = __NAMESPACE__;
 
-class Image extends \Slider implements \AdminInterface {
+class Image extends \AdminController implements \AdminParentInterface {
 
-    public function index()
+    public function index($parent_id)
     {
 
-        $bannerId = $this->uri->segment(5);
-        $data['items'] = $this->Banners->getImages($bannerId);
+        $data['items'] = \App\Image::where('image_section_id', $parent_id)->get();
 
-        $data['url_rel'] = base_url('admin/sliders/images/'.$bannerId);
-        $data['url_sort'] = base_url('admin/sliders/image/reorder/'.$bannerId);
-        $data['url_modificar'] = base_url('admin/sliders/image/edit/'.$bannerId);
-        $data['url_eliminar'] = base_url('admin/sliders/image/delete/'.$bannerId);
-        $data['url_path'] =  base_url() . 'assets/public/images/banners/banner_' . $bannerId . '_';
-        $data['method'] =  'banner/' . $bannerId;
+        $data['url_rel'] = base_url('admin/sliders/images/'.$parent_id);
+        $data['url_sort'] = base_url('admin/sliders/image/reorder/'.$parent_id);
+        $data['url_modificar'] = base_url('admin/sliders/image/edit/'.$parent_id);
+        $data['url_eliminar'] = base_url('admin/sliders/image/delete/'.$parent_id);
+        $data['url_path'] =  base_url() . 'assets/public/images/banners/banner_' . $parent_id . '_';
+        $data['method'] =  'banner/' . $parent_id;
 
-        $banner = $this->Banners->get($bannerId, 'es');
-        $data['width'] = $banner['bannerWidth'];
-        $data['height'] = $banner['bannerHeight'];
+        $banner = Slider::find($parent_id);
+        $data['width'] = $banner->width;
+        $data['height'] = $banner->height;
 
         $data['search'] = false;
         $data['drag'] = true;
@@ -40,16 +42,17 @@ class Image extends \Slider implements \AdminInterface {
         $data['txt_titulo'] = 'Imágenes del Banner';
 
         /*
-         * Menu
-         */
-        $data['menu'] = array();
-
+          * Menu
+          */
+        $data['menu'][] = anchor(base_url('admin/slider/edit/' . $parent_id), 'configuraci&oacute;n', [
+            'class' => $data['nivel'] . ' nivel3 ajax boton n1'
+        ]);
         $data['bottomMargin'] = count($data['menu']) * 34;
 
         $this->load->view('admin/listadoGaleria_view', $data);
     }
 
-    public function insert(){}
+    public function insert($parent_id){}
 
     public function edit($bannerId)
     {
@@ -182,4 +185,37 @@ class Image extends \Slider implements \AdminInterface {
         $this->Banners->reorder($id);
     }
 
+    /**
+     * Create form interface
+     *
+     * @param $parent_id
+     * @return mixed
+     */
+    public function create($parent_id)
+    {
+        // TODO: Implement create() method.
+    }
+
+    /**
+     * Shows the editor view
+     *
+     * @param Model $model
+     * @param bool $new
+     * @return mixed
+     */
+    public function _showView(Model $model, $new = FALSE)
+    {
+        // TODO: Implement _showView() method.
+    }
+
+    /**
+     * Inserts or updates the current model with the provided post data
+     *
+     * @param Model $model
+     * @return mixed
+     */
+    public function _store(Model $model)
+    {
+        // TODO: Implement _store() method.
+    }
 }
