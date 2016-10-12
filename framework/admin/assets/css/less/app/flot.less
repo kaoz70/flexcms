@@ -1,0 +1,32 @@
+﻿/*------------------------------------------------------------------
+[5.1. Flot Charts]
+*/
+.flotTip {
+    .border-radius(@border-radius);
+    .box-shadow(0 1px 8px rgba(0,0,0,.2));
+    background-color: #fff;
+    color: #282828;
+    font-size: 13px;
+    padding: 3px 5px;
+    z-index: 9999;
+
+    span {
+        color: #282828;
+        font-weight: 700;
+    }
+}
+
+.legendLabel {
+    padding: 5px;
+}
+
+.flot-donut-caption {
+    .calc(left, ~'50% - 25px');
+    .calc(top, ~'50% - 20px');
+    position: absolute;
+}
+
+flot-donut-caption .legendLabel span {
+    display: block;
+    margin: 0 5px;
+}

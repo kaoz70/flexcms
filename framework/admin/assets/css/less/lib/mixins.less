@@ -1,0 +1,458 @@
+﻿.placeholder-weight(@weight) {
+    &::-webkit-input-placeholder {
+        font-weight: @weight;
+    }
+
+    &:-moz-placeholder {
+        font-weight: @weight;
+    }
+
+    &::-moz-placeholder {
+        font-weight: @weight;
+    }
+
+    &:-ms-input-placeholder {
+        font-weight: @weight;
+    }
+}
+
+.placeholder-color(@color) {
+    &::-webkit-input-placeholder {
+        color: @color;
+    }
+
+    &:-moz-placeholder {
+        color: @color;
+    }
+
+    &::-moz-placeholder {
+        color: @color;
+    }
+
+    &:-ms-input-placeholder {
+        color: @color;
+    }
+}
+
+/*Calendar Event*/
+.event(@color) {
+    a {
+        &:before {
+            background-color: @color;
+        }
+    }
+}
+
+/*Notification*/
+.notification-color(@bg-color, @color) {
+    background-color: @bg-color;
+    color: @color;
+
+    a {
+        color: @color;
+
+        &:hover {
+            color: darken(@color, 4%);
+        }
+    }
+
+    .ns-close {
+        &:before, &:after {
+            background: lighten(@color, 50%);
+        }
+
+        &:hover {
+            &:before, &:after {
+                background: lighten(@color, 10%);
+            }
+        }
+    }
+}
+
+/*Alert*/
+.alert(@bg-color, @color) {
+    color: @color;
+    background-color: @bg-color;
+}
+
+/*Badge*/
+.badge(@bg-color, @color) {
+    background-color: @bg-color;
+    color: @color;
+}
+
+/*Buttons*/
+.button(@color, @bgColor, @hoverColor, @activeColor) {
+    background-color: @bgColor;
+    color: @color;
+
+    &:hover {
+        background-color: @hoverColor;
+        color: @color;
+    }
+
+    &:active, &:focus {
+        background-color: @activeColor;
+        color: @color;
+    }
+
+    &:disabled, .disabled {
+        background-color: lighten(@bgColor, 15%);
+        color: @color;
+    }
+}
+
+
+.button-disabled(@color, @bgColor, @hoverColor, @activeColor, @name) {
+    fieldset[disabled] .btn-&@{name} {
+        &, &.active, &.focus, &:active, &:focus, &:hover {
+            background-color: lighten(@bgColor, 15%);
+            color: @color;
+        }
+    }
+}
+
+
+.button-open(@color, @bgColor, @hoverColor, @activeColor, @name) {
+    .open > .dropdown-toggle.btn-&@{name} {
+        background-color: @activeColor;
+        color: @color;
+    }
+}
+
+/*Checkbox*/
+.checkbox(@color, @over-color) {
+    &:checked {
+        ~ .text {
+            color: @color;
+
+            &:before {
+                background-color: @over-color;
+                border-color: @color;
+                color: @color;
+            }
+        }
+    }
+
+    ~ .text {
+        color: @color;
+
+        &:before {
+            border-color: @color;
+            color: @color;
+        }
+    }
+}
+
+/*Form Controls*/
+.input-bg(@border-color, @focus-border-color) {
+    border-color: @border-color;
+
+    &:focus {
+        border-color: @focus-border-color;
+    }
+}
+
+/*Helpers*/
+.bg(@bg-color, @color) {
+    background-color: @bg-color !important;
+    color: @color !important;
+}
+
+.border(@border-color) {
+    border-width: 0;
+    border-color: @border-color !important;
+    border-style: solid;
+}
+
+.text-color(@text-color, @hover-color) {
+    color: @text-color !important;
+
+    &:hover {
+        color: @hover-color !important;
+    }
+}
+
+.border-sizes(@name, @size) {
+    .border-left- {
+        &@{name} {
+            border-left-width: @size !important;
+        }
+    }
+
+    .border-right- {
+        &@{name} {
+            border-right-width: @size !important;
+        }
+    }
+
+    .border-top- {
+        &@{name} {
+            border-top-width: @size !important;
+        }
+    }
+
+    .border-bottom- {
+        &@{name} {
+            border-bottom-width: @size !important;
+        }
+    }
+}
+
+.padding-sizes(@name, @size) {
+    .p- {
+        &@{name} {
+            padding: @size !important;
+        }
+    }
+
+    .p-l- {
+        &@{name} {
+            padding-left: @size !important;
+        }
+    }
+
+    .p-r- {
+        &@{name} {
+            padding-right: @size !important;
+        }
+    }
+
+    .p-t- {
+        &@{name} {
+            padding-top: @size !important;
+        }
+    }
+
+    .p-b- {
+        &@{name} {
+            padding-bottom: @size !important;
+        }
+    }
+}
+
+.margin-sizes(@name, @size) {
+    .m- {
+        &@{name} {
+            margin: @size !important;
+        }
+    }
+
+    .m-l- {
+        &@{name} {
+            margin-left: @size !important;
+        }
+    }
+
+    .m-r- {
+        &@{name} {
+            margin-right: @size !important;
+        }
+    }
+
+    .m-t- {
+        &@{name} {
+            margin-top: @size !important;
+        }
+    }
+
+    .m-b- {
+        &@{name} {
+            margin-bottom: @size !important;
+        }
+    }
+}
+
+
+.sizes(@name, @size) {
+    .h- {
+        &@{name} {
+            height: @size !important;
+        }
+    }
+
+    .w- {
+        &@{name} {
+            width: @size !important;
+        }
+    }
+
+    .w-m- {
+        &@{name} {
+            width: -webkit-calc(100% -@size) !important;
+            width: -moz-calc(100% -@size) !important;
+            width: calc(100% -@size) !important;
+        }
+    }
+}
+
+/*Labels*/
+.label(@bg-color, @color) {
+    background-color: @bg-color;
+    color: @color;
+}
+
+
+/*Modal*/
+.modal(@color, @bgColor) {
+    background-color: @bgColor;
+    color: @color;
+}
+
+.message-modal(@color, @bgColor) {
+    .modal-header {
+        background-color: @bgColor;
+        color: @color;
+    }
+}
+
+/*Panels*/
+.panel(@header-bgColor, @header-color) {
+    > .panel-heading {
+        background-color: @header-bgColor;
+        color: @header-color;
+
+        .panel-title {
+            color: @header-color;
+        }
+    }
+}
+
+/*Popover*/
+.popover(@bg-color, @color) {
+    background-color: @bg-color;
+    color: @color;
+
+    .popover-title {
+        background-color: @bg-color;
+        color: @color;
+    }
+
+    .popover-content {
+        border-top: 2px solid @color;
+    }
+
+    &.top .arrow:after {
+        border-top-color: @bg-color;
+    }
+
+    &.bottom .arrow:after {
+        border-bottom-color: @bg-color;
+    }
+
+    &.left .arrow:after {
+        border-left-color: @bg-color;
+    }
+
+    &.right .arrow:after {
+        border-right-color: @bg-color;
+    }
+}
+
+
+/*Progress Bar*/
+.progress-bar(@color) {
+    background-color: @color;
+}
+
+/*Switch*/
+.switch(@color, @over-color) {
+    ~ .text {
+        &:after {
+            border-color: @color;
+        }
+    }
+
+    &:checked {
+        ~ .text {
+            &:before {
+                background-color: @color;
+                border-color: @color;
+            }
+
+            &:after {
+                background-color: @color;
+                border-color: @over-color;
+            }
+        }
+    }
+
+    &.slider-icon {
+        &:checked {
+            ~ .text {
+                &:after {
+                    color: @over-color;
+                }
+            }
+        }
+
+        ~ .text {
+            &:after {
+                color: @color;
+            }
+        }
+    }
+
+    &.toggle {
+        &:checked {
+            ~ .text {
+                &:after {
+                    color: @color;
+                    background-color: @over-color;
+                }
+            }
+        }
+
+        ~ .text {
+            &:after {
+                background-color: @color;
+            }
+        }
+    }
+}
+
+/*Tabs*/
+.tab(@bg-color, @color) {
+    > a {
+        &, &:hover, &:focus {
+            color: @color;
+        }
+
+        &:after{
+            background-color: @bg-color;
+        }
+    }
+}
+
+.pane(@bg-color, @color) {
+    background-color: @bg-color;
+    color: @color;
+}
+
+
+/*Tooltip*/
+.tooltip(@bg-color, @color) {
+    + .tooltip {
+        > .tooltip-inner {
+            background-color: @bg-color;
+            border: 1px solid @bg-color;
+            color: @color;
+        }
+
+        &.top .tooltip-arrow {
+            border-top-color: @bg-color;
+        }
+
+        &.right .tooltip-arrow {
+            border-right-color: @bg-color;
+        }
+
+        &.left .tooltip-arrow {
+            border-left-color: @bg-color;
+        }
+
+        &.bottom .tooltip-arrow {
+            border-bottom-color: @bg-color;
+        }
+    }
+}

@@ -70,7 +70,8 @@ if ( ! function_exists('admin_structure_tree'))
             $attributes = _stringify_attributes($attributes);
         }
 
-        $return = '<ul'.$attributes.'>';
+        //$return = '<ul'.$attributes.'>';
+        $return = '<ol class="dd-list">';
 
         foreach ($nodes as $childNode) {
 
@@ -86,10 +87,19 @@ if ( ! function_exists('admin_structure_tree'))
 
                 $nivel = in_array($childNode->id, $visible) ? 'nivel1' : 'disabled';
 
-                $return .= '<li>';
-                $return .= '<a class="nombre modificar ' . $nivel . '" href="' . base_url('admin/page/edit') . '/' . $childNode->id . '">';
+                $return .= "<li class='dd-item dd3-item' data-id='{$childNode->id}'>";
+
+                if (count($childNode->getChildren()) > 0) {
+                    $return .= '<button data-action="collapse" type="button">Collapse</button>';
+                    $return .= '<button data-action="expand" type="button" style="display: none;">Expand</button>';
+                }
+
+                $return .= "<div class='dd-handle dd3-handle'>Drag</div>";
+                $return .= "<div class='dd3-content'>";
+                $return .= "<a href='" . base_url('admin/page/edit') . "/{$childNode->id}' >";
                 $return .= '<span class="page">' . $childNode->translation->name . '</span>';
                 $return .= '</a>';
+                $return .= '</div>';
                 if (count($childNode->getChildren()) > 0) {
                     $return .= admin_structure_tree($childNode->getChildren(), $visible);
                 }
@@ -97,7 +107,7 @@ if ( ! function_exists('admin_structure_tree'))
             }
 
         }
-        $return .= '</ul>';
+        $return .= '</ol>';
 
         return $return;
 

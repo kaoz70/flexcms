@@ -23,7 +23,9 @@
     "imagesloaded": "^4.1.1",
     "isotope": "^3.0.1",
     "bxslider-4": "bx-slider.js#^4.2.5",
-    "Swiper": "swiper#^3.3.1"
+    "Swiper": "swiper#^3.3.1",
+    "angular-route-segment": "^1.5.1",
+    "angular-route": "^1.5.8"
   },
   "resolutions": {
     "magnific-popup": "^1.1.0",

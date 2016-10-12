@@ -1,0 +1,243 @@
+﻿/*------------------------------------------------------------------
+[3.12. Progress Bars]
+*/
+.progress {
+    .border-radius(@border-radius);
+    .box-shadow(none);
+    background: #eee;
+    height: 18px;
+    position: relative;
+
+    &:before {
+        .background-image(radial-gradient(9px 9px 0,circle cover,#0ff 0,rgba(0,0,255,0) 100%,#00f 95%));
+        bottom: 0;
+        content: "";
+        display: inline-block;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .progress-bar {
+        .box-shadow(none);
+        line-height: 18px;
+    }
+
+    &.progress-xlg {
+        height: 26px;
+
+        .progress-bar {
+            line-height: 25px;
+        }
+    }
+
+    &.progress-lg {
+        height: 22px;
+
+        .progress-bar {
+            line-height: 21px;
+        }
+    }
+
+    &.progress-sm {
+        height: 12px;
+
+        .progress-bar {
+            font-size: 11px;
+            line-height: 10px;
+        }
+    }
+
+    &.progress-xs {
+        height: 9px;
+
+        .progress-bar {
+            font-size: 11px;
+            line-height: 8px;
+        }
+    }
+
+    &.progress-xxs {
+        height: 4px;
+
+        .progress-bar {
+            font-size: 0;
+            line-height: 4px;
+        }
+    }
+
+    &.progress-right {
+        .progress-bar {
+            float: right;
+        }
+    }
+
+    &.progress-vertical {
+        display: inline-block;
+        height: 100%;
+        margin-bottom: 0;
+        margin-right: 20px;
+        min-height: 150px;
+        width: 25px;
+
+        .progress-bar {
+            .transition(height .5s ease);
+            height: 0;
+            line-height: 20px;
+            overflow: hidden;
+            position: absolute;
+            width: 25px;
+
+            span {
+                font-size: 12px;
+                text-align: center;
+                width: 100%;
+            }
+        }
+
+        &.progress-bottom {
+            position: relative;
+
+            .progress-bar {
+                bottom: 0;
+                position: absolute;
+
+                span {
+                    bottom: 0;
+                    left: 0;
+                    position: absolute;
+                }
+            }
+        }
+
+        &.progress-xlg {
+            width: 40px;
+
+            .progress-bar {
+                width: 40px;
+            }
+        }
+
+        &.progress-lg {
+            width: 30px;
+
+            .progress-bar {
+                width: 30px;
+            }
+        }
+
+        &.progress-sm {
+            width: 20px;
+
+            .progress-bar {
+                width: 20px;
+
+                span {
+                    font-size: 8px;
+                }
+            }
+        }
+
+        &.progress-xs {
+            width: 10px;
+
+            .progress-bar {
+                width: 10px;
+
+                span {
+                    font-size: 0;
+                }
+            }
+        }
+
+        &.progress-xxs {
+            width: 5px;
+
+            .progress-bar {
+                width: 5px;
+
+                span {
+                    font-size: 0;
+                }
+            }
+        }
+
+        &.progress-bordered {
+            width: 31px;
+
+            &.progress-bottom {
+                .progress-bar {
+                    bottom: 3px;
+                }
+            }
+
+            &.progress-xlg {
+                width: 48px;
+            }
+
+            &.progress-lg {
+                width: 38px;
+            }
+
+            &.progress-sm {
+                width: 28px;
+            }
+
+            &.progress-xs {
+                width: 18px;
+            }
+
+            &.progress-xxs {
+                width: 13px;
+            }
+        }
+    }
+
+    &.progress-bordered {
+        background-color: #fff;
+        border: 1px solid rgba(0,0,0,.1);
+        height: 24px;
+        padding: 3px;
+
+        &.progress-xlg {
+            height: 32px;
+        }
+
+        &.progress-lg {
+            height: 28px;
+        }
+
+        &.progress-sm {
+            height: 18px;
+        }
+
+        &.progress-xs {
+            height: 15px;
+        }
+
+        &.progress-xxs {
+            height: 10px;
+        }
+    }
+}
+
+.progress-bar {
+    background-color: @default;
+}
+
+.progress-bar- {
+    .for(@colors);
+
+    .-each(@value) {
+        @name: extract(@value, 1);
+
+        &@{name} {
+            .progress-bar(extract(@value, 2));
+        }
+    }
+}
+
+.progress-bar-stripped {
+    .background-image(linear-gradient(135deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent));
+}

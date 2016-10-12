@@ -1,0 +1,96 @@
+﻿/*------------------------------------------------------------------
+[3.2. Buttons]
+*/
+.btn {
+    .border-radius(@border-radius);
+    border: 0;
+    font-size: 13px;
+    font-weight: 400;
+
+    &:focus {
+        outline: 0 !important;
+    }
+
+    i {
+        margin-right: 5px;
+
+        &.append, &.fa-angle-down {
+            margin-left: 5px;
+            margin-right: 0;
+        }
+    }
+
+
+    &.btn-labeled {
+        padding-left: 40px;
+        position: relative;
+
+        &.btn-block {
+            .btn-label {
+                margin-right: 0;
+            }
+        }
+
+        .btn-label {
+            background: rgba(0,0,0,.06);
+            border-bottom-left-radius: 3px;
+            border-top-left-radius: 3px;
+            bottom: 0;
+            left: 0;
+            line-height: 30px;
+            position: absolute;
+            top: 0;
+            width: 30px;
+        }
+    }
+}
+
+.btn-group-lg > .btn, .btn-lg {
+    font-size: 17px;
+}
+
+.btn-group-sm > .btn, .btn-sm {
+    font-size: 11px;
+}
+
+.btn-group-xs > .btn, .btn-xs {
+    font-size: 11px;
+}
+
+.btn- {
+    .for(@colors);
+
+    .-each(@value) {
+        @name: extract(@value, 1);
+
+        &@{name} {
+            .button(extract(@value, 4), extract(@value, 2), extract(@value, 3), extract(@value, 3));
+        }
+    }
+}
+
+& {
+    .for(@colors);
+
+    .-each(@value) {
+        @name: extract(@value, 1);
+
+        & {
+            .button-disabled(extract(@value, 4), extract(@value, 2), extract(@value, 3), extract(@value, 3), @name);
+            .button-open(extract(@value, 4), extract(@value, 2), extract(@value, 3), extract(@value, 3), @name);
+        }
+    }
+}
+
+.btn-inverse, .btn-white {
+    border: 1px solid @inverse-white-border-color;
+}
+
+
+.btn-group-vertical > .btn:first-child:not(:last-child) {
+    border-top-right-radius: @border-radius;
+}
+
+.btn-group-vertical > .btn:last-child:not(:first-child) {
+    border-bottom-left-radius: @border-radius;
+}

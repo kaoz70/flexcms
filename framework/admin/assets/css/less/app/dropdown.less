@@ -1,0 +1,111 @@
+﻿/*------------------------------------------------------------------
+[4.1.2. Dropdowns]
+*/
+.dropdown-menu {
+    .border-radius(@border-radius) !important;
+    .box-shadow(0 2px 40px rgba(0,0,0,.2));
+    .transition(opacity .218s);
+    border: 0;
+    margin: 1px 0 0;
+    min-width: 170px;
+
+    .dropdown-icon {
+        display: inline-block;
+        font-size: 13px;
+        margin-right: 5px;
+    }
+
+    > li {
+
+        > a {
+            font-family: @font-family-primary;
+            font-size: 13px;
+            font-weight: 300;
+            line-height: 21px;
+            margin-bottom: 1px;
+            margin-top: 1px;
+            padding-left: 11px;
+            padding-right: 11px;
+
+            .dropdown-expand {
+                font-size: 13px;
+                position: absolute;
+                right: 10px;
+                top: 5px;
+            }
+
+            .badge, .label {
+                font-size: 10px !important;
+            }
+
+            .label {
+                padding: 3px 6px 5px 6px;
+            }
+        }
+    }
+
+    > .dropdown-menu {
+        .border-radius(2px);
+
+        > a:after {
+            margin-right: -5px;
+        }
+    }
+
+    .divider {
+        background-color: #ebebeb;
+        margin-bottom: -1px;
+    }
+
+    &.pull-right {
+        left: auto;
+        right: 0;
+    }
+
+    &.dropdown-arrow {
+        &.pull-right {
+            &:before {
+                left: auto;
+                right: 9px;
+            }
+        }
+
+        &:before {
+            border-bottom: 7px solid #fff;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            content: '';
+            display: inline-block;
+            left: 9px;
+            position: absolute;
+            top: -7px;
+        }
+    }
+}
+
+
+.dropdown-hover {
+    position: relative;
+
+
+    &:hover {
+        > .dropdown-menu {
+            display: block;
+            left: 100%;
+            top: -2px;
+        }
+    }
+
+    &.dropup {
+        &:hover {
+            > .dropdown-menu {
+                bottom: 0;
+                top: auto;
+            }
+        }
+    }
+}
+
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:focus, .dropdown-menu > .active > a:hover {
+    background-color: @primary;
+}

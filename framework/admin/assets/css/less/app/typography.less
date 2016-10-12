@@ -1,0 +1,112 @@
+﻿@line-bg-color: #ddd;
+
+p {
+    font-size: 13px;
+    line-height: 22px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 300;
+}
+
+h5 {
+    font-size: 13px;
+}
+
+strong {
+    font-weight: 400;
+}
+
+hr {
+    clear: both;
+    height: 0;
+    margin: 20px 0;
+    border: 0;
+    border-top: 1px solid @line-bg-color;
+}
+
+/*Callout*/
+@callout-border-color: #eee;
+@callout-bg-color: #fff;
+
+.callout {
+    border: 1px solid @callout-border-color;
+    background-color: @callout-bg-color;
+    border-left-width: 3px;
+    .border-radius(@border-radius);
+    margin: 0 0 20px 0;
+    padding: 10px 20px;
+}
+
+.callout(@color) {
+    border-left-color: @color !important;
+
+    h4 {
+        color: @color;
+        font-weight: 300;
+    }
+}
+
+.callout- {
+    .for(@colors);
+
+    .-each(@value) {
+        @name: extract(@value, 1);
+
+        &@{name} {
+            .callout(extract(@value, 2));
+        }
+    }
+}
+
+
+@page-header-border-width: 1px;
+
+.pageheader(@color) {
+
+    .header-text {
+        /*color: @color;*/
+
+        &:after {
+            background-color: @color;
+        }
+    }
+}
+
+.page-header {
+    border-bottom: @page-header-border-width solid @line-bg-color;
+    margin: 20px 0;
+    padding: 0;
+
+    .header-text {
+        position: relative;
+        display: inline-block;
+        margin: 0;
+        padding-bottom: 9px;
+        font-weight:300;
+
+        &:after {
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: -@page-header-border-width;
+            left: 0;
+            height: @page-header-border-width;
+            background-color: #666;
+        }
+    }
+
+    &.header- {
+        .for(@colors);
+
+        .-each(@value) {
+            @name: extract(@value, 1);
+
+            &@{name} {
+                .pageheader(extract(@value, 2));
+            }
+        }
+    }
+}
+
+

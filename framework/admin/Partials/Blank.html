@@ -1,0 +1,24 @@
+
+
+
+<div id="blankbar" class="blankbar">
+    <div class="sidebar-header">
+        <div class="header-title">
+            <i class="pe-7s-browser"></i>
+            <span>Sidebar Title</span>
+        </div>
+        <div class="header-description">
+            Sidebar description goes here!
+        </div>
+        <div class="header-close">
+            <i class="pe-7s-angle-right-circle"></i>
+        </div>
+    </div>
+    <div class="sidebar-body">
+    </div>
+</div>
+<script>
+    $('.sidebar.form .header-close').on('click', function () {
+        $('.sidebar.form').addClass('collapsed');
+    });
+</script>

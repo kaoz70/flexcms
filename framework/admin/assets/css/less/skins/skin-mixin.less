@@ -1,0 +1,720 @@
+﻿.skin-mixin(@primary, @primary-darker, @primary-over) {
+    .for(@array) {
+        .-each(@array)
+    }
+
+    @colors: primary @primary @primary-darker @primary-over;
+    /*Navbar*/
+    .content-nav-navbar .navbar-nav > .open > a {
+        border-top-color: @primary !important;
+    }
+
+    .content-nav-navbar {
+        .content-nav-navbar-content {
+            .thumbnail-links > li > a .link-title,
+            .categories-links > li .category-title,
+            .gallery-links > li > a .link-title 
+             {
+                color: @primary;
+            }
+        }
+    }
+    /*Sidebar*/
+    @sidebar-menu-background: @primary;
+    @sidebar-notification-background: @primary-darker;
+    @sidebar-menu-active-color: @primary;
+
+    .sidebar {
+        .sidebar-header {
+            background-color: @sidebar-menu-background;
+        }
+
+        &.menu {
+            .sidebar-header {
+                .header-notification {
+                    background-color: @sidebar-notification-background;
+                }
+            }
+
+            .sidebar-menu {
+                .menu {
+                    > li {
+                        &.active {
+                            > a {
+                                color: @sidebar-menu-active-color;
+                            }
+                        }
+
+                        > ul {
+                            li {
+                                &.active {
+                                    a {
+                                        color: @sidebar-menu-active-color;
+                                    }
+                                }
+
+                                &.profile-picture {
+                                    a {
+                                        img {
+                                            border-bottom-color: @primary;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    /*Loading*/
+    @loading-color: @primary;
+
+    .animsition-overlay-slide {
+        background-color: @primary;
+    }
+
+    .animsition-loading {
+
+        .logo {
+            background-color: @loading-color;
+        }
+    }
+    /*Widget Panels: Image Tile*/
+    .image-tile {
+        .tile {
+            &.more-images {
+                background-color: @primary;
+            }
+        }
+    }
+    /*Chartist*/
+    .ct-series-b .ct-bar, .ct-series-b .ct-line, .ct-series-b .ct-point, .ct-series-b .ct-slice-donut {
+        stroke: @primary;
+    }
+
+    .ct-series-b .ct-area, .ct-series-b .ct-slice-pie {
+        fill: @primary-darker;
+    }
+    /*Chat*/
+    @message-other-color: @primary;
+
+    .chatbar {
+        .chatbar-messages {
+            .messages-list {
+                .message {
+                    &.reply {
+                        .message-body {
+                            background-color: @message-other-color;
+
+                            &:before {
+                                border-bottom-color: @message-other-color;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .chatbar-contacts {
+            .contacts-search {
+                .searchicon {
+                    color: @primary;
+                }
+            }
+        }
+    }
+    /*Datatables*/
+    .table.dataTable tbody tr.active td,
+    .table.dataTable tbody tr.active th {
+        background-color: @primary;
+    }
+
+    .table.dataTable tbody tr.active:hover td,
+    .table.dataTable tbody tr.active:hover th {
+        background-color: @primary-darker !important;
+    }
+
+    .table-striped.dataTable tbody tr.active:nth-child(odd) td,
+    .table-striped.dataTable tbody tr.active:nth-child(odd) th {
+        background-color: @primary-darker;
+    }
+
+    ul.DTTT_dropdown.dropdown-menu li:hover a {
+        background-color: @primary;
+    }
+
+    .control-open() {
+        background-color: @primary;
+    }
+
+    table.dataTable {
+        // Styling for the `inline` type
+        &.dtr-inline.collapsed > tbody {
+            > tr > td:first-child,
+            > tr > th:first-child {
+
+                &:before {
+                    .control-open();
+                }
+            }
+        }
+        // Styling for the `column` type
+        &.dtr-column > tbody {
+            > tr > td.control,
+            > tr > th.control {
+
+                &:before {
+                    .control-open();
+                }
+            }
+        }
+    }
+
+
+    td.details-control {
+        &:before {
+            .control-open();
+        }
+    }
+    /*DatePicker*/
+    @brand-primary: @primary;
+    @btn-primary-color: #fff;
+    @btn-primary-bg: @brand-primary;
+    @btn-primary-border: darken(@btn-primary-bg, 5%);
+
+    .button-variant(@color; @background; @border) {
+        color: @color;
+        background-color: @background;
+        border-color: @border;
+
+        &:hover,
+        &:focus,
+        &:active,
+        &.active,
+        .open .dropdown-toggle& {
+            color: @color;
+            background-color: darken(@background, 0%);
+            border-color: darken(@border, 0%);
+        }
+
+        &:active,
+        &.active,
+        .open .dropdown-toggle& {
+            background-image: none;
+        }
+
+        &.disabled,
+        &[disabled],
+        fieldset[disabled] & {
+            &,
+            &:hover,
+            &:focus,
+            &:active,
+            &.active {
+                background-color: @background;
+                border-color: @border;
+            }
+        }
+    }
+
+    .datepicker {
+        table tr td {
+            &.active,
+            &.active:hover,
+            &.active.disabled,
+            &.active.disabled:hover {
+                .button-variant(@btn-primary-color, @btn-primary-bg, @btn-primary-border);
+            }
+
+            span {
+                &.active,
+                &.active:hover,
+                &.active.disabled,
+                &.active.disabled:hover {
+                    .button-variant(@btn-primary-color, @btn-primary-bg, @btn-primary-border);
+                }
+            }
+        }
+    }
+    /*DateRangePicker*/
+    @selected-color: @primary;
+
+    .daterangepicker .ranges li.active, .daterangepicker .ranges li:hover {
+        background: @selected-color;
+        border: 1px solid @selected-color;
+    }
+
+    .daterangepicker td.in-range {
+        background: lighten(@selected-color, 40%);
+    }
+
+    .daterangepicker td.today.active, .daterangepicker td.active, .daterangepicker td.active:hover {
+        background-color: @selected-color;
+        border-color: @selected-color;
+    }
+    /*Dropzone*/
+    .dropzone {
+        border-color: @primary;
+    }
+    /*FullCalendar*/
+    .fc-event {
+        border-color: @primary;
+    }
+
+    .calendar-event {
+        a {
+            &:before {
+                background-color: @primary;
+            }
+        }
+
+        &.event- {
+            .for(@colors);
+
+            .-each(@value) {
+                @name: extract(@value, 1);
+
+                &@{name} {
+                    .event(extract(@value, 2));
+                }
+            }
+        }
+    }
+    /*GMaps*/
+    .overlay {
+        background: @primary;
+        border-color: @primary;
+    }
+
+    .overlay_arrow.above {
+        border-top-color: @primary;
+    }
+
+    .overlay_arrow.below {
+        border-bottom-color: @primary;
+    }
+    /*Mail*/
+    @mail-header-bg: @primary;
+
+    .mail-container {
+        .mail-header {
+            background-color: @mail-header-bg;
+
+            .header-buttons {
+                li {
+                    &.search-box {
+                        color: lighten(@mail-header-bg, 35%);
+
+                        input {
+                            .placeholder-color(lighten(@mail-header-bg, 35%));
+                            border-color: lighten(@mail-header-bg, 35%);
+                        }
+                    }
+                }
+            }
+        }
+
+        .mail-body {
+            .message-list {
+                .list-item {
+                    &:before {
+                        background-color: @primary;
+                    }
+                }
+            }
+
+            .message-view {
+                .message {
+                    .header {
+                        a {
+                            color: @primary;
+                        }
+                    }
+
+                    .message-container {
+
+                        li {
+                            .tool-box {
+                                a {
+                                    color: @primary;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    /*Nestable List*/
+    @nestable-hover-color: @primary;
+
+    .dd-handle:hover {
+        color: @nestable-hover-color;
+    }
+
+    .dd3-content:hover {
+        color: @nestable-hover-color;
+    }
+    /*Notification*/
+    .ns-box {
+        background: @primary;
+
+        & {
+            .for(@colors);
+
+            .-each(@value) {
+                @name: extract(@value, 1);
+
+                &.@{name} {
+                    .notification-color(extract(@value, 2), extract(@value, 4));
+                }
+            }
+        }
+
+        &.ns-effect-thumbslider {
+            .for(@colors);
+
+            .-each(@value) {
+                @name: extract(@value, 1);
+
+                &.@{name} {
+                    .ns-content {
+                        .notification-color(extract(@value, 2), extract(@value, 4));
+                    }
+                }
+            }
+        }
+    }
+    /*Pagination*/
+
+    @pagination-active-bg: @primary;
+    @pagination-active-border: @primary;
+
+    .pagination {
+
+        > .active > a,
+        > .active > span {
+            &,
+            &:hover,
+            &:focus {
+                background-color: @pagination-active-bg;
+                border-color: @pagination-active-border;
+            }
+        }
+    }
+    /*Select2*/
+    .select2-container--default {
+        .select2-selection--multiple {
+            .select2-selection__choice {
+                background-color: @primary;
+                border-color: @primary;
+            }
+        }
+
+        .select2-results__option--highlighted[aria-selected] {
+            background-color: @primary;
+        }
+    }
+    /*Slider*/
+    .range-quantity {
+        background-color: @primary;
+    }
+
+    .irs-from, .irs-to, .irs-single {
+        background: @primary;
+    }
+
+    .irs-bar {
+        background-color: @primary;
+    }
+    /*@wizard*/
+    .wizard {
+        .steps {
+            li {
+                &.active {
+                    background: @primary;
+
+                    .chevron {
+                        &:before {
+                            border-left-color: @primary;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    /*Alert*/
+    .alert- {
+        .for(@colors);
+
+        .-each(@value) {
+            @name: extract(@value, 1);
+
+            &@{name} {
+                .alert(extract(@value, 2), extract(@value, 4));
+            }
+        }
+    }
+    /*Badge*/
+    .badge- {
+        .for(@colors);
+
+        .-each(@value) {
+            @name: extract(@value, 1);
+
+            &@{name} {
+                .badge(extract(@value, 2), extract(@value, 4));
+            }
+        }
+    }
+    /*Buttons*/
+    .btn- {
+        .for(@colors);
+
+        .-each(@value) {
+            @name: extract(@value, 1);
+
+            &@{name} {
+                .button(extract(@value, 4), extract(@value, 2), extract(@value, 3), extract(@value, 3));
+            }
+        }
+    }
+
+    & {
+        .for(@colors);
+
+        .-each(@value) {
+            @name: extract(@value, 1);
+
+            & {
+                .button-disabled(extract(@value, 4), extract(@value, 2), extract(@value, 3), extract(@value, 3), @name);
+                .button-open(extract(@value, 4), extract(@value, 2), extract(@value, 3), extract(@value, 3), @name);
+            }
+        }
+    }
+    /*Checkbox*/
+    input[type=checkbox] {
+        &.checkbox- {
+            .for(@colors);
+
+            .-each(@value) {
+                @name: extract(@value, 1);
+
+                &@{name} {
+                    .checkbox(extract(@value, 2), extract(@value, 4));
+                }
+            }
+        }
+    }
+
+    input[type=radio] {
+        &.radio- {
+            .for(@colors);
+
+            .-each(@value) {
+                @name: extract(@value, 1);
+
+                &@{name} {
+                    .checkbox(extract(@value, 2), extract(@value, 4));
+                }
+            }
+        }
+    }
+    /*Form Controls*/
+    .form-control {
+        &.bg- {
+            .for(@colors);
+
+            .-each(@value) {
+                @name: extract(@value, 1);
+
+                &@{name} {
+                    .input-bg(extract(@value, 2), extract(@value, 3));
+                }
+            }
+        }
+    }
+    /*Helpers*/
+    .bg- {
+        .for(@colors);
+
+        .-each(@value) {
+            @name: extract(@value, 1);
+
+            &@{name} {
+                .bg(extract(@value, 2), extract(@value, 4));
+            }
+        }
+    }
+
+    .border- {
+        .for(@colors);
+
+        .-each(@value) {
+            @name: extract(@value, 1);
+
+            &@{name} {
+                .border(extract(@value, 2));
+            }
+        }
+    }
+
+    .text- {
+        .for(@colors);
+
+        .-each(@value) {
+            @name: extract(@value, 1);
+
+            &@{name} {
+                .text-color(extract(@value, 2),extract(@value, 3));
+            }
+        }
+    }
+    /*Labels*/
+    .label- {
+        .for(@colors);
+
+        .-each(@value) {
+            @name: extract(@value, 1);
+
+            &@{name} {
+                .alert(extract(@value, 2), extract(@value, 4));
+            }
+        }
+    }
+    /*Modal*/
+    .modal-header {
+
+        &.header- {
+            .for(@colors);
+
+            .-each(@value) {
+                @name: extract(@value, 1);
+
+                &@{name} {
+                    .modal(extract(@value, 4), extract(@value, 2));
+                }
+            }
+        }
+    }
+
+    .modal-message {
+
+        &.modal- {
+            .for(@colors);
+
+            .-each(@value) {
+                @name: extract(@value, 1);
+
+                &@{name} {
+                    .message-modal(extract(@value, 4), extract(@value, 2));
+                }
+            }
+        }
+    }
+    /*Panels*/
+    .panel- {
+        .for(@colors);
+
+        .-each(@value) {
+            @name: extract(@value, 1);
+
+            &@{name} {
+                .panel(extract(@value, 2), extract(@value, 4));
+            }
+        }
+    }
+    /*Popover*/
+    .popover {
+        .for(@colors);
+
+        .-each(@value) {
+            @name: extract(@value, 1);
+
+            &.@{name} {
+                .popover(extract(@value, 2), extract(@value, 4));
+            }
+        }
+    }
+    /*Progress Bar*/
+    .progress-bar- {
+        .for(@colors);
+
+        .-each(@value) {
+            @name: extract(@value, 1);
+
+            &@{name} {
+                .progress-bar(extract(@value, 2));
+            }
+        }
+    }
+    /*Switch*/
+    input[type=checkbox] {
+        &.switch {
+            &.switch- {
+                .for(@colors);
+
+                .-each(@value) {
+                    @name: extract(@value, 1);
+
+                    &@{name} {
+                        .switch(extract(@value, 2), extract(@value, 4));
+                    }
+                }
+            }
+        }
+    }
+    /*Tabs*/
+    .tab-content {
+        .tab-pane {
+
+            &.tab-pane- {
+                .for(@colors);
+
+                .-each(@value) {
+                    @name: extract(@value, 1);
+
+                    &@{name} {
+                        .pane(extract(@value, 2), extract(@value, 4));
+                    }
+                }
+            }
+        }
+    }
+
+    .nav-tabs {
+
+        > li {
+            &.active {
+                &.tab- {
+                    .for(@colors);
+
+                    .-each(@value) {
+                        @name: extract(@value, 1);
+
+                        &@{name} {
+                            .tab(extract(@value, 2), extract(@value, 4));
+                        }
+                    }
+                }
+            }
+        }
+    }
+    /*Tooltip*/
+    .tooltip- {
+        .for(@colors);
+
+        .-each(@value) {
+            @name: extract(@value, 1);
+
+            &@{name} {
+                .tooltip(extract(@value, 2), extract(@value, 4));
+            }
+        }
+    }
+    /*Dropdown*/
+    .dropdown-menu > .active > a, .dropdown-menu > .active > a:focus, .dropdown-menu > .active > a:hover {
+        background-color: @primary;
+    }
+}

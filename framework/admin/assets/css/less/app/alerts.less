@@ -1,0 +1,26 @@
+﻿/*------------------------------------------------------------------
+[3.3. Alerts]
+*/
+.alert {
+    .border-radius(@border-radius);
+    border: 0;
+    font-size:13px;
+    padding:12px 35px 13px 12px;
+
+    .close{
+        opacity:.4;
+    }
+}
+
+.alert- {
+    .for(@colors); .-each(@value) {
+        @name:  extract(@value, 1);
+        &@{name} {
+            .alert(extract(@value, 2), extract(@value, 4));
+        }
+    }
+}
+
+.alert-inverse, .alert-white{
+    border: 1px solid @inverse-white-border-color;
+}

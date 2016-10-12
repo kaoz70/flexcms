@@ -10,31 +10,7 @@ class Language extends AdminController implements AdminInterface {
 
     public function index()
     {
-
-        $data['items'] = \App\Language::all();
-
-        $data['url_edit'] = base_url(static::URL_EDIT);
-        $data['url_delete'] = base_url(static::URL_DELETE);
-        $data['url_sort'] = '';
-
-        $data['search'] = false;
-        $data['drag'] = false;
-        $data['nivel'] = 'nivel2';
-        $data['list_id'] = 'idiomas';
-
-        $data['title'] = 'Idiomas';
-
-        /*
-         * MENU
-         */
-        $data['menu'][] = anchor(base_url(static::URL_CREATE), 'crear nuevo idioma', [
-            'id' => 'crear',
-            'class' => $data['nivel'] . ' ajax importante n1 boton'
-        ]);
-        $data['bottomMargin'] = count($data['menu']) * 34;
-
-        $this->load->view('admin/list_view', $data);
-
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => \App\Language::all()->getDictionary()]);
     }
 
     public function create()
@@ -44,7 +20,7 @@ class Language extends AdminController implements AdminInterface {
 
     public function edit($id)
     {
-        $this->_showView(\App\Language::find($id));
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => \App\Language::find($id)]);
     }
 
     public function update($id)
@@ -55,6 +31,7 @@ class Language extends AdminController implements AdminInterface {
 
         try{
             $this->_store(\App\Language::find($id));
+            $response->message = 'Idioma actualizado correctamente';
         } catch (Exception $e) {
             $response = $this->error('Ocurri&oacute; un problema al actualizar el idioma!', $e);
         }
@@ -126,7 +103,7 @@ class Language extends AdminController implements AdminInterface {
     public function _store(\Illuminate\Database\Eloquent\Model $model)
     {
         $model->name = $this->input->post('name');
-        $model->id = $this->input->post('id');
+        $model->slug = $this->input->post('slug');
         $model->save();
         return $model;
     }

@@ -1,0 +1,29 @@
+﻿.validation-summary {
+
+    &:not(:empty) {
+        padding: 10px 10px 10px 30px;
+        border: 1px solid @danger;
+    }
+
+    > li {
+        font-size: 13px;
+        line-height: 24px;
+        color: @danger;
+
+        > span {
+            color: @danger;
+        }
+    }
+}
+
+.validation-summary-errors {
+    .error {
+        font-size: 13px;
+        line-height: 20px;
+        color: @danger;
+    }
+}
+
+.field-validation-valid:empty {
+    display: none;
+}

@@ -1,0 +1,53 @@
+﻿@content-header-height: @header-height;
+@content-nav-background: #fff;
+@content-body-padding: 25px;
+
+html {
+    height: 100%;
+}
+
+body {
+    background-color: @body-background;
+    font-family: @font-family-primary;
+    font-size: @font-size-primary;
+    height: 100%;
+
+    > .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+a {
+    color: #006fa6;
+}
+
+@import "less/app/typography.less";
+
+/*------------------------------------------------------------------
+[2.1. Main Content]
+*/
+.main-content {
+    .transition(all 0.3s ease);
+    height: 100%;
+    margin-left: @sidebar-menu-width;
+    margin-right: @sidebar-form-width;
+
+    .content-header {
+        height: @content-header-height * .6;
+    }
+
+    .content-nav {
+        background-color: @content-nav-background;
+        height: @content-header-height * .4;
+    }
+
+    .content-body {
+        padding: @content-body-padding;
+
+        &.body-full {
+            height: 100%;
+            padding: 0;
+        }
+    }
+}

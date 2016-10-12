@@ -35,4 +35,3 @@
 
 <a id="crear_contacto" class="nivel2 ajax boton n2" href="<?=base_url();?>admin/contact/form/create"><?=$new_form;?></a>
 <a id="crear_contacto" class="nivel2 ajax boton n1" href="<?=base_url();?>admin/contact/person/create"><?=$new_person;?></a>
-<!--<a id="crear_elemento" class="nivel2 ajax boton n1" href="<?/*=base_url();*/?>admin/contact/field/create"><?/*=$txt_nuevoElem;*/?></a>-->

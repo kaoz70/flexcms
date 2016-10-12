@@ -1,0 +1,130 @@
+﻿.font-icon-list {
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align:center;
+}
+
+.font-icon-list:hover {
+    cursor: pointer;
+}
+
+.font-icon-detail {
+    text-align: center;
+}
+
+.font-icon-detail i:first-child {
+    display: inline-block;
+    transition: color 150ms linear, background 150ms linear, font-size 150ms linear, width 150ms;
+    padding: 10px 0;
+    width: 86px;
+    font-size: 48px;
+    color: #1a1a1a;
+    border: 1px solid #eaeaea;
+    border-radius: 3px;
+    font-size: 64px;
+}
+
+.font-icon-name {
+    font-size: 13px;
+    margin-top: 15px;
+    display: block;
+    text-align: center;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+
+    &:focus, &:active {
+        outline: none;
+    }
+}
+
+
+
+.font-icon-code {
+    max-height: 0;
+    overflow: hidden;
+    text-align: center;
+    opacity: 0;
+    transition: max-height 200ms linear, opacity 200ms linear;
+
+    &.show {
+        max-height: 200px;
+        opacity: 1;
+    }
+}
+
+
+
+.code-value, .unicode, .unicode-text {
+    background: none;
+    text-align: center;
+    border: none;
+    color: #a0a0a0;
+}
+
+.code-value {
+    display: block;
+    width: 100%;
+}
+
+.unicode, .unicode-text {
+    color: #a0a0a0;
+}
+
+.unicode {
+    float: left;
+    font-family: "Pe-icon-7-stroke";
+    text-align: right;
+    width: 38%;
+    padding-right: 5px;
+}
+
+.unicode-text {
+    text-align: left;
+    float: left;
+    display: inline-block;
+    width: 100px;
+    border: none;
+}
+
+.unicode-text:focus,
+.unicode-text:active {
+    outline: none;
+}
+
+.font-icon-list:hover .font-icon-name,
+.font-icon-list:hover .code-value,
+.font-icon-list:hover .unicode,
+.font-icon-list:hover .unicode-text,
+.font-icon-detail.zeroclipboard-is-hover .font-icon-name,
+.font-icon-detail.zeroclipboard-is-hover + .font-icon-code .code-value,
+.font-icon-detail.zeroclipboard-is-hover + .font-icon-code .unicode,
+.font-icon-detail.zeroclipboard-is-hover + .font-icon-code .unicode-text {
+    cursor: text;
+    color: @default;
+}
+
+.font-icon-list:hover .font-icon-detail i:first-child,
+.font-icon-detail.zeroclipboard-is-hover i:first-child {
+    color: #fff;
+    background: @default;
+}
+
+.font-icon-name::-moz-selection,
+.code-value::-moz-selection,
+.unicode::-moz-selection,
+.unicode-text::-moz-selection,
+.font-icon-name::-moz-selection {
+    background: #aadce2;
+    color: @default;
+}
+
+.font-icon-name::selection,
+.code-value::selection,
+.unicode::selection,
+.unicode-text::selection,
+.font-icon-name::selection {
+    background: #aadce2;
+    color: @default;
+}

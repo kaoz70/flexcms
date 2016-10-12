@@ -1,0 +1,478 @@
+﻿@calendar-width: 255px;
+@lighter-bg: rgba(66, 66, 66, 1);
+
+.calendar-colors(@color) {
+    background: @color;
+}
+
+.mini-calendar {
+    .transform(translate3d(0, 0, 0));
+    width: @calendar-width;
+    margin: 0 auto;
+    overflow: hidden;
+
+    .left, .right {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        top: 50%;
+        margin-top: -7.5px;
+        cursor: pointer;
+    }
+
+    .left {
+        border-width: 7.5px 10px 7.5px 0;
+        border-color: transparent rgba(160, 159, 160, 1) transparent transparent;
+        left: 20px;
+    }
+
+    .right {
+        border-width: 7.5px 0 7.5px 10px;
+        border-color: transparent transparent transparent rgba(160, 159, 160, 1);
+        right: 20px;
+    }
+
+    .header {
+        height: 50px;
+        width: @calendar-width;
+        background: @lighter-bg;
+        text-align: center;
+        position: relative;
+        z-index: 100;
+
+        h1 {
+            color: rgba(255,255,255,.5);
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            line-height: 50px;
+            font-weight: 100;
+            letter-spacing: 1px;
+        }
+    }
+
+    .month {
+        /*overflow: hidden;*/
+        opacity: 0;
+        margin-bottom: 30px;
+
+        &.new {
+            .animation(fadeIn 1s ease-out);
+            opacity: 1;
+        }
+
+        &.in.next {
+            .animation(moveFromTopFadeMonth .4s ease-out);
+            opacity: 1;
+        }
+
+        &.out.next {
+            .animation(moveToTopFadeMonth .4s ease-in);
+            opacity: 1;
+        }
+
+        &.in.prev {
+            .animation(moveFromBottomFadeMonth .4s ease-out);
+            opacity: 1;
+        }
+
+        &.out.prev {
+            .animation(moveToBottomFadeMonth .4s ease-in);
+            opacity: 1;
+        }
+    }
+
+    .week {
+    }
+
+    .day {
+        display: inline-block;
+        width: 36px;
+        padding: 5px 10px;
+        text-align: center;
+        vertical-align: top;
+        cursor: pointer;
+        position: relative;
+        z-index: 100;
+        color: #fff;
+        font-weight: 300;
+
+        .day-events {
+            list-style: none;
+            margin-top: 3px;
+            text-align: center;
+            height: 12px;
+            line-height: 6px;
+            overflow: hidden;
+
+            span {
+                vertical-align: top;
+                display: inline-block;
+                padding: 0;
+                width: 5px;
+                height: 5px;
+                line-height: 5px;
+                margin: 0 1px;
+            }
+
+            .for(@colors);
+
+            .-each(@value) {
+                @name: extract(@value, 1);
+
+                .@{name} {
+                    .calendar-colors(extract(@value, 2));
+                }
+            }
+        }
+
+        &.other {
+            color: rgba(255, 255, 255, .3);
+        }
+
+        &.today {
+            color: @primary;
+        }
+    }
+
+    .day-name {
+        font-size: 8px;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+        color: rgba(255, 255, 255, .5);
+        letter-spacing: .7px;
+    }
+
+    .day-number {
+        font-size: 12px;
+        letter-spacing: 1.5px;
+    }
+
+    .details {
+        position: relative;
+        width: @calendar-width;
+        background: @lighter-bg;
+        .border-radius(0);
+
+        &.in {
+            .animation(moveFromTopFade .5s ease both);
+        }
+
+        &.out {
+            .animation(moveToTopFade .5s ease both);
+        }
+    }
+
+
+
+    .arrow {
+        position: absolute;
+        top: -5px;
+        left: 40%;
+        margin-left: -2px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 5px 5px 5px;
+        border-color: transparent transparent @lighter-bg transparent;
+        .transition(all 0.7s ease);
+    }
+
+    .events {
+        padding: 7px 0;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        &.in {
+            .animation(fadeIn .3s ease both);
+            animation-delay: .3s;
+        }
+
+        &.out {
+            .animation(fadeOut .3s ease both);
+
+            .events {
+                .animation(fadeOutShink .4s ease both);
+            }
+        }
+    }
+
+
+
+
+
+
+    .event {
+        font-size: 13px;
+        font-weight: 300;
+        line-height: 22px;
+        letter-spacing: .5px;
+        padding: 2px 16px;
+        vertical-align: top;
+        color: rgba(255,255,255,.5);
+
+        span {
+            display: inline-block;
+            padding: 0 0 0 7px;
+        }
+    }
+
+    .event-category(@color) {
+        background: @color;
+    }
+
+    .event-category {
+        height: 8px;
+        width: 8px;
+        display: inline-block;
+        margin: 7px 0 0;
+        vertical-align: top;
+        .for(@colors);
+
+        .-each(@value) {
+            @name: extract(@value, 1);
+
+            &.@{name} {
+                .event-category(extract(@value, 2));
+            }
+        }
+    }
+
+    .legend {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 30px;
+        background: rgba(60, 60, 60, 1);
+        line-height: 30px;
+        color: rgba(255,255,255,.5);
+    }
+
+    .entry(@color) {
+        &:after {
+            background: @color;
+        }
+    }
+
+    .entry {
+        position: relative;
+        padding: 0 0 0 25px;
+        font-size: 13px;
+        display: inline-block;
+        line-height: 30px;
+        background: transparent;
+        .for(@colors);
+
+        .-each(@value) {
+            @name: extract(@value, 1);
+
+            &.@{name} {
+                .entry(extract(@value, 2));
+            }
+        }
+    }
+
+    .entry:after {
+        position: absolute;
+        content: '';
+        height: 5px;
+        width: 5px;
+        top: 12px;
+        left: 14px;
+    }
+}
+
+/* Animations are cool!  */
+@-webkit-keyframes moveFromTopFade {
+    from {
+        opacity: .3;
+        height: 0px;
+        margin-top: 0px;
+        -webkit-transform: translateY(-100%);
+    }
+}
+
+@-moz-keyframes moveFromTopFade {
+    from {
+        height: 0px;
+        margin-top: 0px;
+        -moz-transform: translateY(-100%);
+    }
+}
+
+@keyframes moveFromTopFade {
+    from {
+        height: 0px;
+        margin-top: 0px;
+        transform: translateY(-100%);
+    }
+}
+
+@-webkit-keyframes moveToTopFade {
+    to {
+        opacity: .3;
+        height: 0px;
+        margin-top: 0px;
+        opacity: 0.3;
+        -webkit-transform: translateY(-100%);
+    }
+}
+
+@-moz-keyframes moveToTopFade {
+    to {
+        height: 0px;
+        -moz-transform: translateY(-100%);
+    }
+}
+
+@keyframes moveToTopFade {
+    to {
+        height: 0px;
+        transform: translateY(-100%);
+    }
+}
+
+@-webkit-keyframes moveToTopFadeMonth {
+    to {
+        opacity: 0;
+        -webkit-transform: translateY(-30%) scale(.95);
+    }
+}
+
+@-moz-keyframes moveToTopFadeMonth {
+    to {
+        opacity: 0;
+        -moz-transform: translateY(-30%);
+    }
+}
+
+@keyframes moveToTopFadeMonth {
+    to {
+        opacity: 0;
+        -moz-transform: translateY(-30%);
+    }
+}
+
+@-webkit-keyframes moveFromTopFadeMonth {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(30%) scale(.95);
+    }
+}
+
+@-moz-keyframes moveFromTopFadeMonth {
+    from {
+        opacity: 0;
+        -moz-transform: translateY(30%);
+    }
+}
+
+@keyframes moveFromTopFadeMonth {
+    from {
+        opacity: 0;
+        -moz-transform: translateY(30%);
+    }
+}
+
+@-webkit-keyframes moveToBottomFadeMonth {
+    to {
+        opacity: 0;
+        -webkit-transform: translateY(30%) scale(.95);
+    }
+}
+
+@-moz-keyframes moveToBottomFadeMonth {
+    to {
+        opacity: 0;
+        -webkit-transform: translateY(30%);
+    }
+}
+
+@keyframes moveToBottomFadeMonth {
+    to {
+        opacity: 0;
+        -webkit-transform: translateY(30%);
+    }
+}
+
+@-webkit-keyframes moveFromBottomFadeMonth {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(-30%) scale(.95);
+    }
+}
+
+@-moz-keyframes moveFromBottomFadeMonth {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(-30%);
+    }
+}
+
+@keyframes moveFromBottomFadeMonth {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(-30%);
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes fadeOut {
+    to {
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes fadeOut {
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes fadeOutShink {
+    to {
+        opacity: 0;
+        padding: 0px;
+        height: 0px;
+    }
+}
+
+@-moz-keyframes fadeOutShink {
+    to {
+        opacity: 0;
+        padding: 0px;
+        height: 0px;
+    }
+}
+
+@keyframes fadeOutShink {
+    to {
+        opacity: 0;
+        padding: 0px;
+        height: 0px;
+    }
+}

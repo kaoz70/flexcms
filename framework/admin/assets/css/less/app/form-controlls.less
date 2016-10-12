@@ -1,0 +1,213 @@
+﻿/*------------------------------------------------------------------
+[4.1.1. Form Controlls]
+*/
+.form-control {
+    .border-radius(@border-radius);
+    .box-shadow(none);
+    .placeholder-weight(300);
+    background-color: @input-background-color;
+    border: 1px solid @input-border-color;
+
+    &:focus {
+        .box-shadow(none);
+        background-color: @input-focus-background-color;
+        border-color: @input-focus-border-color;
+    }
+    /*Colored Inputs*/
+    &[class*="bg-"] {
+        .placeholder(#fff);
+    }
+
+    &.bg- {
+        .for(@colors);
+
+        .-each(@value) {
+            @name: extract(@value, 1);
+
+            &@{name} {
+                .input-bg(extract(@value, 2), extract(@value, 3));
+            }
+        }
+    }
+}
+
+/*Disabled & Read-Only*/
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #f6f6f6;
+}
+
+
+.validation-state(@color, @focus-color) {
+    .form-control {
+        border-color: @color;
+
+        &:focus {
+            .box-shadow(none);
+            border-color: @focus-color;
+        }
+        .placeholder(@color);
+    }
+
+    .checkbox, .checkbox-inline, .control-label, .form-control-feedback, .help-block, .radio, .radio-inline, &.checkbox label, &.checkbox-inline label, &.radio label, &.radio-inline label {
+        color: @color;
+    }
+
+    .input-group-addon {
+        border-color: @color;
+        color: @color;
+    }
+}
+
+
+/*Validation States*/
+
+.has- {
+    .for(@validation-colors);
+
+    .-each(@value) {
+        @name: extract(@value, 1);
+
+        &@{name} {
+            .validation-state(extract(@value, 2),extract(@value, 3));
+        }
+    }
+}
+
+.has-feedback label ~ .form-control-feedback {
+    top: 20px;
+    vertical-align: middle;
+
+    &[class*="pe-"] {
+        font-size: 27px;
+        top: 27px;
+    }
+
+    &[class*="fa-"] {
+        font-size: 18px;
+        top: 31px;
+    }
+    &[class*="glyphicon-"] {
+        font-size: 16px;
+        top: 24px;
+    }
+}
+
+
+/*Input Group Addon*/
+.input-group-addon {
+    color: #555;
+    background-color: #f3f3f3;
+    border: 1px solid @input-border-color;
+    .border-radius(@border-radius);
+}
+
+.input-group-lg > .form-control, .input-group-lg > .input-group-addon, .input-group-lg > .input-group-btn > .btn {
+    .border-radius(@border-radius);
+}
+
+
+/*Input With Icon*/
+.append-icon {
+    position: relative;
+
+    input {
+        padding-right: 36px;
+    }
+
+    i {
+        color: #1b1e25;
+        color: rgba(27, 30, 37, 0.6);
+        font-size: 14px;
+        height: 34px;
+        left: auto;
+        line-height: 34px;
+        position: absolute;
+        right: 0;
+        text-align: center;
+        top: 0;
+        width: 36px;
+    }
+
+    .input-lg ~ i {
+        font-size: 20px;
+        height: 46px;
+        line-height: 46px;
+        width: 46px;
+    }
+
+    .input-sm ~ i {
+        font-size: 12px;
+        height: 30px;
+        line-height: 30px;
+        width: 30px;
+    }
+}
+
+.prepend-icon {
+    position: relative;
+
+    input {
+        padding-left: 36px;
+    }
+
+    span {
+        padding-left: 36px;
+    }
+
+    i {
+        color: #1b1e25;
+        color: rgba(27, 30, 37, 0.6);
+        font-size: 14px;
+        height: 34px;
+        left: 0;
+        line-height: 34px;
+        position: absolute;
+        text-align: center;
+        top: 0;
+        width: 36px;
+    }
+
+    .input-lg ~ i {
+        font-size: 20px;
+        height: 46px;
+        line-height: 46px;
+        width: 46px;
+    }
+
+    .input-sm ~ i {
+        font-size: 12px;
+        height: 30px;
+        line-height: 30px;
+        width: 30px;
+    }
+}
+
+/*Input Group With Button*/
+.input-group-btn {
+    &:not(.input-group-lg) {
+        &:not(.input-group-sm) > .btn {
+            padding-top: 8px;
+            padding-bottom: 7px;
+        }
+    }
+}
+
+.input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group {
+    margin-left: 0;
+}
+
+
+.form-heading {
+    display: block;
+    padding: 8px 0;
+    border-bottom: 1px dashed rgba(0,0,0,.2);
+    font-size: 15px;
+    font-weight: 300;
+    color: #262626;
+    margin-bottom: 15px;
+}
+
+label{
+    font-weight:normal;
+    font-size:@font-size-primary + 2;
+}

@@ -1,0 +1,588 @@
+<div class="sidebar menu">
+    <div class="sidebar-header">
+        <div class="header-brand">
+            <div class="brand-logo">
+                <img src="framework/admin/assets/img/logo.png" alt="FlexCMS" />
+            </div>
+            <div class="brand-slogan">
+                <div class="slogan-title">FlexCMS</div>
+            </div>
+        </div>
+
+    </div>
+    <div class="sidebar-menu">
+        <ul class="menu">
+            <li ng-class="{'active open': $state.includes('dashboard')}">
+                <a>
+                    <i class="pe-7s-monitor"></i>
+                    <span>Dashboards</span>
+                </a>
+                <ul>
+                    <li class="submenu-title">
+                        <span>Data</span>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="dashboard.multiplebox">
+                            <i class="pe-7s-box2"></i>
+                            <span>Simple</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="dashboard.minimal">
+                            <i class="pe-7s-graph1"></i>
+                            <span>Minimal</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="dashboard.realtime">
+                            <i class="pe-7s-refresh-2"></i>
+                            <span>Real-time</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref=dashboard.multipleBoxContrast>
+                            <i class="pe-7s-sun"></i>
+                            <span>High Contrast</span>
+                        </a>
+                    </li>
+                    <li class="submenu-title">
+                        <span>Social (Soon)</span>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="pe-7s-photo"></i>
+                            <span>Gallery</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="pe-7s-add-user"></i>
+                            <span>Social Profile</span>
+                        </a>
+                    </li>
+                    <li class="submenu-title">
+                        <span>Management (Soon)</span>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="pe-7s-bookmarks"></i>
+                            <span>Kanban</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="pe-7s-ribbon"></i>
+                            <span>Projects</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li ng-class="{'active open': $state.includes('widgets')}">
+                <a>
+                    <i class="pe-7s-box2"></i>
+                    <span>Widgets</span>
+                </a>
+                <ul>
+                    <li class="submenu-title">
+                        <span>Widget Types</span>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="widgets.boxes">
+                            <i class="fa fa-bar-chart"></i>
+                            <span>Boxes</span>
+                        </a>
+
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="widgets.panel">
+                            <i class="pe-7s-box2"></i>
+                            <span>Panels</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="widgets.complex">
+                            <i class="fa fa-line-chart"></i>
+                            <span>Complex Widgets</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li ng-class="{'active open': $state.includes('calendar')}">
+                <a ui-sref="calendar">
+                    <i class="pe-7s-date"></i>
+                    <span>Calendar</span>
+                </a>
+                <ul>
+                    <li class="submenu-title">
+                        <span class="p-l-0 align-center">Current Month Overview</span>
+                    </li>
+                    <li class="mini-calendar-container">
+                        <div class="mini-calendar"></div>
+                    </li>
+                    <li class="submenu-title">
+                        <span>Remove Event After Drag</span>
+                    </li>
+                    <li>
+                        <label class="p-l-30">
+                            <input class="switch toggle switch-primary" id="drop-remove" checked="checked" type="checkbox">
+                            <span class="text"></span>
+                        </label>
+                    </li>
+                    <li class="calendar-event">
+                        <a>
+                            <span>Lunch with Mary</span>
+                        </a>
+                    </li>
+                    <li class="calendar-event event-warning">
+                        <a>
+                            <span>Session in Office</span>
+                        </a>
+                    </li>
+                    <li class="calendar-event event-info">
+                        <a>
+                            <span>Jane's Birthday</span>
+                        </a>
+                    </li>
+                    <li class="calendar-event event-danger">
+                        <a>
+                            <span>Shopping Time</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li ng-class="{'active open': $state.includes('profile')}">
+                <a ui-sref="profile">
+                    <i class="pe-7s-id"></i>
+                    <span>Profile</span>
+                </a>
+                <ul>
+                    <li class="profile-picture">
+                        <a href="">
+                            <img src="assets/img/profile/profile-cover.jpg" alt="Andrea LeFeave" />
+                        </a>
+                    </li>
+                    <li class="profile-name">
+                        <a href="">
+                            <span>Andrea LeFeave</span>
+                        </a>
+
+                    </li>
+                    <li class="profile-title">
+                        <a href="">
+                            <span>UX/UI Designer</span>
+                        </a>
+                    </li>
+
+                    <li class="profile-percent">
+                        <div class="progress progress-xxs">
+                            <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 73%">
+                            </div>
+                        </div>
+                        <span>
+                            Activity Level: <strong>73%</strong>
+                        </span>
+                    </li>
+                    <li class="submenu-divider"></li>
+                    <li>
+                        <a href="">
+                            <i class="pe-7s-bicycle"></i>
+                            <span>Activities</span>
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="pe-7s-graph2"></i>
+                            <span>Profile Views</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="pe-7s-users"></i>
+                            <span>Friends</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="pe-7s-comment"></i>
+                            <span>Messages</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="pe-7s-photo"></i>
+                            <span>Pictures</span>
+                        </a>
+                    </li>
+                    <li class="submenu-divider"></li>
+                    <li class="profile-links">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <a href="">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                            </div>
+                            <div class="col-xs-3">
+                                <a href="">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                            </div>
+                            <div class="col-xs-3">
+                                <a href="">
+                                    <i class="fa fa-dribbble"></i>
+                                </a>
+                            </div>
+                            <div class="col-xs-3">
+                                <a href="">
+                                    <i class="fa fa-instagram"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="profile-follow">
+                        <button class="btn btn-primary btn-block">
+                            Follow
+                        </button>
+                    </li>
+
+                </ul>
+            </li>
+            <li ng-class="{'active open': $state.includes('charts')}">
+                <a>
+                    <i class="pe-7s-graph1"></i>
+                    <span>Charts</span>
+                </a>
+                <ul>
+                    <li class="submenu-title">
+                        <span>Charts</span>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="charts.flotChart">
+                            <i class="fa fa-bar-chart"></i>
+                            <span>Flot Charts</span>
+                        </a>
+
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="charts.chartist">
+                            <i class="pe-7s-graph2"></i>
+                            <span>Chartist</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="charts.chartJs">
+                            <i class="fa fa-line-chart"></i>
+                            <span>Chart.js</span>
+                        </a>
+                    </li>
+                    <li class="submenu-title">
+                        <span>Inline Charts</span>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="charts.sparkline">
+                            <i class="fa fa-area-chart"></i>
+                            <span>Sparkline Charts</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="charts.easyPieChart">
+                            <i class="pe-7s-graph"></i>
+                            <span>Easy Pie Chart</span>
+                        </a>
+                    </li>
+                    <li class="submenu-title">
+                        <span>Big Data Charts</span>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="charts.eCharts">
+                            <i class="pe-7s-graph3"></i>
+                            <span>E-Charts</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li ng-class="{'active open': $state.includes('uiElements')}">
+                <a>
+                    <i class="pe-7s-paint-bucket"></i>
+                    <span>UI Elements</span>
+                </a>
+                <ul>
+                    <li class="submenu-title">
+                        <span>‌Elements</span>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="uiElements.elements">
+                            <i class="pe-7s-ticket"></i>
+                            <span>Basic Elements</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="uiElements.buttons">
+                            <i class="pe-7s-plus"></i>
+                            <span>Buttons</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="uiElements.notifications">
+                            <i class="pe-7s-bell"></i>
+                            <span>Notifications</span>
+                        </a>
+                    </li>
+                    <li class="submenu-title">
+                        <span>‌Icons</span>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="uiElements.strokeIcons">
+                            <i class="pe-7s-arc"></i>
+                            <span>7 Stroke Icons</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="uiElements.fontAwesome">
+                            <i class="fa fa-rocket"></i>
+                            <span>FontAwesome Icons</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="uiElements.glyphicons">
+                            <i class="glyphicon glyphicon-apple"></i>
+                            <span>Glyphicons</span>
+                        </a>
+                    </li>
+
+                    <li class="submenu-title">
+                        <span>‌Containers</span>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="uiElements.panels">
+                            <i class="pe-7s-browser"></i>
+                            <span>Panels &amp; Accordions</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="uiElements.tabs">
+                            <i class="pe-7s-folder"></i>
+                            <span>Tabs</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="uiElements.modals">
+                            <i class="pe-7s-chat"></i>
+                            <span>Modals</span>
+                        </a>
+                    </li>
+                    <li class="submenu-title">
+                        <span>‌Hierarchy</span>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="uiElements.nestableList">
+                            <i class="pe-7s-menu"></i>
+                            <span>Nestable Lists</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="uiElements.tree">
+                            <i class="pe-7s-plus"></i>
+                            <span>Tree</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li ng-class="{'active open': $state.includes('forms')}">
+                <a>
+                    <i class="pe-7s-note"></i>
+                    <span>Forms</span>
+                </a>
+                <ul>
+                    <li class="submenu-title">
+                        <span>‌Form Elements</span>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="forms.formInputs">
+                            <i class="pe-7s-ticket"></i>
+                            <span>Form Inputs</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="forms.formAdvancedInputs">
+                            <i class="pe-7s-plus"></i>
+                            <span>Advanced Inputs</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="forms.formInputMask">
+                            <i class="pe-7s-bell"></i>
+                            <span>Input Masks</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="forms.formEditors">
+                            <i class="pe-7s-edit"></i>
+                            <span>Editors</span>
+                        </a>
+                    </li>
+                    <li class="submenu-title">
+                        <span>‌Form Structures</span>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="forms.formLayouts">
+                            <i class="pe-7s-photo-gallery"></i>
+                            <span>Form Layouts</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="forms.formValidation">
+                            <i class="pe-7s-shield"></i>
+                            <span>Form Validation</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="forms.formWizard">
+                            <i class="pe-7s-play"></i>
+                            <span>Form Wizard</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li ng-class="{'active open': $state.includes('tables')}">
+                <a>
+                    <i class="pe-7s-keypad"></i>
+                    <span>Tables</span>
+                </a>
+                <ul>
+                    <li class="submenu-title">
+                        <span>‌Table Look</span>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="tables.tables">
+                            <i class="pe-7s-paint-bucket"></i>
+                            <span>Tables Styles</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="tables.responsiveTables">
+                            <i class="pe-7s-exapnd2"></i>
+                            <span>Responsive Tables</span>
+                        </a>
+                    </li>
+                    <li class="submenu-title">
+                        <span>‌Data Tables</span>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="tables.datatablesInit">
+                            <i class="pe-7s-display2"></i>
+                            <span>Layouts</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="tables.datatablesSearch">
+                            <i class="pe-7s-search"></i>
+                            <span>Search</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="tables.datatablesExport">
+                            <i class="pe-7s-print"></i>
+                            <span>Export and Print</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="tables.datatablesCrud">
+                            <i class="pe-7s-pen"></i>
+                            <span>Data Manipulation</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li ng-class="{'active open': $state.includes('maps')}">
+                <a>
+                    <i class="pe-7s-map-marker"></i>
+                    <span>Maps</span>
+                </a>
+                <ul>
+                    <li class="submenu-title">
+                        <span>‌Google Maps</span>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="maps.gMaps">
+                            <i class="pe-7s-map-2"></i>
+                            <span>GMaps</span>
+                        </a>
+                    </li>
+                    <li class="submenu-title">
+                        <span>‌Vector Maps</span>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="maps.jqvMap">
+                            <i class="pe-7s-world"></i>
+                            <span>JQV Map</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li ng-class="{'active open': $state.includes('pages')}">
+                <a>
+                    <i class="pe-7s-display1"></i>
+                    <span>Pages</span>
+                </a>
+                <ul>
+                    <li class="submenu-title">
+                        <span>‌Social</span>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="pages.timeline">
+                            <i class="pe-7s-clock"></i>
+                            <span>Timeline</span>
+                        </a>
+                    </li>
+                    <li class="submenu-title">
+                        <span>‌Errors</span>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="pages.error500">
+                            <i class="pe-7s-server"></i>
+                            <span>500</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="pages.error404">
+                            <i class="pe-7s-attention"></i>
+                            <span>404</span>
+                        </a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="pages.error401">
+                            <i class="pe-7s-user"></i>
+                            <span>401</span>
+                        </a>
+                    </li>
+                    <li class="submenu-title">
+                        <span>‌Miscellaneous</span>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="pages.blank">
+                            <i class="pe-7s-browser"></i>
+                            <span>Blank Page</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="sidebar-footer">
+        <div class="footer-avatar">
+            <img src="assets/img/avatars/andy.jpg" alt="Fabian Mellan Jr." />
+        </div>
+        <div class="footer-user">
+            <a ui-sref="profile">Fabian Mellan Jr.</a>
+        </div>
+        <div class="footer-links">
+            <a ui-sref="pages.login" class="links-logout">
+                <i class="pe-7s-power"></i>
+                <span>Sign Out</span>
+            </a>
+        </div>
+    </div>
+</div>

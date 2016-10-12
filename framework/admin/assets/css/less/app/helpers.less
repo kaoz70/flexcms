@@ -1,0 +1,255 @@
+﻿/*------------------------------------------------------------------
+[1.1. Background Helpers]
+*/
+
+.bg- {
+    .for(@colors);
+
+    .-each(@value) {
+        @name: extract(@value, 1);
+
+        &@{name} {
+            .bg(extract(@value, 2), extract(@value, 4));
+        }
+    }
+}
+
+
+.bg-transparent {
+    background-color: transparent !important;
+}
+
+.bg-body {
+    background-color: @body-background !important;
+}
+
+.bg-highlight {
+    background-color: #FFFF88;
+}
+
+.bg-default-darker {
+    background-color: @default-darker;
+}
+
+.bg-muted {
+    background-color: #f5f5f5;
+    color: #282828;
+}
+
+/*------------------------------------------------------------------
+[1.2. Border Helpers]
+*/
+.border- {
+    .for(@colors);
+
+    .-each(@value) {
+        @name: extract(@value, 1);
+
+        &@{name} {
+            .border(extract(@value, 2));
+        }
+    }
+}
+
+
+
+.border-muted {
+    border-color: #eee;
+    border-style: solid;
+    border-width: 0;
+}
+
+.border-muted-darker {
+    border-color: #e8e8e8;
+    border-style: solid;
+    border-width: 0;
+}
+
+@border-sizes: 1 1px, 2 2px, 3 3px, 4 4px, 5 5px;
+
+& {
+    .for(@border-sizes);
+
+    .-each(@value) {
+        .border-sizes(extract(@value, 1), extract(@value, 2));
+    }
+}
+
+
+/*------------------------------------------------------------------
+[1.3. Color Helpers]
+*/
+
+.text- {
+    .for(@colors);
+
+    .-each(@value) {
+        @name: extract(@value, 1);
+
+        &@{name} {
+            .text-color(extract(@value, 2),extract(@value, 3));
+        }
+    }
+}
+
+.text-grey {
+    color: #888 !important;
+}
+
+/*------------------------------------------------------------------
+[1.4. Spacing Helpers]
+*/
+.hr-space {
+    margin: 10px 0;
+
+    &.space-lg {
+        margin: 20px 0;
+    }
+
+    &.space-xl {
+        margin: 30px 0;
+    }
+}
+
+hr {
+    display: block;
+}
+
+/*------------------------------------------------------------------
+[1.5. Padding Helpers]
+*/
+@padding-sizes: 0 0, 5 5px, 7 7px, 10 10px, 15 15px, 20 20px, 25 25px, 30 30px, 35 35px, 40 40px, 45 45px, 50 50px, 60 60px, 70 70px, 75 75px, 100 100px, 200 200px, 300 300px;
+
+& {
+    .for(@padding-sizes);
+
+    .-each(@value) {
+        .padding-sizes(extract(@value, 1), extract(@value, 2));
+    }
+}
+
+/*------------------------------------------------------------------
+[1.6. Margin Helpers]
+*/
+@margin-sizes: 0 0, 5 5px, 7 7px, 10 10px, 15 15px, 20 20px, 25 25px, 30 30px, 35 35px, 40 40px, 50 50px, 60 60px, 70 70px, 75 75px, 100 100px, 200 200px, 300 300px;
+
+
+& {
+    .for(@margin-sizes);
+
+    .-each(@value) {
+        .margin-sizes(extract(@value, 1), extract(@value, 2));
+    }
+}
+
+/*------------------------------------------------------------------
+[1.7. Size Helpers]
+*/
+@sizes: 40 40px, 50 50px, 60 60px, 65 65px, 70 70px, 80 80px, 90 90px, 100 100px, 120 120px, 150 150px, 200 200px, 250 250px, 300 300px, 350 350px, 400 400px, 500 500px;
+
+& {
+    .for(@sizes);
+
+    .-each(@value) {
+        .sizes(extract(@value, 1), extract(@value, 2));
+    }
+}
+
+
+/*------------------------------------------------------------------
+[1.8. Font Helpers]
+*/
+@font-sizes: 8 8px, 9 9px, 10 10px, 11 11px, 12 12px, 13 13px, 14 14px, 15 15px, 17 17px, 20 20px, 25 25px, 30 30px, 35 35px, 50 50px, 60 60px, 65 65px, 70 70px, 75 75px, 90 90px, 100 100px;
+
+.font-sizes(@name, @size) {
+    .f- {
+        &@{name} {
+            font-size: @size !important;
+        }
+    }
+}
+
+& {
+    .for(@font-sizes);
+
+    .-each(@value) {
+        .font-sizes(extract(@value, 1), extract(@value, 2));
+    }
+}
+
+
+.b-200 {
+    font-weight: 200;
+}
+
+.b-300 {
+    font-weight: 300;
+}
+
+.b-400 {
+    font-weight: 400;
+}
+
+.b-500 {
+    font-weight: 500;
+}
+
+.b-600 {
+    font-weight: 600;
+}
+
+.b-700 {
+    font-weight: 600;
+}
+
+
+/*------------------------------------------------------------------
+[1.9. Shadows Helpers]
+*/
+.box-shadow {
+    .box-shadow(0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24));
+
+    &.shadow-lg {
+        .box-shadow(0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23));
+    }
+
+    &.shadow-xlg {
+        .box-shadow(0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23));
+    }
+}
+
+/*------------------------------------------------------------------
+[1.10. General Helpers]
+*/
+.clearfix {
+	*zoom: 1;
+	&:before,
+	&:after {
+		display: table;
+		content: "";
+		line-height: 0;
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+.align-center {
+    text-align: center;
+}
+
+.underlined {
+    border-bottom: 1px solid;
+    display: inline-block;
+    letter-spacing: .05em;
+    padding-bottom: 0;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+
+.v-a-middle {
+    vertical-align: middle;
+}

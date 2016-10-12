@@ -1,0 +1,52 @@
+﻿/*------------------------------------------------------------------
+[3.5. Popovers]
+*/
+.popover {
+    .border-radius(@border-radius);
+    border: 0;
+    font-family: @font-family-primary;
+    font-size: 13px;
+    padding: 0;
+}
+
+.popover.bottom > .arrow {
+    border-bottom-color: rgba(0,0,0,.1);
+
+    &:after {
+        border-bottom-color: @default;
+    }
+}
+
+.popover.top > .arrow {
+    border-top-color: rgba(0,0,0,.1);
+}
+
+.popover.left > .arrow {
+    border-left-color: rgba(0,0,0,.1);
+}
+
+.popover.right > .arrow {
+    border-right-color: rgba(0,0,0,.1);
+}
+
+.popover-title {
+    .border-radius(@border-radius @border-radius 0 0);
+    background-color: @default;
+    border-bottom: 0;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 400;
+    padding: 7px 14px 9px;
+}
+
+.popover {
+    .for(@colors);
+
+    .-each(@value) {
+        @name: extract(@value, 1);
+
+        &.@{name} {
+            .popover(extract(@value, 2), extract(@value, 4));
+        }
+    }
+}

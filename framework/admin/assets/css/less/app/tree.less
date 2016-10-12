@@ -1,0 +1,238 @@
+﻿/*------------------------------------------------------------------
+[3.14. Trees]
+*/
+
+@grayLight: #888;
+@treeHoverText: @grayLight;
+@selected: #fff;
+@treeSelectBackground: @selected;
+
+.tree {
+    list-style: none;
+    overflow-x: auto;
+    overflow-y: auto;
+    padding: 10px 15px 0 15px;
+    position: relative;
+
+    &:before {
+        border-left: 1px solid @grayLight;
+        bottom: 18px;
+        content: "";
+        display: block;
+        left: 0;
+        position: absolute;
+        top: 8px;
+        width: 1px;
+        z-index: 1;
+    }
+
+    *:focus {
+        outline: none;
+    }
+
+    button:focus {
+        color: @treeHoverText;
+    }
+
+    ul {
+        list-style: none;
+        margin-bottom: 0;
+        margin-top: 0;
+        padding-left: 0;
+    }
+
+    li {
+        margin: 0;
+        margin-bottom: 9px;
+        margin-top: 9px;
+    }
+
+    .tree-loader {
+        // make even with tree-branch-children
+        margin-left: 45px;
+    }
+
+    .tree-open > .tree-branch-header .icon-caret:before {
+        content: '\2212'; //space
+        position: relative;
+    }
+
+    [data-children=false] > .tree-branch-header .icon-caret:before {
+        content: '\00a0'; //space
+    }
+
+    .icon-item {
+        font-size: 14px;
+
+        &.fa-circle {
+            font-size: 6px;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+
+        &.fa-check {
+            font-size: 12px;
+        }
+    }
+
+    .tree-branch, .tree-item {
+        &:before {
+            border-top: 1px solid @grayLight;
+            content: "";
+            display: inline-block;
+            height: 0;
+            left: -14px;
+            position: absolute;
+            top: 14px;
+            width: 22px;
+            z-index: 1;
+        }
+    }
+
+    .tree-item {
+        &:before {
+            left: -40px;
+            top: 10px;
+            width: 42px;
+        }
+    }
+
+    .tree-branch {
+        position: relative;
+
+        .tree-branch-header {
+            .border-radius(@border-radius);
+            position: relative;
+            white-space: nowrap;
+
+            .tree-branch-name:hover {
+                color: @treeHoverText;
+            }
+
+            .glyphicon-plus {
+                font-size: 16px;
+                padding-left: 7px;
+                padding-right: 5px;
+
+                &:before {
+                    position: relative;
+                    top: 2px;
+                }
+            }
+
+            .icon-folder {
+                font-size: 16px;
+            }
+
+
+            .tree-branch-name {
+                .border-radius(@border-radius);
+                background-color: transparent;
+                border: 0;
+                white-space: nowrap;
+            }
+
+            .tree-label {
+                cursor: pointer;
+                font-size: 13px;
+                font-weight: normal;
+                margin-bottom: 0;
+                padding-left: 3px;
+            }
+        }
+
+        .tree-branch-children {
+            margin-left: 21px;
+
+            &:before {
+                border-left: 1px solid @grayLight;
+                bottom: 9px;
+                content: "";
+                display: block;
+                left: 7px;
+                position: absolute;
+                top: 15px;
+                width: 1px;
+                z-index: 1;
+            }
+        }
+
+        &[haschildren='false'] {
+            .icon-caret {
+                visibility: hidden;
+            }
+        }
+    }
+
+    .tree-item {
+        .border-radius(@border-radius);
+        cursor: pointer;
+        margin-left: 26px;
+        position: relative;
+        white-space: nowrap;
+
+        .tree-item-name {
+            .border-radius(@border-radius);
+            background-color: transparent;
+            border: 0;
+            white-space: nowrap;
+        }
+
+        .tree-item-name:hover {
+            color: @treeHoverText;
+        }
+
+        &.tree-selected .tree-item-name {
+            background-color: @treeSelectBackground;
+            color: #333;
+        }
+
+        .tree-label {
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: normal;
+            margin-bottom: 0;
+            padding-left: 7px;
+        }
+    }
+
+    .icon-caret:hover + .tree-branch-name {
+        color: @treeHoverText;
+    }
+    // - - - - - - - - - - - - - -
+    // folder selectable option
+    // - - - - - - - - - - - - - -
+    &.tree-folder-select {
+
+        .tree-branch {
+
+            .icon-caret {
+                background-color: transparent;
+                border: 0;
+            }
+
+
+            .icon-caret:hover {
+                color: @treeHoverText;
+                cursor: pointer;
+            }
+
+            > .tree-branch-name {
+                padding: 1px 5px 0 5px;
+
+
+                &.tree-selected {
+                    background-color: @treeSelectBackground;
+                }
+            }
+        }
+
+        .tree-branch.tree-selected > .tree-branch-header .tree-branch-name {
+            background-color: @treeSelectBackground;
+
+            &:hover {
+                background-color: @treeSelectBackground;
+            }
+        }
+    }
+}

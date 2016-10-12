@@ -1,0 +1,166 @@
+﻿/*------------------------------------------------------------------
+[10.3. Error Pages]
+*/
+@error-container-bg: @default;
+
+@error-404-bg: @success;
+@error-404-line-color: darken(@error-404-bg, 10%);
+
+@error-500-bg: @warning;
+@error-500-line-color: darken(@error-500-bg, 10%);
+
+@error-401-bg: @info;
+@error-401-line-color: darken(@error-401-bg, 10%);
+
+.error-wrapper {
+    background-color: @error-container-bg;
+    height: 100%;
+    padding-top: 10%;
+
+    .error-container {
+        .transform(skew(0deg, -10deg));
+        background-color: @error-404-bg;
+        padding: 60px;
+
+        .error {
+            .transform(skew(0deg, 10deg));
+            margin: 0 auto;
+            text-align: center;
+            width: 350px;
+
+            .error-title {
+                font-size: 28px;
+                font-weight: 700;
+                letter-spacing: 5px;
+                text-transform: uppercase;
+            }
+
+            .error-number {
+                font-size: 100px;
+                font-weight: 700;
+                letter-spacing: 5px;
+                text-shadow: 0 3px 0 @error-container-bg,0 14px 10px rgba(0,0,0,0.15), 0 24px 2px rgba(0,0,0,0.1), 0 34px 30px rgba(0,0,0,0.1);
+            }
+
+            .error-description {
+                font-size: 14px;
+                font-weight: 300;
+                padding: 0 40px;
+            }
+
+            .error-or {
+                height: 20px;
+                margin: 30px 0 10px;
+                position: relative;
+                text-align: center;
+
+                .or-line {
+                    background-color: @error-404-line-color;
+                    height: 1px;
+                    left: 40px;
+                    position: absolute;
+                    right: 40px;
+                    top: 10px;
+                }
+
+                .or {
+                    .calc(left, ~'50% - 30px');
+                    background-color: @error-404-bg;
+                    height: 20px;
+                    margin: 0 auto;
+                    position: absolute;
+                    text-transform: uppercase;
+                    top: 2px;
+                    width: 60px;
+                }
+            }
+
+            .error-textbox {
+                padding: 0 40px;
+
+                .form-control {
+                    background-color: @error-container-bg;
+                    border: 0;
+                }
+            }
+
+            .error-submit {
+                padding: 0 40px;
+
+                input {
+                    font-size: 13px;
+                    font-weight: 300;
+                    text-transform: uppercase;
+                }
+            }
+
+            .error-actions {
+                display: block;
+                height: 40px;
+                list-style: none;
+                padding: 5px;
+
+                > li {
+                    display: inline-block;
+                    float: left;
+                    width: 33%;
+
+                    a {
+                        i {
+                            color: @error-container-bg;
+                            font-size: 32px;
+                        }
+                    }
+                }
+            }
+        }
+
+        &.error-500 {
+            background-color: @error-500-bg;
+
+            .error {
+                .error-or {
+                    .or-line {
+                        background-color: @error-500-line-color;
+                    }
+
+                    .or {
+                        background-color: @error-500-bg;
+                    }
+                }
+            }
+        }
+
+        &.error-401 {
+            background-color: @error-401-bg;
+
+            .error {
+                .error-or {
+                    .or-line {
+                        background-color: @error-401-line-color;
+                    }
+
+                    .or {
+                        background-color: @error-401-bg;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+    .error-wrapper {
+        padding-top: 5%;
+
+        .error-container {
+            .transform(skew(0deg, -5deg));
+
+            .error {
+                .transform(skew(0deg, 5deg));
+                width: auto;
+            }
+        }
+    }
+}

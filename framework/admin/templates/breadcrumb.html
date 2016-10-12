@@ -1,0 +1,18 @@
+<ul class="breadcrumb">
+	<li>
+		<a href="#">
+			<i class="pe-7s-home"></i>
+			<span>Home</span>
+		</a>
+	</li>
+	<li ng-repeat="step in steps" ng-class="{active: $last}" ng-switch="$last || !!step.abstract">
+		<a ng-switch-when="false" href="{{step.ncyBreadcrumbLink}}">
+			<i class="{{step.data.icon}}"></i>
+			{{step.ncyBreadcrumbLabel}}
+		</a>
+		<span ng-switch-when="true">
+			<i class="{{step.data.icon}}"></i>
+			{{step.ncyBreadcrumbLabel}}
+		</span>
+	</li>
+</ul>

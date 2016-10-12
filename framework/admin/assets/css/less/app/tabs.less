@@ -1,0 +1,286 @@
+﻿/*------------------------------------------------------------------
+[3.9. Tabs]
+*/
+.tab-content {
+    background-color: #fff;
+    font-size: 12px;
+    line-height: 20px;
+    padding: 0;
+    position: relative;
+
+    .tab-pane {
+        padding: 15px;
+
+        &.tab-pane- {
+            .for(@colors);
+
+            .-each(@value) {
+                @name: extract(@value, 1);
+
+                &@{name} {
+                    .pane(extract(@value, 2), extract(@value, 4));
+                }
+            }
+        }
+    }
+}
+
+.nav {
+    .open {
+        & > a {
+            &, &:focus, &:hover {
+                border-color: transparent;
+            }
+        }
+    }
+}
+
+.nav-tabs {
+    border: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    top: 2px;
+
+
+    > li {
+        margin-bottom: -2px;
+        font-size: 12px;
+
+        > a {
+            padding: 15px 30px;
+            font-size: 15px;
+            font-weight: 300;
+            text-transform: uppercase;
+            .transition(color 0.3s);
+            text-align: center;
+
+            i {
+                font-size: 20px;
+                vertical-align: middle;
+                margin-right: 5px;
+                margin-left: -5px;
+            }
+
+            &.dropdown-toggle {
+                .pe-7s-angle-down {
+                    margin-right: -5px;
+                    margin-left: 5px;
+                }
+            }
+
+            &:hover {
+                background-color: transparent;
+                border-color: transparent;
+                color: #282828;
+            }
+
+            &:active, &:focus {
+                outline: none !important;
+            }
+
+            &, &:focus {
+                border-radius: 0 !important;
+                color: #282828;
+                position: relative;
+                z-index: 11;
+            }
+
+            .badge {
+                font-size: 1em;
+                margin: 0 5px;
+                padding: 2px 5px;
+            }
+
+            &:after {
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: -1;
+                width: 100%;
+                height: 100%;
+                background-color: #f1f3f2;
+                content: '';
+                .transition(transform 0.3s, background-color 0.3s);
+                .transform(perspective(900px) rotate3d(1,0,0,90deg));
+                .transform-origin(50% 100%);
+                .perspective-origin(50% 100%);
+            }
+        }
+
+        &:first-child > a {
+            margin-left: 0;
+        }
+
+        &.active {
+
+            &.tab- {
+                .for(@colors);
+
+                .-each(@value) {
+                    @name: extract(@value, 1);
+
+                    &@{name} {
+                        .tab(extract(@value, 2), extract(@value, 4));
+                    }
+                }
+            }
+
+            > a {
+                &:after {
+                    background-color: #fff;
+                    .transform(perspective(900px) rotate3d(1,0,0,0deg));
+                }
+
+                &, &:hover, &:focus {
+                    border-color: transparent;
+                    border-bottom-color: transparent;
+                    color: #282828;
+                    z-index: 12;
+                    background-color: transparent;
+                }
+            }
+        }
+    }
+
+    &.nav-justified {
+        > li {
+            > a {
+                border-bottom: 0 !important;
+                margin-bottom: 0;
+            }
+        }
+
+        > .active {
+            > a {
+                &, &:focus, &:hover {
+                    border: 0;
+                }
+            }
+        }
+    }
+}
+
+.tabs-below {
+    > .nav-tabs {
+        > li {
+            > a {
+                margin-top: -1px;
+
+                &:after {
+                    .transform-origin(50% 0%);
+                }
+            }
+        }
+    }
+}
+
+.tabs-left {
+    > .nav-tabs {
+        float: left;
+        margin-bottom: 0;
+        top: auto;
+
+        > li {
+            float: none;
+
+            > a {
+                &:after {
+                    .transform(perspective(900px) rotate3d(0,1,0,90deg));
+                    .transform-origin(100% 50%);
+                }
+
+                &, &:focus, &:hover {
+                    margin: 0 -1px 0 0;
+                }
+            }
+
+            &.active {
+                > a {
+                    &, &:focus, &:hover {
+                        border: 0;
+                        border-right-color: transparent;
+                        margin: 0 -1px 0 -1px;
+                    }
+
+                    &:after {
+                        .transform(perspective(900px) rotate3d(0,1,0,0deg));
+                    }
+                }
+            }
+        }
+    }
+}
+
+.tabs-right {
+    > .nav-tabs {
+        float: right;
+        margin-bottom: 0;
+        top: auto;
+
+        > li {
+            float: none;
+
+            > a {
+                &:after {
+                    .transform(perspective(900px) rotate3d(0,1,0,90deg));
+                    .transform-origin(0% 50%);
+                }
+
+                &, &:focus, &:hover {
+                    border-top: 0;
+                    margin: 0 -1px;
+                }
+            }
+
+            &.active {
+                > a {
+                    &, &:focus, &:hover {
+                        border-left-color: transparent;
+                        border-top-width: 0;
+                        margin: 0 -2px 0 -1px;
+                    }
+
+                    &:after {
+                        .transform(perspective(900px) rotate3d(0,1,0,0deg));
+                    }
+                }
+            }
+        }
+    }
+}
+
+.tabs-left > .nav-tabs > li > a, .tabs-right > .nav-tabs > li > a {
+    min-width: 60px;
+}
+
+
+.tabs-left .tab-content, .tabs-right .tab-content {
+    overflow: auto;
+}
+
+@media (min-width: 300px) {
+    .nav-tabs {
+        &.nav-justified {
+            > li {
+                display: table-cell;
+                width: 1%;
+            }
+        }
+    }
+}
+
+@media (max-width: 650px) {
+    .nav-tabs {
+        > li {
+            > a {
+                i ~ span {
+                    display: none;
+                }
+
+                i:not(.pe-7s-angle-down) {
+                    margin: 0;
+                }
+            }
+        }
+    }
+}

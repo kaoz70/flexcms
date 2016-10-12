@@ -1,0 +1,108 @@
+﻿/*------------------------------------------------------------------
+[3.1. Panels]
+*/
+.panel {
+    .border-radius(@border-radius);
+    .box-shadow(0 1px 2px rgba(0,0,0,0.07));
+    border: 0;
+
+    &.maximized {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 99999;
+        margin: 0;
+        overflow: auto;
+    }
+}
+
+.panel-heading {
+    .border-radius(@border-radius @border-radius 0 0);
+    border-bottom: 0;
+    position: relative;
+
+    .panel-title {
+        color: #6a7079;
+        display: inline-block;
+        font-size: 14px;
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+
+    @tools-height: 36px;
+    @tools-width: 36px;
+
+
+    .panel-tools {
+        height: 36px;
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        .tools-action {
+            color: #fff;
+            display: inline-block;
+            font-size: 28px;
+            height: @tools-height;
+            padding: 0;
+            text-align: center;
+            vertical-align: top;
+            width: @tools-width;
+
+            i {
+                height: @tools-height;
+                vertical-align: top;
+                width: @tools-width;
+
+                &:before {
+                    line-height: @tools-height;
+                }
+            }
+
+            &:hover, &:focus {
+                text-decoration: none;
+            }
+
+            .pe-7s-expand1, .pe-7s-power {
+                font-size: 18px;
+            }
+        }
+    }
+}
+
+.panel-body {
+    hr {
+        &.full-width {
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+    }
+}
+
+.panel-footer {
+    background-color: #f6f6f6;
+    border-top: 1px solid #e5e5e5;
+    font-size: 12px;
+}
+
+.panel- {
+    .for(@colors);
+
+    .-each(@value) {
+        @name: extract(@value, 1);
+
+        &@{name} {
+            .panel(extract(@value, 2), extract(@value, 4));
+        }
+    }
+}
+
+
+
+.panel-inverse, .panel-white {
+    > .panel-heading {
+        border-bottom: 1px solid #e5e5e5;
+    }
+}

@@ -1,0 +1,47 @@
+﻿.has-code {
+    overflow: hidden;
+    position: relative;
+
+    &:hover {
+        .code-links {
+            bottom: 0;
+        }
+    }
+}
+
+.code-links {
+    list-style: none;
+    margin: 0;
+    position: absolute;
+    bottom: -30px;
+    right: 0;
+    padding: 7px 10px;
+    height: 30px;
+    background-color: #fff;
+    .transition(bottom .3s);
+    .box-shadow(0 1px 2px rgba(0,0,0,.07));
+    .opacity(.7);
+
+    > li {
+        display: inline-block;
+        margin-right: 10px;
+
+        a {
+            font-size: 12px;
+            font-weight: 300;
+
+            &:hover {
+                text-decoration: none;
+                cursor: pointer;
+            }
+        }
+
+        .code-content {
+            display: none;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
