@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 18-09-2016 a las 04:56:26
+-- Tiempo de generación: 12-10-2016 a las 03:15:00
 -- Versión del servidor: 5.6.30
 -- Versión de PHP: 5.5.35
 
@@ -283,7 +283,7 @@ CREATE TABLE IF NOT EXISTS `fields` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `fields`
@@ -292,15 +292,17 @@ CREATE TABLE IF NOT EXISTS `fields` (
 INSERT INTO `fields` (`id`, `input_id`, `parent_id`, `position`, `css_class`, `section`, `name`, `label_enabled`, `required`, `validation`, `data`, `view_in`, `enabled`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (2, 9, NULL, 2, '33', 'slider', '12', 1, NULL, NULL, NULL, NULL, 1, '2015-12-08 19:23:45', '2016-09-18 04:03:29', NULL),
 (3, 9, NULL, 1, '3d', 'slider', '32', NULL, NULL, NULL, NULL, NULL, 1, '2015-12-08 20:07:03', '2016-09-18 04:03:29', NULL),
-(15, 25, NULL, 1, '', 'user', 'Phone', 0, 0, '', '{"type":"profile","cart_order_col":"","two_checkout_name":""}', NULL, 0, '2016-07-27 17:58:46', '2016-07-28 18:12:19', NULL),
+(15, 25, NULL, 2, '', 'user', 'Phone', 0, 0, '', '{"type":"profile","cart_order_col":"","two_checkout_name":""}', NULL, 0, '2016-07-27 17:58:46', '2016-09-18 14:49:19', NULL),
 (20, 8, NULL, 1, '', 'contact', 'asd', NULL, 0, '', NULL, NULL, 0, '2016-07-28 22:26:06', '2016-07-28 22:27:40', NULL),
 (21, 8, NULL, 2, '', 'contact', '2', NULL, 0, '', NULL, NULL, 0, '2016-07-28 22:26:19', '2016-07-28 22:27:40', NULL),
 (29, 12, NULL, 1, '', 'product', 'Description', 1, NULL, NULL, '{"view_in_widget":true,"view_in_list":true,"view_in_cart":true,"view_in_filters":true}', NULL, 1, '2016-08-01 20:27:18', '2016-09-18 04:56:03', NULL),
 (31, 14, NULL, 2, '', 'product', 'text', 0, NULL, NULL, '{"view_in_widget":false,"view_in_list":false,"view_in_cart":false,"view_in_filters":false}', NULL, 0, '2016-09-15 02:37:09', '2016-09-18 04:56:03', NULL),
-(34, 13, '1', 5, '4', 'contact', 'asddd', NULL, 1, '55', NULL, NULL, 1, '2016-09-18 03:51:46', '2016-09-18 03:51:46', NULL),
+(34, 13, '1', 2, '4', 'contact', 'asddd', NULL, 1, '55', NULL, NULL, 1, '2016-09-18 03:51:46', '2016-09-18 14:52:54', NULL),
 (35, 8, '2', 2, '', 'contact', '3333', NULL, 0, '', NULL, NULL, 0, '2016-09-18 03:54:40', '2016-09-18 04:03:18', NULL),
 (36, 8, '2', 1, '', 'contact', '44', NULL, 0, '', NULL, NULL, 1, '2016-09-18 03:56:48', '2016-09-18 04:03:18', NULL),
-(37, 9, '12', 0, '', 'slider', 'asd', NULL, NULL, NULL, NULL, NULL, 1, '2016-09-18 04:33:13', '2016-09-18 04:33:13', NULL);
+(37, 9, '12', 0, '', 'slider', 'asd', NULL, NULL, NULL, NULL, NULL, 1, '2016-09-18 04:33:13', '2016-09-18 04:33:13', NULL),
+(38, 25, NULL, 1, '', 'user', 'asd', 0, 0, '', '{"type":"profile","cart_order_col":"","two_checkout_name":""}', NULL, 0, '2016-09-18 14:04:45', '2016-09-18 14:49:19', NULL),
+(40, 8, NULL, 6, '4', 'contact', '1', NULL, 0, '', NULL, NULL, 1, '2016-09-18 14:49:31', '2016-09-18 14:49:31', NULL);
 
 -- --------------------------------------------------------
 
@@ -480,19 +482,20 @@ INSERT INTO `input_type` (`id`, `name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `languages` (
-  `id` varchar(45) NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(25) CHARACTER SET latin1 NOT NULL,
+  `slug` varchar(45) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `languages`
 --
 
-INSERT INTO `languages` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
-('es', 'spanish', '2016-07-28 17:22:52', '2016-07-28 22:22:52', NULL);
+INSERT INTO `languages` (`id`, `name`, `slug`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Spanish', 'es', '2016-10-12 02:54:37', '2016-10-12 07:54:37', NULL);
 
 -- --------------------------------------------------------
 
@@ -753,7 +756,7 @@ CREATE TABLE IF NOT EXISTS `sliders` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `sliders`
@@ -811,41 +814,13 @@ INSERT INTO `throttle` (`id`, `user_id`, `type`, `ip`, `created_at`, `updated_at
 CREATE TABLE IF NOT EXISTS `translations` (
   `id` int(11) NOT NULL,
   `parent_id` int(11) NOT NULL,
-  `language_id` varchar(45) NOT NULL,
+  `language_id` int(11) NOT NULL,
   `type` varchar(45) DEFAULT NULL COMMENT 'widget, content, field',
   `data` mediumtext,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `translations`
---
-
-INSERT INTO `translations` (`id`, `parent_id`, `language_id`, `type`, `data`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(34, 23, 'es', 'page', '{"name":"Inicio","menu_name":"Inicio","meta_keywords":["Meta","key","word","split work"],"meta_description":"Meta Description","meta_title":"Meta title"}', '2016-07-28 18:05:14', '2016-07-28 18:05:14', NULL),
-(35, 18, 'es', 'page', '{"name":"Catalog","menu_name":"Catalog","meta_keywords":[""],"meta_description":"","meta_title":""}', '2016-07-28 18:06:28', '2016-08-01 16:13:49', NULL),
-(36, 15, 'es', 'user_field', '{"label":"Phone","placeholder":""}', '2016-07-28 18:12:19', '2016-07-28 18:12:19', NULL),
-(37, 1, 'es', 'address', '{"address":"asd"}', '2016-07-28 20:42:29', '2016-07-28 20:42:29', NULL),
-(38, 7, 'es', 'address', '{"address":"dsa"}', '2016-07-28 21:11:43', '2016-07-28 21:11:43', NULL),
-(39, 8, 'es', 'address', '{"address":"dd"}', '2016-07-28 21:12:15', '2016-07-28 21:12:15', NULL),
-(43, 20, 'es', 'contact_field', '{"label":"","placeholder":""}', '2016-07-28 22:26:06', '2016-07-28 22:26:06', NULL),
-(44, 21, 'es', 'contact_field', '{"label":"","placeholder":""}', '2016-07-28 22:26:19', '2016-07-28 22:26:19', NULL),
-(45, 2, 'es', 'content', '{"name":"1","content":"2","meta_keywords":["key","word"],"meta_description":"6","meta_title":"5"}', '2016-07-29 23:16:55', '2016-08-01 15:33:50', NULL),
-(46, 3, 'es', 'content', '{"name":"2","content":"","meta_keywords":[""],"meta_description":"","meta_title":""}', '2016-08-01 15:35:10', '2016-08-01 15:35:10', NULL),
-(54, 29, 'es', 'product_field', '{"label":"Description"}', '2016-08-01 20:27:18', '2016-08-01 20:27:18', NULL),
-(55, 28, 'es', 'catalog', '{"name":"1","description":"2a"}', '2016-08-01 21:38:23', '2016-08-01 22:04:15', NULL),
-(57, 30, 'es', 'catalog', '{"name":"2","description":"2"}', '2016-08-01 22:21:39', '2016-08-01 22:21:39', NULL),
-(59, 31, 'es', 'product_field', '{"label":"text"}', '2016-09-15 02:37:09', '2016-09-15 02:37:09', NULL),
-(61, 3, 'es', 'product_field_data', '3', '2016-09-15 02:40:09', '2016-09-15 02:40:09', NULL),
-(62, 4, 'es', 'product_field_data', '123', '2016-09-15 02:40:09', '2016-09-15 02:40:09', NULL),
-(63, 32, 'es', 'contact_field', '{"label":"1","placeholder":"2"}', '2016-09-18 03:41:48', '2016-09-18 03:41:48', NULL),
-(64, 33, 'es', 'contact_field', '{"label":"1","placeholder":"2"}', '2016-09-18 03:41:57', '2016-09-18 03:41:57', NULL),
-(65, 34, 'es', 'contact_field', '{"label":"3","placeholder":"5"}', '2016-09-18 03:51:46', '2016-09-18 03:51:46', NULL),
-(66, 35, 'es', 'contact_field', '{"label":"","placeholder":""}', '2016-09-18 03:54:40', '2016-09-18 03:54:40', NULL),
-(67, 36, 'es', 'contact_field', '{"label":"","placeholder":""}', '2016-09-18 03:56:48', '2016-09-18 03:56:48', NULL),
-(68, 37, 'es', 'slider_field', '{"label":"dsa"}', '2016-09-18 04:33:13', '2016-09-18 04:34:17', NULL);
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1208,7 +1183,7 @@ ALTER TABLE `content`
 -- AUTO_INCREMENT de la tabla `fields`
 --
 ALTER TABLE `fields`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=41;
 --
 -- AUTO_INCREMENT de la tabla `field_data`
 --
@@ -1244,6 +1219,11 @@ ALTER TABLE `inputs`
 --
 ALTER TABLE `input_type`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+--
+-- AUTO_INCREMENT de la tabla `languages`
+--
+ALTER TABLE `languages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `login_attempts`
 --
@@ -1283,7 +1263,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `sliders`
 --
 ALTER TABLE `sliders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=77;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=76;
 --
 -- AUTO_INCREMENT de la tabla `throttle`
 --
@@ -1293,7 +1273,7 @@ ALTER TABLE `throttle`
 -- AUTO_INCREMENT de la tabla `translations`
 --
 ALTER TABLE `translations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=69;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=74;
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
@@ -1336,7 +1316,7 @@ ALTER TABLE `forms`
 -- Filtros para la tabla `translations`
 --
 ALTER TABLE `translations`
-  ADD CONSTRAINT `fk_language_translarions_id` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_translations_language_id` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
