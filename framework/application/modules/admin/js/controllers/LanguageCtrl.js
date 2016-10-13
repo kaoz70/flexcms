@@ -8,7 +8,7 @@
  * @requires $scope
  * */
 angular.module('app')
-    .controller('LanguageCtrl', function($scope, $rootScope, Language, $routeSegment, WindowFactory){
+    .controller('LanguageCtrl', function($scope, $rootScope, Language, $routeSegment, WindowFactory, $route){
 
         //Close the sidebar on this controller
         $rootScope.isSidebarOpen = false;

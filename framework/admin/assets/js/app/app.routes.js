@@ -1,6 +1,8 @@
 (function() {
     'use strict';
 
+
+
     angular
         .module("app")
         .config(routeConfig);
@@ -11,9 +13,7 @@
         $routeSegmentProvider.options.autoLoadTemplates = true;
         //$routeProvider.otherwise({redirectTo: '/language'});
 
-        var basePath = 'framework/admin/';
-
-        $routeSegmentProvider
+        /*$routeSegmentProvider
             .when('/language', 'language')
             .when('/language/edit/:id', 'language.edit')
             .segment('language', {
@@ -39,7 +39,7 @@
                     templateUrl: basePath + 'views/language/Detail.html',
                     controller: 'LanguageEditCtrl',
                     dependencies: ['id']
-                });
+                });*/
 
         $routeProvider.otherwise({redirectTo: '/language'});
 

@@ -88,7 +88,7 @@
                     </li>
                 <? endforeach ?>
 
-                <li ng-class="{'active open': $routeSegment.startsWith('/language')}">
+                <li ng-class="{'active': $routeSegment.startsWith('language')}">
                     <a title="Idiomas"
                        ng-click="closePanel()"
                        rel="Editar idiomas para sitios multi-idiomas"
@@ -176,9 +176,14 @@
     <script src="<?= admin_asset_path('js/lib/angular/angular-breadcrumb.min.js') ?>"></script>
     <script src="<?= admin_asset_path('js/main.js') ?>"></script>
 
+
     <script src="<?= admin_asset_path('js/app/app.module.js') ?>"></script>
     <script src="<?= admin_asset_path('js/app/app.config.js') ?>"></script>
     <script src="<?= admin_asset_path('js/app/app.routes.js') ?>"></script>
+
+    <?php
+    \theme\Assets::js_group('admin', $assets_js);
+    ?>
 
     <script src="<?= admin_asset_path('js/app/directives/easypiechart.directive.js') ?>"></script>
     <script src="<?= admin_asset_path('js/app/directives/sparkline.directive.js') ?>"></script>
@@ -191,6 +196,8 @@
     <script src="<?= admin_asset_path('js/app/services/Template.js') ?>"></script>
     <script src="<?= admin_asset_path('js/app/services/Notification.js') ?>"></script>
     <script src="<?= admin_asset_path('js/app/controllers/sidebar.controller.js') ?>"></script>
+
+
 </div>
 
 <div id="modal-danger" class="modal modal-message modal-danger fade" style="display: none;" aria-hidden="true">

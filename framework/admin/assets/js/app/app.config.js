@@ -2,9 +2,14 @@
     'use strict';
 
     var app = angular.module('app');
-    app.run(function($rootScope, $timeout) {
+
+    //Base path used to find templates
+    app.constant('BASE_PATH', 'framework/admin/');
+
+    app.run(function($rootScope, $timeout, $route, $routeSegment) {
 
         $rootScope.isSidebarOpen = false;
+        $rootScope.$routeSegment = $routeSegment;
 
         $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
             $rootScope.hasFullContainer = toState.data.hasFullContainer;
@@ -12,7 +17,6 @@
             if (toState.ncyBreadcrumb && toState.ncyBreadcrumb.label) {
                 $rootScope.pageTitle = toState.ncyBreadcrumb.label;
             }
-
 
         });
 
@@ -34,10 +38,11 @@
 
     });
 
-    app.config(function($breadcrumbProvider) {
+    /*app.config(function($breadcrumbProvider) {
         $breadcrumbProvider.setOptions({
             templateUrl: 'framework/admin/templates/breadcrumb.html',
             includeAbstract: true,
         });
-    });
+    });*/
+
 }());

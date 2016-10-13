@@ -58,7 +58,6 @@ class Admin extends AdminController {
         $this->site_config = Config::get();
         $data['title'] = $this->site_config['site_name'];
         $data['error'] = $this->session->flashdata('error');
-        $data['assets_css'] = $this->assets_css;
 
         //User is loged in and is administrator
         if ($user && Sentinel::hasAccess(['admin'])) {
@@ -95,7 +94,7 @@ class Admin extends AdminController {
         $data['menu'] = \App\Admin::getModules();
 
         $data['assets_css'] = $this->assets_css;
-        $data['assets_js'] = array();
+        $data['assets_js'] = \App\Admin::getModuleAssets();
 
         $this->load->view('admin/index_view', $data);
     }
