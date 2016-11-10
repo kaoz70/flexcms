@@ -49,7 +49,11 @@ class Content extends BaseModel {
             ->get();
 
         foreach ($content as &$c){
-            $c->getTranslation($lang);
+            try {
+                $c->getTranslation($lang);
+            } catch (\TranslationException $e) {
+                $c->translation = "{Missing translation}";
+            }
         }
 
         return $content;
@@ -57,16 +61,27 @@ class Content extends BaseModel {
     }
 
     /**
-     * Get one content detail
+     * Get one content detail by language
      *
      * @param $content_id
      * @param $lang
      * @return Content
      */
-    static function get($content_id, $lang)
+    static function getTranslated($content_id, $lang)
     {
-        $content = static::find($content_id);
-        $content->getTranslation($lang);
+        $content = static::find($content_id)->getTranslation($lang);
+        return $content;
+    }
+
+    /**
+     * Get one content with all the available translations
+     *
+     * @param $content_id
+     * @return mixed
+     */
+    static function get($content_id)
+    {
+        $content = static::find($content_id)->getTranslations();
         return $content;
     }
 

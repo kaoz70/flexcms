@@ -60,10 +60,6 @@ class Content extends \AdminController
         $data['txt_titulo'] = 'Cat&aacute;logo';
         $data['txt_grupoNombre'] = 'Categoría';
 
-
-        /*
-         * MENU
-         */
         $data['menu'][] = anchor(base_url(static::URL_CREATE . $page_id), 'crear nuevo producto', [
             'id' => 'crear',
             'class' => $data['nivel'] . ' ajax boton importante n4'

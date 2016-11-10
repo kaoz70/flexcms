@@ -11,10 +11,10 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Themes
- * @version    3.0.3
+ * @version    3.0.6
  * @author     Cartalyst LLC
  * @license    Cartalyst PSL
- * @copyright  (c) 2011-2015, Cartalyst LLC
+ * @copyright  (c) 2011-2016, Cartalyst LLC
  * @link       http://cartalyst.com
  */
 
@@ -280,10 +280,10 @@ class AssetManagerTest extends PHPUnit_Framework_TestCase
         $manager->addFilter('php', function () { return new FilterStub; });
 
         $locationGenerator->shouldReceive('getPublicPath')->with('assets/cache')->once()->andReturn('assets/cache');
-        $themeBag->getFilesystem()->shouldReceive('exists')->twice()->with('/assets\/cache\/[a-z0-9].*?\.js/')->andReturn(false);
+        $themeBag->getFilesystem()->shouldReceive('exists')->twice()->with('/assets\/cache\/[a-z0-9_.-]+.js/')->andReturn(false);
         $themeBag->getFilesystem()->shouldReceive('files')->once()->andReturn([]);
-        $themeBag->getFilesystem()->shouldReceive('put')->with('/assets\/cache\/[a-z0-9].*?\.js/', m::type('string'))->twice();
-        $locationGenerator->shouldReceive('getPathUrl')->with('/assets\/cache\/[a-z0-9].*?\.js/')->twice()->andReturn('http://example.com/foo.js');
+        $themeBag->getFilesystem()->shouldReceive('put')->with('/assets\/cache\/[a-z0-9_.-]+.js/', m::type('string'))->twice();
+        $locationGenerator->shouldReceive('getPathUrl')->with('/assets\/cache\/[a-z0-9_.-]+.js/')->twice()->andReturn('http://example.com/foo.js');
 
         $this->assertCount(2, $urls = $manager->getCompiledScripts());
         $this->assertEquals(array('http://example.com/foo.js', 'http://example.com/foo.js'), $urls);
@@ -307,10 +307,10 @@ class AssetManagerTest extends PHPUnit_Framework_TestCase
         $manager->addFilter('php', function () { return new FilterStub; });
 
         $locationGenerator->shouldReceive('getPublicPath')->with('assets/cache')->once()->andReturn('assets/cache');
-        $themeBag->getFilesystem()->shouldReceive('exists')->once()->with('/assets\/cache\/[a-z0-9].*?\.js/')->andReturn(false);
+        $themeBag->getFilesystem()->shouldReceive('exists')->once()->with('/assets\/cache\/[a-z0-9_.-]+.js/')->andReturn(false);
         $themeBag->getFilesystem()->shouldReceive('files')->once()->andReturn([]);
-        $themeBag->getFilesystem()->shouldReceive('put')->with('/assets\/cache\/[a-z0-9].*?\.js/', m::type('string'))->once();
-        $locationGenerator->shouldReceive('getPathUrl')->with('/assets\/cache\/[a-z0-9].*?\.js/')->once()->andReturn('http://example.com/foo.js');
+        $themeBag->getFilesystem()->shouldReceive('put')->with('/assets\/cache\/[a-z0-9_.-]+.js/', m::type('string'))->once();
+        $locationGenerator->shouldReceive('getPathUrl')->with('/assets\/cache\/[a-z0-9_.-]+.js/')->once()->andReturn('http://example.com/foo.js');
 
         $this->assertCount(1, $urls = $manager->getCompiledScripts());
         $this->assertEquals(array('http://example.com/foo.js'), $urls);
@@ -335,8 +335,8 @@ class AssetManagerTest extends PHPUnit_Framework_TestCase
 
         $locationGenerator->shouldReceive('getPublicPath')->with('assets/cache')->once()->andReturn('assets/cache');
         $themeBag->getFilesystem()->shouldReceive('files')->once()->andReturn([]);
-        $themeBag->getFilesystem()->shouldReceive('put')->with('/assets\/cache\/[a-z0-9].*?\.js/', m::type('string'))->twice();
-        $locationGenerator->shouldReceive('getPathUrl')->with('/assets\/cache\/[a-z0-9].*?\.js/')->twice()->andReturn('http://example.com/foo.js');
+        $themeBag->getFilesystem()->shouldReceive('put')->with('/assets\/cache\/[a-z0-9_.-]+.js/', m::type('string'))->twice();
+        $locationGenerator->shouldReceive('getPathUrl')->with('/assets\/cache\/[a-z0-9_.-]+.js/')->twice()->andReturn('http://example.com/foo.js');
 
         $this->assertCount(2, $urls = $manager->getCompiledScripts());
         $this->assertEquals(array('http://example.com/foo.js', 'http://example.com/foo.js'), $urls);
@@ -366,14 +366,68 @@ class AssetManagerTest extends PHPUnit_Framework_TestCase
         $filename2 = 'admin_theme.foobar.' . $manager->getCompileFileName($asset1, 'js');
 
         $locationGenerator->shouldReceive('getPublicPath')->with('assets/cache')->once()->andReturn('assets/cache');
-        $themeBag->getFilesystem()->shouldReceive('exists')->twice()->with('/assets\/cache\/[a-z0-9].*?\.js/')->andReturn(false);
+        $themeBag->getFilesystem()->shouldReceive('exists')->twice()->with('/assets\/cache\/[a-z0-9_.-]+.js/')->andReturn(false);
         $themeBag->getFilesystem()->shouldReceive('files')->once()->andReturn([$filename1, $filename2]);
-        $themeBag->getFilesystem()->shouldReceive('put')->with('/assets\/cache\/[a-z0-9].*?\.js/', m::type('string'))->twice();
+        $themeBag->getFilesystem()->shouldReceive('put')->with('/assets\/cache\/[a-z0-9_.-]+.js/', m::type('string'))->twice();
         $themeBag->getFilesystem()->shouldReceive('delete')->with('admin_theme.default.foo_bar.js')->twice();
-        $locationGenerator->shouldReceive('getPathUrl')->with('/assets\/cache\/[a-z0-9].*?\.js/')->twice()->andReturn('http://example.com/foo_bar.js');
+        $locationGenerator->shouldReceive('getPathUrl')->with('/assets\/cache\/[a-z0-9_.-]+.js/')->twice()->andReturn('http://example.com/foo_bar.js');
 
         $this->assertCount(2, $urls = $manager->getCompiledScripts());
         $this->assertEquals(array('http://example.com/foo_bar.js', 'http://example.com/foo_bar.js'), $urls);
+    }
+
+    public function testCompilingThemeNamesWithSlashes()
+    {
+        list($themeBag, $viewFinder, $locationGenerator) = $this->mockManagerDependecies();
+
+        $manager = m::mock('Cartalyst\Themes\Assets\AssetManager[getSorted]', [$themeBag, $viewFinder, $locationGenerator]);
+
+        $manager->shouldReceive('getSorted')->with('scripts')->once()->andReturn(array(
+            $asset1 = new Asset(__FILE__),
+            $asset2 = new Asset(__FILE__),
+        ));
+
+        $themeBag->shouldReceive('getActive')->twice()->andReturn($theme = m::mock('Cartalyst\Themes\Theme'));
+        $theme->shouldReceive('getArea')->twice()->andReturn('dashboard');
+        $theme->shouldReceive('getKey')->twice()->andReturn('foo/bar');
+
+        $manager->addFilter('php', function () { return new FilterStub; });
+
+        $locationGenerator->shouldReceive('getPublicPath')->with('assets/cache')->once()->andReturn('assets/cache');
+        $themeBag->getFilesystem()->shouldReceive('exists')->twice()->with('/assets\/cache\/[a-z0-9_.-]+.js/')->andReturn(false);
+        $themeBag->getFilesystem()->shouldReceive('files')->once()->andReturn([]);
+        $themeBag->getFilesystem()->shouldReceive('put')->with('/assets\/cache\/[a-z0-9_.-]+.js/', m::type('string'))->twice();
+        $locationGenerator->shouldReceive('getPathUrl')->with('/assets\/cache\/[a-z0-9_.-]+.js/')->twice()->andReturn('http://example.com/foo.js');
+
+        $this->assertCount(2, $urls = $manager->getCompiledScripts());
+        $this->assertEquals(array('http://example.com/foo.js', 'http://example.com/foo.js'), $urls);
+    }
+
+    public function testCompilingThemeNamesWithDashes()
+    {
+        list($themeBag, $viewFinder, $locationGenerator) = $this->mockManagerDependecies();
+
+        $manager = m::mock('Cartalyst\Themes\Assets\AssetManager[getSorted]', [$themeBag, $viewFinder, $locationGenerator]);
+
+        $manager->shouldReceive('getSorted')->with('scripts')->once()->andReturn(array(
+            $asset1 = new Asset(__FILE__),
+            $asset2 = new Asset(__FILE__),
+        ));
+
+        $themeBag->shouldReceive('getActive')->twice()->andReturn($theme = m::mock('Cartalyst\Themes\Theme'));
+        $theme->shouldReceive('getArea')->twice()->andReturn('dashboard');
+        $theme->shouldReceive('getKey')->twice()->andReturn('foo-bar');
+
+        $manager->addFilter('php', function () { return new FilterStub; });
+
+        $locationGenerator->shouldReceive('getPublicPath')->with('assets/cache')->once()->andReturn('assets/cache');
+        $themeBag->getFilesystem()->shouldReceive('exists')->twice()->with('/assets\/cache\/[a-z0-9_.-]+.js/')->andReturn(false);
+        $themeBag->getFilesystem()->shouldReceive('files')->once()->andReturn([]);
+        $themeBag->getFilesystem()->shouldReceive('put')->with('/assets\/cache\/[a-z0-9_.-]+.js/', m::type('string'))->twice();
+        $locationGenerator->shouldReceive('getPathUrl')->with('/assets\/cache\/[a-z0-9_.-]+.js/')->twice()->andReturn('http://example.com/foo.js');
+
+        $this->assertCount(2, $urls = $manager->getCompiledScripts());
+        $this->assertEquals(array('http://example.com/foo.js', 'http://example.com/foo.js'), $urls);
     }
 
     /**

@@ -11,10 +11,10 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Nested Sets
- * @version    3.0.0
+ * @version    3.1.0
  * @author     Cartalyst LLC
  * @license    Cartalyst PSL
- * @copyright  (c) 2011-2015, Cartalyst LLC
+ * @copyright  (c) 2011-2016, Cartalyst LLC
  * @link       http://cartalyst.com
  */
 
@@ -98,6 +98,22 @@ interface WorkerInterface
      * @return Cartalyst\NestedSets\Nodes\NodeInterface  $parent
      */
     public function parentNode(NodeInterface $node);
+
+    /**
+     * Returns the next sibling node for the given node or null.
+     *
+     * @param  Cartalyst\NestedSets\Nodes\NodeInterface      $node
+     * @return Cartalyst\NestedSets\Nodes\NodeInterface|null $parent
+     */
+    public function nextSibling(NodeInterface $node);
+
+    /**
+     * Returns the previous sibling node for the given node or null.
+     *
+     * @param  Cartalyst\NestedSets\Nodes\NodeInterface      $node
+     * @return Cartalyst\NestedSets\Nodes\NodeInterface|null $parent
+     */
+    public function previousSibling(NodeInterface $node);
 
     /**
      * Returns all children for the given node in a flat
@@ -252,6 +268,15 @@ interface WorkerInterface
      * @return void
      */
     public function moveNodeAsNextSibling(NodeInterface $node, NodeInterface $sibling);
+
+    /**
+     * Moves the given root from one position to another
+     *
+     * @param Cartalyst\NestedSets\Nodes\NodeInterface $from
+     * @param Cartalyst\NestedSets\Nodes\NodeInterface $to
+     * @return void
+     */
+    public function moveRoot(NodeInterface $from, NodeInterface $to);
 
     /**
      * Removes a node from the database and orphans

@@ -1,28 +1,32 @@
+.animsition {
+  height: 100%;
+}
 #windows {
   position: absolute;
-  top: 75px;
+  top: 35px;
   left: 13px;
   right: 13px;
-  bottom: 13px;
   display: flex;
-  -webkit-perspective: 1000px;
-  -moz-perspective: 1000px;
-  perspective: 1000px;
+  overflow: auto;
+  padding: 42px 0;
+  bottom: 0;
+  -webkit-perspective: 2000px;
+  -moz-perspective: 2000px;
+  perspective: 2000px;
 }
 #windows > [app-view-segment] {
-  width: 80%;
   height: 100%;
+  position: relative;
   -webkit-transition: all 400ms;
   -moz-transition: all 400ms;
   -o-transition: all 400ms;
   transition: all 400ms;
-  -webkit-transform-origin: left;
-  -moz-transform-origin: left;
-  -o-transform-origin: left;
-  transform-origin: left;
   opacity: 0;
-  position: absolute;
-  right: -50%;
+  /*-webkit-transform-origin: right;
+    -moz-transform-origin: right;
+    -o-transform-origin: right;
+    transform-origin: right;
+    position: absolute;*/
 }
 #windows > [app-view-segment] > .panel {
   box-shadow: 0 4px 50px rgba(0, 0, 0, 0.76);
@@ -30,8 +34,15 @@
   min-width: 350px;
   margin-right: 10px;
 }
+#windows > [app-view-segment].active {
+  opacity: 1;
+}
+#windows > [app-view-segment].active:first-child {
+  left: 0;
+}
 #windows > [app-view-segment]:not(.active) {
   z-index: -1;
+  opacity: 0;
 }
 .main-content {
   position: relative;

@@ -11,10 +11,10 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Sentinel
- * @version    2.0.8
+ * @version    2.0.13
  * @author     Cartalyst LLC
  * @license    BSD License (3-clause)
- * @copyright  (c) 2011-2015, Cartalyst LLC
+ * @copyright  (c) 2011-2016, Cartalyst LLC
  * @link       http://cartalyst.com
  */
 
@@ -48,6 +48,20 @@ class EloquentRole extends Model implements RoleInterface, PermissibleInterface
      * @var string
      */
     protected static $usersModel = 'Cartalyst\Sentinel\Users\EloquentUser';
+
+    /**
+     * {@inheritDoc}
+     */
+    public function delete()
+    {
+        $isSoftDeleted = array_key_exists('Illuminate\Database\Eloquent\SoftDeletes', class_uses($this));
+
+        if ($this->exists && ! $isSoftDeleted) {
+            $this->users()->detach();
+        }
+
+        return parent::delete();
+    }
 
     /**
      * The Users relationship.

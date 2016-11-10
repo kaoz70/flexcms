@@ -52,22 +52,21 @@ class BaseModel extends Model {
 
         if($translation) {
             $this->translation = json_decode($translation->data);
-
-            return $this->translation;
         } else {
-            throw new \TranslationException("Content translation does not exist");
+            $this->translation = null;
         }
+
+        return $this;
 
     }
 
     /**
      * Get all the translations available for the content
      *
-     * @param $type
      * @return array
      * @throws RuntimeException
      */
-    public function getTranslations($type)
+    public function getTranslations()
     {
 
         $languages = Language::all();
@@ -75,7 +74,7 @@ class BaseModel extends Model {
 
         foreach($languages as $lang) {
             try {
-                $arr[$lang->id] = $this->getTranslation($lang->id, $type);
+                $arr[$lang->id] = $this->getTranslation($lang->id);
             } catch (\TranslationException $e) {
                 //No translation available
                 $arr[$lang->id] = '';

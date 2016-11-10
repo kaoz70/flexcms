@@ -61,7 +61,7 @@
                     </ul>
                 </li>
 
-                <li ng-class="{'active open': $state.includes('page')}">
+                <li ng-class="{'active open': $routeSegment.startsWith('page')}">
                     <a ng-click="openPanel()">
                         <i class="material-icons">view_list</i>
                         <span>P&aacute;ginas</span>

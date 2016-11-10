@@ -2,6 +2,9 @@
 [10.2. Membership (Login/Register)]
 */
 
+@import "variables";
+@import "../lib/mixins.less";
+
 @membership-color: #ccc;
 @membership-bg: @default;
 @membership-a-color: darken(@membership-color, 30%);
@@ -126,7 +129,7 @@
         height: 100%;
 
         .brand-wrapper {
-            background-image: url("/assets/img/login-bg.jpg");
+            background-image: url("../img/login-bg.jpg");
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;

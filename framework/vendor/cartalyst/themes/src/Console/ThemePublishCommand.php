@@ -11,10 +11,10 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Themes
- * @version    3.0.3
+ * @version    3.0.6
  * @author     Cartalyst LLC
  * @license    Cartalyst PSL
- * @copyright  (c) 2011-2015, Cartalyst LLC
+ * @copyright  (c) 2011-2016, Cartalyst LLC
  * @link       http://cartalyst.com
  */
 
@@ -87,6 +87,10 @@ class ThemePublishCommand extends Command
     public function fire()
     {
         $this->watcher = new Watcher(new Tracker, $this->laravel['files']);
+
+        if ($this->input->getOption('watch')) {
+            $this->publisher->showTimestampsOnWatch = true;
+        }
 
         if ($package = $this->input->getOption('package')) {
             $this->publishPackage($package);

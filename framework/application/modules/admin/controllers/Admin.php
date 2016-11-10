@@ -58,6 +58,7 @@ class Admin extends AdminController {
         $this->site_config = Config::get();
         $data['title'] = $this->site_config['site_name'];
         $data['error'] = $this->session->flashdata('error');
+        $data['assets_css'] = $this->assets_css;
 
         //User is loged in and is administrator
         if ($user && Sentinel::hasAccess(['admin'])) {
@@ -131,7 +132,7 @@ class Admin extends AdminController {
      */
     public function validate(){
 
-        $this->form_validation->set_rules('username', 'Usuario', 'required');
+        $this->form_validation->set_rules('username', 'Email', 'required');
         $this->form_validation->set_rules('password', 'Contraseña', 'required');
 
         $data['assets_css'] = $this->assets_css;

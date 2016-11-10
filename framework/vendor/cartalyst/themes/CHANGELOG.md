@@ -11,6 +11,24 @@ We do not give estimated times for completion on `Accepted` Proposals.
 
 ---
 
+### v3.0.6 - 2016-10-01
+
+`FIXED`
+
+- Issue with the override view finder.
+
+### v3.0.5 - 2016-01-22
+
+`FIXED`
+
+- Cached asset handling for theme slugs containing slashes or dashes.
+
+### v3.0.4 - 2015-12-12
+
+`UPDATED`
+
+- Update `theme:publish` command to prepend timestamps when passing the `--watch` option.
+
 ### v3.0.3 - 2015-11-12
 
 `UPDATED`

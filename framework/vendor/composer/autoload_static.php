@@ -4,31 +4,40 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit135b406a2343c5cbb9cf974255f17561
+class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
 {
     public static $files = array (
-        '65fec9ebcfbb3cbb4fd0d519687aea01' => __DIR__ . '/..' . '/danielstjules/stringy/src/Create.php',
+        '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        'e40631d46120a9c38ea139981f8dab26' => __DIR__ . '/..' . '/ircmaxell/password-compat/lib/password.php',
         'ce89ac35a6c330c55f4710717db9ff78' => __DIR__ . '/..' . '/kriswallsmith/assetic/src/functions.php',
-        '742b7e606e92b28dd726e835467f413a' => __DIR__ . '/..' . '/herrera-io/json/src/lib/json_version.php',
+        'edc6464955a37aa4d5fbf39d40fb6ee7' => __DIR__ . '/..' . '/symfony/polyfill-php55/bootstrap.php',
         '3e2471375464aac821502deb0ac64275' => __DIR__ . '/..' . '/symfony/polyfill-php54/bootstrap.php',
+        '742b7e606e92b28dd726e835467f413a' => __DIR__ . '/..' . '/herrera-io/json/src/lib/json_version.php',
         '6bc45d0537e6858fd179bdbc31d62c79' => __DIR__ . '/..' . '/raveren/kint/Kint.class.php',
+        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
+            'Symfony\\Polyfill\\Php55\\' => 23,
             'Symfony\\Polyfill\\Php54\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Component\\VarDumper\\' => 28,
             'Symfony\\Component\\Translation\\' => 30,
             'Symfony\\Component\\Process\\' => 26,
             'Symfony\\Component\\HttpFoundation\\' => 33,
             'Symfony\\Component\\Finder\\' => 25,
             'Symfony\\Component\\Filesystem\\' => 29,
             'Symfony\\Component\\EventDispatcher\\' => 34,
-            'Stringy\\' => 8,
+            'Symfony\\Component\\Debug\\' => 24,
             'Seld\\JsonLint\\' => 14,
+        ),
+        'P' => 
+        array (
+            'Psr\\Log\\' => 8,
         ),
         'L' => 
         array (
@@ -44,6 +53,7 @@ class ComposerStaticInit135b406a2343c5cbb9cf974255f17561
         array (
             'Illuminate\\View\\' => 16,
             'Illuminate\\Support\\' => 19,
+            'Illuminate\\Pagination\\' => 22,
             'Illuminate\\Filesystem\\' => 22,
             'Illuminate\\Events\\' => 18,
             'Illuminate\\Database\\' => 20,
@@ -54,6 +64,13 @@ class ComposerStaticInit135b406a2343c5cbb9cf974255f17561
         array (
             'Gajus\\Dindent\\' => 14,
         ),
+        'D' => 
+        array (
+            'Dotenv\\' => 7,
+            'Doctrine\\Common\\Cache\\' => 22,
+            'Doctrine\\Common\\Annotations\\' => 28,
+            'Doctrine\\Common\\' => 16,
+        ),
         'C' => 
         array (
             'Cartalyst\\Themes\\' => 17,
@@ -62,11 +79,16 @@ class ComposerStaticInit135b406a2343c5cbb9cf974255f17561
             'Cartalyst\\Sentinel\\' => 19,
             'Cartalyst\\NestedSets\\' => 21,
             'Cartalyst\\Interpret\\' => 20,
+            'Cartalyst\\AsseticFilters\\' => 25,
             'Carbon\\' => 7,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Symfony\\Polyfill\\Php55\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php55',
+        ),
         'Symfony\\Polyfill\\Php54\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php54',
@@ -74,6 +96,10 @@ class ComposerStaticInit135b406a2343c5cbb9cf974255f17561
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Component\\VarDumper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/var-dumper',
         ),
         'Symfony\\Component\\Translation\\' => 
         array (
@@ -99,13 +125,17 @@ class ComposerStaticInit135b406a2343c5cbb9cf974255f17561
         array (
             0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
         ),
-        'Stringy\\' => 
+        'Symfony\\Component\\Debug\\' => 
         array (
-            0 => __DIR__ . '/..' . '/danielstjules/stringy/src',
+            0 => __DIR__ . '/..' . '/symfony/debug',
         ),
         'Seld\\JsonLint\\' => 
         array (
             0 => __DIR__ . '/..' . '/seld/jsonlint/src/Seld/JsonLint',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
         'League\\OAuth2\\Client\\' => 
         array (
@@ -131,6 +161,10 @@ class ComposerStaticInit135b406a2343c5cbb9cf974255f17561
         array (
             0 => __DIR__ . '/..' . '/illuminate/support',
         ),
+        'Illuminate\\Pagination\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/pagination',
+        ),
         'Illuminate\\Filesystem\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/filesystem',
@@ -154,6 +188,22 @@ class ComposerStaticInit135b406a2343c5cbb9cf974255f17561
         'Gajus\\Dindent\\' => 
         array (
             0 => __DIR__ . '/..' . '/gajus/dindent/src',
+        ),
+        'Dotenv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
+        ),
+        'Doctrine\\Common\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache',
+        ),
+        'Doctrine\\Common\\Annotations\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations',
+        ),
+        'Doctrine\\Common\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
         ),
         'Cartalyst\\Themes\\' => 
         array (
@@ -179,6 +229,10 @@ class ComposerStaticInit135b406a2343c5cbb9cf974255f17561
         array (
             0 => __DIR__ . '/..' . '/cartalyst/interpret/src',
         ),
+        'Cartalyst\\AsseticFilters\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cartalyst/assetic-filters/src',
+        ),
         'Carbon\\' => 
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
@@ -186,15 +240,18 @@ class ComposerStaticInit135b406a2343c5cbb9cf974255f17561
     );
 
     public static $prefixesPsr0 = array (
+        'T' => 
+        array (
+            'Twig_' => 
+            array (
+                0 => __DIR__ . '/..' . '/twig/twig/lib',
+            ),
+        ),
         'M' => 
         array (
             'Michelf' => 
             array (
                 0 => __DIR__ . '/..' . '/michelf/php-markdown',
-            ),
-            'Mailchimp' => 
-            array (
-                0 => __DIR__ . '/..' . '/mailchimp/mailchimp/src',
             ),
         ),
         'J' => 
@@ -224,9 +281,21 @@ class ComposerStaticInit135b406a2343c5cbb9cf974255f17561
         ),
         'D' => 
         array (
+            'Doctrine\\DBAL\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/doctrine/dbal/lib',
+            ),
+            'Doctrine\\Common\\Lexer\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/doctrine/lexer/lib',
+            ),
             'Doctrine\\Common\\Inflector\\' => 
             array (
                 0 => __DIR__ . '/..' . '/doctrine/inflector/lib',
+            ),
+            'Doctrine\\Common\\Collections\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/doctrine/collections/lib',
             ),
         ),
         'C' => 
@@ -234,6 +303,10 @@ class ComposerStaticInit135b406a2343c5cbb9cf974255f17561
             'Composer\\Installer' => 
             array (
                 0 => __DIR__ . '/..' . '/compwright/codeigniter-installers/src',
+            ),
+            'CoffeeScript' => 
+            array (
+                0 => __DIR__ . '/..' . '/coffeescript/coffeescript/src',
             ),
             'Cartalyst\\Dependencies' => 
             array (
@@ -270,6 +343,7 @@ class ComposerStaticInit135b406a2343c5cbb9cf974255f17561
         'App\\Input' => __DIR__ . '/../../..' . '/framework/application/models/Input.php',
         'App\\Language' => __DIR__ . '/../../..' . '/framework/application/models/Language.php',
         'App\\Requirements' => __DIR__ . '/../../..' . '/framework/application/libraries/Requirements.php',
+        'App\\Response' => __DIR__ . '/../../..' . '/framework/application/models/Response.php',
         'App\\Role' => __DIR__ . '/../../..' . '/framework/application/modules/auth/models/Role.php',
         'App\\RoleUser' => __DIR__ . '/../../..' . '/framework/application/modules/auth/models/RoleUser.php',
         'App\\Row' => __DIR__ . '/../../..' . '/framework/application/modules/admin/models/Row.php',
@@ -320,6 +394,64 @@ class ComposerStaticInit135b406a2343c5cbb9cf974255f17561
         'Contact\\Person' => __DIR__ . '/../../..' . '/framework/application/modules/contact/controllers/Person.php',
         'ContentInterface' => __DIR__ . '/../../..' . '/framework/application/interfaces/ContentInterface.php',
         'Content\\Main' => __DIR__ . '/../../..' . '/framework/application/modules/content/controllers/Main.php',
+        'CssAtCharsetParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssAtCharsetToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssAtFontFaceDeclarationToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssAtFontFaceEndToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssAtFontFaceParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssAtFontFaceStartToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssAtImportParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssAtImportToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssAtKeyframesEndToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssAtKeyframesParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssAtKeyframesRulesetDeclarationToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssAtKeyframesRulesetEndToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssAtKeyframesRulesetStartToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssAtKeyframesStartToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssAtMediaEndToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssAtMediaParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssAtMediaStartToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssAtPageDeclarationToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssAtPageEndToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssAtPageParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssAtPageStartToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssAtVariablesDeclarationToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssAtVariablesEndToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssAtVariablesParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssAtVariablesStartToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssCommentParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssCommentToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssCompressColorValuesMinifierPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssCompressExpressionValuesMinifierPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssCompressUnitValuesMinifierPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssConvertFontWeightMinifierPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssConvertHslColorsMinifierPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssConvertLevel3AtKeyframesMinifierFilter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssConvertLevel3PropertiesMinifierFilter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssConvertNamedColorsMinifierPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssConvertRgbColorsMinifierPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssError' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssExpressionParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssImportImportsMinifierFilter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssMin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssMinifier' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssNullToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssOtbsFormatter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssParser' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssRemoveCommentsMinifierFilter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssRemoveEmptyAtBlocksMinifierFilter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssRemoveEmptyRulesetsMinifierFilter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssRemoveLastDelarationSemiColonMinifierFilter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssRulesetDeclarationToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssRulesetEndToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssRulesetParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssRulesetStartToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssSortRulesetPropertiesMinifierFilter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssStringParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssUrlParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssVariablesMinifierFilter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssVariablesMinifierPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'CssWhitesmithsFormatter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
         'Day' => __DIR__ . '/../../..' . '/framework/application/modules/calendar/controllers/Day.php',
         'Descargas_model' => __DIR__ . '/../../..' . '/framework/application/modules/file/models/Descargas_model.php',
         'DooDigestAuth' => __DIR__ . '/..' . '/mrclay/minify/min/lib/DooDigestAuth.php',
@@ -399,6 +531,77 @@ class ComposerStaticInit135b406a2343c5cbb9cf974255f17561
         'Pedido_model' => __DIR__ . '/../../..' . '/framework/application/modules/cart/models/Pedido_model.php',
         'Publicidad_model' => __DIR__ . '/../../..' . '/framework/application/modules/advert/models/Publicidad_model.php',
         'RecursiveCallbackFilterIterator' => __DIR__ . '/..' . '/symfony/polyfill-php54/Resources/stubs/RecursiveCallbackFilterIterator.php',
+        'SassBoolean' => __DIR__ . '/..' . '/richthegeek/phpsass/script/literals/SassBoolean.php',
+        'SassBooleanException' => __DIR__ . '/..' . '/richthegeek/phpsass/script/literals/SassLiteralExceptions.php',
+        'SassColour' => __DIR__ . '/..' . '/richthegeek/phpsass/script/literals/SassColour.php',
+        'SassColourException' => __DIR__ . '/..' . '/richthegeek/phpsass/script/literals/SassLiteralExceptions.php',
+        'SassCommentNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassCommentNode.php',
+        'SassCommentNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
+        'SassCompactRenderer' => __DIR__ . '/..' . '/richthegeek/phpsass/renderers/SassCompactRenderer.php',
+        'SassCompressedRenderer' => __DIR__ . '/..' . '/richthegeek/phpsass/renderers/SassCompressedRenderer.php',
+        'SassContentNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassContentNode.php',
+        'SassContext' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassContext.php',
+        'SassContextException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
+        'SassDebugNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassDebugNode.php',
+        'SassDebugNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
+        'SassDirectiveNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassDirectiveNode.php',
+        'SassDirectiveNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
+        'SassEachNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassEachNode.php',
+        'SassEachNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
+        'SassElseNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassElseNode.php',
+        'SassException' => __DIR__ . '/..' . '/richthegeek/phpsass/SassException.php',
+        'SassExpandedRenderer' => __DIR__ . '/..' . '/richthegeek/phpsass/renderers/SassExpandedRenderer.php',
+        'SassExtendNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassExtendNode.php',
+        'SassExtendNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
+        'SassFile' => __DIR__ . '/..' . '/richthegeek/phpsass/SassFile.php',
+        'SassForNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassForNode.php',
+        'SassForNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
+        'SassFunctionDefinitionNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassFunctionDefinitionNode.php',
+        'SassFunctionDefinitionNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
+        'SassIfNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassIfNode.php',
+        'SassIfNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
+        'SassImportNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassImportNode.php',
+        'SassImportNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
+        'SassList' => __DIR__ . '/..' . '/richthegeek/phpsass/script/literals/SassList.php',
+        'SassListException' => __DIR__ . '/..' . '/richthegeek/phpsass/script/literals/SassLiteralExceptions.php',
+        'SassLiteral' => __DIR__ . '/..' . '/richthegeek/phpsass/script/literals/SassLiteral.php',
+        'SassLiteralException' => __DIR__ . '/..' . '/richthegeek/phpsass/script/literals/SassLiteralExceptions.php',
+        'SassMediaNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassMediaNode.php',
+        'SassMixinDefinitionNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassMixinDefinitionNode.php',
+        'SassMixinDefinitionNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
+        'SassMixinNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassMixinNode.php',
+        'SassMixinNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
+        'SassNestedRenderer' => __DIR__ . '/..' . '/richthegeek/phpsass/renderers/SassNestedRenderer.php',
+        'SassNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNode.php',
+        'SassNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
+        'SassNumber' => __DIR__ . '/..' . '/richthegeek/phpsass/script/literals/SassNumber.php',
+        'SassNumberException' => __DIR__ . '/..' . '/richthegeek/phpsass/script/literals/SassLiteralExceptions.php',
+        'SassParser' => __DIR__ . '/..' . '/richthegeek/phpsass/SassParser.php',
+        'SassPropertyNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassPropertyNode.php',
+        'SassPropertyNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
+        'SassRenderer' => __DIR__ . '/..' . '/richthegeek/phpsass/renderers/SassRenderer.php',
+        'SassReturn' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassReturnNode.php',
+        'SassReturnNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassReturnNode.php',
+        'SassRootNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassRootNode.php',
+        'SassRuleNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassRuleNode.php',
+        'SassRuleNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
+        'SassScriptFunction' => __DIR__ . '/..' . '/richthegeek/phpsass/script/SassScriptFunction.php',
+        'SassScriptFunctionException' => __DIR__ . '/..' . '/richthegeek/phpsass/script/SassScriptParserExceptions.php',
+        'SassScriptFunctions' => __DIR__ . '/..' . '/richthegeek/phpsass/script/SassScriptFunctions.php',
+        'SassScriptLexer' => __DIR__ . '/..' . '/richthegeek/phpsass/script/SassScriptLexer.php',
+        'SassScriptLexerException' => __DIR__ . '/..' . '/richthegeek/phpsass/script/SassScriptParserExceptions.php',
+        'SassScriptOperation' => __DIR__ . '/..' . '/richthegeek/phpsass/script/SassScriptOperation.php',
+        'SassScriptOperationException' => __DIR__ . '/..' . '/richthegeek/phpsass/script/SassScriptParserExceptions.php',
+        'SassScriptParser' => __DIR__ . '/..' . '/richthegeek/phpsass/script/SassScriptParser.php',
+        'SassScriptParserException' => __DIR__ . '/..' . '/richthegeek/phpsass/script/SassScriptParserExceptions.php',
+        'SassScriptVariable' => __DIR__ . '/..' . '/richthegeek/phpsass/script/SassScriptVariable.php',
+        'SassString' => __DIR__ . '/..' . '/richthegeek/phpsass/script/literals/SassString.php',
+        'SassStringException' => __DIR__ . '/..' . '/richthegeek/phpsass/script/literals/SassLiteralExceptions.php',
+        'SassVariableNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassVariableNode.php',
+        'SassVariableNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
+        'SassWarnNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassWarnNode.php',
+        'SassWhileNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassWhileNode.php',
+        'SassWhileNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
         'Search' => __DIR__ . '/../../..' . '/framework/application/controllers/Search.php',
         'Search_model' => __DIR__ . '/../../..' . '/framework/application/models/_Search_model.php',
         'Seguridad' => __DIR__ . '/../../..' . '/framework/application/libraries/Seguridad.php',
@@ -413,6 +616,16 @@ class ComposerStaticInit135b406a2343c5cbb9cf974255f17561
         'Upload' => __DIR__ . '/../../..' . '/framework/application/modules/admin/controllers/Upload.php',
         'Widget' => __DIR__ . '/../../..' . '/framework/application/modules/admin/controllers/Widget.php',
         'WidgetInterface' => __DIR__ . '/../../..' . '/framework/application/interfaces/WidgetInterface.php',
+        'aCssAtBlockEndToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'aCssAtBlockStartToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'aCssDeclarationToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'aCssFormatter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'aCssMinifierFilter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'aCssMinifierPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'aCssParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'aCssRulesetEndToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'aCssRulesetStartToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'aCssToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
         'admin\\Category' => __DIR__ . '/../../..' . '/framework/application/modules/admin/models/Category.php',
         'admin\\auth\\Main' => __DIR__ . '/../../..' . '/framework/application/modules/auth/controllers/Main.php',
         'auth\\Field' => __DIR__ . '/../../..' . '/framework/application/modules/auth/controllers/Field.php',
@@ -473,10 +686,10 @@ class ComposerStaticInit135b406a2343c5cbb9cf974255f17561
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit135b406a2343c5cbb9cf974255f17561::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit135b406a2343c5cbb9cf974255f17561::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit135b406a2343c5cbb9cf974255f17561::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit135b406a2343c5cbb9cf974255f17561::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9::$classMap;
 
         }, null, ClassLoader::class);
     }

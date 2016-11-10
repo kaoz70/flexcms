@@ -41,7 +41,7 @@
                     dependencies: ['id']
                 });*/
 
-        $routeProvider.otherwise({redirectTo: '/language'});
+        $routeProvider.otherwise({redirectTo: '/'});
 
         /*$stateProvider.state('dashboard', {
                 abstract: true,

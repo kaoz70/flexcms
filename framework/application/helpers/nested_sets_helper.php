@@ -96,7 +96,7 @@ if ( ! function_exists('admin_structure_tree'))
 
                 $return .= "<div class='dd-handle dd3-handle'>Drag</div>";
                 $return .= "<div class='dd3-content'>";
-                $return .= "<a href='" . base_url('admin/page/edit') . "/{$childNode->id}' >";
+                $return .= "<a ng-href='#/page/{$childNode->id}' >";
                 $return .= '<span class="page">' . $childNode->translation->name . '</span>';
                 $return .= '</a>';
                 $return .= '</div>';

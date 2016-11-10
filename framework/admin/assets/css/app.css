@@ -18067,7 +18067,7 @@ width:calc(100% - 90px);
   height: 100%;
 }
 .membership .membership-brand .brand-wrapper {
-  background-image: url("/assets/img/login-bg.jpg");
+  background-image: url("../img/login-bg.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

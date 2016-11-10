@@ -11,6 +11,7 @@ $_ns = __NAMESPACE__;
 
 use App\Category;
 use App\Config;
+use App\Response;
 use App\Widget;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
@@ -39,29 +40,19 @@ class Content extends \AdminController implements \ContentInterface
         $widget = Widget::getContentWidget($page_id);
         $contentOrder = $widget->getConfig()->order;
 
-        $data['items'] = \App\Content::getByPage($page_id, 'es', $contentOrder);
-        $data['title'] = $page->getTranslation('es', 'page')->name;
+        $data['items'] = \App\Content::getByPage($page_id, 'es', $contentOrder)->getDictionary();
+        $data['menu'] = [
+            ['title' => 'configuraci&oacute;n', 'url' => static::URL_CONFIG],
+            ['title' => '"crear nuevo contenido', 'url' => static::URL_CREATE],
+        ];
 
-        $data['url_sort'] = base_url(static::URL_REORDER . $page_id);
-        $data['url_edit'] = base_url(static::URL_EDIT);
-        $data['url_delete'] = base_url(static::URL_DELETE);
-        $data['url_search'] = base_url(static::URL_SEARCH);
+        try {
+            $data['title'] = $page->getTranslation('es', 'page')->name;
+        } catch (\TranslationException $e) {
+            $data['title'] = "{Missing translation}";
+        }
 
-        $data['search'] = true;
-        $data['drag'] = true;
-        $data['nivel'] = 'nivel2';
-        $data['list_id'] = 'content_' . $page_id;
-
-        //MENU
-        $data['menu'][] = anchor(base_url(static::URL_CONFIG . $widget->id), 'configuraci&oacute;n', [
-            'class' => $data['nivel'] . ' ajax boton n1'
-        ]);
-        $data['menu'][] = anchor(base_url(static::URL_CREATE . $page_id), 'crear nuevo contenido', [
-            'class' => $data['nivel'] . ' ajax boton importante n2'
-        ]);
-        $data['bottomMargin'] = count($data['menu']) * 34;
-
-        $CI->load->view('admin/list_view', $data);
+        $CI->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $data]);
 
     }
 
@@ -86,7 +77,19 @@ class Content extends \AdminController implements \ContentInterface
      */
     public function edit($id)
     {
-        $this->_showView(\App\Content::find($id));
+
+        $response = new Response();
+
+        try{
+            $content = \App\Content::get($id);
+            $response->setSuccess(true);
+            $response->setData($content);
+        } catch (Exception $e) {
+            $response->setMessage($this->error('Ocurri&oacute; un problema al obtener el contenido!', $e));
+        }
+
+        $this->load->view(static::RESPONSE_VIEW, array(static::RESPONSE_VAR => $response));
+
     }
 
     /**
