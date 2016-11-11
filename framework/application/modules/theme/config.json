@@ -1,6 +1,6 @@
 {
   "menu": {
-    "show": true,
+    "show": false,
     "icon": "color_lens",
     "name": {
       "es": "Diseño"

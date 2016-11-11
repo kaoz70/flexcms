@@ -1,0 +1,53 @@
+/*------------------------------------------------------------------
+[4.2.2. Bootstrap Tags Input]
+*/
+.bootstrap-tagsinput {
+    .border-radius(@border-radius);
+    .box-shadow(none);
+    background-color: @input-background-color;
+    border: 1px solid @input-border-color;
+    color: #555;
+    cursor: text;
+    display: block;
+    font-size: @input-default-font-size;
+    height: @input-default-height;
+    line-height: 22px;
+    margin-bottom: 10px;
+    max-width: 100%;
+    padding: 0 3px;
+    vertical-align: middle;
+
+    input {
+        .box-shadow(none);
+        background-color: transparent;
+        border: none;
+        margin: 0;
+        max-width: inherit;
+        outline: none;
+        padding: 0;
+        width: auto !important;
+
+        &:focus {
+            .box-shadow(none);
+        }
+    }
+
+    .tag {
+        color: white;
+        font-size: 13px;
+        line-height: @input-default-height - 4;
+        margin-right: 0;
+        padding: 3px 7px 5px !important;
+
+        [data-role="remove"] {
+            cursor: pointer;
+            margin-left: 8px;
+
+            &:after {
+                content: "x";
+                font-size: 13px;
+                padding: 0;
+            }
+        }
+    }
+}

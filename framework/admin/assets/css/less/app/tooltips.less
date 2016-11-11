@@ -1,0 +1,50 @@
+﻿/*------------------------------------------------------------------
+[3.4. Tooltips]
+*/
+@tooltip-arrow-height: 10px;
+
+.tooltip {
+    font-family: @font-family-primary;
+
+    .tooltip-inner {
+        .border-radius(@border-radius);
+        background-color: @default;
+        padding: 7px 10px;
+    }
+
+    .tooltip-arrow {
+    }
+}
+
+.tooltip.left {
+    .tooltip-arrow {
+        border-left-color: @default;
+    }
+}
+
+.tooltip.right {
+    .tooltip-arrow {
+        border-right-color: @default;
+    }
+}
+
+.tooltip.top {
+    .tooltip-arrow {
+        border-top-color: @default;
+    }
+}
+
+.tooltip.bottom {
+    .tooltip-arrow {
+        border-bottom-color: @default;
+    }
+}
+
+.tooltip- {
+    .for(@colors); .-each(@value) {
+        @name:  extract(@value, 1);
+        &@{name} {
+            .tooltip(extract(@value, 2), extract(@value, 4));
+        }
+    }
+}

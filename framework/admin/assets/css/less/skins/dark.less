@@ -1,0 +1,31 @@
+﻿@import "../lib/lesshat.less";
+@import "../lib/mixins";
+@import "skin-mixin.less";
+@primary: #0C9FD6;
+@primary-darker:darken(@primary,2%);
+@primary-over: #ffffff;
+.skin-mixin(@primary, @primary-darker, @primary-over);
+
+.animsition-loading .loading,
+body {
+  background: #292929 url("../../../img/fondo_dark.jpg") no-repeat;
+  background-size: cover;
+}
+
+.panel {
+  /*background-color: #3a3a3a;*/
+}
+
+.form-heading {
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+  color: #cacaca;
+}
+
+.prepend-icon i {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.input-group-addon {
+  /*background-color: #2f2f2f;
+  border: 1px solid #2b2b2b*/
+}

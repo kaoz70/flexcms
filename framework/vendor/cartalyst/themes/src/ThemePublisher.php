@@ -11,10 +11,10 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Themes
- * @version    3.0.3
+ * @version    3.0.6
  * @author     Cartalyst LLC
  * @license    Cartalyst PSL
- * @copyright  (c) 2011-2015, Cartalyst LLC
+ * @copyright  (c) 2011-2016, Cartalyst LLC
  * @link       http://cartalyst.com
  */
 
@@ -62,6 +62,13 @@ class ThemePublisher
      * @var \Illuminate\Events\Dispatcher
      */
     protected $dispatcher;
+
+    /**
+     * The timestamp output flag.
+     *
+     * @var bool
+     */
+    public $showTimestampsOnWatch = false;
 
     /**
      * Create a new theme publisher.
@@ -153,7 +160,15 @@ class ThemePublisher
         $source = $this->getExtensionPublishSource($extension);
 
         if ($this->publish($source)) {
-            $this->note("Succesfully published theme files for [{$extension->getSlug()}] Extension.", 'info');
+            $note = array();
+
+            if ($this->showTimestampsOnWatch === true) {
+                $note[] = '<comment>'.date('H:i:s').'</comment>';
+            }
+
+            $note[] = "Successfully published theme files for [{$extension->getSlug()}] Extension.";
+
+            $this->note(implode(' ', $note), 'info');
         }
     }
 

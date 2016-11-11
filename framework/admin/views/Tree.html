@@ -1,0 +1,69 @@
+﻿<div class="hr-space space-xl"></div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="page-header header-primary">
+            <h4 class="header-text">Items selectable only</h4>
+        </div>
+        <ul class="tree" id="myTree1" role="tree">
+            <li class="tree-branch hide" data-template="treebranch" role="treeitem" aria-expanded="false">
+                <div class="tree-branch-header">
+                    <button class="tree-branch-name">
+                        <span class="icon-caret glyphicon-plus"></span>
+                        <span class="fa icon-folder fa-folder text-info"></span>
+                        <span class="tree-label"></span>
+                    </button>
+                </div>
+                <ul class="tree-branch-children" role="group"></ul>
+                <div class="tree-loader" role="alert">Loading...</div>
+            </li>
+            <li class="tree-item hide" data-template="treeitem" role="treeitem">
+                <button class="tree-item-name">
+                    <span class="fa icon-item fueluxicon-bullet fa-circle"></span>
+                    <span class="tree-label"></span>
+                </button>
+            </li>
+        </ul>
+    </div>
+    <div class="col-lg-6">
+        <div class="page-header header-warning">
+            <h4 class="header-text">Folders selectable</h4>
+        </div>
+        <ul class="tree tree-folder-select" id="myTree2" role="tree">
+            <li class="tree-branch hide" data-template="treebranch" role="treeitem" aria-expanded="false">
+                <div class="tree-branch-header">
+                    <button class="tree-branch-name">
+                        <span class="icon-caret glyphicon-plus"></span>
+                        <span class="fa icon-folder fa-folder"></span>
+                        <span class="tree-label"></span>
+                    </button>
+                </div>
+                <ul class="tree-branch-children" role="group"></ul>
+                <div class="tree-loader" role="alert">Loading...</div>
+            </li>
+            <li class="tree-item hide" data-template="treeitem" role="treeitem">
+                <button class="tree-item-name">
+                    <span class="fa icon-item fueluxicon-bullet fa-circle"></span>
+                    <span class="tree-label"></span>
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="page-header">
+            <h4 class="header-text">Manipulate With Javascript</h4>
+        </div>
+        <div class="btn-panel">
+            <button type="button" class="btn btn-default" id="btnTreeDestroy">destroy and append</button>
+            <button type="button" class="btn btn-default" id="btnTreeDiscloseVisible">disclose visible</button>
+            <button type="button" class="btn btn-default" id="btnTreeDiscloseAll">disclose all</button>
+            <button type="button" class="btn btn-default" id="btnTreeCloseAll">close all</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    yimaPage.init();
+</script>

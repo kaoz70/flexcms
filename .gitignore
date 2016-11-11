@@ -1,6 +1,7 @@
 .idea/*
 
 .git
+.env
 
 assets/cache/*.js
 assets/cache/*.css

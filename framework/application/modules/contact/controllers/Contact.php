@@ -4,14 +4,12 @@ class Contact extends AdminController {
 
     public function index()
     {
-        $data['result_contactos'] = \Contact\Models\Contact::all();
-        $data['result_elementos'] = \Contact\Models\Field::where('section', 'contact')->orderBy('position')->get();
-        $data['result_direcciones'] = \Contact\Models\Address::orderBy('position')->get();
+        $data['people'] = \Contact\Models\Contact::all();
+        $data['forms'] = \Contact\Models\Form::all();
 
         $data['titulo'] = 'Contacto';
-        $data['txt_nuevoContacto'] = "crear nuevo contacto";
-        $data['txt_nuevoElem'] = "crear nuevo campo";
-        $data['txt_nuevaDireccion'] = "crear nueva direccion";
+        $data['new_form'] = "crear nuevo formulario";
+        $data['new_person'] = "crear nuevo email";
 
         $this->load->view('contact/index_view', $data);
     }

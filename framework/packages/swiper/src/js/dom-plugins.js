@@ -1,7 +1,6 @@
 /*===========================
 Add .swiper plugin from Dom libraries
 ===========================*/
-var swiperDomPlugins = ['jQuery', 'Zepto', 'Dom7'];
 function addLibraryPlugin(lib) {
     lib.fn.swiper = function (params) {
         var firstInstance;
@@ -12,19 +11,7 @@ function addLibraryPlugin(lib) {
         return firstInstance;
     };
 }
-for (var i = 0; i < swiperDomPlugins.length; i++) {
-    if (window[swiperDomPlugins[i]]) {
-        addLibraryPlugin(window[swiperDomPlugins[i]]);
-    }
-}
-// Required DOM Plugins
-var domLib;
-if (typeof Dom7 === 'undefined') {
-    domLib = window.Dom7 || window.Zepto || window.jQuery;
-}
-else {
-    domLib = Dom7;
-}
+
 if (domLib) {
     if (!('transitionEnd' in domLib.fn)) {
         domLib.fn.transitionEnd = function (callback) {
@@ -67,5 +54,15 @@ if (domLib) {
             return this;
         };
     }
+    if (!('outerWidth' in domLib.fn)) {
+        domLib.fn.outerWidth = function (includeMargins) {
+            if (this.length > 0) {
+                if (includeMargins)
+                    return this[0].offsetWidth + parseFloat(this.css('margin-right')) + parseFloat(this.css('margin-left'));
+                else
+                    return this[0].offsetWidth;
+            }
+            else return null;
+        };
+    }
 }
-    

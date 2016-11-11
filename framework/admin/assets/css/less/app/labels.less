@@ -1,0 +1,26 @@
+﻿/*------------------------------------------------------------------
+[3.7. Labels]
+*/
+.label {
+    .border-radius(@border-radius);
+    border: 0;
+    font-size: 100%;
+    font-weight: 400;
+    padding: .2em .6em .3em;
+}
+
+.label- {
+    .for(@colors);
+
+    .-each(@value) {
+        @name: extract(@value, 1);
+
+        &@{name} {
+            .alert(extract(@value, 2), extract(@value, 4));
+        }
+    }
+}
+
+.label-inverse, .label-white{
+    border: 1px solid @inverse-white-border-color;
+}

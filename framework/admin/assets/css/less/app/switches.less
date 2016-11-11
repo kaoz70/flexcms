@@ -1,0 +1,149 @@
+﻿/*------------------------------------------------------------------
+[4.1.4. Switches]
+*/
+input[type=checkbox] {
+    &.switch {
+        width: 55px;
+        height: 25px;
+        left: 0;
+
+        &.slider-icon {
+            &:checked {
+                ~ .text {
+                    &:after {
+                        font-family: FontAwesome;
+                        font-size: 15px;
+                        line-height: 21px;
+                        content: "\f00c";
+                        border-width: 0;
+                        padding-left: 3px;
+                        color: #fff;
+                    }
+                }
+            }
+
+            ~ .text {
+                &:after {
+                    font-family: FontAwesome;
+                    font-size: 14px;
+                    line-height: 22px;
+                    content: "\f00d";
+                    border-width: 0;
+                    padding-left: 4px;
+                    border-color: #fff;
+                }
+            }
+        }
+
+        &.toggle {
+            &:checked {
+                ~ .text {
+                    &:after {
+                        background-color: #fff;
+                        color: #282828;
+                        left: 37px;
+                    }
+                }
+            }
+
+            ~ .text {
+                &:after {
+                    border: 0;
+                    background-color: @default;
+                    width: 20px;
+                    height: 20px;
+                    top: 3px;
+                    left: 3px;
+                    .box-shadow(none);
+                }
+            }
+        }
+
+        &.yesno {
+            ~ .text {
+                &:before {
+                    font-family: @font-family-primary;
+                    content: "YES\a0\a0\a0\a0\a0\a0\a0\a0\a0\a0\a0NO" /*rtl:"NO\a0\a0\a0\a0\a0\a0\a0\a0\a0YES"*/;
+                }
+            }
+        }
+
+        ~ .text {
+            /*margin: 0 4px;*/
+            min-height: 24px;
+
+            &:before {
+                .border-radius(@border-radius);
+                .transition(all .3s ease 0s);
+                background-color: #fff;
+                border: 1px solid #ccc;
+                color: #999;
+                content: "ON\a0\a0\a0\a0\a0\a0\a0\a0\a0\a0OFF" /*rtl:"OFF\a0\a0\a0\a0\a0\a0\a0\a0\a0ON"*/;
+                float: left;
+                font-family: @font-family-primary;
+                font-size: 13px;
+                font-weight: 300;
+                height: 26px;
+                line-height: 18px;
+                margin-right: 0;
+                overflow: hidden;
+                padding: 3px;
+                text-align: left;
+                text-indent: -25px;
+                width: 60px;
+            }
+
+            &:after {
+                .border-radius(@border-radius);
+                .transition(all 0.3s ease);
+                background-color: #fff;
+                border: 5px solid @default;
+                content: '';
+                font-family: @font-family-primary;
+                font-size: 10px;
+                font-weight: 300;
+                height: 22px;
+                left: 2px;
+                line-height: 20px;
+                padding: 0;
+                position: absolute;
+                top: 2px;
+                width: 22px;
+            }
+
+            &:hover{
+                cursor:pointer;
+            }
+        }
+
+        &:checked {
+            ~ .text {
+                &:before {
+                    text-indent: 5px;
+                    background-color: #282828;
+                    border-color: #282828;
+                    color: #fff;
+                }
+
+                &:after {
+                    left: 36px;
+                    background-color: #282828;
+                    border: 5px solid #fff;
+                }
+            }
+        }
+
+
+        &.switch- {
+            .for(@colors);
+
+            .-each(@value) {
+                @name: extract(@value, 1);
+
+                &@{name} {
+                    .switch(extract(@value, 2), extract(@value, 4));
+                }
+            }
+        }
+    }
+}

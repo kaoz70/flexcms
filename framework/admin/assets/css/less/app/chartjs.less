@@ -1,0 +1,51 @@
+﻿/*------------------------------------------------------------------
+[5.3. ChartJS]
+*/
+#chartjs-tooltip {
+    .transform(translate(-50%, 0));
+    .transition(all .1s ease);
+    background: rgba(0, 0, 0, .7);
+    border-radius: 3px;
+    color: white;
+    opacity: 1;
+    padding: 3px;
+    pointer-events: none;
+    position: absolute;
+}
+
+#chartjs-tooltip.below {
+    .transform(translate(-50%, 0));
+}
+
+#chartjs-tooltip.below:before {
+    .transform(translate(-50%, -100%));
+    border: solid;
+    border-color: #111 transparent;
+    border-color: rgba(0, 0, 0, .8) transparent;
+    border-width: 0 8px 8px 8px;
+    bottom: 1em;
+    content: "";
+    display: block;
+    left: 50%;
+    position: absolute;
+    z-index: 99;
+}
+
+#chartjs-tooltip.above {
+    .transform(translate(-50%, -100%));
+}
+
+#chartjs-tooltip.above:before {
+    .transform(translate(-50%, 0));
+    border: solid;
+    border-color: #111 transparent;
+    border-color: rgba(0, 0, 0, .8) transparent;
+    border-width: 8px 8px 0 8px;
+    bottom: 1em;
+    content: "";
+    display: block;
+    left: 50%;
+    position: absolute;
+    top: 100%;
+    z-index: 99;
+}

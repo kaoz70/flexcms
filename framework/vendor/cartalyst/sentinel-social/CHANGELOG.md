@@ -11,6 +11,12 @@ We do not give estimated times for completion on `Accepted` Proposals.
 
 ---
 
+### v2.0.5 - 2016-02-22
+
+`FIXED`
+
+- Missing constructor on the Link repository.
+
 ### v2.0.4 - 2015-11-25
 
 `FIXED`

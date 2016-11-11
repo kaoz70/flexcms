@@ -7,6 +7,7 @@
  */
 
 namespace catalog;
+use App\Role;
 use App\Translation;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
@@ -204,6 +205,7 @@ class Category extends \AdminController implements \AdminInterface {
         $data['link'] = $new ? base_url(static::URL_INSERT) : base_url(static::URL_UPDATE . $model->id);
         $data['nuevo'] = $new ? 'nuevo' : '';
         $data['page_id'] = $this->uri->segment(5);
+        $data['groups'] =  Role::all();
 
         $data['url_edit'] = static::URL_EDIT;
         $data['url_delete'] = static::URL_DELETE;
@@ -224,6 +226,7 @@ class Category extends \AdminController implements \AdminInterface {
     public function _store(Model $model)
     {
         $model->type = static::SECTION;
+        $model->group_visibility = $this->input->post('group_visibility');
         $model->save();
         $model->setTranslations($this->input->post());
         return $model;

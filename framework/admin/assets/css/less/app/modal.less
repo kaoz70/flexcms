@@ -1,0 +1,121 @@
+﻿/*------------------------------------------------------------------
+[3.10. Modals]
+*/
+.modal-content {
+    .border-radius(@border-radius);
+    border: 0;
+}
+
+.modal-header {
+    .border-radius(@border-radius @border-radius 0 0);
+    background-color: @default;
+    border-bottom: 0;
+    color: #fff;
+
+    .modal-title {
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    .close {
+        color: #fff;
+    }
+
+    &.header- {
+        .for(@colors);
+
+        .-each(@value) {
+            @name: extract(@value, 1);
+
+            &@{name} {
+                .modal(extract(@value, 4), extract(@value, 2));
+            }
+        }
+    }
+
+    &.header-inverse, &.header-white {
+        border-bottom: 1px solid @inverse-white-border-color;
+    }
+}
+
+.modal-body {
+    font-size: 13px;
+}
+
+.modal-footer {
+    background-color: #fafafa;
+    border-top: 0;
+}
+
+
+.modal-message {
+    .modal-dialog {
+        width: 300px;
+    }
+
+    .modal-body, .modal-footer, .modal-header, .modal-title {
+        background: 0 0;
+        border: none;
+        margin: 0;
+        padding: 0 20px;
+        text-align: center !important;
+    }
+
+    .modal-header {
+        color: #fff;
+        margin-bottom: 10px;
+        padding: 10px 0 13px;
+
+        i {
+            font-size: 35px;
+        }
+    }
+
+    .modal-title {
+        color: #666;
+        font-size: 17px;
+        margin-bottom: 3px;
+    }
+
+    .modal-body {
+        color: #666;
+    }
+
+    .modal-footer {
+        margin: 25px 0 20px;
+        padding-bottom: 10px;
+    }
+
+    &.modal- {
+        .for(@colors);
+
+        .-each(@value) {
+            @name: extract(@value, 1);
+
+            &@{name} {
+                .message-modal(extract(@value, 4), extract(@value, 2));
+            }
+        }
+    }
+
+    &.modal-inverse, &.modal-white {
+        .modal-header {
+            border-bottom: 1px solid @inverse-white-border-color;
+        }
+    }
+}
+
+
+@media only screen and (max-width: 700px) {
+    .modal-message .modal-dialog {
+        margin: 30px auto;
+    }
+}
+
+
+@media only screen and (max-width: 300px) {
+    .modal-message .modal-dialog {
+       .calc(width, ~'100% - 10px');
+        margin: 5px auto;
+    }
+}

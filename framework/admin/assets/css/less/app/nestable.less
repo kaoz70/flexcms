@@ -1,0 +1,211 @@
+﻿/*------------------------------------------------------------------
+[3.13. Nestable Lists]
+*/
+
+@nestable-bg: #fff;
+@nestable-color: #282828;
+@nestable-hover-bg: #fafafa;
+@nestable-hover-color: @primary;
+
+.dd {
+    display: block;
+    font-size: 13px;
+    line-height: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.dd-list {
+    display: block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.dd-list .dd-list {
+    padding-left: 30px;
+}
+
+.dd-collapsed .dd-list {
+    display: none;
+}
+
+.dd-item,
+.dd-empty,
+.dd-placeholder {
+    display: block;
+    font-size: 13px;
+    line-height: 20px;
+    margin: 0;
+    min-height: 20px;
+    padding: 0;
+    position: relative;
+}
+
+.dd-handle {
+    .border-radius(@border-radius);
+    background: @nestable-bg;
+    border: 0;
+    color: @nestable-color;
+    display: block;
+    font-weight: 600;
+    height: 40px;
+    margin: 5px 0;
+    padding: 10px 10px;
+    text-decoration: none;
+}
+
+.dd-handle:hover {
+    background: @nestable-hover-bg;
+    color: @nestable-hover-color;
+}
+
+.dd-darker {
+    .dd-handle {
+        background: @default;
+        color: #fff;
+    }
+
+    .dd-handle:hover {
+        background: @default-darker;
+        color: #e5e5e5;
+    }
+}
+
+
+.dd-item > button {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    display: block;
+    float: left;
+    font-size: 12px;
+    font-weight: bold;
+    height: 20px;
+    line-height: 1;
+    margin: 10px 0;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    text-align: center;
+    text-indent: 100%;
+    white-space: nowrap;
+    width: 25px;
+}
+
+.dd-item > button:before {
+    content: '+';
+    display: block;
+    position: absolute;
+    text-align: center;
+    text-indent: 0;
+    width: 100%;
+}
+
+.dd-item > button[data-action="collapse"]:before {
+    content: '-';
+}
+
+.dd-placeholder,
+.dd-empty {
+    background: #fbfbfb;
+    border: 1px dashed #b6bcbf;
+    box-sizing: border-box;
+    margin: 5px 0;
+    min-height: 30px;
+    -moz-box-sizing: border-box;
+    padding: 0;
+}
+
+.dd-empty {
+    background-color: #e5e5e5;
+    background-position: 0 0, 30px 30px;
+    background-size: 60px 60px;
+    border: 1px dashed #bbb;
+    min-height: 100px;
+}
+
+.dd-dragel {
+    position: absolute;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.dd-dragel > .dd-item .dd-handle {
+    margin-top: 0;
+}
+
+.dd-dragel .dd-handle {
+    -webkit-box-shadow: 2px 4px 6px 0 rgba(0,0,0,.1);
+    box-shadow: 2px 4px 6px 0 rgba(0,0,0,.1);
+}
+
+
+.dd-hover > .dd-handle {
+    background: #2ea8e5 !important;
+}
+
+/**
+ * Nestable Draggable Handles
+ */
+
+.dd3-content {
+    display: block;
+    height: 40px;
+    margin: 5px 0;
+    padding: 9px 10px 5px 50px;
+    color: @nestable-color;
+    text-decoration: none;
+    font-weight: 600;
+    background: @nestable-bg;
+    .border-radius(@border-radius);
+}
+
+.dd3-content:hover {
+    color: @nestable-hover-color;
+    background: @nestable-hover-bg;
+}
+
+.dd-dragel > .dd3-item > .dd3-content {
+    margin: 0;
+}
+
+.dd3-item > button {
+    margin-left: 40px;
+}
+
+.dd3-handle {
+    position: absolute;
+    margin: 0;
+    left: 0;
+    top: 0;
+    cursor: pointer;
+    width: 40px;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    background: @default;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.dd3-handle:before {
+    content: '≡';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 100%;
+    text-align: center;
+    text-indent: 0;
+    color: #fff;
+    font-size: 25px;
+    font-weight: 300;
+}
+
+.dd3-handle:hover {
+    background: @default-darker;
+}

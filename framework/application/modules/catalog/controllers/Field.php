@@ -16,7 +16,7 @@ use stdClass;
 
 $_ns = __NAMESPACE__;
 
-class Field extends \Field implements \AdminInterface {
+class Field extends \Field implements \AdminParentInterface {
 
     const FIELD_SECTION = 'product';
 
@@ -27,43 +27,25 @@ class Field extends \Field implements \AdminInterface {
     const URL_EDIT = 'admin/catalog/field/edit';
     const URL_REORDER = 'admin/catalog/field/reorder';
 
-    public function index()
+    public function index($parent_id = null)
     {
-
-        $data['items'] = \App\Field::where('section', static::FIELD_SECTION)
-            ->orderBy('position')
-            ->get();
-
-        $data['title'] = 'Campos';
-        $data['list_id'] = 'campos';
-        $data['nivel'] = 'nivel3';
-
-        $data['search'] = false;
-        $data['drag'] = true;
-
-        $data['url_sort'] = base_url(static::URL_REORDER);
-        $data['url_edit'] = base_url(static::URL_EDIT);
-        $data['url_delete'] = base_url(static::URL_DELETE);
-
-        $data['menu'][] = anchor(base_url(static::URL_CREATE), 'Crear Campo', [
-            'class' => $data['nivel'] . ' ajax boton importante n1'
-        ]);
-
-        $data['bottomMargin'] = count($data['menu']) * 34;
-
-        $this->load->view('admin/list_view', $data);
-
+        parent::index($parent_id);
     }
 
-    public function create()
+    public function create($parent_id = null)
     {
-        $field = new \App\Field();
+        $field = new \Catalog\Models\Field();
         $field->section = static::FIELD_SECTION;
         $field->data = null;
         $this->_showView($field, true);
     }
 
-    public function insert()
+    public function edit($id)
+    {
+        $this->_showView(\Catalog\Models\Field::find($id));
+    }
+
+    public function insert($parent_id = null)
     {
 
         $response = new stdClass();
@@ -87,64 +69,17 @@ class Field extends \Field implements \AdminInterface {
 
     }
 
-    public function edit($id)
-    {
-        $this->_showView(\App\Field::find($id));
-    }
-
-    public function update($id)
-    {
-
-        $response = new stdClass();
-        $response->error_code = 0;
-
-        try{
-            $response->new_id = $this->_store(\Catalog\Models\Field::find($id))->id;
-        } catch (Exception $e) {
-            $response = $this->error('Ocurri&oacute; un problema al actualizar el campo!', $e);
-        }
-
-        $this->load->view(static::RESPONSE_VIEW, array(static::RESPONSE_VAR => $response));
-
-    }
-
     public function delete($id)
     {
 
-        $response = new stdClass();
-        $response->error_code = 0;
+        //Delete any translations
+        Translation::where('parent_id', $id)->where('type', static::FIELD_SECTION . '_field')->delete();
 
-        try{
-
-            //Delete the field
-            $field = \App\Field::find($id);
-            $field->delete();
-
-            //Delete the field's translations
-            $translations = Translation::where('parent_id', $id)->where('type', static::FIELD_SECTION . '_field');
-            $translations->delete();
-
-        } catch (Exception $e) {
-            $response = $this->error('Ocurri&oacute; un problema al eliminar el campo!', $e);
-        }
-
-        $this->load->view(static::RESPONSE_VIEW, array(static::RESPONSE_VAR => $response));
+        //Delete the field
+        parent::delete($id);
 
     }
 
-    public function reorder()
-    {
-        $response = new stdClass();
-        $response->error_code = 0;
-
-        try{
-            \App\Field::reorder($this->input->post('posiciones'), static::FIELD_SECTION);
-        } catch (Exception $e) {
-            $response = $this->error('Ocurri&oacute; un problema al reorganizar los campos!', $e);
-        }
-
-        $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );
-    }
 
     /**
      * @param Model $field
@@ -183,7 +118,7 @@ class Field extends \Field implements \AdminInterface {
         $model->label_enabled = (bool) $this->input->post('label_enabled');
         $model->enabled = (bool) $this->input->post('enabled');
 
-        //Custom user field data
+        //Custom field data
         $data = [
             'view_in_widget' => (bool) $this->input->post('view_in_widget'),
             'view_in_list' => (bool) $this->input->post('view_in_list'),
@@ -195,6 +130,7 @@ class Field extends \Field implements \AdminInterface {
         $model->save();
 
         //Update the content's translations
+        $model = \Catalog\Models\Field::find($model->id);
         $model->setTranslations($input);
 
         return $model;

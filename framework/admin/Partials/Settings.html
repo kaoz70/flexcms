@@ -1,0 +1,119 @@
+
+
+<div class="settingsbar" id="settingsbar">
+    <div class="sidebar-header">
+        <div class="header-title">
+            <i class="pe-7s-settings"></i>
+            <span>Configuration</span>
+        </div>
+        <div class="header-description">
+            You can set all application variables here
+        </div>
+        <div class="header-close">
+            <i class="pe-7s-angle-right-circle"></i>
+        </div>
+    </div>
+    <div class="sidebar-body">
+        <div class="section-title">Page Style</div>
+        <ul class="settings-list">
+            <li class="settings-item">
+                <i class="item-icon pe-7s-menu"></i>
+                <span class="item-label">Compact Menu</span>
+                <label class="pull-right">
+                    <input class="switch switch-primary toggle" type="checkbox" id="settings-menu-compact-checkbox">
+                    <span class="text"></span>
+                </label>
+            </li>
+        </ul>
+
+        <div class="section-title">Change Skin</div>
+        <ul class="colors-list">
+            <li data-skin="" class="active-color">
+                <div class="color-main" style="background-color: #29c7ca"></div>
+                <div class="color-darker" style="background-color: #26b6b9"></div>
+            </li>
+            <li data-skin="light-green">
+                <div class="color-main" style="background-color: #5BD2B8"></div>
+                <div class="color-darker" style="background-color: #47CDAF"></div>
+            </li>
+            <li data-skin="green">
+                <div class="color-main" style="background-color: #2CC491"></div>
+                <div class="color-darker" style="background-color: #29B888"></div>
+            </li>
+            <li data-skin="dark-green">
+                <div class="color-main" style="background-color: #00828C"></div>
+                <div class="color-darker" style="background-color: #007982"></div>
+            </li>
+            <li data-skin="light-blue">
+                <div class="color-main" style="background-color: #26C1FF"></div>
+                <div class="color-darker" style="background-color: #07B8FF"></div>
+            </li>
+            <li data-skin="blue">
+                <div class="color-main" style="background-color: #0C9FD6"></div>
+                <div class="color-darker" style="background-color: #0b98cc"></div>
+            </li>
+            <li data-skin="velvet">
+                <div class="color-main" style="background-color: #8C5DAD"></div>
+                <div class="color-darker" style="background-color: #8554A6"></div>
+            </li>
+            <li data-skin="pink">
+                <div class="color-main" style="background-color: #E076ED"></div>
+                <div class="color-darker" style="background-color: #DC64EB"></div>
+            </li>
+            <li data-skin="red">
+                <div class="color-main" style="background-color: #FF5B57"></div>
+                <div class="color-darker" style="background-color: #ff4c48"></div>
+            </li>
+            <li data-skin="orange" class="">
+                <div class="color-main" style="background-color: #F86E49"></div>
+                <div class="color-darker" style="background-color: #F7623A"></div>
+            </li>
+
+            <li data-skin="light-orange">
+                <div class="color-main" style="background-color: #F07F7F"></div>
+                <div class="color-darker" style="background-color: #EE6D6D"></div>
+            </li>
+
+            <li data-skin="yellow">
+                <div class="color-main" style="background-color: #FFD967"></div>
+                <div class="color-darker" style="background-color: #ffd148"></div>
+            </li>
+        </ul>
+
+        <div class="section-title">Skin Settings</div>
+        <ul class="settings-list">
+            <li class="settings-item">
+                <i class="item-icon pe-7s-graph1"></i>
+                <span class="item-label">Redraw Charts</span>
+                <label class="pull-right">
+                    <input class="switch switch-primary toggle" type="checkbox" id="settings-menu-skin-redraw">
+                    <span class="text"></span>
+                </label>
+            </li>
+        </ul>
+        <p class="b-300 m-t-10">
+            By enabling this option, the page will refresh in order to redraw all graph and charts with desired skin
+            <br />
+            Also in future visits the selected theme will be the default theme.
+        </p>
+
+        <div class="section-title">Right to Left</div>
+        <ul class="settings-list">
+            <li class="settings-item">
+                <i class="item-icon pe-7s-angle-left-circle"></i>
+                <span class="item-label">Make Page RTL</span>
+                <label class="pull-right">
+                    <input class="switch switch-primary toggle" type="checkbox" id="settings-menu-rtl">
+                    <span class="text"></span>
+                </label>
+            </li>
+        </ul>
+        <p class="b-300 m-t-10">
+            You can set the RTL direction here, It will change on the fly. 
+            <br />
+            If you need to use RTL version you can achive that by adding ready to use RTL resources to your layout files.
+        </p>
+    </div>
+</div>
+
+<script src="assets/js/pages/partials/settings.js"></script>

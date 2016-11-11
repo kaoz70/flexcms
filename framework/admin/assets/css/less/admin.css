@@ -1,0 +1,63 @@
+.animsition {
+  height: 100%;
+}
+#windows {
+  position: absolute;
+  top: 35px;
+  left: 13px;
+  right: 13px;
+  display: flex;
+  overflow: auto;
+  padding: 42px 0;
+  bottom: 0;
+  -webkit-perspective: 2000px;
+  -moz-perspective: 2000px;
+  perspective: 2000px;
+}
+#windows > [app-view-segment] {
+  height: 100%;
+  position: relative;
+  -webkit-transition: all 400ms;
+  -moz-transition: all 400ms;
+  -o-transition: all 400ms;
+  transition: all 400ms;
+  opacity: 0;
+  /*-webkit-transform-origin: right;
+    -moz-transform-origin: right;
+    -o-transform-origin: right;
+    transform-origin: right;
+    position: absolute;*/
+}
+#windows > [app-view-segment] > .panel {
+  box-shadow: 0 4px 50px rgba(0, 0, 0, 0.76);
+  height: 100%;
+  min-width: 350px;
+  margin-right: 10px;
+}
+#windows > [app-view-segment].active {
+  opacity: 1;
+}
+#windows > [app-view-segment].active:first-child {
+  left: 0;
+}
+#windows > [app-view-segment]:not(.active) {
+  z-index: -1;
+  opacity: 0;
+}
+.main-content {
+  position: relative;
+}
+.panel {
+  display: flex;
+  flex-direction: column;
+}
+.panel-body {
+  height: 100%;
+  overflow: auto;
+}
+.panel.small-width {
+  max-width: 350px;
+}
+.panel.medium-width {
+  max-width: 650px;
+}

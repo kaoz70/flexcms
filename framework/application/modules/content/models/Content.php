@@ -9,7 +9,9 @@
 
 namespace App;
 
+use Herrera\Json\Exception\Exception;
 use Illuminate\Support\Collection;
+use TranslationException;
 
 class Content extends BaseModel {
 
@@ -49,7 +51,11 @@ class Content extends BaseModel {
             ->get();
 
         foreach ($content as &$c){
-            $c->getTranslation($lang);
+            try {
+                $c->getTranslation($lang);
+            } catch (\TranslationException $e) {
+                $c->translation = "{Missing translation}";
+            }
         }
 
         return $content;
@@ -57,17 +63,42 @@ class Content extends BaseModel {
     }
 
     /**
-     * Get one content detail
+     * Get one content detail by language
      *
      * @param $content_id
      * @param $lang
      * @return Content
      */
-    static function get($content_id, $lang)
+    static function getTranslated($content_id, $lang)
     {
-        $content = static::find($content_id);
-        $content->getTranslation($lang);
+        $content = static::find($content_id)->getTranslation($lang);
         return $content;
+    }
+
+    /**
+     * Get one content with all the available translations
+     *
+     * @param $content_id
+     * @return mixed
+     */
+    static function getForEdit($content_id)
+    {
+
+        $contentTrans = new EditTranslations();
+        $contentTrans->setContent(static::find($content_id));
+
+        foreach (Language::all() as $lang) {
+
+            try {
+                $contentTrans->add($lang, $contentTrans->getContent()->getTranslation($lang));
+            } catch (TranslationException $e) {
+                //TODO: do something here
+            }
+
+        }
+
+        return $contentTrans->getAll();
+
     }
 
     /**

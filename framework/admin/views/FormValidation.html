@@ -1,0 +1,182 @@
+﻿<div class="row">
+    <div class="col-lg-6">
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <h3 class="panel-title">Simple Valdation</h3>
+                <div class="panel-tools">
+                    <a class="tools-action" href="#" data-toggle="collapse">
+                        <i class="pe-7s-angle-up"></i>
+                    </a>
+                    <a class="tools-action" href="#" data-toggle="dispose">
+                        <i class="pe-7s-close"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <form id="checkout-form">
+                    <div class="form-group">
+                        <label class="control-label" for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" required="">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required="">
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox">
+                            <span class="text">Check me out!</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <h3 class="panel-title">Validating a complete form</h3>
+                <div class="panel-tools">
+                    <a class="tools-action" href="#" data-toggle="collapse">
+                        <i class="pe-7s-angle-up"></i>
+                    </a>
+                    <a class="tools-action" href="#" data-toggle="dispose">
+                        <i class="pe-7s-close"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <form id="signupForm" method="get">
+                    <div class="form-group">
+                        <label class="control-label" for="firstname">Firstname</label>
+                        <input class="form-control" id="firstname" name="firstname" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="lastname">Lastname</label>
+                        <input class="form-control" id="lastname" name="lastname" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="username">Username</label>
+                        <input class="form-control" id="username" name="username" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="password">Password</label>
+                        <input class="form-control" id="password" name="password" type="password">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="confirm_password">Confirm password</label>
+                        <input class="form-control" id="confirm_password" name="confirm_password" type="password">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="email">Email</label>
+                        <input class="form-control" id="email" name="email" type="email">
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="agree" name="agree">
+                                <span class="text">Please agree to our policy</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-header">
+    <h4 class="header-text">Validation Summary</h4>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <h3 class="panel-title">Simple Validation Summary</h3>
+                <div class="panel-tools">
+                    <a class="tools-action" href="#" data-toggle="collapse">
+                        <i class="pe-7s-angle-up"></i>
+                    </a>
+                    <a class="tools-action" href="#" data-toggle="dispose">
+                        <i class="pe-7s-close"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <form method="get" id="form1">
+
+                    <div class="form-group">
+                        <label class="control-label">Username</label>
+                        <input class="form-control" name="user" title="Please enter your username (at least 3 characters)" required minlength="3">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Password</label>
+                        <input class="form-control" type="password" maxlength="12" name="password" title="Please enter your password, between 5 and 12 characters" required minlength="5">
+                    </div>
+                    <div class="validation-summary-errors">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Login</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <h3 class="panel-title">Validation Summary in List</h3>
+                <div class="panel-tools">
+                    <a class="tools-action" href="#" data-toggle="collapse">
+                        <i class="pe-7s-angle-up"></i>
+                    </a>
+                    <a class="tools-action" href="#" data-toggle="dispose">
+                        <i class="pe-7s-close"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="error-container">
+                    <ol class="validation-summary"></ol>
+                </div>
+                <form id="form2" method="get" novalidate="novalidate">
+                    <div class="form-group">
+                        <label class="control-label" for="email2">Email</label>
+                        <input class="form-control" id="email2" name="email" required="" type="email" aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="phone">Phone</label>
+                        <input class="form-control" id="phone" name="phone" required="" type="number" rangelength="[2,8]" aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="address">Address</label>
+                        <input class="form-control" id="address" name="address" required="" minlength="3" aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="avatar">Avatar</label>
+                        <input class="form-control" type="file" id="avatar" name="avatar" required="" aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="agree2" name="agree" required="">
+                                <span class="text">Please agree to our policy</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    yimaPage.init();
+</script>

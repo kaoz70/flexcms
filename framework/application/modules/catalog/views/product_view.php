@@ -208,7 +208,7 @@
     </div>
 
     <div class="field">
-        <div class="header">Azanzado</div>
+        <div class="header">Avanzado</div>
         <div class="content">
 
             <div class="input">

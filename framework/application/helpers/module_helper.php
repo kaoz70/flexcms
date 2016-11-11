@@ -7,6 +7,18 @@
  * Time: 3:41 PM
  */
 
+if ( ! function_exists('admin_asset_path')) {
+    function admin_asset_path($path = '') {
+        return base_url('framework/admin/assets/' . $path);
+    }
+}
+
+
+
+
+
+//TODO migrate these:
+
 if ( ! function_exists('important_products'))
 {
     /**

@@ -1,5 +1,6 @@
 .swiper-container {
-    margin:0 auto;
+    margin-left: auto;
+    margin-right: auto;
     position:relative;
     overflow:hidden;
     /* Fix of Webkit flickering */
@@ -27,7 +28,6 @@
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
-    .preserve3d();
 
     -webkit-transition-property:-webkit-transform;
     -moz-transition-property:-moz-transform;
@@ -62,7 +62,6 @@
     margin: 0 auto;
 }
 .swiper-slide {
-    .preserve3d();
     -webkit-flex-shrink: 0;
     -ms-flex: 0 0 auto;
     flex-shrink: 0;
@@ -70,7 +69,21 @@
     height: 100%;
     position: relative;
 }
-
+/* Auto Height */
+.swiper-container-autoheight, .swiper-container-autoheight .swiper-slide {
+    height: auto;
+}
+.swiper-container-autoheight .swiper-wrapper {
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+    -webkit-transition-property: -webkit-transform, height;
+    -moz-transition-property: -moz-transform;
+    -o-transition-property: -o-transform;
+    -ms-transition-property: -ms-transform;
+    transition-property: transform, height;
+}
 /* a11y */
 .swiper-container .swiper-notification {
     position: absolute;

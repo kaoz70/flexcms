@@ -1,7 +1,7 @@
 {
   "content": false,
   "menu": {
-    "show": true,
+    "show": false,
     "icon": "send",
     "name": {
       "es": "Mailing"

@@ -32,7 +32,7 @@
 	"repositories": [
 		{
 			"type": "composer",
-			"url": "http://packages.cartalyst.com"
+			"url": "https://packages.cartalyst.com"
 		}
 	],
 	"require": {
@@ -53,7 +53,7 @@
 	"extra": {
 		"component": "package",
 		"branch-alias": {
-			"dev-master": "3.0.x-dev"
+			"dev-master": "3.1.x-dev"
 		}
 	},
 	"minimum-stability": "dev"

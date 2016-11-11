@@ -11,10 +11,10 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Sentinel
- * @version    2.0.8
+ * @version    2.0.13
  * @author     Cartalyst LLC
  * @license    BSD License (3-clause)
- * @copyright  (c) 2011-2015, Cartalyst LLC
+ * @copyright  (c) 2011-2016, Cartalyst LLC
  * @link       http://cartalyst.com
  */
 
@@ -48,7 +48,7 @@ interface PersistenceRepositoryInterface
     /**
      * Adds a new user persistence to the current session and attaches the user.
      *
-     * @param  \Cartalyst\Sentinel\Persistence\PersistenceInterface  $persistable
+     * @param  \Cartalyst\Sentinel\Persistences\PersistenceInterface  $persistable
      * @param  bool  $remember
      * @return bool
      */
@@ -57,7 +57,7 @@ interface PersistenceRepositoryInterface
     /**
      * Adds a new user persistence, to remember.
      *
-     * @param  \Cartalyst\Sentinel\Persistence\PersistableInterface  $persistable
+     * @param  \Cartalyst\Sentinel\Persistences\PersistableInterface  $persistable
      * @return bool
      */
     public function persistAndRemember(PersistableInterface $persistable);
@@ -65,7 +65,7 @@ interface PersistenceRepositoryInterface
     /**
      * Removes the persistence bound to the current session.
      *
-     * @param  \Cartalyst\Sentinel\Persistence\PersistableInterface  $persistable
+     * @param  \Cartalyst\Sentinel\Persistences\PersistableInterface  $persistable
      * @return bool|null
      */
     public function forget();

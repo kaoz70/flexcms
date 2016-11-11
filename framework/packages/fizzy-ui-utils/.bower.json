@@ -30,12 +30,12 @@
     "qunit": "~1.20.0"
   },
   "homepage": "https://github.com/metafizzy/fizzy-ui-utils",
-  "version": "2.0.2",
-  "_release": "2.0.2",
+  "version": "2.0.3",
+  "_release": "2.0.3",
   "_resolution": {
     "type": "version",
-    "tag": "v2.0.2",
-    "commit": "459f5b104730006c89bd83e72f7870637f1c2649"
+    "tag": "v2.0.3",
+    "commit": "24dc9c54e14f7941f17167c45676179866731309"
   },
   "_source": "https://github.com/metafizzy/fizzy-ui-utils.git",
   "_target": "^2.0.0",

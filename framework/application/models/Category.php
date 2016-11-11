@@ -17,6 +17,8 @@ class Category extends BaseModel implements NodeInterface {
 
     use NodeTrait;
 
+    private $type;
+
     protected $reservedAttributes = array(
         'left'  => 'lft',
         'right' => 'rgt',
@@ -60,6 +62,22 @@ class Category extends BaseModel implements NodeInterface {
             return TRUE;
         }
 
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**

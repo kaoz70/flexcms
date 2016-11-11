@@ -152,7 +152,7 @@ class Product extends \Catalog implements \AdminInterface {
         $data['categories'] = $root->getChildren();
         $data['txt_boton'] = $new ? 'Crear Producto' : 'Modificar Producto';
         $data['link'] = $new ? base_url(static::URL_INSERT) : base_url(static::URL_UPDATE . $model->id);
-        $data['fields'] = Field::where('section', 'product')->get();
+        $data['fields'] = Field::where('section', 'product')->orderBy('position')->get();
         $data['translations'] = $model->getTranslations(static::SECTION);
         $data['field_translations'] = $model->getTranslations('product_field');
         $data['groups'] =  Role::all();

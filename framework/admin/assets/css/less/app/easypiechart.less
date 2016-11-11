@@ -1,0 +1,29 @@
+﻿/*------------------------------------------------------------------
+[5.5. EasyPieChart]
+*/
+.ep-chart {
+    display: block;
+    position: relative;
+    text-align: center;
+
+    canvas {
+        display:block;
+        margin: 0 auto;
+    }
+}
+
+.percent {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    z-index: 2;
+
+    &:after {
+        content: '%';
+        font-size: .8em;
+        margin-left: 0.1em;
+    }
+}

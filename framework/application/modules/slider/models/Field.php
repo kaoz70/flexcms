@@ -13,6 +13,8 @@ use App\Translation;
 
 class Field extends \App\Field {
 
+    protected $type = 'slider_field';
+
     public function setTranslations($input)
     {
         foreach(Language::all() as $lang){
@@ -24,7 +26,7 @@ class Field extends \App\Field {
             $trans = Translation::firstOrNew([
                 'language_id' => $lang->id,
                 'parent_id' => $this->id,
-                'type' => 'slider_field'
+                'type' => $this->type,
             ]);
             $trans->data = json_encode($trans_data);
             $trans->save();

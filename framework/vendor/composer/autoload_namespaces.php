@@ -6,14 +6,18 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname(dirname($vendorDir));
 
 return array(
+    'Twig_' => array($vendorDir . '/twig/twig/lib'),
     'Michelf' => array($vendorDir . '/michelf/php-markdown'),
-    'Mailchimp' => array($vendorDir . '/mailchimp/mailchimp/src'),
     'JasonLewis\\ResourceWatcher' => array($vendorDir . '/cartalyst/resource-watcher/src'),
     'Herrera\\Json' => array($vendorDir . '/herrera-io/json/src/lib'),
     'Guzzle\\Tests' => array($vendorDir . '/guzzle/guzzle/tests'),
     'Guzzle' => array($vendorDir . '/guzzle/guzzle/src'),
+    'Doctrine\\DBAL\\' => array($vendorDir . '/doctrine/dbal/lib'),
+    'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib'),
     'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib'),
+    'Doctrine\\Common\\Collections\\' => array($vendorDir . '/doctrine/collections/lib'),
     'Composer\\Installer' => array($vendorDir . '/compwright/codeigniter-installers/src'),
+    'CoffeeScript' => array($vendorDir . '/coffeescript/coffeescript/src'),
     'Cartalyst\\Dependencies' => array($vendorDir . '/cartalyst/dependencies/src'),
     'Assetic' => array($vendorDir . '/kriswallsmith/assetic/src'),
 );

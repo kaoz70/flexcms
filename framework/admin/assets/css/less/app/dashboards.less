@@ -1,0 +1,125 @@
+﻿.dahsboard-realtime {
+    .realtime-chart {
+        overflow: hidden;
+        position: relative;
+
+        .chart-hover {
+            background-color: rgba(255,255,255,.45);
+            height: 475px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 175px;
+
+            .hover-data {
+                height: 150px;
+                text-align: center;
+                padding-top: 20px;
+            }
+        }
+
+        .chart-switch {
+            padding: 10px;
+            position: absolute;
+            right: 175px;
+            top: 0;
+
+            input[type=checkbox].switch:not(:checked) ~ .text:before {
+                border: 1px solid #fff;
+            }
+        }
+    }
+
+
+    .realtime-table {
+        margin-top: -10px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .dahsboard-realtime {
+        .realtime-chart {
+            .chart-hover {
+                background-color: #fff;
+                color:@default;
+                position: relative;
+                width: 100%;
+                height: auto;
+                margin-top: 15px;
+
+                .hover-data {
+                    height: auto;
+                    text-align: center;
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                    border-bottom: 1px solid #eee;
+
+                    &:last-child {
+                        padding-bottom: 20px;
+                        border-bottom: 0;
+                    }
+                }
+            }
+
+            .chart-switch {
+                right: 0;
+            }
+        }
+    }
+}
+
+
+.dashboard-minimal {
+    .minimal-company {
+        .company-desc {
+            margin-top: 200px;
+        }
+
+        .company-logo {
+            margin-top: 100px;
+        }
+    }
+
+    .minimal-data {
+        .data-info {
+            &:not(:first-child) {
+                border-left: 1px solid #e8e8e8;
+            }
+        }
+
+        .data-chart {
+            margin: 150px -8px 0;
+        }
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .dashboard-minimal {
+        .minimal-company {
+            .company-desc {
+                margin-top: 30px;
+            }
+
+            .company-logo {
+                margin-top: 50px;
+            }
+        }
+
+        .minimal-data {
+            .data-info {
+                &:not(:first-child) {
+                    border-left: 0;
+                }
+
+                &:not(:last-child) {
+                    border-bottom: 1px solid #e8e8e8;
+                    margin-bottom: 20px;
+                }
+            }
+
+            .data-chart {
+                margin: 0 -8px 0;
+            }
+        }
+    }
+}

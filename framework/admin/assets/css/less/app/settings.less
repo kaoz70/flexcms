@@ -1,0 +1,90 @@
+﻿@settings-list-background-color: @body-background;
+@settings-list-item-border-color: #fafafa;
+
+.settingsbar {
+
+    .sidebar-body {
+        padding: 15px;
+
+        .section-title{
+            font-size:14px;
+            font-weight:400;
+            margin:30px 0 5px;
+        }
+
+        .settings-list {
+            .border-radius(@border-radius);
+            background-color: @settings-list-background-color;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            .settings-item {
+                border-bottom: 1px solid @settings-list-item-border-color;
+                font-size: 13px;
+                font-weight: 300;
+                padding: 10px;
+
+                &:last-child {
+                    border-bottom: 0;
+                }
+
+                label {
+                    margin: -3px -6px;
+                }
+
+                i {
+                    font-size: 22px;
+                    margin-top: -2px;
+                    vertical-align: middle;
+                }
+            }
+        }
+
+        .colors-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+
+            > li {
+                .border-radius(@border-radius);
+                box-shadow: 0 2px 1px rgba(0, 0, 0, .2);
+                cursor: pointer;
+                display: inline-block;
+                height: 40px;
+                list-style: none;
+                margin: 8px;
+                overflow:hidden;
+                position:relative;
+                transition-duration: .2s;
+                width: 40px;
+
+                .color-main {
+                    .border-radius(@border-radius);
+                    height: 40px;
+                    width: 40px;
+                }
+
+                .color-darker {
+                    .transform(skew(0deg, -10deg));
+                    height: 30px;
+                    position:absolute;
+                    top:20px;
+                    width: 40px;
+                }
+
+                &:hover {
+                    .transform(scale(1.2));
+                    box-shadow: 0 10px 10px rgba(0, 0, 0, .2);
+                }
+
+                &.active-color {
+                    border:2px solid @settings-list-background-color;
+                    box-shadow: 0 10px 10px rgba(0, 0, 0, .2);
+                }
+
+            }
+        }
+    }
+}

@@ -1,0 +1,106 @@
+﻿/*------------------------------------------------------------------
+[3.11. Accordions]
+*/
+
+@accordion-border-color: #fff;
+
+.accordion {
+    &.spaced {
+        &.panel-group {
+            .panel {
+                + .panel {
+                    margin-top: 3px;
+                }
+            }
+        }
+    }
+
+    &.panel-group {
+        border: 1px solid @accordion-border-color;
+        border-top-width: 0;
+
+        .panel {
+            background-color: #fff;
+            border: 0;
+            border-radius: 0;
+            box-shadow: none;
+            font-size: 13px;
+            line-height:22px;
+
+            + .panel {
+                margin-top: 0;
+            }
+        }
+
+        .panel-heading {
+            border-radius: 0;
+            padding: 0;
+
+            + .panel-collapse {
+                .panel-body {
+                    border-top-color: @accordion-border-color !important;
+                }
+            }
+
+            .panel-title {
+                display: block;
+
+                a {
+                    color: #fff;
+                    display: block;
+                    font-size: 13px;
+                    line-height: 1;
+                    padding: 15px;
+                    position: relative;
+
+                    &:after {
+                        .transition(all .218s);
+                        color: #fff;
+                        content: "\e688";
+                        font-family: 'Pe-icon-7-stroke';
+                        font-size: 25px;
+                        position: absolute;
+                        right: 10px;
+                        top: 10px;
+                    }
+
+                    &.collapsed:after {
+                        content: "\e684";
+                    }
+
+                    &.collapsed {
+                        .transition(border .218s);
+                        color: #fafafa;
+                        font-weight: normal;
+                    }
+
+                    &:hover {
+                        color: #eee;
+                        text-decoration: none;
+
+                        > [class*="icon-"]:first-child {
+                            text-decoration: none;
+                        }
+
+                        &:after {
+                            color: #eee;
+                        }
+                    }
+
+                    &:focus, &:active {
+                        outline: 0;
+                        text-decoration: none;
+                    }
+
+                    > [class*="fa-"]:first-child {
+                        width: 16px;
+                    }
+                }
+            }
+        }
+
+        &.no-padding {
+            padding: 0;
+        }
+    }
+}

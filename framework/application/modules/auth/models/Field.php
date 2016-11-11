@@ -17,9 +17,11 @@ use App\User;
 class Field extends \App\Field {
 
     protected $section = 'user';
+    protected $type = 'user_field';
 
     public function setTranslations($input)
     {
+
         foreach(Language::all() as $lang){
 
             $trans_data = [
@@ -30,7 +32,7 @@ class Field extends \App\Field {
             $trans = Translation::firstOrNew([
                 'language_id' => $lang->id,
                 'parent_id' => $this->id,
-                'type' => 'user_field'
+                'type' => $this->type,
             ]);
             $trans->data = json_encode($trans_data);
             $trans->save();

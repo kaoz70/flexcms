@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 class Field extends \App\Field {
 
     protected $section = 'product';
+    protected $type = 'product_field';
 
     public function setTranslations($input)
     {
@@ -30,7 +31,7 @@ class Field extends \App\Field {
             $trans = Translation::firstOrNew([
                 'language_id' => $lang->id,
                 'parent_id' => $this->id,
-                'type' => 'product_field'
+                'type' => $this->type,
             ]);
             $trans->data = json_encode($trans_data);
             $trans->save();

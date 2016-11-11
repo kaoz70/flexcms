@@ -1,5 +1,157 @@
 # Change Log
 
+## Swiper 3.4.0 - Released on October 16, 2016
+  * **Custom build** available. Now you can create custom swiper build using the folowing modules: effects, lazy-load, scrollbar, controller, hashnav, history, keyboard, mousewheel, parallax, zoom, a11y. Using cli `gulp custom -zoom,effects,lazy-loading`
+  * New **zoom** functionality that enables double tap and pinch to zoom slide's inner image:
+    * Required slide layout for zoom:
+      ```
+      <div class="swiper-slide">
+        <div class="swiper-zoom-container">
+          <img src="path/to/image">
+        </div>
+      </div>
+      ```
+    * New zoom parameters:
+      * `zoom` - enable zoom functionality
+      * `zoomMax` - maximum image zoom multiplier, by default is `3`
+      * `zoomMin` - minimum image zoom multiplier, by default is `1`
+      * `zoomToggle` - enable/disable zoom-in by slide's double tap
+    * `zoomMax` can be also overridden for specific slide by using `data-swiper-zoom` attribute
+  * New `swiper.enableTouchControl()` and `swiper.disableTouchControl()` methods to enable disable touch control (it toggles `onlyExternal` parameter)
+  * New `swiper.realIndex` property in addition to `swiper.activeIndex` that returns index of active slide considering loop
+  * New **History API** with new `history` parameter. It uses history pushState to set active slide URL
+  * New `hashnavWatchState` parameter to navigate through slides (when hashnav is enabled) by browser history or by setting directly hash on document location
+  * New `replaceState` parameter that work in addition to hashnav or history to replace current url state with the new one instead of adding it to history
+  * New methods `s.unsetGrabCursor()` and `s.setGrabCursor()` to enable/disable grab cursor
+  * Draggable Scrollbar now works when `simulateTouch:false `
+  * New `normalizeSlideIndex` parameter to improve work of controller (see #1766)
+  * `lazyLoadingInPrevNextAmount` now works with `slidesPerView: 'auto'`
+  * New `passiveListeners` parameter to use passive event listeners to improve scrolling performance on mobile devices. Enabled by default
+  * New `freeModeMomentumVelocityRatio` parameter to control moment velocity
+  * Now it is possible to specify autoplay delay for every (or specific) slides by using `data-swiper-autoplay` attribute on them
+  * Lazy loading now also respects `sizes` responsive images attribute
+  * Improved mousewheel cross browser behavior (see #1797)
+  * New `mousewheelEventsTarged` parameter (by default 'container') where you can specify mousewheel events target
+  * New `onScroll` event/callback that triggers when swiping/scrolling happens with mousewheel
+  * New `touchReleaseOnEdges` parameter to release touch events on slider edge position (beginning, end) and allow for further page scrolling
+  * Multirow (slidesPerColumn) support for vertical direction, which is in this case becomes multicolumn
+  * New "swiper-slide-duplicate-active", "swiper-slide-duplicate-next", "swiper-slide-duplicate-prev" classes that will be added in loop mode to the slides representing duplicated looped slides
+  * All css classes are now configurable via new parameters: lazyLoadingClass, notificationClass, containerModifierClass, paginationClickableClass, paginationModifierClass, lazyStatusLoadingClass, lazyStatusLoadedClass, lazyPreloaderClass, notificationClass, preloaderClass, zoomContainerClass, slideDuplicateActiveClass, slideDuplicateNextClass, slideDuplicatePrevClass
+
+## Swiper 3.3.1 - Released on February 7, 2016
+  * New `uniqueNavElements` parameter. If enabled (by default) and navigation elements' parameters passed as the string (like `.pagination`) then Swiper will look for such elements through child elements first. Applies for pagination, prev/next buttons and scrollbar
+  * New `onPaginationRendered` callback. Will be fired after pagination elements generated and added to DOM
+  * New `.reLoop()` method, which combines `.destroyLoop()` + `.createLoop()` methods with additional positioning fixes. Useful to call after you have changed `slidesPerView` parameter, it will dynamically recreate duplicated slides required for loop
+  * New `.nextButton` and `.prevButton` properties with Dom7/jQuery element with next/prev button HTML element
+  * Fixed not working mousewheel control in IE 11
+  * Fixed issue with lazy loading images not being recalculated after window resize
+  * Fixed issues when using loop with breakpoints changing `slidesPerView/Group` parameters
+  * Numerous minor fixes
+
+## Swiper 3.3.0 - Released on January 10, 2016
+  * New 3D Flip effect. Can be enabled with `effect: 'flip' parameter
+  * New types of pagination with new parameters:
+    * `paginationType` - type of pagination. Can be `'bullets'` (default) or `'fraction'` or `'progress'` or `'custom'`
+    * `paginationFractionRender(swiper, currentClass, totalClass)` - custom function to render "fraction" type pagination
+    * `paginationProgressRender(swiper, progressbarClass)` - custom function to render "progress" type pagination
+    * `paginationCustomRender(swiper, current, total)` - custom function to render "custom" type pagination
+  * New `lazyLoadingInPrevNextAmount` parameter allows to lazy load images in specified amount of next/prev slides
+  * New `autoplayStopOnLast` parameter (`true` by default) tells to autoplay should it stop on last slide or start from first slide
+  * New `onAutoplay(swiper)` callback
+  * Minor fixes
+
+## Swiper 3.2.7 - Released on December 7, 2015
+  * Fixed issue with using HTMLElements for next/prevButton parameters with breakpoints
+  * Fixed issue with not working Auto Height when using Controller
+
+## Swiper 3.2.6 - Released on November 28, 2015
+  * Fixed issue in RTL layout using `mousewheelControl`
+  * Fixed issue in RTL layout using Parallax
+
+## Swiper 3.2.5 - Released on November 21, 2015
+  * New "Auto Height" mode when container/wrapper adopts to the height of currently active slide. Can be enabled with `autoHeight: true` parameter
+  * Fixed issue with break points in FireFox
+  * Fixed issue with wrong slides position when using effects
+  * Fixed issue with none-updated scroll bar after using `setWrapperTranslate`
+  * Minor fixes
+
+## Swiper 3.2.0 - Released on November 7, 2015
+  * Added responsive breakpoints support using new `breakpoints` parameter. Now you can specify different `slidesPerView` and other similar parameters for different sizes:
+    ```js
+    slidesPerView: 5,
+    spaceBetween: 50,
+    breakpoints: {
+      1024: {
+        slidesPerView: 4,
+        spaceBetween: 40
+      },
+      768: {
+        slidesPerView: 3,
+        spaceBetween: 30
+      },
+      320: {
+        slidesPerView: 1,
+        spaceBetween: 10
+      }
+    }
+    ```
+
+  * New callbacks: `onSlideNextStart`, `onSlideNextEnd`, `onSlidePrevStart`, `onSlidePrevEnd`
+  * Added Meteor package `meteor add nolimits4web:swiper`
+  * Fixed issue with mouse touchMove/End callbacks firing all the time
+  * Fixed issue with mousewheel in Chrome
+  * Minor fixes
+
+## Swiper 3.1.7 - Released on October 10, 2015
+  * Fixed issue with lazy loading trying to download `undefined`-src images
+  * Fixed lazy loading on slides using jQuery version
+  * Fixed issue with `slideToClickedSlide` with `loop` and `centeredSlides`
+  * Fixed issue with wrong slides fill when number of slides less than `slidesPerView * slidesPerColumn` with `slidesPerColumnFill: 'row'`
+  * Minor fixes
+
+## Swiper 3.1.5 - Released on September 28, 2015
+  * Added support for images `srcset` with lazy loading using `data-srcset` attribute
+  * Fixed new Chrome errors with `WebkitCSSMatrix`
+  * Fixed issue with `slideToClickedSlide` with `loop` and `centeredSlides`
+  * New `freeModeMinimumVelocity` parameter to set minimum required touch velocity to trigger free mode momentum
+  * Ability to make the Scrollbar draggable using new paramaters:
+    * `scrollbarDraggable` - (boolean) by default is `false`. Allows to enable draggable scrollbar
+    * `scrollbarSnapOnRelease` - (boolean) by default is `false`. Control slider snap on scrollbar release
+  * Minor fixes
+
+## Swiper 3.1.2 - Released on August 22, 2015
+  * Fixed issues with loop and mousewheel when swiper stopped on last slide
+  * Imporved mouse wheel behavior in latest Chrome
+  * Fixed issue with `slidesPerView: 'auto'` and enabled `loop:true` mode to set `loopedSlides` to the amount of slides by default (if not specified)
+  * New `mousewheelSensitivity: 1` parameter allows to tweak mouse wheel sensitivity
+  * Fixed issue with updating swiper when swiping is locked (with `allowSwipeToNext`/`allowSwipeToPrev`)
+  * Fixed issue with wrong calculating of "visible" slides with enabled `centeredSlides`
+  * CSS fixes for 3D effects
+  * New options to release Swiper events for swipe-to-go-back work in iOS UIWebView with two options:
+    * `iOSEdgeSwipeDetection` (by default is `false`) - enable ios edge detection and release Swiper events
+    * `iOSEdgeSwipeThreshold` (default value is `20`) - area in `px` from left edge of screen to release events
+  * Improved source maps
+  * Minor fixes
+
+## Swiper 3.1.0 - Released on July 14, 2015
+  * Accessibility (a11y)
+    * Fixed issue with wrong buttons labels
+    * Added support for pagination bullets
+    * New accessibility parameter for pagination label `paginationBulletMessage: 'Go to slide {{index}}'`
+  * Controler
+    * New parameter `controlBy` which can be 'slide' (by default) or 'container'. Defines a way how to control another slider: slide by slide or depending on all slides/container (like before)
+    * Now controllers in `controlBy: 'slide'` (default) mode will respect grid of each other
+  * Pagination
+    * New `paginationElement` parameter defines which HTML tag will be use to represent single pagination bullet. By default it is `span`
+  * New `roundLengths` parameter (by default is `false`) to round values of slides width and height to prevent blurry texts on usual resolution screens
+  * New `slidesOffsetBefore: 0` and `slidesOffsetAfter: 0` (in px) parameters to add additional slide offset within a container
+  * Correct calculation for slides size when use CSS padding on `.swiper-container`
+  * Fixed issue with not working onResize handler when swipes are locked
+  * Fixed issue with "jumping" effect when you disable `onlyExternal` during touchmove
+  * Fixed issue when slider goes to previos slide from last slide after window resize
+  * Added new `swiper.jquery.umd.js` version for the environment where both Swiper and jQuery included as modules
+  * Minor fixes
+
 ## Swiper 3.0.8 - Released on June 14, 2015
   * Fixed issue with wrong active index and callbacks in Fade effect
   * New mousewheel parameters:

@@ -248,11 +248,11 @@ class ParameterBag implements \IteratorAggregate, \Countable
     /**
      * Filter key.
      *
-     * @param string $key     Key.
-     * @param mixed  $default Default = null.
-     * @param int    $filter  FILTER_* constant.
-     * @param mixed  $options Filter options.
-     * @param bool   $deep    Default = false.
+     * @param string $key     Key
+     * @param mixed  $default Default = null
+     * @param int    $filter  FILTER_* constant
+     * @param mixed  $options Filter options
+     * @param bool   $deep    Default = false
      *
      * @see http://php.net/manual/en/function.filter-var.php
      *
@@ -268,7 +268,7 @@ class ParameterBag implements \IteratorAggregate, \Countable
             }
         }
         if (is_bool($filter) || !isset($filters[$filter]) || is_array($deep)) {
-            @trigger_error('Passing the $deep boolean as 3rd argument to the '.__METHOD__.' method is deprecated since version 2.8 and will be removed in 3.0. Remove it altogether as the $deep argument will be removed in 3.0.', E_USER_ERROR);
+            @trigger_error('Passing the $deep boolean as 3rd argument to the '.__METHOD__.' method is deprecated since version 2.8 and will be removed in 3.0. Remove it altogether as the $deep argument will be removed in 3.0.', E_USER_DEPRECATED);
             $tmp = $deep;
             $deep = $filter;
             $filter = $options;

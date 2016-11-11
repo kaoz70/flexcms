@@ -13,15 +13,11 @@ class Config extends \Catalog {
 
 	public function index()
 	{
-		$config = $this->Catalogo->getConfiguration();
-		$data['productoMostarProductoInicio'] = $config->productoMostarProductoInicio;
-		$data['link'] = base_url('admin/catalog/config/update');
-		$data['titulo'] = 'Configuraci&oacute;n';
-		$data['txt_boton'] = 'Guardar Configuracion';
-		$this->load->view('admin/catalog/configuracion_view', $data);
+		$data['config'] = \App\Config::get('catalog');
+		$this->load->view('catalog/config_view', $data);
 	}
 
-	public function update()
+	public function save()
 	{
 
 		$response = new \stdClass();

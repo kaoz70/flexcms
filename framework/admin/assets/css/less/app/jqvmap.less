@@ -1,0 +1,43 @@
+﻿/*------------------------------------------------------------------
+[8.2. JQVMaps]
+*/
+.jqvmap-label {
+    .border-radius(@border-radius);
+    background: @default;
+    color: white;
+    display: none;
+    font-family: @font-family-primary;
+    padding: 4px 5px;
+    position: absolute;
+}
+
+.jqvmap-zoomin, .jqvmap-zoomout {
+    .border-radius(@border-radius);
+    background: @default;
+    color: white;
+    cursor: pointer;
+    height: 15px;
+    left: 10px;
+    line-height: 10px;
+    padding: 3px;
+    position: absolute;
+    text-align: center;
+    width: 15px;
+}
+
+.jqvmap-zoomin {
+    top: 10px;
+}
+
+.jqvmap-zoomout {
+    top: 30px;
+}
+
+.jqvmap-region {
+    cursor: pointer;
+}
+
+.jqvmap-ajax_response {
+    height: 500px;
+    width: 100%;
+}

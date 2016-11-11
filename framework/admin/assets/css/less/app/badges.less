@@ -1,0 +1,29 @@
+﻿/*------------------------------------------------------------------
+[3.8. Badges]
+*/
+.badge {
+    font-family:@font-family-primary;
+    font-size: 1.15em;
+    font-weight: 300;
+    padding: 3px 6px;
+
+    &.badge-square{
+        .border-radius(@border-radius);
+    }
+}
+
+.badge- {
+    .for(@colors);
+
+    .-each(@value) {
+        @name: extract(@value, 1);
+
+        &@{name} {
+            .badge(extract(@value, 2), extract(@value, 4));
+        }
+    }
+}
+
+.badge-inverse, .badge-white{
+    border: 1px solid @inverse-white-border-color;
+}

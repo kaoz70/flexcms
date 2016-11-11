@@ -95,7 +95,7 @@ class Admin extends AdminController {
         $data['menu'] = \App\Admin::getModules();
 
         $data['assets_css'] = $this->assets_css;
-        $data['assets_js'] = array();
+        $data['assets_js'] = \App\Admin::getModuleAssets();
 
         $this->load->view('admin/index_view', $data);
     }
@@ -132,7 +132,7 @@ class Admin extends AdminController {
      */
     public function validate(){
 
-        $this->form_validation->set_rules('username', 'Usuario', 'required');
+        $this->form_validation->set_rules('username', 'Email', 'required');
         $this->form_validation->set_rules('password', 'Contraseña', 'required');
 
         $data['assets_css'] = $this->assets_css;

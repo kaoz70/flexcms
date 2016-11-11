@@ -1,0 +1,155 @@
+﻿/*------------------------------------------------------------------
+[4.2.6. Spinbox]
+*/
+.spinbox {
+    display: inline-block;
+    position: relative;
+
+    &.digits-3 {
+        width: 60px;
+    }
+
+    &.disabled {
+        .spinbox-buttons {
+            cursor: not-allowed;
+        }
+    }
+
+    .spinbox-input {
+        float: left;
+        padding: 0 25px 0 7px;
+        padding-bottom: 3px; /* Magic number */
+
+        &::-ms-clear {
+            display: none;
+        }
+    }
+
+    .btn {
+        height: 17px;
+        padding-left: 9px;
+        padding-right: 9px;
+        padding-top: 0;
+        position: relative;
+        width: 20px;
+
+        &.disabled {
+            cursor: not-allowed;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .spinbox-buttons {
+        height: 34px;
+        position: absolute;
+        right: 0;
+        width: 20px;
+    }
+
+    .spinbox-up {
+        border-top-right-radius: @border-radius;
+        padding: 0 0 14px 1px;
+        top: 0;
+
+        .pe-7s-angle-up {
+            font-size: 20px;
+            left: -1px;
+            position: relative;
+            top: -1px;
+        }
+    }
+    // fix radius from BS btn-group
+    .btn-group > .btn.spinbox-up {
+        border-top-left-radius: 0 !important;
+        border-top-right-radius: @border-radius !important;
+    }
+
+    .btn-group > .btn.spinbox-down {
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: @border-radius !important;
+    }
+
+    .spinbox-down {
+        border-bottom-right-radius: @border-radius;
+        height: 17px;
+        padding: 0 0 8px 1px;
+        top: 0;
+
+        .pe-7s-angle-down {
+            font-size: 20px;
+            left: -1px;
+            position: relative;
+            top: -2px;
+        }
+    }
+
+    input {
+        &::-ms-clear {
+            display: none;
+        }
+    }
+
+    &.spinbox-horizontal {
+
+        .spinbox-buttons {
+            font-size: 0;
+            margin: 0;
+            top: 0;
+            width: 25px !important;
+
+            > .btn {
+                display: inline-block;
+                font-size: 18px;
+                height: 34px;
+                line-height: 32px;
+                margin: 0;
+                vertical-align: sub;
+
+                > i {
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+            }
+
+            &.spinbox-buttons-left {
+                left: 0;
+                > .btn{
+                    .border-radius(@border-radius 0 0 @border-radius);
+                }
+            }
+
+            &.spinbox-buttons-right {
+                right: 0;
+                > .btn{
+                    .border-radius(0 @border-radius @border-radius 0);
+                }
+            }
+        }
+
+        input {
+            padding-left: 30px !important;
+        }
+
+        .spinbox-down {
+            border-left: 0;
+            width: 24px;
+
+            .pe-7s-angle-down {
+                top: 2px;
+                left: 0;
+            }
+        }
+
+        .spinbox-up {
+            width: 24px;
+
+            .pe-7s-angle-up {
+                left: 0;
+                top: 2px;
+            }
+        }
+    }
+}

@@ -1,0 +1,52 @@
+﻿/*------------------------------------------------------------------
+[8.1. GMaps]
+*/
+.gmaps {
+    display: block;
+    height: 350px;
+    margin: 0 auto;
+    width: 100%;
+
+    &.large {
+        height: 500px;
+    }
+}
+
+
+
+.overlay {
+    text-shadow:1px 1px 1px #666;
+    background: @primary;
+    border: solid 3px @primary;
+    border-radius: 4px;
+    box-shadow: 2px 2px 10px #333;
+    color: #fff;
+    display: block;
+    font-size: 60px;
+    line-height: 80px;
+    opacity: 0.8;
+    padding: 0 4px;
+    text-align: center;
+}
+
+.overlay_arrow {
+    height: 0;
+    left: 50%;
+    margin-left: -16px;
+    position: absolute;
+    width: 0;
+}
+
+.overlay_arrow.above {
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    border-top: 16px solid @primary;
+    bottom: -15px;
+}
+
+.overlay_arrow.below {
+    border-bottom: 16px solid @primary;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    top: -15px;
+}

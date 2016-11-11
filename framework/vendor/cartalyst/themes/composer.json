@@ -6,28 +6,14 @@
 	"authors": [
 		{
 			"name": "Cartalyst LLC",
-			"email": "help@cartalyst.com"
-		},
-		{
-			"name": "Ben Corlett",
-			"email": "ben.corlett@cartalyst.com",
-			"role": "Developer"
-		},
-		{
-			"name": "Bruno Gaspar",
-			"email": "bruno.gaspar@cartalyst.com",
-			"role": "Developer"
-		},
-		{
-			"name": "Dan Syme",
-			"email": "dan.syme@cartalyst.com",
-			"role": "Project Lead"
+			"email": "help@cartalyst.com",
+			"homepage": "https://cartalyst.com"
 		}
 	],
 	"repositories": [
 		{
 			"type": "composer",
-			"url": "http://packages.cartalyst.com"
+			"url": "https://packages.cartalyst.com"
 		}
 	],
 	"require": {
@@ -50,10 +36,11 @@
 		"lmammino/jsmin4assetic": "JavaScript PHP minification."
 	},
 	"require-dev": {
-		"mockery/mockery": "~0.9",
 		"illuminate/events": "~5.0",
 		"illuminate/routing": "~5.0",
-		"illuminate/view": "~5.0"
+		"illuminate/view": "~5.0",
+		"phpunit/phpunit": "~4.8",
+		"mockery/mockery": "~0.9"
 	},
 	"autoload": {
 		"psr-4": {

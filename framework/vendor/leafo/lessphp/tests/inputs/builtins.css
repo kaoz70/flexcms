@@ -1,0 +1,61 @@
+body {
+  color: "hello world";
+  num-basic: 5.16666667;
+  num-floor: 5px;
+  num-ceil: 6px;
+  num2: 0.66666667;
+  num2-round: 1;
+  num2-floor: 0;
+  num2-ceil: 1;
+  round-lit: 3px;
+  rgba1: rgbahex(#112233);
+  rgba2: rgbahex(rgba(44, 55, 66, 0.6));
+  argb: #992c3742;
+}
+format {
+  format: "rgb(32, 128, 64)";
+  format-string: "hello world";
+  format-multiple: "hello earth 2";
+  format-url-encode: 'red is %23ff0000';
+  eformat: rgb(32, 128, 64);
+}
+#functions {
+  str1: true;
+  str2: false;
+  num1: true;
+  num2: true;
+  num3: true;
+  num4: false;
+  col1: true;
+  col2: false;
+  col3: true;
+  col4: true;
+  key1: true;
+  key2: false;
+  px1: true;
+  px2: false;
+  per1: true;
+  per2: false;
+  em1: true;
+  em2: false;
+  ex1: 2;
+  ex2: 1;
+  ex3: 1;
+  ex4: 2;
+  pow: 16;
+  pi: 3.14159265;
+  mod: 4;
+  tan: 1.55740772;
+  cos: 0.54030231;
+  sin: 0.84147098;
+  atan: 0.78539816rad;
+  acos: 0rad;
+  asin: 1.57079633rad;
+  sqrt: 2.82842712;
+}
+#unit {
+  unit-lit: 10;
+  unit-arg: 10"s";
+  unit-arg2: 10"em";
+  unit-math: 7.407%;
+}
