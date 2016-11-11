@@ -3,7 +3,6 @@
   "description": "Content Management System",
   "require": {
     "kriswallsmith/assetic": "^1.3",
-    "lonnieezell/codeigniter-forensics": "dev-master",
     "gajus/dindent": "^2.0",
     "parsecsv/php-parsecsv": "^0.4",
     "mrclay/minify": "^2.2",

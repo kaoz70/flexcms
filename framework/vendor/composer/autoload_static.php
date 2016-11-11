@@ -300,10 +300,6 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         ),
         'C' => 
         array (
-            'Composer\\Installer' => 
-            array (
-                0 => __DIR__ . '/..' . '/compwright/codeigniter-installers/src',
-            ),
             'CoffeeScript' => 
             array (
                 0 => __DIR__ . '/..' . '/coffeescript/coffeescript/src',
