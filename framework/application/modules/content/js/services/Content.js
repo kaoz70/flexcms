@@ -21,11 +21,17 @@ angular.module('app')
             return $http.get(urls.edit + id);
         };
 
-        this.save = function(content) {
+        this.save = function(content, translations) {
+
+            var data = {
+                content: content,
+                translations: translations
+            }
+
             return $http({
                 method: 'POST',
                 url: urls.update + content.id,
-                data: $httpParamSerializer(content),
+                data: $httpParamSerializer(data),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).success(function (response) {
 

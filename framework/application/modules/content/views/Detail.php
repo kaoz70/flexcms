@@ -19,12 +19,12 @@
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon">T&iacute;tulo</span>
-                            <input type="text" class="form-control" ng-model="trans.title">
+                            <input type="text" class="form-control" ng-model="trans.translation.name">
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Contenido</label>
-                        <textarea rows="15" cols="5" class="form-control" ng-model="trans.content" ui-tinymce="tinymceOptions" ></textarea>
+                        <textarea rows="15" cols="5" class="form-control" ng-model="trans.translation.content" ui-tinymce="tinymceOptions" ></textarea>
                     </div>
 
                 </div>
@@ -121,19 +121,24 @@
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon">Palabras Clave</span>
-                            <textarea class="form-control" ng-model="trans.meta_keywords"></textarea>
+                            <ui-select multiple tagging ng-model="trans.translation.meta_keywords" theme="bootstrap" sortable="true">
+                                <ui-select-match>{{$item}}</ui-select-match>
+                                <ui-select-choices repeat="color in ctrl.availableColors | filter:$select.search">
+                                    {{color}}
+                                </ui-select-choices>
+                            </ui-select>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon">Meta T&iacute;tulo</span>
-                            <input class="form-control" ng-model="trans.meta_title">
+                            <input class="form-control" ng-model="trans.translation.meta_title">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon">Meta Descripci&oacute;n</span>
-                            <textarea class="form-control" ng-model="trans.meta_description"></textarea>
+                            <textarea class="form-control" ng-model="trans.translation.meta_description"></textarea>
                         </div>
                     </div>
                 </div>

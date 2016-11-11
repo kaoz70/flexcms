@@ -11,7 +11,7 @@
             <ul class="dd-list">
                 <li class="dd-item" ng-repeat="row in records">
                     <div class="dd-handle">
-                         <a ng-href="#/{{section}}/edit/{{row.id}}">{{row.name ? row.name : row.translation}}</a>
+                         <a ng-href="#/{{section}}/edit/{{row.id}}">{{row.name ? row.name : row.translation.name}}</a>
                         <a class="pull-right"><list-item-delete /></a>
                     </div>
                 </li>

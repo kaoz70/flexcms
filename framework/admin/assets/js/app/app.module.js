@@ -12,6 +12,7 @@
             'oc.lazyLoad',
             'ncy-angular-breadcrumb',
             'ui.tinymce',
-            'ui.bootstrap.datetimepicker'
+            'ui.bootstrap.datetimepicker',
+            'ui.select'
         ]);
 }());

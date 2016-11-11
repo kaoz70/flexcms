@@ -17,8 +17,10 @@ angular.module('app')
         WindowFactory.add();
 
         $scope.close_url = "#/page/" + $routeParams.page_id;
+        $scope.translations = [];
 
         Content.edit($routeParams.id).then(function (response) {
+
             $rootScope.records[$routeParams.id] = response.data.data.content;
             $scope.content = response.data.data.content;
             $scope.translations = response.data.data.translations;
@@ -31,11 +33,11 @@ angular.module('app')
         });
 
         $scope.save = function () {
-            Content.save($rootScope.records[$routeParams.id]);
+            Content.save($rootScope.records[$routeParams.id], $scope.translations);
         };
 
         $scope.saveAndClose = function () {
-            Content.save($rootScope.records[$routeParams.id]);
+            Content.save($rootScope.records[$routeParams.id], $scope.translations);
             WindowFactory.remove($scope);
         };
 

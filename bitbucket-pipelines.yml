@@ -16,4 +16,4 @@ pipelines:
             - git status -uno --porcelain
             - echo "Initiating Push site:Source."
             - git config git-ftp.syncroot Source/
-            - git ftp push --user $FTP_USER --passwd $FTP_PASSWORD ftp://dev.dejabu.ec/public_html/flexcms2
+            - git ftp push --user $FTP_USER --passwd $FTP_PASSWORD $FTP_SERVER

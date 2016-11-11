@@ -84,17 +84,12 @@ class Content extends BaseModel {
     static function getForEdit($content_id)
     {
 
+        $content = static::find($content_id);
         $contentTrans = new EditTranslations();
-        $contentTrans->setContent(static::find($content_id));
+        $contentTrans->setContent($content);
 
         foreach (Language::all() as $lang) {
-
-            try {
-                $contentTrans->add($lang, $contentTrans->getContent()->getTranslation($lang));
-            } catch (TranslationException $e) {
-                //TODO: do something here
-            }
-
+            $contentTrans->add($lang, $content->getTranslation($lang->id));
         }
 
         return $contentTrans->getAll();
@@ -135,20 +130,23 @@ class Content extends BaseModel {
 
     public function setTranslations($input)
     {
+
         foreach(Language::all() as $lang){
 
+            $translation = $input->{$lang->id}->translation;
+
             $trans_data = [
-                'name' => $input['name'][$lang->id],
-                'content' => $input['content'][$lang->id],
-                'meta_keywords' => array_map('trim', explode(',', $input['meta_keywords'][$lang->id])),
-                'meta_description' => $input['meta_description'][$lang->id],
-                'meta_title' => $input['meta_title'][$lang->id],
+                'name' => $translation->name,
+                'content' => $translation->content,
+                'meta_keywords' => $translation->meta_keywords,
+                'meta_description' => $translation->meta_description,
+                'meta_title' => $translation->meta_title,
             ];
 
             $trans = Translation::firstOrNew([
                 'language_id' => $lang->id,
                 'parent_id' => $this->id,
-                'type' => static::TYPE
+                'type' => $this->type
             ]);
             $trans->data = json_encode($trans_data);
             $trans->save();

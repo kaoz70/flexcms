@@ -34,11 +34,11 @@ class BaseModel extends Model {
     /**
      * Returns the content's translation as a json decoded object/array
      *
-     * @param $lang
+     * @param int $lang_id
      * @return mixed
      * @throws \TranslationException
      */
-    public function getTranslation($lang)
+    public function getTranslation($lang_id)
     {
 
         if(!$this->type) {
@@ -46,13 +46,12 @@ class BaseModel extends Model {
         }
 
         $translation = $this->hasOne('App\Translation', 'parent_id')
-            ->where('language_id', $lang)
+            ->where('language_id', $lang_id)
             ->where('type', $this->type)
             ->first();
 
         if($translation) {
             $this->translation = json_decode($translation->data);
-
             return $this->translation;
         } else {
             return null;

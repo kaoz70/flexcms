@@ -41,7 +41,7 @@ class Content extends \AdminController implements \ContentInterface
         $widget = Widget::getContentWidget($page_id);
         $contentOrder = $widget->getConfig()->order;
 
-        $data['items'] = \App\Content::getByPage($page_id, 'es', $contentOrder)->getDictionary();
+        $data['items'] = \App\Content::getByPage($page_id, 1, $contentOrder)->getDictionary();
         $data['menu'] = [
             ['title' => 'configuraci&oacute;n', 'url' => static::URL_CONFIG],
             ['title' => '"crear nuevo contenido', 'url' => static::URL_CREATE],
@@ -127,13 +127,14 @@ class Content extends \AdminController implements \ContentInterface
     public function update($id)
     {
 
-        $response = new stdClass();
-        $response->error_code = 0;
+        $response = new Response();
 
         try{
             $this->_store(\App\Content::find($id));
+            $response->setSuccess(true);
+            $response->setMessage('Contenido actualizado correctamente');
         } catch (Exception $e) {
-            $response = $this->error('Ocurri&oacute; un problema al actualizar el contenido!', $e);
+            $response->setMessage($this->error('Ocurri&oacute; un problema al actualizar el contenido!', $e));
         }
 
         $this->load->view(static::RESPONSE_VIEW, array(static::RESPONSE_VAR => $response));
@@ -194,15 +195,17 @@ class Content extends \AdminController implements \ContentInterface
     public function _store(Model $model)
     {
 
-        $model->css_class = $this->input->post('css_class');
-        $model->enabled = (bool) $this->input->post('enabled');
-        $model->important = (bool) $this->input->post('important');
-        $model->category_id = $this->input->post('page_id');
-        $model->publication_start = $this->input->post('publication_start');
-        $model->publication_end = $this->input->post('publication_end');
+        $contentPost = json_decode($this->input->post('content'));
+
+        $model->css_class = $contentPost->css_class;
+        $model->enabled = (bool) $contentPost->enabled;
+        $model->important = (bool) $contentPost->important;
+        $model->category_id = $contentPost->category_id;
+        $model->publication_start = $contentPost->publication_start;
+        $model->publication_end = $contentPost->publication_end;
         $model->save();
 
-        $model->setTranslations($this->input->post());
+        $model->setTranslations(json_decode($this->input->post('translations')));
 
         return $model;
 
