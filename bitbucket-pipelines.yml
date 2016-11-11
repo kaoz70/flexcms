@@ -6,7 +6,14 @@
 image: phpunit/phpunit:5.0.3
 
 pipelines:
-  default:
-    - step:
-        script: # Modify the commands below to build your repository.
-          - composer install
+    default:
+      - step:
+          script:
+            - echo "Pipeline Init"
+            - apt-get update
+            - apt-get -qq install git-ftp
+            - echo "'_$(git status -uno --porcelain | wc -l)_'"
+            - git status -uno --porcelain
+            - echo "Initiating Push site:Source."
+            - git config git-ftp.syncroot Source/
+            - git ftp push --user $FTP_USER --passwd $FTP_PASSWORD ftp://dev.dejabu.ec/public_html/flexcms2
