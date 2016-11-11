@@ -12,12 +12,12 @@
                 .when('/language/edit/:id', 'language.edit')
                 .segment('language', {
                     'default': true,
-                    templateUrl: BASE_PATH + 'views/List.html',
+                    templateUrl: BASE_PATH + 'admin/List',
                     controller: 'LanguageCtrl'
                 })
                 .within()
                     .segment('edit', {
-                        templateUrl: BASE_PATH + 'views/language/Detail.html',
+                        templateUrl: BASE_PATH + 'admin/LanguageDetail',
                         controller: 'LanguageEditCtrl',
                         dependencies: ['id']
                     });

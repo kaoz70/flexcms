@@ -10,6 +10,8 @@
             'ui.router',
             'view-segment',
             'oc.lazyLoad',
-            'ncy-angular-breadcrumb'
+            'ncy-angular-breadcrumb',
+            'ui.tinymce',
+            'ui.bootstrap.datetimepicker'
         ]);
 }());

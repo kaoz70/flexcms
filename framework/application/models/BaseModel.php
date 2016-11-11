@@ -42,7 +42,7 @@ class BaseModel extends Model {
     {
 
         if(!$this->type) {
-            throw new \RuntimeException("Please set the model's type");
+            throw new \RuntimeException("Please set the model " . __CLASS__ . "'s protected type variable");
         }
 
         $translation = $this->hasOne('App\Translation', 'parent_id')
@@ -52,11 +52,11 @@ class BaseModel extends Model {
 
         if($translation) {
             $this->translation = json_decode($translation->data);
-        } else {
-            $this->translation = null;
-        }
 
-        return $this;
+            return $this->translation;
+        } else {
+            return null;
+        }
 
     }
 

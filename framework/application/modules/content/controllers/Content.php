@@ -37,6 +37,7 @@ class Content extends \AdminController implements \ContentInterface
         $CI = &get_instance();
 
         $page = Category::find($page_id);
+        $page->setType('page');
         $widget = Widget::getContentWidget($page_id);
         $contentOrder = $widget->getConfig()->order;
 
@@ -47,7 +48,7 @@ class Content extends \AdminController implements \ContentInterface
         ];
 
         try {
-            $data['title'] = $page->getTranslation('es', 'page')->name;
+            $data['title'] = $page->getTranslation('es') ? $page->getTranslation('es')->name : "{missing translation}";
         } catch (\TranslationException $e) {
             $data['title'] = "{Missing translation}";
         }
@@ -81,7 +82,7 @@ class Content extends \AdminController implements \ContentInterface
         $response = new Response();
 
         try{
-            $content = \App\Content::get($id);
+            $content = \App\Content::getForEdit($id);
             $response->setSuccess(true);
             $response->setData($content);
         } catch (Exception $e) {

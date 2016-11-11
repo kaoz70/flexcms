@@ -53,6 +53,7 @@
 }
 .panel-body {
   height: 100%;
+  overflow: auto;
 }
 .panel.small-width {
   max-width: 350px;

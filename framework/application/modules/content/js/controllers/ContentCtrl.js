@@ -16,22 +16,26 @@ angular.module('app')
 
         WindowFactory.add();
 
-        console.log($routeSegment);
-
         $scope.close_url = "#/page/" + $routeParams.page_id;
 
         Content.edit($routeParams.id).then(function (response) {
-            $rootScope.records[$routeParams.id] = response.data;
-            $scope.language = response.data;
-            $scope.title = response.data.name;
+            $rootScope.records[$routeParams.id] = response.data.data.content;
+            $scope.content = response.data.data.content;
+            $scope.translations = response.data.data.translations;
+
+            $scope.tinymceOptions = {
+                plugins: 'link image code',
+                toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
+            };
+
         });
 
         $scope.save = function () {
-            Language.save($rootScope.records[$routeParams.id]);
+            Content.save($rootScope.records[$routeParams.id]);
         };
 
         $scope.saveAndClose = function () {
-            Language.save($rootScope.records[$routeParams.id]);
+            Content.save($rootScope.records[$routeParams.id]);
             WindowFactory.remove($scope);
         };
 
