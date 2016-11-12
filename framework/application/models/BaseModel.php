@@ -13,6 +13,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class BaseModel extends Model {
 
+    protected $casts = [
+        'enabled' => 'boolean',
+        'important' => 'boolean',
+    ];
+
     private $lang;
 
     /**

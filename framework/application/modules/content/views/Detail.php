@@ -95,14 +95,14 @@
 
         <div class="checkbox">
             <label>
-                <input type="checkbox" {{content.important ? 'checked="checked"' : ''}}>
+                <input ng-model="content.important" type="checkbox" >
                 <span class="text">Destacado</span>
             </label>
         </div>
 
         <div class="checkbox">
             <label>
-                <input type="checkbox" {{content.enabled ? 'checked="checked"' : ''}}>
+                <input ng-model="content.enabled" type="checkbox" >
                 <span class="text">Publicado</span>
             </label>
         </div>
@@ -117,7 +117,6 @@
                     <span>{{trans.name}}</span>
                 </uib-tab-heading>
                 <div class="widget">
-
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon">Palabras Clave</span>
@@ -158,7 +157,7 @@
         <div class="form-group">
             <div class="input-group">
                 <label class="input-group-addon" for="css_class">Clase CSS</label>
-                <input id="publication_end" class="form-control" name="css_class" type="datetime" value="{{content.css_class}}"/>
+                <input id="publication_end" class="form-control" name="css_class" type="datetime" ng-model="content.css_class" />
             </div>
         </div>
 
