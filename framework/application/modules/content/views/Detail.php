@@ -121,7 +121,13 @@
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon">Palabras Clave</span>
-                            <ui-select multiple tagging ng-model="trans.translation.meta_keywords" theme="bootstrap" sortable="true">
+                            <ui-select multiple
+                                       tagging
+                                       tagging-label=""
+                                       ng-model="trans.translation.meta_keywords"
+                                       tagging-tokens=","
+                                       theme="bootstrap"
+                                       sortable="true">
                                 <ui-select-match>{{$item}}</ui-select-match>
                                 <ui-select-choices repeat="color in ctrl.availableColors | filter:$select.search">
                                     {{color}}
