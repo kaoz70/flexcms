@@ -1,0 +1,35 @@
+
+engines:
+  rubocop:
+    enabled: true
+    #checks:
+    # Rubocop/Metrics/ClassLength:
+    # enabled: false
+  phpcodesniffer:
+    enabled: true
+  phpmd:
+    enabled: true
+  fixme:
+   	enabled: true
+  eslint:
+    enabled: true
+  csslint:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - php
+        #mass_threshold: 30
+      - javascript
+ratings:
+  paths:
+  - "**.php"
+  - "**.js"
+  - "**.scss"
+exclude_paths:
+- framework/system/
+- framework/packages/
+- framework/node_modules/
+- "**/vendor/**/*"
+- test/
