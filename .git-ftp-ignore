@@ -1,0 +1,9 @@
+/sql/*
+.bowerrc
+.eslintrc
+.gitignore
+.jscsrc
+bitbucket-pipelines.yml
+bower.json
+composer.json
+composer.lock
