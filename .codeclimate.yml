@@ -1,10 +1,5 @@
 
 engines:
-  rubocop:
-    enabled: true
-    #checks:
-    # Rubocop/Metrics/ClassLength:
-    # enabled: false
   phpcodesniffer:
     enabled: true
   phpmd:
@@ -28,8 +23,7 @@ ratings:
   - "**.js"
   - "**.scss"
 exclude_paths:
-- framework/system/
-- framework/packages/
-- framework/node_modules/
+- "framework/system/"
+- "framework/packages/"
+- "framework/node_modules/"
 - "**/vendor/**/*"
-- test/
