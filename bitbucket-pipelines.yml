@@ -15,4 +15,4 @@ pipelines:
             - echo "'_$(git status -uno --porcelain | wc -l)_'"
             - git status -uno --porcelain
             - echo "Initiating Push site:Source."
-            - git ftp init --user $FTP_USER --passwd $FTP_PASSWORD $FTP_SERVER
+            - git ftp push --user $FTP_USER --passwd $FTP_PASSWORD $FTP_SERVER
