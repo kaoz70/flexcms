@@ -14,7 +14,7 @@ pipelines:
             - apt-get -qq install git-ftp
             - echo "'_$(git status -uno --porcelain | wc -l)_'"
             - git status -uno --porcelain
-            - echo push to Github
+            - echo "Push to Github"
             - git config --global user.email "$GITHUB_EMAIL"
             - git config --global user.name "Miguel Suarez"
             - git remote set-url origin https://kaoz70:$GITHUB_PASSWORD@github.com/kaoz70/flexcms.git
