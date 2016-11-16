@@ -8,3 +8,4 @@ bower.json
 composer.json
 composer.lock
 .codeclimate.yml
+README.md
