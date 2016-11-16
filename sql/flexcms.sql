@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.15.5
--- http://www.phpmyadmin.net
+-- version 4.4.15.8
+-- https://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 12-10-2016 a las 03:15:00
--- Versión del servidor: 5.6.30
--- Versión de PHP: 5.5.35
+-- Tiempo de generación: 16-11-2016 a las 13:32:31
+-- Versión del servidor: 5.6.31
+-- Versión de PHP: 7.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -257,8 +257,8 @@ CREATE TABLE IF NOT EXISTS `content` (
 --
 
 INSERT INTO `content` (`id`, `image`, `css_class`, `category_id`, `enabled`, `temporary`, `important`, `publication_start`, `publication_end`, `module`, `data`, `position`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(2, NULL, '7', 23, 0, 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL, 2, '2016-07-30 04:16:55', '2016-09-04 00:25:09', NULL),
-(3, NULL, '', 23, 0, 1, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL, 1, '2016-08-01 20:35:09', '2016-09-04 00:25:09', NULL);
+(2, NULL, '6', 23, 1, 1, 1, '2016-11-15 18:15:00', '2016-11-16 10:50:00', NULL, NULL, 2, '2016-07-30 04:16:55', '2016-11-16 09:28:30', NULL),
+(3, NULL, '', 23, 0, 1, 0, NULL, NULL, NULL, NULL, 1, '2016-08-01 20:35:09', '2016-11-16 09:31:18', NULL);
 
 -- --------------------------------------------------------
 
@@ -560,7 +560,7 @@ CREATE TABLE IF NOT EXISTS `persistences` (
   `code` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `persistences`
@@ -586,7 +586,11 @@ INSERT INTO `persistences` (`id`, `user_id`, `code`, `created_at`, `updated_at`)
 (18, 1, 'Em8lD3b4oDVztJVzjv1VklmGa7NVajGC', '2016-07-27 22:18:08', '2016-07-27 22:18:08'),
 (20, 1, 'qrcMLe8W6QTAdxzrH4tncb2DedSVgblf', '2016-07-27 22:18:56', '2016-07-27 22:18:56'),
 (21, 1, '20FGNyFPPGjHRWANeolaFTDxaNFKA5dX', '2016-07-27 22:19:54', '2016-07-27 22:19:54'),
-(22, 1, 'TdGu3NZqGVBAzMz7eAGbFC5OCUVFCAxK', '2016-09-04 00:17:14', '2016-09-04 00:17:14');
+(22, 1, 'TdGu3NZqGVBAzMz7eAGbFC5OCUVFCAxK', '2016-09-04 00:17:14', '2016-09-04 00:17:14'),
+(23, 1, 'xB0w2j3V4WdxJJS43jZOFRQnJq8vX6ks', '2016-10-26 07:07:18', '2016-10-26 07:07:18'),
+(24, 1, 'onmB6SBQj1Byjyyy2dWrJCSnxDlT6Idn', '2016-10-28 06:58:42', '2016-10-28 06:58:42'),
+(25, 1, 'sj1OHGS3vTb2mABhTPsVlgu1h9bhX0Df', '2016-11-09 06:27:53', '2016-11-09 06:27:53'),
+(26, 1, 'qBqExA88ofQKBwV4zzb3jpezZFiyYAf7', '2016-11-16 06:15:42', '2016-11-16 06:15:42');
 
 -- --------------------------------------------------------
 
@@ -794,7 +798,7 @@ CREATE TABLE IF NOT EXISTS `throttle` (
   `ip` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `throttle`
@@ -803,7 +807,13 @@ CREATE TABLE IF NOT EXISTS `throttle` (
 INSERT INTO `throttle` (`id`, `user_id`, `type`, `ip`, `created_at`, `updated_at`) VALUES
 (1, NULL, 'global', NULL, '2016-09-04 00:13:59', '2016-09-04 00:13:59'),
 (2, NULL, 'ip', '::1', '2016-09-04 00:13:59', '2016-09-04 00:13:59'),
-(3, 1, 'user', NULL, '2016-09-04 00:13:59', '2016-09-04 00:13:59');
+(3, 1, 'user', NULL, '2016-09-04 00:13:59', '2016-09-04 00:13:59'),
+(4, NULL, 'global', NULL, '2016-10-26 07:04:43', '2016-10-26 07:04:43'),
+(5, NULL, 'ip', '::1', '2016-10-26 07:04:43', '2016-10-26 07:04:43'),
+(6, NULL, 'global', NULL, '2016-10-26 07:05:27', '2016-10-26 07:05:27'),
+(7, NULL, 'ip', '::1', '2016-10-26 07:05:27', '2016-10-26 07:05:27'),
+(8, NULL, 'global', NULL, '2016-10-26 07:07:06', '2016-10-26 07:07:06'),
+(9, NULL, 'ip', '::1', '2016-10-26 07:07:06', '2016-10-26 07:07:06');
 
 -- --------------------------------------------------------
 
@@ -820,7 +830,15 @@ CREATE TABLE IF NOT EXISTS `translations` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `translations`
+--
+
+INSERT INTO `translations` (`id`, `parent_id`, `language_id`, `type`, `data`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 2, 1, 'content', '{"name":"1","content":"<p>2<\\/p>","meta_keywords":["asd","dsa"],"meta_description":"4","meta_title":"3"}', '2016-11-12 02:18:42', '2016-11-12 17:53:47', NULL),
+(2, 3, 1, 'content', '{"name":"2","content":null,"meta_keywords":null,"meta_description":null,"meta_title":null}', '2016-11-16 01:54:12', '2016-11-16 01:54:12', NULL);
 
 -- --------------------------------------------------------
 
@@ -848,7 +866,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `permissions`, `last_login`, `first_name`, `last_name`, `image_extension`, `image_coord`, `temporary`, `created_at`, `updated_at`) VALUES
-(1, 'miguel@dejabu.ec', '$2y$10$PWH1K0k81TJTa.INQpYBruRkcR71WuWyxW.h4sVrigadCgv240bKu', NULL, '2016-09-04 00:17:14', 'Miguel', 'Suarez', NULL, NULL, 0, '2015-11-25 22:41:58', '2016-09-04 00:17:14');
+(1, 'miguel@dejabu.ec', '$2y$10$PWH1K0k81TJTa.INQpYBruRkcR71WuWyxW.h4sVrigadCgv240bKu', NULL, '2016-11-16 06:15:42', 'Miguel', 'Suarez', NULL, NULL, 0, '2015-11-25 22:41:58', '2016-11-16 06:15:42');
 
 -- --------------------------------------------------------
 
@@ -1238,7 +1256,7 @@ ALTER TABLE `map_locations`
 -- AUTO_INCREMENT de la tabla `persistences`
 --
 ALTER TABLE `persistences`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT de la tabla `predefined_lists`
 --
@@ -1268,12 +1286,12 @@ ALTER TABLE `sliders`
 -- AUTO_INCREMENT de la tabla `throttle`
 --
 ALTER TABLE `throttle`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `translations`
 --
 ALTER TABLE `translations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=74;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
