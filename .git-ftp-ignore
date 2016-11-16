@@ -7,3 +7,4 @@ bitbucket-pipelines.yml
 bower.json
 composer.json
 composer.lock
+.codeclimate.yml
