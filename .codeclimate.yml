@@ -10,7 +10,7 @@ engines:
   phpmd:
     enabled: true
   fixme:
-   	enabled: true
+    enabled: true
   eslint:
     enabled: true
   csslint:
