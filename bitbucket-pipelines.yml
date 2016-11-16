@@ -15,6 +15,7 @@ pipelines:
             - echo "'_$(git status -uno --porcelain | wc -l)_'"
             - git status -uno --porcelain
             - echo push to Github
-            - git push https://kaoz70:$_GITHUB_PASSWORD@//github.com/kaoz70/flexcms.git
+            - git remote set-url origin git@github.com/kaoz70/flexcms.git
+            - git push
             - echo "Initiating Push site:Source."
             - git ftp push --user $FTP_USER --passwd $FTP_PASSWORD $FTP_SERVER
