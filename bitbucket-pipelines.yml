@@ -14,5 +14,7 @@ pipelines:
             - apt-get -qq install git-ftp
             - echo "'_$(git status -uno --porcelain | wc -l)_'"
             - git status -uno --porcelain
+            - echo push to Github
+            - git push https://kaoz70:$_GITHUB_PASSWORD@//github.com/kaoz70/flexcms.git
             - echo "Initiating Push site:Source."
             - git ftp push --user $FTP_USER --passwd $FTP_PASSWORD $FTP_SERVER
