@@ -9,10 +9,9 @@
     function panelDispose(WindowFactory) {
         return {
             restrict: 'E',
-            template: '<a class="tools-action" href="{{close_url}}" data-toggle="dispose"><i class="pe-7s-close"></i></a>',
+            template: '<a class="tools-action" href=""><i class="pe-7s-close"></i></a>',
             link: function(scope, el, attr) {
                 el.on('click', function() {
-                    event.preventDefault();
                     WindowFactory.remove(scope);
                 });
             }

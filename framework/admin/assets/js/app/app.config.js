@@ -23,16 +23,17 @@
         $rootScope.$on('$viewContentLoaded',
             function(event, toState, toParams, fromState, fromParams) {
                 //Init SlimScroll
-                $timeout(function() {
-                    $('.content-body').slimscroll({
+                /*$timeout(function() {
+                    $('.content-body, .panel-body').slimscroll({
                         touchScrollStep: yima.touchScrollSpeed,
                         height: $(window).height() - 125,
                         width: '100%',
+                        alwaysVisible: true,
                         position: 'right',
-                        size: '3px',
+                        size: '5px',
                         color: yima.primary
                     });
-                }, 500);
+                }, 500);*/
 
             });
 

@@ -66,7 +66,7 @@
                 <a class="dropdown-toggle" id="publication_start" role="button" data-toggle="dropdown">
                     <div class="input-group">
                         <label class="input-group-addon" for="publication_start">Fecha Inicio</label>
-                        <input type="text" id="date" name="date" class="form-control" data-ng-model="content.publication_start">
+                        <input type="text" name="date" class="form-control" data-ng-model="content.publication_start">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                     </div>
                 </a>
@@ -82,7 +82,7 @@
                 <a class="dropdown-toggle" id="publication_end" role="button" data-toggle="dropdown">
                     <div class="input-group">
                         <label class="input-group-addon" for="publication_start">Fecha Fin</label>
-                        <input type="text" id="date" name="date" class="form-control" data-ng-model="content.publication_end">
+                        <input type="text" name="date" class="form-control" data-ng-model="content.publication_end">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                     </div>
                 </a>

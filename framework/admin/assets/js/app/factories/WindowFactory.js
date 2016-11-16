@@ -7,7 +7,7 @@
  *
  * */
 angular.module('app')
-    .factory('WindowFactory', function($routeSegment, $location){
+    .factory('WindowFactory', function($routeSegment, $location, $window){
 
         var pool = [];
 
@@ -41,8 +41,7 @@ angular.module('app')
 
                 //Change the route once we have hidden the window
                 setTimeout(function () {
-                    $location.path($scope.close_url);
-                    $scope.$apply();
+                    $window.location.assign($scope.close_url);
                 }, 400);
 
             },

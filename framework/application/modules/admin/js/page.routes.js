@@ -13,7 +13,8 @@
                 .segment('page', {
                     'default': true,
                     templateUrl: BASE_PATH + 'admin/List',
-                    controller: 'PageCtrl'
+                    controller: 'PageCtrl',
+                    dependencies: ['page_id']
                 })
                 .within()
                     .segment('content', {

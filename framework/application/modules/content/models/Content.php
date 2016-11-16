@@ -9,9 +9,8 @@
 
 namespace App;
 
-use Herrera\Json\Exception\Exception;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use TranslationException;
 
 class Content extends BaseModel {
 
@@ -19,6 +18,44 @@ class Content extends BaseModel {
 
     const PAGE_ID = 'category_id';
     protected $type = 'content';
+
+    /**
+     * Format the publications start time
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getPublicationStartAttribute($value)
+    {
+
+        $dt = Carbon::parse($value);
+
+        if($value == null || ! $dt->getTimestamp()) {
+            return null;
+        }
+
+        return $dt->tz('America/Guayaquil')->toAtomString();
+
+    }
+
+    /**
+     * Format the publications end time
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getPublicationEndAttribute($value)
+    {
+
+        $dt = Carbon::parse($value);
+
+        if($value == null || ! $dt->getTimestamp()) {
+            return null;
+        }
+
+        return $dt->tz('America/Guayaquil')->toAtomString();
+
+    }
 
     /**
      * Get all the page's contents

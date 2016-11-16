@@ -61,3 +61,22 @@
 .panel.medium-width {
   max-width: 650px;
 }
+.table-condensed > thead > tr > th {
+  padding: 0 13px 4px 13px;
+}
+.table-condensed > tbody > tr > td,
+.table-condensed > tbody > tr > th {
+  padding: 8px 13px 0;
+}
+.table > tbody > tr > td:first-child,
+.table > tbody > tr > th:first-child,
+.table > thead > tr > th:first-child,
+.table > tfoot > tr > th:first-child {
+  padding-left: 11px;
+}
+.table > tbody > tr > td:last-child,
+.table > tbody > tr > th:last-child,
+.table > thead > tr > th:last-child,
+.table > tfoot > tr > th:last-child {
+  padding-right: 11px;
+}
