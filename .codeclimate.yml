@@ -23,6 +23,8 @@ ratings:
   - "**.js"
   - "**.scss"
 exclude_paths:
+- "themes/"
+- "framework/admin/"
 - "framework/system/"
 - "framework/packages/"
 - "framework/node_modules/"
