@@ -13,6 +13,7 @@
             'ncy-angular-breadcrumb',
             'ui.tinymce',
             'ui.bootstrap.datetimepicker',
-            'ui.select'
+            'ui.select',
+            'angular-timezone-selector'
         ]);
 }());

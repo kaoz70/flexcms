@@ -29,7 +29,8 @@
   },
   "resolutions": {
     "magnific-popup": "^1.1.0",
-    "imagesloaded": "^4.1.1"
+    "imagesloaded": "^4.1.1",
+    "angular": "^1.5.8"
   },
   "devDependencies": {
     "angular-ui-tinymce": "^0.0.17"

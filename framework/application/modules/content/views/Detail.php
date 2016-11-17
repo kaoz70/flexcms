@@ -62,11 +62,28 @@
         <div class="form-heading">Publicaci&oacute;n</div>
 
         <div class="form-group">
+            <div class="input-group">
+                <label class="input-group-addon">Zona Horaria</label>
+                <timezone-selector
+                    ng-model="content.timezone"
+                    display-utc="true"
+                    sort-by="offset"
+                    show-local="true"
+                    set-local="true"
+                    primary-choices="America/Guayaquil America/Bogota"
+                ></timezone-selector>
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="dropdown">
                 <a class="dropdown-toggle" id="publication_start" role="button" data-toggle="dropdown">
                     <div class="input-group">
                         <label class="input-group-addon" for="publication_start">Fecha Inicio</label>
-                        <input type="text" name="date" class="form-control" data-ng-model="content.publication_start">
+                        <input type="text"
+                               name="date"
+                               class="form-control"
+                               value="{{content.publication_start | date:'EEEE dd \'de\' LLLL \'del\' yyyy \'a las\' HH:mm'}}" >
                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                     </div>
                 </a>
@@ -82,7 +99,10 @@
                 <a class="dropdown-toggle" id="publication_end" role="button" data-toggle="dropdown">
                     <div class="input-group">
                         <label class="input-group-addon" for="publication_start">Fecha Fin</label>
-                        <input type="text" name="date" class="form-control" data-ng-model="content.publication_end">
+                        <input type="text"
+                               name="date"
+                               class="form-control"
+                               value="{{content.publication_end | date:'EEEE dd \'de\' LLLL \'del\' yyyy \'a las\' HH:mm'}}" >
                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                     </div>
                 </a>

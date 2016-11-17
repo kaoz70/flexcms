@@ -41,6 +41,11 @@ angular.module('app')
             WindowFactory.remove($scope);
         };
 
+        $scope.onTimeSet = function (newDate) {
+            console.log(newDate);
+            console.log(newDate.localDateValue);
+        }
+
     })
 
 ;

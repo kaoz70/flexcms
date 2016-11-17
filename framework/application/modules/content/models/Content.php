@@ -34,7 +34,7 @@ class Content extends BaseModel {
             return null;
         }
 
-        return $dt->tz('America/Guayaquil')->toAtomString();
+        return $dt->tz($this->timezone)->toAtomString();
 
     }
 
@@ -53,7 +53,7 @@ class Content extends BaseModel {
             return null;
         }
 
-        return $dt->tz('America/Guayaquil')->toAtomString();
+        return $dt->tz($this->timezone)->toAtomString();
 
     }
 

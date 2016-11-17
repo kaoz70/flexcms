@@ -201,6 +201,7 @@ class Content extends \AdminController implements \ContentInterface
         $model->enabled = (bool) $contentPost->enabled;
         $model->important = (bool) $contentPost->important;
         $model->category_id = $contentPost->category_id;
+        $model->timezone = $contentPost->timezone;
         $model->publication_start = $contentPost->publication_start;
         $model->publication_end = $contentPost->publication_end;
         $model->save();
