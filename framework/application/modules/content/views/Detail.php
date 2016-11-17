@@ -11,20 +11,20 @@
 
         <uib-tabset active="active">
 
-            <uib-tab index="$index + 1" ng-repeat="trans in translations">
+            <uib-tab index="$index + 1" ng-repeat="lang in languages">
                 <uib-tab-heading>
-                    <span>{{trans.name}}</span>
+                    <span>{{lang.name}}</span>
                 </uib-tab-heading>
                 <div class="widget">
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon">T&iacute;tulo</span>
-                            <input type="text" class="form-control" ng-model="trans.translation.name">
+                            <input type="text" class="form-control" ng-model="lang.translation.name">
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Contenido</label>
-                        <textarea rows="15" cols="5" class="form-control" ng-model="trans.translation.content" ui-tinymce="tinymceOptions" ></textarea>
+                        <textarea rows="15" cols="5" class="form-control" ng-model="lang.translation.content" ui-tinymce="tinymceOptions" ></textarea>
                     </div>
 
                 </div>
@@ -132,9 +132,9 @@
 
         <uib-tabset active="active">
 
-            <uib-tab index="$index + 1" ng-repeat="trans in translations">
+            <uib-tab index="$index + 1" ng-repeat="lang in languages">
                 <uib-tab-heading>
-                    <span>{{trans.name}}</span>
+                    <span>{{lang.name}}</span>
                 </uib-tab-heading>
                 <div class="widget">
                     <div class="form-group">
@@ -143,7 +143,7 @@
                             <ui-select multiple
                                        tagging
                                        tagging-label=""
-                                       ng-model="trans.translation.meta_keywords"
+                                       ng-model="lang.translation.meta_keywords"
                                        tagging-tokens=","
                                        theme="bootstrap"
                                        sortable="true">
@@ -157,13 +157,13 @@
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon">Meta T&iacute;tulo</span>
-                            <input class="form-control" ng-model="trans.translation.meta_title">
+                            <input class="form-control" ng-model="lang.translation.meta_title">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon">Meta Descripci&oacute;n</span>
-                            <textarea class="form-control" ng-model="trans.translation.meta_description"></textarea>
+                            <textarea class="form-control" ng-model="lang.translation.meta_description"></textarea>
                         </div>
                     </div>
                 </div>

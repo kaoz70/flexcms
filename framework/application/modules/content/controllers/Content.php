@@ -20,15 +20,15 @@ use stdClass;
 class Content extends \AdminController implements \ContentInterface
 {
 
-    const URL_CREATE = 'admin/content/create/';
-    const URL_UPDATE = 'admin/content/update/';
-    const URL_DELETE = 'admin/content/delete/';
-    const URL_INSERT = 'admin/content/insert';
-    const URL_EDIT = 'admin/content/edit';
-    const URL_REORDER = 'admin/content/reorder/';
-    const URL_SEARCH = 'admin/content/search/';
-    const URL_CONFIG = 'admin/content/config/';
-    const URL_SAVE_CONFIG = 'admin/content/config_save/';
+    const URL_CREATE = 'content/create/';
+    const URL_UPDATE = 'content/update/';
+    const URL_DELETE = 'content/delete/';
+    const URL_INSERT = 'content/insert';
+    const URL_EDIT = 'content/edit';
+    const URL_REORDER = 'content/reorder/';
+    const URL_SEARCH = 'content/search/';
+    const URL_CONFIG = 'content/config/';
+    const URL_SAVE_CONFIG = 'content/config_save/';
 
     public static function index($page_id)
     {
@@ -43,8 +43,14 @@ class Content extends \AdminController implements \ContentInterface
 
         $data['items'] = \App\Content::getByPage($page_id, 1, $contentOrder)->getDictionary();
         $data['menu'] = [
-            ['title' => 'configuraci&oacute;n', 'url' => static::URL_CONFIG],
-            ['title' => '"crear nuevo contenido', 'url' => static::URL_CREATE],
+            [
+                'title' => '<i class="fa fa-cog" aria-hidden="true"></i> configuraci&oacute;n',
+                'url' => 'page/' . $page_id  . '/' . static::URL_CONFIG
+            ],
+            [
+                'title' => '<i class="fa fa-plus" aria-hidden="true"></i> nuevo',
+                'url' => 'page/' . $page_id  . '/' . static::URL_CREATE
+            ],
         ];
 
         try {
@@ -64,9 +70,7 @@ class Content extends \AdminController implements \ContentInterface
      */
     public function create()
     {
-        $content = new \App\Content();
-        $content->category_id = $this->uri->segment(4);
-        $this->_showView($content, true);
+        //
     }
 
     /**
@@ -130,9 +134,12 @@ class Content extends \AdminController implements \ContentInterface
         $response = new Response();
 
         try{
-            $this->_store(\App\Content::find($id));
+            $content = $this->_store(\App\Content::findOrNew($id));
             $response->setSuccess(true);
             $response->setMessage('Contenido actualizado correctamente');
+
+            $response->setData(\App\Content::getForEdit($content->id));
+
         } catch (Exception $e) {
             $response->setMessage($this->error('Ocurri&oacute; un problema al actualizar el contenido!', $e));
         }

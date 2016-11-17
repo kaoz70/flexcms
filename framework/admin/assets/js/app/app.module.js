@@ -14,6 +14,7 @@
             'ui.tinymce',
             'ui.bootstrap.datetimepicker',
             'ui.select',
-            'angular-timezone-selector'
+            'angular-timezone-selector',
+            'ngSanitize'
         ]);
 }());

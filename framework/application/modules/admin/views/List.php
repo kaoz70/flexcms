@@ -22,7 +22,7 @@
     <div class="panel-footer">
         <ul class="menu">
             <li ng-repeat="item in menu">
-                <a class="btn btn-default" ng-href="#/{{item.url}}">{{item.title}}</a>
+                <a class="btn btn-default btn-block" ng-href="#/{{item.url}}" ng-bind-html="item.title"></a>
             </li>
         </ul>
     </div>

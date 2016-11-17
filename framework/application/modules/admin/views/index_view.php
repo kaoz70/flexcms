@@ -182,6 +182,7 @@
     <script src="<?= admin_asset_path('../../packages/angular-ui-select/dist/select.min.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/angular-timezone-selector/dist/angular-timezone-selector.min.js') ?>"></script>
 
+    <script src="<?= admin_asset_path('../../node_modules/angular-sanitize/angular-sanitize.js') ?>"></script>
     <script src="<?= admin_asset_path('../../node_modules/angular-bootstrap-datetimepicker/src/js/datetimepicker.js') ?>"></script>
     <script src="<?= admin_asset_path('../../node_modules/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js') ?>"></script>
 

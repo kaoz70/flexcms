@@ -165,30 +165,47 @@ class Content extends BaseModel {
 
     }
 
+    /**
+     * Stores the translation data
+     *
+     * @param $input
+     * @return array
+     */
     public function setTranslations($input)
     {
 
+        $translations = [];
+
         foreach(Language::all() as $lang){
 
-            $translation = $input->{$lang->id}->translation;
+            if(isset($input->{$lang->id})) {
 
-            $trans_data = [
-                'name' => $translation->name,
-                'content' => $translation->content,
-                'meta_keywords' => $translation->meta_keywords,
-                'meta_description' => $translation->meta_description,
-                'meta_title' => $translation->meta_title,
-            ];
+                $translation = $input->{$lang->id}->translation;
 
-            $trans = Translation::firstOrNew([
-                'language_id' => $lang->id,
-                'parent_id' => $this->id,
-                'type' => $this->type
-            ]);
-            $trans->data = json_encode($trans_data);
-            $trans->save();
+                $trans_data = [
+                    'name' => isset($translation->name) ? $translation->name : '',
+                    'content' => isset($translation->content) ? $translation->content : '',
+                    'meta_keywords' => isset($translation->meta_keywords) ? $translation->meta_keywords : '',
+                    'meta_description' => isset($translation->meta_description) ? $translation->meta_description : '',
+                    'meta_title' => isset($translation->meta_title) ? $translation->meta_title : '',
+                ];
+
+                $trans = Translation::firstOrNew([
+                    'language_id' => $lang->id,
+                    'parent_id' => $this->id,
+                    'type' => $this->type
+                ]);
+                $trans->data = json_encode($trans_data);
+                $trans->save();
+
+                $translations[$lang->id] = $trans_data;
+
+            }
 
         }
+
+        return $translations;
+
     }
 
     protected static function reorder($inputs, $page_id)

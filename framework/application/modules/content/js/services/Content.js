@@ -7,10 +7,10 @@
  *
  * */
 angular.module('app')
-    .service('Content', function($q, $http, $httpParamSerializer, Notification){
+    .service('Content', function($q, $http, $httpParamSerializer, Notification, Response){
 
         var urls = {
-            create: 'admin/content/create',
+            create: 'admin/content/create/',
             update: 'admin/content/update/',
             delete: 'admin/content/delete/',
             insert: 'admin/content/insert',
@@ -26,7 +26,7 @@ angular.module('app')
             var data = {
                 content: content,
                 translations: translations
-            }
+            };
 
             return $http({
                 method: 'POST',
@@ -34,22 +34,14 @@ angular.module('app')
                 data: $httpParamSerializer(data),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).success(function (response) {
-
-                if (response.error_code) {
-                    $('#modal-danger')
-                        .modal('show')
-                        .find('.modal-body')
-                        .html(response.message);
-                } else {
-                    Notification.show('success', response.message);
-                }
-
-            }).error(function (data, status, headers, config) {
+                Response.validate(response);
+            }).error(function (data, status) {
                 $('#modal-danger')
                     .modal('show')
                     .find('.modal-body')
                     .html('Al parecer hay un error de servidor<br />[Error: ' + status + ']');
             });
+
         };
 
 });

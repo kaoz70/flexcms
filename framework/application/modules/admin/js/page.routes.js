@@ -10,6 +10,7 @@
             $routeSegmentProvider
                 .when('/page/:page_id', 'page')
                 .when('/page/:page_id/content/edit/:id', 'page.content')
+                .when('/page/:page_id/content/create', 'page.create')
                 .segment('page', {
                     'default': true,
                     templateUrl: BASE_PATH + 'admin/List',
@@ -20,6 +21,11 @@
                     .segment('content', {
                         templateUrl: BASE_PATH + 'content/Detail',
                         controller: 'ContentEditCtrl',
+                        dependencies: ['page_id', 'id']
+                    })
+                    .segment('create', {
+                        templateUrl: BASE_PATH + 'content/Detail',
+                        controller: 'ContentCreateCtrl',
                         dependencies: ['page_id', 'id']
                     });
 

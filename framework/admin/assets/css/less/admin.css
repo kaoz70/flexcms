@@ -55,6 +55,14 @@
   height: 100%;
   overflow: auto;
 }
+.panel-footer .menu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.panel-footer .menu li {
+  margin-bottom: 5px;
+}
 .panel.small-width {
   max-width: 350px;
 }

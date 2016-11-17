@@ -7,7 +7,7 @@
  *
  * */
 angular.module('app')
-    .service('Language', function($q, $http, $httpParamSerializer, Notification){
+    .service('Language', function($q, $http, $httpParamSerializer, Notification, Response){
 
         var urls = {
             index: 'admin/language',
@@ -33,16 +33,7 @@ angular.module('app')
                 data: $httpParamSerializer(language),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).success(function (response) {
-
-                if (response.error_code) {
-                    $('#modal-danger')
-                        .modal('show')
-                        .find('.modal-body')
-                        .html(response.message);
-                } else {
-                    Notification.show('success', response.message);
-                }
-
+                Response.validate(response);
             }).error(function (data, status, headers, config) {
                 $('#modal-danger')
                     .modal('show')
