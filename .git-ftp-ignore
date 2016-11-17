@@ -8,4 +8,6 @@ bower.json
 composer.json
 composer.lock
 .codeclimate.yml
+.travis.yml
+.git-ftp-ignore
 README.md
