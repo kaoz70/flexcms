@@ -40,6 +40,17 @@ class Category extends BaseModel implements NodeInterface {
     public $translations;
 
     /**
+     * Return popup attribute as boolean instead of int
+     *
+     * @param $value
+     * @return bool
+     */
+    public function getPopupAttribute($value)
+    {
+        return (boolean)$value;
+    }
+
+    /**
      * Calls the recursive function to check for unique names on each nodes
      *
      * @param $name

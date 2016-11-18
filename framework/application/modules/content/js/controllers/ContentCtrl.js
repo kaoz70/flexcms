@@ -9,7 +9,7 @@
  * */
 angular.module('app')
 
-    .controller('ContentEditCtrl', function($scope, $rootScope, Content, $routeSegment, WindowFactory, $routeParams){
+    .controller('ContentEditCtrl', function($scope, $rootScope, Content, $routeSegment, WindowFactory, $routeParams, $filter){
 
         //Close the sidebar on this controller
         $rootScope.isSidebarOpen = false;
@@ -18,13 +18,22 @@ angular.module('app')
 
         $scope.close_url = "#/page/" + $routeParams.page_id;
         $scope.languages = [];
+        $scope.content = {};
 
         Content.edit($routeParams.id).then(function (response) {
 
-            $rootScope.records[$routeParams.id] = response.data.data.content;
-            $scope.content = response.data.data.content;
+            //Find the content by id in the records array
+            var content = $filter('filter')($rootScope.records, {id: parseInt($routeParams.id, 10)}, true);
+            $scope.content = content[0];
+
             $scope.languages = response.data.data.translations;
 
+            //Change the name in the item list
+            $scope.$watch('languages["1"].translation.name', function(v){
+                $scope.content.translation.name = v;
+            });
+
+            //Init the editor
             $scope.tinymceOptions = {
                 plugins: 'link image code',
                 toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
@@ -39,15 +48,14 @@ angular.module('app')
         var onSave = function (response) {
             $scope.content = response.data.data.content;
             $scope.languages = response.data.data.translations;
-            $rootScope.records[$scope.content.id] = $scope.content;
         };
 
         $scope.save = function () {
-            Content.save($rootScope.records[$routeParams.id], $scope.languages).then(onSave);
+            Content.save($scope).then(onSave);
         };
 
         $scope.saveAndClose = function () {
-            Content.save($rootScope.records[$routeParams.id], $scope.languages).then(onSave);
+            Content.save($scope).then(onSave);
             WindowFactory.remove($scope);
         };
 
@@ -96,6 +104,49 @@ angular.module('app')
 
         $scope.saveAndClose = function () {
             Content.save($scope.content, $scope.languages).then(onSave);
+            WindowFactory.remove($scope);
+        };
+
+    })
+
+    .controller('ContentConfigCtrl', function($scope, $rootScope, Content, $routeSegment, WindowFactory, $routeParams){
+
+        //Close the sidebar on this controller
+        $rootScope.isSidebarOpen = false;
+
+        WindowFactory.add();
+
+        $scope.close_url = "#/page/" + $routeParams.page_id;
+        $scope.languages = [];
+        $scope.config = {};
+        $scope.page = {};
+        $scope.roles = [];
+        $scope.list_views = [];
+        $scope.detail_views = [];
+
+        Content.getConfig($routeParams.widget_id).then(function (response) {
+            $scope.config = response.data.data.config;
+            $scope.page = response.data.data.content;
+            $scope.roles = response.data.data.roles;
+            $scope.languages = response.data.data.translations;
+            $scope.list_views = response.data.data.list_views;
+            $scope.detail_views = response.data.data.detail_views;
+        });
+
+        /**
+         * Executed after a successful save
+         * @param response
+         */
+        var onSave = function (response) {
+            $rootScope.records = response.data.data;
+        };
+
+        $scope.save = function () {
+            Content.setConfig($routeParams.widget_id, $scope).then(onSave);
+        };
+
+        $scope.saveAndClose = function () {
+            Content.setConfig($routeParams.widget_id, $scope).then(onSave);
             WindowFactory.remove($scope);
         };
 

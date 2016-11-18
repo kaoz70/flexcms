@@ -121,27 +121,6 @@ class Content extends BaseModel {
     }
 
     /**
-     * Get one content with all the available translations
-     *
-     * @param $content_id
-     * @return mixed
-     */
-    static function getForEdit($content_id)
-    {
-
-        $content = static::find($content_id);
-        $contentTrans = new EditTranslations();
-        $contentTrans->setContent($content);
-
-        foreach (Language::all() as $lang) {
-            $contentTrans->add($lang, $content->getTranslation($lang->id));
-        }
-
-        return $contentTrans->getAll();
-
-    }
-
-    /**
      * Get all content pages (the ones that can be edited)
      *
      * @param bool|false $only_ids

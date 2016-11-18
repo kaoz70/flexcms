@@ -108,21 +108,22 @@ class Widget extends Model implements \WidgetInterface {
             'detail_view' => '',
             'order' => 'manual',
             'pagination' => false,
-            'quantity' => '6',
+            'quantity' => 6,
         ];
     }
 
     public function setConfig($input)
     {
 
+        $input = json_decode($input);
+
         $data = $this->getData();
-        $data->settings = [
-            'list_view' => $input['list_view'],
-            'detail_view' => $input['detail_view'],
-            'order' => $input['order'],
-            'pagination' => isset($input['pagination']),
-            'quantity' => $input['quantity'],
-        ];
+
+        $data->settings->list_view = $input->list_view;
+        $data->settings->detail_view = $input->detail_view;
+        $data->settings->order = $input->order;
+        $data->settings->pagination = (boolean)$input->pagination;
+        $data->settings->quantity = (int)$input->quantity;
 
         $this->data = json_encode($data);
         $this->save();

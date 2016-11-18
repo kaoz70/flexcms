@@ -37,6 +37,17 @@ class BaseModel extends Model {
     }
 
     /**
+     * Change the enabled attribute to boolean
+     *
+     * @param $value
+     * @return bool
+     */
+    public function getEnabledAttribute($value)
+    {
+        return (boolean)$value;
+    }
+
+    /**
      * Returns the content's translation as a json decoded object/array
      *
      * @param int $lang_id
@@ -88,6 +99,27 @@ class BaseModel extends Model {
         }
 
         return $arr;
+
+    }
+
+    /**
+     * Get one content with all the available translations
+     *
+     * @param $content_id
+     * @return mixed
+     */
+    static function getForEdit($content_id)
+    {
+
+        $content = static::find($content_id);
+        $contentTrans = new EditTranslations();
+        $contentTrans->setContent($content);
+
+        foreach (Language::all() as $lang) {
+            $contentTrans->add($lang, $content->getTranslation($lang->id));
+        }
+
+        return $contentTrans->getAll();
 
     }
 

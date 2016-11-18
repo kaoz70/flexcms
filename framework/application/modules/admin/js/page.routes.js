@@ -11,6 +11,7 @@
                 .when('/page/:page_id', 'page')
                 .when('/page/:page_id/content/edit/:id', 'page.content')
                 .when('/page/:page_id/content/create', 'page.create')
+                .when('/page/:page_id/config/:widget_id', 'page.config')
                 .segment('page', {
                     'default': true,
                     templateUrl: BASE_PATH + 'admin/List',
@@ -27,6 +28,11 @@
                         templateUrl: BASE_PATH + 'content/Detail',
                         controller: 'ContentCreateCtrl',
                         dependencies: ['page_id', 'id']
+                    })
+                    .segment('config', {
+                        templateUrl: BASE_PATH + 'content/Config',
+                        controller: 'ContentConfigCtrl',
+                        dependencies: ['page_id']
                     });
 
         });

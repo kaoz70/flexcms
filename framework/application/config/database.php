@@ -93,10 +93,14 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => getenv('DB_HOST'),
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => 'mysql',
+	'database' => 'flexcms',
+	/*'hostname' => getenv('DB_HOST'),
 	'username' => getenv('DB_USERNAME'),
 	'password' => getenv('DB_PASSWORD'),
-	'database' => getenv('DB_NAME'),
+	'database' => getenv('DB_NAME'),*/
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => TRUE,

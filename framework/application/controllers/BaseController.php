@@ -18,7 +18,6 @@ class BaseController extends MX_Controller
         $response->message = $message;
         $response->error_code = $error->getCode() ?: 1;
         $response->error_message = $error->getMessage();
-        //$response->error_trace = $error->getTrace();
         return $response;
     }
 

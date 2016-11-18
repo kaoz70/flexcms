@@ -28,8 +28,8 @@ class Content extends \AdminController implements \ContentInterface
     const URL_EDIT = 'content/edit';
     const URL_REORDER = 'content/reorder/';
     const URL_SEARCH = 'content/search/';
-    const URL_CONFIG = 'content/config/';
-    const URL_SAVE_CONFIG = 'content/config_save/';
+    const URL_CONFIG = 'config';
+    const URL_SAVE_CONFIG = 'content/config_save';
 
     public static function index($page_id)
     {
@@ -42,15 +42,15 @@ class Content extends \AdminController implements \ContentInterface
         $widget = Widget::getContentWidget($page_id);
         $contentOrder = $widget->getConfig()->order;
 
-        $data['items'] = \App\Content::getByPage($page_id, 1, $contentOrder)->getDictionary();
+        $data['items'] = \App\Content::getByPage($page_id, 1, $contentOrder);
         $data['menu'] = [
             [
                 'title' => '<i class="fa fa-cog" aria-hidden="true"></i> configuraci&oacute;n',
-                'url' => 'page/' . $page_id  . '/' . static::URL_CONFIG
+                'url' => 'page/' . $page_id  . '/' . static::URL_CONFIG . '/' . $widget->id,
             ],
             [
                 'title' => '<i class="fa fa-plus" aria-hidden="true"></i> nuevo',
-                'url' => 'page/' . $page_id  . '/' . static::URL_CREATE
+                'url' => 'page/' . $page_id  . '/' . static::URL_CREATE,
             ],
         ];
 
@@ -205,20 +205,33 @@ class Content extends \AdminController implements \ContentInterface
     public function config($widget_id)
     {
 
-        $widget = Widget::find($widget_id);
-        $data['config'] = $widget->getConfig();
-        $data['save_url'] = base_url(static::URL_SAVE_CONFIG . $widget_id);
+        $response = new Response();
 
-        $category = \admin\Category::find($widget->category_id);
-        $data['translations'] = $category->getTranslations('page');
-        $data['page'] = $category;
+        try{
+            $response->setData($this->getConfig($widget_id));
+            $response->setSuccess(true);
+        } catch (Exception $e) {
+            $response->setMessage($this->error('Ocurri&oacute; un problema al eliminar el contenido!', $e));
+        }
+
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
+
+    }
+
+    private function getConfig($widget_id)
+    {
+
+        $widget = Widget::find($widget_id);
+        $data = Category::getForEdit($widget->category_id);
+        $data['config'] = $widget->getConfig();
+
         $data['roles'] =  \App\Role::all();
 
         $theme = Config::theme();
         $data['list_views'] = $this->getViews($theme, 'list');
         $data['detail_views'] = $this->getViews($theme, 'detail');
 
-        $this->load->view('content/config_view', $data);
+        return $data;
 
     }
 
@@ -231,25 +244,32 @@ class Content extends \AdminController implements \ContentInterface
     public function config_save($widget_id)
     {
 
-        $response = new stdClass();
-        $response->error_code = 0;
+        $response = new Response();
 
         try{
 
+            $configData = $this->input->post('config');
+
             //Update the widget's config
             $widget = Widget::find($widget_id);
-            $widget->setConfig($this->input->post());
+            $widget->setConfig($configData);
 
             //Update the page's config
+            $pageData = json_decode($this->input->post('page'), true);
+
             $page = \admin\Category::find($widget->category_id);
-            $page->popup = (bool) $this->input->post('popup');
-            $page->enabled = $this->input->post('enabled');
-            $page->group_visibility = $this->input->post('group_visibility');
-            $page->setTranslations($this->input->post());
+            $page->popup = (bool) $pageData['popup'];
+            $page->enabled = (bool) $pageData['enabled'];
+            $page->group_visibility = $pageData['group_visibility'];
+            $page->setTranslations($this->input->post('translations'));
             $page->save();
 
+            $response->setData($data['items'] = \App\Content::getByPage($page->id, 1, json_decode($configData)->order));
+            $response->setSuccess(true);
+            $response->setMessage('Configuraci&oacute;n guardada correctamente');
+
         } catch (Exception $e) {
-            $response = $this->error('Ocurri&oacute; un problema guardar la configuraci&oacute;n!', $e);
+            $response->setMessage($this->error('Ocurri&oacute; un problema guardar la configuraci&oacute;n!', $e));
         }
 
         $this->load->view(static::RESPONSE_VIEW, array(static::RESPONSE_VAR => $response));
@@ -265,7 +285,7 @@ class Content extends \AdminController implements \ContentInterface
      */
     private function getViews($theme, $view)
     {
-        return preg_grep("~^{$view}_.*\.(php)$~", scandir(FCPATH . 'themes/' . $theme . '/views/pages/content/'));
+        return array_values(preg_grep("~^{$view}_.*\.(php)$~", scandir(FCPATH . 'themes/' . $theme . '/views/pages/content/')));
     }
 
     public function reorder($page_id)
