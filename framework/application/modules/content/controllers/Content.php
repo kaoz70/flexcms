@@ -93,7 +93,7 @@ class Content extends \AdminController implements \ContentInterface
             $response->setMessage($this->error('Ocurri&oacute; un problema al obtener el contenido!', $e));
         }
 
-        $this->load->view(static::RESPONSE_VIEW, array(static::RESPONSE_VAR => $response));
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
 
     }
 
@@ -104,21 +104,7 @@ class Content extends \AdminController implements \ContentInterface
      */
     public function insert()
     {
-
-        $response = new stdClass();
-        $response->error_code = 0;
-
-        try{
-            $content = $this->_store(new \App\Content());
-            $content->position = \App\Content::where('category_id', $this->input->post('page_id'))->get()->count();
-            $content->save();
-            $response->new_id = $content->id;
-        } catch (Exception $e) {
-            $response = $this->error('Ocurri&oacute; un problema al insertar el contenido!', $e);
-        }
-
-        $this->load->view(static::RESPONSE_VIEW, array(static::RESPONSE_VAR => $response));
-
+        //
     }
 
     /**
@@ -144,7 +130,7 @@ class Content extends \AdminController implements \ContentInterface
             $response->setMessage($this->error('Ocurri&oacute; un problema al actualizar el contenido!', $e));
         }
 
-        $this->load->view(static::RESPONSE_VIEW, array(static::RESPONSE_VAR => $response));
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
 
     }
 
@@ -157,39 +143,21 @@ class Content extends \AdminController implements \ContentInterface
      */
     public function delete($id)
     {
-        $response = new stdClass();
-        $response->error_code = 0;
+
+        $response = new Response();
 
         try{
+
             $content = \App\Content::find($id);
             $content->delete();
+
+            $response->setSuccess(true);
+
         } catch (Exception $e) {
-            $response = $this->error('Ocurri&oacute; un problema al eliminar el contenido!', $e);
+            $response->setMessage($this->error('Ocurri&oacute; un problema al eliminar el contenido!', $e));
         }
 
-        $this->load->view(static::RESPONSE_VIEW, array(static::RESPONSE_VAR => $response));
-    }
-
-    /**
-     * Shows the editor view
-     *
-     * @param Model $model
-     * @param bool $new
-     * @return mixed
-     */
-    public function _showView(Model $model, $new = FALSE)
-    {
-
-        $data['content'] = $model;
-        $data['title'] = $new ? 'Nuevo Contenido' : 'Modificar Contenido';
-        $data['nuevo'] = $new ? 'nuevo' : '';
-        $data['edit_url'] = static::URL_EDIT;
-        $data['delete_url'] = static::URL_DELETE;
-        $data['link'] = $new ? base_url(static::URL_INSERT) : base_url(static::URL_UPDATE . $model->id);
-        $data['translations'] = $model->getTranslations('content');
-        $data['txt_boton'] = $new ? 'Crear' : 'Modificar';
-
-        $this->load->view('content/edit_view', $data);
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
 
     }
 

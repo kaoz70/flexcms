@@ -14,6 +14,13 @@ angular.module('app')
             template: '<i class="pe-7s-close"></i>',
             link: function(scope, el, attr) {
                 el.on('click', function() {
+
+                    $('#modal-warning')
+                        .modal('show')
+                        .find('.modal-body')
+                        .html('¿Est&aacute; seguro de que desea eliminar este recurso?');
+
+
                     //Variables
                     /*var disposeInterval = 300;
 

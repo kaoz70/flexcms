@@ -59,15 +59,6 @@ interface ContentInterface {
     public function delete($id);
 
     /**
-     * Shows the editor view
-     *
-     * @param Model $model
-     * @param bool $new
-     * @return mixed
-     */
-    public function _showView(Model $model, $new = FALSE);
-
-    /**
      * Inserts or updates the current model with the provided post data
      *
      * @param Model $model
