@@ -40,9 +40,8 @@ class Content extends \AdminController implements \ContentInterface
         $page = Category::find($page_id);
         $page->setType('page');
         $widget = Widget::getContentWidget($page_id);
-        $contentOrder = $widget->getConfig()->order;
 
-        $data['items'] = \App\Content::getByPage($page_id, 1, $contentOrder);
+        $data['items'] = static::getItems($page_id);
         $data['menu'] = [
             [
                 'title' => '<i class="fa fa-cog" aria-hidden="true"></i> configuraci&oacute;n',
@@ -121,11 +120,20 @@ class Content extends \AdminController implements \ContentInterface
         $response = new Response();
 
         try{
+
             $content = $this->_store(\App\Content::findOrNew($id));
+            $items = static::getItems($content->category_id);
+
+            //New content set the position
+            if(!$id) {
+                $content->position = $items->count();
+                $content->save();
+            }
+
             $response->setSuccess(true);
             $response->setMessage('Contenido actualizado correctamente');
 
-            $response->setData(\App\Content::getForEdit($content->id));
+            $response->setData($items);
 
         } catch (Exception $e) {
             $response->setMessage($this->error('Ocurri&oacute; un problema al actualizar el contenido!', $e));
@@ -133,6 +141,13 @@ class Content extends \AdminController implements \ContentInterface
 
         $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
 
+    }
+
+    private static function getItems($id)
+    {
+        $widget = Widget::getContentWidget($id);
+        $contentOrder = $widget->getConfig()->order;
+        return \App\Content::getByPage($id, 1, $contentOrder);
     }
 
     /**
@@ -161,6 +176,10 @@ class Content extends \AdminController implements \ContentInterface
 
             $response->setSuccess(true);
             $response->setMessage('Contenido eliminado satisfactoriamente');
+
+            $items = static::getItems($content->category_id);
+
+            $response->setData($items);
 
         } catch (Exception $e) {
             $response->setMessage($this->error('Ocurri&oacute; un problema al eliminar el contenido!', $e));
@@ -264,7 +283,7 @@ class Content extends \AdminController implements \ContentInterface
             $page->setTranslations($this->input->post('translations'));
             $page->save();
 
-            $response->setData($data['items'] = \App\Content::getByPage($page->id, 1, json_decode($configData)->order));
+            $response->setData(static::getItems($page->id));
             $response->setSuccess(true);
             $response->setMessage('Configuraci&oacute;n guardada correctamente');
 

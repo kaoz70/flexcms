@@ -8,7 +8,7 @@
  * @restrict A
  * */
 angular.module('app')
-    .directive('listItemDelete', function (Content, $rootScope) {
+    .directive('listItemDelete', function (Content, $rootScope, $filter) {
         return {
             restrict: 'E',
             template: '<i class="pe-7s-close"></i>',
@@ -27,8 +27,11 @@ angular.module('app')
                     // (we are binding the event on every click)
                     angular.element($("[data-ok]")).unbind('click').bind('click', function() {
                         Content.delete(scope.item.id).then(function () {
+
                             //Remove the element
-                            delete $rootScope.records[scope.item.id];
+                            var content = $filter('filter')($rootScope.records, {id: parseInt(scope.item.id, 10)}, true);
+                            $rootScope.records.splice($rootScope.records.indexOf(content), 1);
+
                         });
                     });
 

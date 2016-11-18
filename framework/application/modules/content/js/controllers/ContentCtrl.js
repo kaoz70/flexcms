@@ -93,17 +93,15 @@ angular.module('app')
          * @param response
          */
         var onSave = function (response) {
-            $scope.content = response.data.data.content;
-            $scope.languages = response.data.data.translations;
-            $rootScope.records[$scope.content.id] = $scope.content;
+            $rootScope.records = response.data.data;
         };
 
         $scope.save = function () {
-            Content.save($scope.content, $scope.languages).then(onSave);
+            Content.save($scope).then(onSave);
         };
 
         $scope.saveAndClose = function () {
-            Content.save($scope.content, $scope.languages).then(onSave);
+            Content.save($scope).then(onSave);
             WindowFactory.remove($scope);
         };
 
