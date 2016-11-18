@@ -12,6 +12,7 @@ $_ns = __NAMESPACE__;
 use App\Category;
 use App\Config;
 use App\Response;
+use App\Translation;
 use App\Widget;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
@@ -148,10 +149,18 @@ class Content extends \AdminController implements \ContentInterface
 
         try{
 
+            //Get the content
             $content = \App\Content::find($id);
+
+            //Delete the content's translations
+            $translations = Translation::where('parent_id', $id)->where('type', $content->getType());
+            $translations->delete();
+
+            //Delete the content
             $content->delete();
 
             $response->setSuccess(true);
+            $response->setMessage('Contenido eliminado satisfactoriamente');
 
         } catch (Exception $e) {
             $response->setMessage($this->error('Ocurri&oacute; un problema al eliminar el contenido!', $e));

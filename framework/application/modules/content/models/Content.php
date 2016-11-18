@@ -100,6 +100,14 @@ class Content extends BaseModel {
     }
 
     /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
      * Get one content detail by language
      *
      * @param $content_id

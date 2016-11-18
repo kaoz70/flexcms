@@ -249,8 +249,8 @@
 
             <div class="modal-body"></div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-warning">Eliminar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" >Cancelar</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal" data-ok >Eliminar</button>
             </div>
         </div>
         <!-- / .modal-content -->

@@ -18,7 +18,19 @@ angular.module('app')
         };
 
         this.edit = function(id) {
-            return $http.get(urls.edit + id);
+            return $http.get(urls.edit + id)
+                .success(Response.validate)
+                .error(Response.error);
+        };
+
+        this.delete = function(id) {
+            return $http.delete(urls.delete + id)
+                .success(function (response) {
+                    if(Response.validate(response)) {
+                        Notification.show('success', response.message);
+                    }
+                })
+                .error(Response.error);
         };
 
         this.save = function(content, translations) {
@@ -33,14 +45,13 @@ angular.module('app')
                 url: urls.update + content.id,
                 data: $httpParamSerializer(data),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            }).success(function (response) {
-                Response.validate(response);
-            }).error(function (data, status) {
-                $('#modal-danger')
-                    .modal('show')
-                    .find('.modal-body')
-                    .html('Al parecer hay un error de servidor<br />[Error: ' + status + ']');
-            });
+            })
+                .success(function (response) {
+                    if(Response.validate(response)) {
+                        Notification.show('success', response.message);
+                    }
+                })
+                .error(Response.error);
 
         };
 

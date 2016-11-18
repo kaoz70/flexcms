@@ -7,11 +7,13 @@
  *
  * */
 angular.module('app')
-    .service('Response', function(Notification){
+    .service('Response', function(){
 
         /**
          * Validate a correct response with no errors
+         *
          * @param response
+         * @returns {*}
          */
         this.validate = function(response) {
 
@@ -27,8 +29,7 @@ angular.module('app')
                     throw "Hubo un problema con la petición";
                 }
 
-                //Show a success notification
-                Notification.show('success', response.message);
+                return response;
 
             } catch (err) {
                 $('#modal-danger')
@@ -37,9 +38,16 @@ angular.module('app')
                     .html(err);
             }
 
+            return false;
+
         };
 
-
+        this.error = function (data, status) {
+            $('#modal-danger')
+                .modal('show')
+                .find('.modal-body')
+                .html('Al parecer hay un error de servidor<br />[Error: ' + status + ']');
+        }
 
 });
 

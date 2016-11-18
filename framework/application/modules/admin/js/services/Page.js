@@ -18,7 +18,9 @@ angular.module('app')
         };
 
         this.getOne = function(id) {
-            return $http.get(urls.edit + id);
+            return $http.get(urls.edit + id)
+                .success(Response.validate)
+                .error(Response.error);
         };
 
         this.save = function(language) {
@@ -27,14 +29,13 @@ angular.module('app')
                 url: urls.update + language.id,
                 data: $httpParamSerializer(language),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            }).success(function (response) {
-                Response.validate(response);
-            }).error(function (data, status, headers, config) {
-                $('#modal-danger')
-                    .modal('show')
-                    .find('.modal-body')
-                    .html('Al parecer hay un error de servidor<br />[Error: ' + status + ']');
-            });
+            })
+                .success(function (response) {
+                    if(Response.validate(response)) {
+                        Notification.show('success', response.message);
+                    }
+                })
+                .error(Response.error);
         };
 
 });

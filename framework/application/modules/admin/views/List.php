@@ -12,7 +12,7 @@
                 <li class="dd-item" ng-repeat="row in records">
                     <div class="dd-handle">
                          <a ng-href="#/{{section}}/edit/{{row.id}}">{{row.name ? row.name : row.translation.name}}</a>
-                        <a class="pull-right"><list-item-delete /></a>
+                        <a class="pull-right"><list-item-delete item="row" /></a>
                     </div>
                 </li>
             </ul>
