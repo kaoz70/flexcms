@@ -1,6 +1,13 @@
 .animsition {
   height: 100%;
 }
+ul[dnd-list],
+ul[dnd-list] > li {
+  position: relative;
+}
+.dndDraggingSource {
+  display: none;
+}
 #windows {
   position: absolute;
   top: 35px;

@@ -14,7 +14,8 @@ angular.module('app')
             delete: 'admin/content/delete/',
             edit: 'admin/content/edit/',
             config: 'admin/content/config/',
-            config_save: 'admin/content/config_save/'
+            config_save: 'admin/content/config_save/',
+            reorder: 'admin/content/reorder/'
         };
 
         this.edit = function(id) {
@@ -77,6 +78,32 @@ angular.module('app')
                 .success(function (response) {
                     if(Response.validate(response)) {
                         Notification.show('success', response.message);
+                    }
+                })
+                .error(Response.error);
+
+        };
+
+        this.setOrder = function(list, page_id) {
+
+            var order = [],
+                data = {};
+
+            angular.forEach(list, function(value, key) {
+                order.push(value.id);
+            });
+
+            data.order = JSON.stringify(order);
+
+            return $http({
+                method: 'POST',
+                url: urls.reorder + page_id,
+                data: $httpParamSerializer(data),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            })
+                .success(function (response) {
+                    if(Response.validate(response)) {
+                        Notification.show(response.type, response.message);
                     }
                 })
                 .error(Response.error);

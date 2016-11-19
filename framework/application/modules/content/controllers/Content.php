@@ -309,11 +309,23 @@ class Content extends \AdminController implements \ContentInterface
 
     public function reorder($page_id)
     {
-        $response = new stdClass();
-        $response->error_code = 0;
+        $response = new Response();
 
         try{
-            \App\Content::reorder($this->input->post('posiciones'), $page_id);
+
+            \App\Content::reorder($this->input->post('order'), $page_id);
+
+            $widget = Widget::getContentWidget($page_id);
+            $contentOrder = $widget->getConfig()->order;
+
+            if($contentOrder == 'manual') {
+                $response->setSuccess(true);
+                $response->setMessage('Se guard&oacute; el nuevo orden de elementos');
+            } else {
+                $response->setType('warning');
+                $response->setMessage('Se guard&oacute; el nuevo orden de elementos, pero el listado no tiene orden manual');
+            }
+
         } catch (Exception $e) {
             $response = $this->error('Ocurri&oacute; un problema al reorganizar el contenido!', $e);
         }

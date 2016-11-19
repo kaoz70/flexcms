@@ -7,16 +7,20 @@
     </div>
     <div class="panel-body">
 
-        <div class="dd dd-darker">
-            <ul class="dd-list">
-                <li class="dd-item" ng-repeat="row in records">
-                    <div class="dd-handle">
-                         <a ng-href="#/{{section}}/edit/{{row.id}}">{{row.name ? row.name : row.translation.name}}</a>
-                        <a class="pull-right"><list-item-delete item="row" /></a>
-                    </div>
-                </li>
-            </ul>
-        </div>
+        <ul dnd-list="records">
+
+            <li ng-repeat="row in records"
+                dnd-draggable="row"
+                dnd-moved="records.splice($index, 1)"
+                dnd-effect-allowed="move"
+                dnd-selected="selected = row"
+                dnd-dragend="onSortEnd()"
+                ng-class="{'selected': selected === row}"
+            >
+                <a ng-href="#/{{section}}/edit/{{row.id}}">{{row.name ? row.name : row.translation.name}}</a>
+                <a class="pull-right"><list-item-delete item="row" /></a>
+            </li>
+        </ul>
 
     </div>
     <div class="panel-footer">

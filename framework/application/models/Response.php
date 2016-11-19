@@ -15,6 +15,29 @@ class Response implements \JsonSerializable
     private $data = [];
 
     /**
+     * Type of bootstrap message to show in the frontend: success, info, warning, danger
+     *
+     * @var string
+     */
+    private $type = 'danger';
+
+    /**
+     * @param string $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
      * @param string $message
      */
     public function setMessage($message)
@@ -27,6 +50,7 @@ class Response implements \JsonSerializable
      */
     public function setSuccess($success)
     {
+        $this->setType('success');
         $this->success = $success;
     }
 
@@ -77,6 +101,7 @@ class Response implements \JsonSerializable
             'success' => $this->isSuccess(),
             'message' => $this->getMessage(),
             'data' => $this->getData(),
+            'type' => $this->getType(),
         ];
     }
 }

@@ -185,6 +185,7 @@
     <script src="<?= admin_asset_path('../../node_modules/angular-sanitize/angular-sanitize.js') ?>"></script>
     <script src="<?= admin_asset_path('../../node_modules/angular-bootstrap-datetimepicker/src/js/datetimepicker.js') ?>"></script>
     <script src="<?= admin_asset_path('../../node_modules/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../node_modules/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js') ?>"></script>
 
     <script src="<?= admin_asset_path('js/lib/notifications/snap.svg-min.js') ?>"></script>
     <script src="<?= admin_asset_path('js/lib/notifications/notificationFx.js') ?>"></script>
