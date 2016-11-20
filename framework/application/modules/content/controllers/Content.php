@@ -54,7 +54,7 @@ class Content extends \AdminController implements \ContentInterface
         ];
 
         try {
-            $data['title'] = $page->getTranslation('es') ? $page->getTranslation('es')->name : "{missing translation}";
+            $data['title'] = $page->getTranslation(1) ? $page->getTranslation(1)->name : "{missing translation}";
         } catch (\TranslationException $e) {
             $data['title'] = "{Missing translation}";
         }
@@ -327,7 +327,7 @@ class Content extends \AdminController implements \ContentInterface
             }
 
         } catch (Exception $e) {
-            $response = $this->error('Ocurri&oacute; un problema al reorganizar el contenido!', $e);
+            $response->setMessage($this->error('Ocurri&oacute; un problema al reorganizar el contenido!', $e));
         }
 
         $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );

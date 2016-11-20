@@ -8,6 +8,24 @@ ul[dnd-list] > li {
 .dndDraggingSource {
   display: none;
 }
+.search {
+  margin: 9px -15px -10px -15px;
+}
+.search .input-group > * {
+  border-radius: 0;
+}
+.node {
+  display: flex;
+}
+.node [ui-tree-handle] {
+  display: flex;
+  width: 35px;
+  align-items: center;
+  justify-content: center;
+}
+#pages .node [ui-tree-handle] {
+  display: none;
+}
 #windows {
   position: absolute;
   top: 35px;

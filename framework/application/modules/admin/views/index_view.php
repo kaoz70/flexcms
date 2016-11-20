@@ -24,9 +24,21 @@
     <link rel="stylesheet" href="<?= admin_asset_path('css/font-awesome.min.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../node_modules/chosen-js/chosen.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../node_modules/angular-bootstrap-datetimepicker/src/css/datetimepicker.css') ?>" type="text/css" />
+    <link rel="stylesheet" href="<?= admin_asset_path('../../node_modules/angular-ui-tree/dist/angular-ui-tree.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/angular-ui-select/dist/select.min.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/angular-timezone-selector/dist/angular-timezone-selector.min.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('css/pe-icon-7-stroke.css') ?>" type="text/css" />
+
+    <script type="text/ng-template" id="nodes_renderer.html">
+        <div class="node">
+            <div ui-tree-handle><i class="fa fa-bars" aria-hidden="true"></i></div>
+            <a ng-href='#/page/{{node.id}}'>{{node.translation.name ? node.translation.name : '{missing translation}'}}</a>
+        </div>
+        <ol class="node-children" ui-tree-nodes="" ng-model="node.children">
+            <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_renderer.html'">
+            </li>
+        </ol>
+    </script>
 
 </head>
 <body style="overflow:hidden;" ng-class="isSidebarOpen ? '' : 'minimized'">
@@ -56,10 +68,16 @@
                     </a>
                     <ul>
                         <li class="submenu-title">
-                            <span>P&aacute;ginas</span>
+                            <span>Estructura</span>
                         </li>
                         <li class="col-xs-12" ui-sref-active="active">
-                            <?= admin_structure_tree($root_node->getChildren(), $visible); ?>
+
+                            <div ui-tree>
+                                <ol ui-tree-nodes="" ng-model="pages" id="tree-root">
+                                    <li ng-repeat="node in pages" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+                                </ol>
+                            </div>
+
                         </li>
 
                     </ul>
@@ -75,7 +93,13 @@
                             <span>P&aacute;ginas</span>
                         </li>
                         <li class="col-xs-12" ui-sref-active="active">
-                            <?= admin_structure_tree($root_node->getChildren(), $visible); ?>
+
+                            <div id="pages" ui-tree data-drag-enabled="false">
+                                <ol ui-tree-nodes="" ng-model="pages" id="tree-root">
+                                    <li ng-repeat="node in pages" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+                                </ol>
+                            </div>
+
                         </li>
 
                     </ul>
@@ -186,6 +210,7 @@
     <script src="<?= admin_asset_path('../../node_modules/angular-bootstrap-datetimepicker/src/js/datetimepicker.js') ?>"></script>
     <script src="<?= admin_asset_path('../../node_modules/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js') ?>"></script>
     <script src="<?= admin_asset_path('../../node_modules/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../node_modules/angular-ui-tree/dist/angular-ui-tree.min.js') ?>"></script>
 
     <script src="<?= admin_asset_path('js/lib/notifications/snap.svg-min.js') ?>"></script>
     <script src="<?= admin_asset_path('js/lib/notifications/notificationFx.js') ?>"></script>
@@ -218,7 +243,6 @@
     <script src="<?= admin_asset_path('js/app/services/Template.js') ?>"></script>
     <script src="<?= admin_asset_path('js/app/services/Notification.js') ?>"></script>
     <script src="<?= admin_asset_path('js/app/controllers/sidebar.controller.js') ?>"></script>
-
 
 </div>
 

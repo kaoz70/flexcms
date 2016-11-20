@@ -11,7 +11,7 @@ namespace App;
 
 use Cartalyst\NestedSets\Nodes\NodeTrait;
 use Cartalyst\NestedSets\Nodes\NodeInterface;
-use Symfony\Component\Translation\Exception\NotFoundResourceException;
+use Closure;
 
 class Category extends BaseModel implements NodeInterface {
 
@@ -39,6 +39,8 @@ class Category extends BaseModel implements NodeInterface {
      */
     public $translations;
 
+    protected $appends = ['translation', 'translations'];
+
     /**
      * Return popup attribute as boolean instead of int
      *
@@ -48,6 +50,22 @@ class Category extends BaseModel implements NodeInterface {
     public function getPopupAttribute($value)
     {
         return (boolean)$value;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTranslationAttribute()
+    {
+        return $this->translation;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTranslationsAttribute()
+    {
+        return $this->translations;
     }
 
     /**
@@ -67,11 +85,26 @@ class Category extends BaseModel implements NodeInterface {
 
         $unique = $this->recursiveFindName($root->getChildren(), $lang, $name);
 
-        if(array_search(FALSE, $unique)) {
-            return FALSE;
-        } else {
-            return TRUE;
+        return array_search(FALSE, $unique) ? FALSE : TRUE;
+
+    }
+
+    protected function loadTree($depth = 0, Closure $callback = null)
+    {
+
+        $this->setWorker('LangWorker');
+        $tree = $this->createWorker()->tree($this, $depth, $callback);
+
+        // The tree method from the worker is none-the-wiser
+        // to whether we are retrieving a root node or not. If
+        // we only have one child, it will therefore return a
+        // singular object. We'll ensure we're actually returning
+        // an array.
+        if (! is_array($tree)) {
+            $tree = [$tree];
         }
+
+        return $tree;
 
     }
 

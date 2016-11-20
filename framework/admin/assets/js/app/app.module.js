@@ -16,6 +16,7 @@
             'ui.select',
             'angular-timezone-selector',
             'ngSanitize',
-            'dndLists'
+            'dndLists',
+            'ui.tree'
         ]);
 }());

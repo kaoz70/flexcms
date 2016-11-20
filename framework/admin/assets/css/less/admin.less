@@ -12,6 +12,38 @@ ul[dnd-list], ul[dnd-list] > li {
   display: none;
 }
 
+.search {
+
+  margin: 9px -15px -10px -15px;
+
+  .input-group {
+    > * {
+      border-radius: 0;
+    }
+  }
+
+}
+
+.node {
+  display: flex;
+
+  [ui-tree-handle] {
+    display: flex;
+    width: 35px;
+    align-items: center;
+    justify-content: center;
+  }
+
+}
+
+#pages {
+  .node {
+    [ui-tree-handle] {
+      display: none;
+    }
+  }
+}
+
 #windows {
   position: absolute;
   top: 35px;

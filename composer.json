@@ -45,7 +45,8 @@
       "framework/application/interfaces",
       "framework/application/modules",
       "framework/application/models",
-      "framework/application/widgets"
+      "framework/application/widgets",
+      "framework/application/workers"
     ]
   },
   "config": {

@@ -1,4 +1,6 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php use App\Response;
+
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Page extends AdminController {
 
@@ -6,6 +8,52 @@ class Page extends AdminController {
     var $pagina_info = array();
     var $link;
     var $mptt;
+
+    public function all($lang_id)
+    {
+
+        $response = new Response();
+
+        try{
+
+            $root = \App\Category::find(1);
+            $root->setLang($lang_id);
+
+            $depth = 99999;
+            $tree = $this->getNodes($root, $depth);
+
+            $response->setSuccess(true);
+            $response->setData($tree);
+
+        } catch (Exception $e) {
+            $response->setMessage($this->error('Ocurri&oacute; un problema al obtener las p&aacute;ginas!', $e));
+        }
+
+        $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );
+
+    }
+
+    private function getNodes($root, $depth)
+    {
+
+        $nodes = [];
+
+        $root->findChildren($depth);
+
+        // We can now loop through our children
+        foreach ($root->getChildren() as $node) {
+
+            $nodes[] = $node;
+
+            /*if (count($node->getChildren())) {
+                $node->nodes = $this->getNodes($node, $depth);
+            }*/
+
+        }
+
+        return $nodes;
+
+    }
 
     public function edit($id)
     {

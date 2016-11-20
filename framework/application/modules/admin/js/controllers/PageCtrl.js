@@ -19,6 +19,7 @@ angular.module('app')
         $scope.menu = [];
         $scope.dragable = false;
         $scope.selected = {};
+        $scope.query = "";
 
         $scope.onSortEnd = function () {
             Content.setOrder($rootScope.records, $routeParams.page_id);

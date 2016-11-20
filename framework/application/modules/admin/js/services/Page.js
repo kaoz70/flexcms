@@ -14,7 +14,8 @@ angular.module('app')
             update: 'admin/page/update/',
             delete: 'admin/page/delete/',
             insert: 'admin/page/insert',
-            edit: 'admin/page/edit/'
+            edit: 'admin/page/edit/',
+            pages: 'admin/page/all/'
         };
 
         this.getOne = function(id) {
@@ -22,6 +23,12 @@ angular.module('app')
                 .success(Response.validate)
                 .error(Response.error);
         };
+        
+        this.getAll = function (language) {
+            return $http.get(urls.pages + language)
+                .success(Response.validate)
+                .error(Response.error);
+        }
 
         this.save = function(language) {
             return $http({
@@ -37,6 +44,7 @@ angular.module('app')
                 })
                 .error(Response.error);
         };
+
 
 });
 
