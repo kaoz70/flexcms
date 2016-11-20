@@ -17,7 +17,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | environments.
 |
 */
-$config['base_url'] = '';
+//Get the request scheme
+if(isset($_SERVER['REQUEST_SCHEME'])) {
+    $scheme = $_SERVER['REQUEST_SCHEME'];
+}
+//Google App Engine
+else if(isset($_SERVER['HTTPS']))  {
+    $scheme = $_SERVER['HTTPS'] == 'off' ? 'http' : 'https';
+}
+//Default
+else {
+    $scheme = 'http';
+}
+
+$config['base_url'] = $scheme . "://" . $_SERVER['HTTP_HOST'] . (strpos($_SERVER['SCRIPT_NAME'], SELF_DIR) ? '/' . SELF_DIR : '');
 
 /*
 |--------------------------------------------------------------------------
