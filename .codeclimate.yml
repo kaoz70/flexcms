@@ -28,4 +28,5 @@ exclude_paths:
 - "framework/system/"
 - "framework/packages/"
 - "framework/node_modules/"
+- "framework/application/modules/slider/sliders"
 - "**/vendor/**/*"
