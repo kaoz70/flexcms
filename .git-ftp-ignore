@@ -11,3 +11,4 @@ composer.lock
 .travis.yml
 .git-ftp-ignore
 README.md
+phpunit.xml
