@@ -1,6 +1,6 @@
 <?php
 
-class Module_model extends CI_Model {
+class ModuleAdmin_model extends CI_Model {
 
 
     function __construct()

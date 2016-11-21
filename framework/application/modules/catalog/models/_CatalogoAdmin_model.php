@@ -1,6 +1,6 @@
 <?php
 
-class Catalogo_model extends CI_Model
+class CatalogoAdmin_model extends CI_Model
 {
 
 	function __construct()

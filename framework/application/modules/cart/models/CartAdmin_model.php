@@ -1,6 +1,6 @@
 <?php
 
-class Cart_model extends CI_Model
+class CartAdmin_model extends CI_Model
 {
 
     ###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
