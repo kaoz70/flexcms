@@ -8,12 +8,13 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
 {
     public static $files = array (
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
-        '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
         'e40631d46120a9c38ea139981f8dab26' => __DIR__ . '/..' . '/ircmaxell/password-compat/lib/password.php',
         'ce89ac35a6c330c55f4710717db9ff78' => __DIR__ . '/..' . '/kriswallsmith/assetic/src/functions.php',
         '3e2471375464aac821502deb0ac64275' => __DIR__ . '/..' . '/symfony/polyfill-php54/bootstrap.php',
         'edc6464955a37aa4d5fbf39d40fb6ee7' => __DIR__ . '/..' . '/symfony/polyfill-php55/bootstrap.php',
+        'd9d39f82a605ebe5918f683dd402334c' => __DIR__ . '/..' . '/padraic/humbug_get_contents/src/function.php',
         '742b7e606e92b28dd726e835467f413a' => __DIR__ . '/..' . '/herrera-io/json/src/lib/json_version.php',
         '6bc45d0537e6858fd179bdbc31d62c79' => __DIR__ . '/..' . '/raveren/kint/Kint.class.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
@@ -25,15 +26,20 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
             'Symfony\\Polyfill\\Php55\\' => 23,
             'Symfony\\Polyfill\\Php54\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Component\\Yaml\\' => 23,
             'Symfony\\Component\\VarDumper\\' => 28,
             'Symfony\\Component\\Translation\\' => 30,
+            'Symfony\\Component\\Stopwatch\\' => 28,
             'Symfony\\Component\\Process\\' => 26,
             'Symfony\\Component\\HttpFoundation\\' => 33,
             'Symfony\\Component\\Finder\\' => 25,
             'Symfony\\Component\\Filesystem\\' => 29,
             'Symfony\\Component\\EventDispatcher\\' => 34,
             'Symfony\\Component\\Debug\\' => 24,
+            'Symfony\\Component\\Console\\' => 26,
+            'Symfony\\Component\\Config\\' => 25,
             'Seld\\JsonLint\\' => 14,
+            'Satooshi\\' => 9,
         ),
         'P' => 
         array (
@@ -60,6 +66,11 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
             'Illuminate\\Contracts\\' => 21,
             'Illuminate\\Container\\' => 21,
         ),
+        'H' => 
+        array (
+            'Humbug\\SelfUpdate\\' => 18,
+            'Humbug\\' => 7,
+        ),
         'G' => 
         array (
             'Gajus\\Dindent\\' => 14,
@@ -73,6 +84,7 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         ),
         'C' => 
         array (
+            'CodeClimate\\PhpTestReporter\\' => 28,
             'Cartalyst\\Themes\\' => 17,
             'Cartalyst\\Support\\' => 18,
             'Cartalyst\\Sentinel\\Addons\\Social\\' => 33,
@@ -97,6 +109,10 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
+        'Symfony\\Component\\Yaml\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/yaml',
+        ),
         'Symfony\\Component\\VarDumper\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/var-dumper',
@@ -104,6 +120,10 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'Symfony\\Component\\Translation\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/translation',
+        ),
+        'Symfony\\Component\\Stopwatch\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/stopwatch',
         ),
         'Symfony\\Component\\Process\\' => 
         array (
@@ -129,9 +149,21 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         array (
             0 => __DIR__ . '/..' . '/symfony/debug',
         ),
+        'Symfony\\Component\\Console\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/console',
+        ),
+        'Symfony\\Component\\Config\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/config',
+        ),
         'Seld\\JsonLint\\' => 
         array (
             0 => __DIR__ . '/..' . '/seld/jsonlint/src/Seld/JsonLint',
+        ),
+        'Satooshi\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/satooshi/php-coveralls/src/Satooshi',
         ),
         'Psr\\Log\\' => 
         array (
@@ -185,6 +217,14 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         array (
             0 => __DIR__ . '/..' . '/illuminate/container',
         ),
+        'Humbug\\SelfUpdate\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/padraic/phar-updater/src',
+        ),
+        'Humbug\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/padraic/humbug_get_contents/src/Humbug',
+        ),
         'Gajus\\Dindent\\' => 
         array (
             0 => __DIR__ . '/..' . '/gajus/dindent/src',
@@ -204,6 +244,10 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'Doctrine\\Common\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
+        ),
+        'CodeClimate\\PhpTestReporter\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/codeclimate/php-test-reporter/src',
         ),
         'Cartalyst\\Themes\\' => 
         array (
@@ -393,64 +437,6 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'Contact\\Person' => __DIR__ . '/../../..' . '/framework/application/modules/contact/controllers/Person.php',
         'ContentInterface' => __DIR__ . '/../../..' . '/framework/application/interfaces/ContentInterface.php',
         'Content\\Main' => __DIR__ . '/../../..' . '/framework/application/modules/content/controllers/Main.php',
-        'CssAtCharsetParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssAtCharsetToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssAtFontFaceDeclarationToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssAtFontFaceEndToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssAtFontFaceParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssAtFontFaceStartToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssAtImportParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssAtImportToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssAtKeyframesEndToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssAtKeyframesParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssAtKeyframesRulesetDeclarationToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssAtKeyframesRulesetEndToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssAtKeyframesRulesetStartToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssAtKeyframesStartToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssAtMediaEndToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssAtMediaParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssAtMediaStartToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssAtPageDeclarationToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssAtPageEndToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssAtPageParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssAtPageStartToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssAtVariablesDeclarationToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssAtVariablesEndToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssAtVariablesParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssAtVariablesStartToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssCommentParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssCommentToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssCompressColorValuesMinifierPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssCompressExpressionValuesMinifierPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssCompressUnitValuesMinifierPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssConvertFontWeightMinifierPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssConvertHslColorsMinifierPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssConvertLevel3AtKeyframesMinifierFilter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssConvertLevel3PropertiesMinifierFilter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssConvertNamedColorsMinifierPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssConvertRgbColorsMinifierPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssError' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssExpressionParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssImportImportsMinifierFilter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssMin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssMinifier' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssNullToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssOtbsFormatter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssParser' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssRemoveCommentsMinifierFilter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssRemoveEmptyAtBlocksMinifierFilter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssRemoveEmptyRulesetsMinifierFilter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssRemoveLastDelarationSemiColonMinifierFilter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssRulesetDeclarationToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssRulesetEndToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssRulesetParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssRulesetStartToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssSortRulesetPropertiesMinifierFilter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssStringParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssUrlParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssVariablesMinifierFilter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssVariablesMinifierPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'CssWhitesmithsFormatter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
         'Day' => __DIR__ . '/../../..' . '/framework/application/modules/calendar/controllers/Day.php',
         'Descargas_model' => __DIR__ . '/../../..' . '/framework/application/modules/file/models/Descargas_model.php',
         'DooDigestAuth' => __DIR__ . '/..' . '/mrclay/minify/min/lib/DooDigestAuth.php',
@@ -618,16 +604,6 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'View' => __DIR__ . '/../../..' . '/framework/application/modules/admin/controllers/View.php',
         'Widget' => __DIR__ . '/../../..' . '/framework/application/modules/admin/controllers/Widget.php',
         'WidgetInterface' => __DIR__ . '/../../..' . '/framework/application/interfaces/WidgetInterface.php',
-        'aCssAtBlockEndToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'aCssAtBlockStartToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'aCssDeclarationToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'aCssFormatter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'aCssMinifierFilter' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'aCssMinifierPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'aCssParserPlugin' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'aCssRulesetEndToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'aCssRulesetStartToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
-        'aCssToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
         'admin\\Category' => __DIR__ . '/../../..' . '/framework/application/modules/admin/models/Category.php',
         'admin\\auth\\Main' => __DIR__ . '/../../..' . '/framework/application/modules/auth/controllers/Main.php',
         'auth\\Field' => __DIR__ . '/../../..' . '/framework/application/modules/auth/controllers/Field.php',

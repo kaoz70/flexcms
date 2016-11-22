@@ -17,11 +17,9 @@
     "cartalyst/nested-sets": "^3.0",
     "cartalyst/themes": "^3.0",
     "symfony/http-foundation": "^2.7",
-    "tubalmartin/cssmin": "^2.4",
     "symfony/var-dumper": "^3.1",
     "doctrine/dbal": "^2.5",
     "cartalyst/assetic-filters": "^1.2",
-    "natxet/CssMin": "^3.0",
     "twig/twig": "^1.27",
     "illuminate/pagination": "^5.3",
     "vlucas/phpdotenv": "^2.4"
