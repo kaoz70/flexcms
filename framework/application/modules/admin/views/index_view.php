@@ -22,10 +22,10 @@
     <link rel="stylesheet" href="<?= admin_asset_path('css/less/admin.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('css/less/skins/dark.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('css/font-awesome.min.css') ?>" type="text/css" />
-    <link rel="stylesheet" href="<?= admin_asset_path('../../node_modules/chosen-js/chosen.css') ?>" type="text/css" />
+    <link rel="stylesheet" href="<?= admin_asset_path('../../packages/chosen/chosen.min.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../node_modules/angular-bootstrap-datetimepicker/src/css/datetimepicker.css') ?>" type="text/css" />
-    <link rel="stylesheet" href="<?= admin_asset_path('../../node_modules/angular-ui-tree/dist/angular-ui-tree.css') ?>" type="text/css" />
-    <link rel="stylesheet" href="<?= admin_asset_path('../../packages/angular-ui-select/dist/select.min.css') ?>" type="text/css" />
+    <link rel="stylesheet" href="<?= admin_asset_path('../../packages/angular-ui-tree/dist/angular-ui-tree.css') ?>" type="text/css" />
+    <link rel="stylesheet" href="<?= admin_asset_path('../../packages/angular-ui-select//dist/select.min.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/angular-timezone-selector/dist/angular-timezone-selector.min.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('css/pe-icon-7-stroke.css') ?>" type="text/css" />
 
@@ -185,22 +185,22 @@
     <!--
     [6. JavaScript References]
     -->
-    <script src="<?= admin_asset_path('js/jquery.min.js') ?>"></script>
-    <script src="<?= admin_asset_path('js/bootstrap.min.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/jquery/dist/jquery.min.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/bootstrap/dist/js/bootstrap.min.js') ?>"></script>
     <script src="<?= admin_asset_path('js/modernizr.custom.js') ?>"></script>
-    <script src="<?= admin_asset_path('js/lib/slimscroll/jquery.slimscroll.min.js') ?>"></script>
-    <script src="<?= admin_asset_path('js/lib/animsition/animsition.min.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/jquery-slimscroll/jquery.slimscroll.min.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/animsition/dist/js/animsition.min.js') ?>"></script>
 
     <script src="<?= admin_asset_path('../../node_modules/jstz/dist/jstz.min.js') ?>"></script>
     <script src="<?= admin_asset_path('../../node_modules/moment/min/moment.min.js') ?>"></script>
     <script src="<?= admin_asset_path('../../node_modules/moment-timezone/builds/moment-timezone-with-data.min.js') ?>"></script>
-    <script src="<?= admin_asset_path('../../node_modules/chosen-js/chosen.jquery.js') ?>"></script>
-    <script src="<?= admin_asset_path('../../node_modules/lodash/lodash.min.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/chosen/chosen.jquery.min.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/lodash/dist/lodash.min.js') ?>"></script>
 
-    <script src="<?= admin_asset_path('../../packages/angular/angular.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../node_modules/angular/angular.js') ?>"></script>
     <script src="<?= admin_asset_path('../../node_modules/angular-i18n/angular-locale_es-ec.js') ?>"></script>
-    <script src="<?= admin_asset_path('../../packages/angular-route/angular-route.js') ?>"></script>
-    <script src="<?= admin_asset_path('../../packages/angular-route-segment/build/angular-route-segment.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../node_modules/angular-route/angular-route.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../node_modules/angular-route-segment/build/angular-route-segment.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/tinymce/tinymce.min.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/angular-ui-tinymce/dist/tinymce.min.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/angular-ui-select/dist/select.min.js') ?>"></script>
@@ -210,7 +210,7 @@
     <script src="<?= admin_asset_path('../../node_modules/angular-bootstrap-datetimepicker/src/js/datetimepicker.js') ?>"></script>
     <script src="<?= admin_asset_path('../../node_modules/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js') ?>"></script>
     <script src="<?= admin_asset_path('../../node_modules/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js') ?>"></script>
-    <script src="<?= admin_asset_path('../../node_modules/angular-ui-tree/dist/angular-ui-tree.min.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/angular-ui-tree/dist/angular-ui-tree.min.js') ?>"></script>
 
     <script src="<?= admin_asset_path('js/lib/notifications/snap.svg-min.js') ?>"></script>
     <script src="<?= admin_asset_path('js/lib/notifications/notificationFx.js') ?>"></script>
