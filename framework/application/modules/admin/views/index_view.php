@@ -18,6 +18,10 @@
     <link rel="stylesheet" href="<?= admin_asset_path('css/bootstrap.min.css') ?>" type="text/css" id="link-bootstrap" />
     <link rel="stylesheet" href="#null" type="text/css" id="link-bootstrap-rtl" />
     <link rel="stylesheet" href="<?= admin_asset_path('css/animate.min.css') ?>" type="text/css" />
+    <link rel="stylesheet" href="<?= admin_asset_path('../../packages/codemirror/lib/codemirror.css') ?>" type="text/css" />
+    <link rel="stylesheet" href="<?= admin_asset_path('../../packages/codemirror/addon/hint/show-hint.css') ?>" type="text/css" />
+    <link rel="stylesheet" href="<?= admin_asset_path('../../packages/codemirror/addon/fold/foldgutter.css') ?>" type="text/css" />
+    <link rel="stylesheet" href="<?= admin_asset_path('../../packages/codemirror/theme/rubyblue.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('css/app.css') ?>" type="text/css" id="link-app" />
     <link rel="stylesheet" href="<?= admin_asset_path('css/less/admin.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('css/less/skins/dark.css') ?>" type="text/css" />
@@ -38,6 +42,12 @@
             <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_renderer.html'">
             </li>
         </ol>
+    </script>
+
+    <script>
+        var system = {
+            base_url: "<?= base_url() ?>"
+        }
     </script>
 
 </head>
@@ -185,7 +195,7 @@
     <!--
     [6. JavaScript References]
     -->
-    <script src="<?= admin_asset_path('../../packages/jquery/dist/jquery.min.js') ?>"></script>
+    <script src="<?= admin_asset_path('js/jquery.min.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/bootstrap/dist/js/bootstrap.min.js') ?>"></script>
     <script src="<?= admin_asset_path('js/modernizr.custom.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/jquery-slimscroll/jquery.slimscroll.min.js') ?>"></script>
@@ -198,6 +208,23 @@
     <script src="<?= admin_asset_path('../../packages/lodash/dist/lodash.min.js') ?>"></script>
 
     <script src="<?= admin_asset_path('../../node_modules/angular/angular.js') ?>"></script>
+
+    <script src="<?= admin_asset_path('../../packages/codemirror/lib/codemirror.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/codemirror/addon/edit/closetag.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/codemirror/addon/edit/matchtags.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/codemirror/addon/display/autorefresh.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/codemirror/addon/fold/foldcode.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/codemirror/addon/fold/xml-fold.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/codemirror/addon/fold/foldgutter.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/codemirror/addon/hint/show-hint.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/codemirror/addon/hint/xml-hint.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/codemirror/addon/hint/html-hint.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/codemirror/mode/xml/xml.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/codemirror/mode/javascript/javascript.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/codemirror/mode/css/css.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/codemirror/mode/htmlmixed/htmlmixed.js') ?>"></script>
+
+    <script src="<?= admin_asset_path('../../packages/angular-ui-codemirror/ui-codemirror.min.js') ?>"></script>
     <script src="<?= admin_asset_path('../../node_modules/angular-i18n/angular-locale_es-ec.js') ?>"></script>
     <script src="<?= admin_asset_path('../../node_modules/angular-route/angular-route.js') ?>"></script>
     <script src="<?= admin_asset_path('../../node_modules/angular-route-segment/build/angular-route-segment.js') ?>"></script>

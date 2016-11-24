@@ -33,12 +33,6 @@ angular.module('app')
                 $scope.content.translation.name = v;
             });
 
-            //Init the editor
-            $scope.tinymceOptions = {
-                plugins: 'link image code',
-                toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
-            };
-
         });
 
         /**

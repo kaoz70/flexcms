@@ -22,10 +22,8 @@
                             <input type="text" class="form-control" ng-model="lang.translation.name">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label>Contenido</label>
-                        <textarea rows="15" cols="5" class="form-control" ng-model="lang.translation.content" ui-tinymce="tinymceOptions" ></textarea>
-                    </div>
+
+                    <editor content-model="lang.translation.content"></editor>
 
                 </div>
             </uib-tab>

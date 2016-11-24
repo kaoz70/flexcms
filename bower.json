@@ -31,7 +31,10 @@
     "angular": "^1.5.8",
     "angular-timezone-selector": "^1.6.0",
     "angular-ui-select": "^0.19.6",
-    "angular-ui-tree": "^2.22.1"
+    "angular-ui-tree": "^2.22.1",
+    "jquery": "2",
+    "codemirror": "^5.19.0",
+    "angular-ui-codemirror": "^0.3.0"
   },
   "resolutions": {
     "magnific-popup": "^1.1.0",
