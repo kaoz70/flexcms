@@ -1,166 +1,185 @@
 <div class="panel panel-primary small-width">
-    <div class="panel-heading">
-        <h3 class="panel-title">Configuraci&oacute;n<a class="anchorjs-link" href="#panel-title"><span class="anchorjs-icon"></span></a></h3>
-        <div class="panel-tools">
+
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Configuraci&oacute;n</h2>
+            <span flex></span>
             <panel-dispose></panel-dispose>
         </div>
-    </div>
-    <div class="panel-body">
+    </md-toolbar>
 
-        <div class="form-heading">General</div>
+    <md-content class="panel-body">
 
-        <uib-tabset active="active">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">General</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
 
-            <uib-tab index="$index + 1" ng-repeat="lang in languages">
-                <uib-tab-heading>
-                    <span>{{lang.name}}</span>
-                </uib-tab-heading>
-                <div class="widget">
-                    <div class="form-group">
-                        <span>T&iacute;tulo</span>
-                        <input type="text" class="form-control" ng-model="lang.translation.name">
-                    </div>
-                    <div class="form-group">
-                        <span>Nombre del Men&uacute;</span>
-                        <input type="text" class="form-control" ng-model="lang.translation.menu_name">
-                    </div>
-                </div>
-            </uib-tab>
+                <md-tabs md-dynamic-height="" md-border-bottom="">
+                    <md-tab ng-repeat="lang in languages" label="{{lang.name}}">
 
-        </uib-tabset>
+                        <md-input-container class="md-block">
+                            <input ng-model="lang.translation.name" type="text" placeholder="T&iacute;tulo" ng-required="true">
+                        </md-input-container>
 
-        <hr class="full-width">
-        <div class="form-heading">Visibilidad</div>
+                        <md-input-container class="md-block">
+                            <input ng-model="lang.translation.menu_name" type="text" placeholder="Nombre del Men&uacute;" ng-required="true">
+                        </md-input-container>
 
-        <div class="checkbox">
-            <label>
-                <input ng-model="page.enabled" type="checkbox" >
-                <span class="text">Publicado</span>
-            </label>
-        </div>
+                    </md-tab>
+                </md-tabs>
 
-        <div class="checkbox">
-            <label>
-                <input ng-model="page.popup" type="checkbox" >
-                <span class="text">Mostrar en popup</span>
-            </label>
-        </div>
+            </md-card-content>
+        </md-card>
 
-        <div class="form-group">
-            <div class="input-group">
-                <span class="input-group-addon">Visible para</span>
-                <select ng-model="page.group_visibility" class="form-control">
-                    <option ng-repeat="role in roles"
-                            ng-selected="{{role.id == page.group_visibility}}"
-                            value="{{role.id}}">
-                        {{role.name}}
-                    </option>
-                </select>
-            </div>
-        </div>
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Visibilidad</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
 
-        <hr class="full-width">
-        <div class="form-heading">SEO</div>
+                <md-switch ng-model="page.enabled" aria-label="Publicado">
+                    Publicado
+                </md-switch>
 
-        <uib-tabset active="active">
+                <md-switch ng-model="page.popup" aria-label="Mostrar en popup">
+                    Mostrar en popup
+                </md-switch>
 
-            <uib-tab index="$index + 1" ng-repeat="lang in languages">
-                <uib-tab-heading>
-                    <span>{{lang.name}}</span>
-                </uib-tab-heading>
-                <div class="widget">
-                    <div class="form-group">
-                        <span>Palabras Clave</span>
-                        <ui-select multiple
-                                   tagging
-                                   tagging-label=""
-                                   ng-model="lang.translation.meta_keywords"
-                                   tagging-tokens=","
-                                   theme="bootstrap"
-                                   sortable="true">
-                            <ui-select-match>{{$item}}</ui-select-match>
-                            <ui-select-choices repeat="color in ctrl.availableColors | filter:$select.search">
-                                {{color}}
-                            </ui-select-choices>
-                        </ui-select>
-                    </div>
-                    <div class="form-group">
-                        <span>Meta T&iacute;tulo</span>
-                        <input class="form-control" ng-model="lang.translation.meta_title">
-                    </div>
-                    <div class="form-group">
-                        <span>Meta Descripci&oacute;n</span>
-                        <textarea class="form-control" ng-model="lang.translation.meta_description"></textarea>
-                    </div>
-                </div>
-            </uib-tab>
+                <md-input-container>
+                    <label>Visible para</label>
+                    <md-select ng-model="page.group_visibility">
+                        <md-option><em>None</em></md-option>
+                        <md-option ng-repeat="role in roles"
+                                   ng-selected="{{role.id == page.group_visibility}}"
+                                   ng-value="role.id">
+                            {{role.name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
 
-        </uib-tabset>
+            </md-card-content>
+        </md-card>
 
-        <hr class="full-width">
-        <div class="form-heading">Vistas</div>
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">SEO</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
 
-        <div class="form-group">
-            <div class="input-group">
-                <span class="input-group-addon">Listado</span>
-                <select ng-model="config.list_view" class="form-control">
-                    <option ng-repeat="view in list_views"
-                            ng-selected="{{view == config.list_view}}"
-                            value="{{view}}">
-                        {{view}}
-                    </option>
-                </select>
-            </div>
-        </div>
+                <md-tabs md-dynamic-height="" md-border-bottom="">
+                    <md-tab ng-repeat="lang in languages" label="{{lang.name}}">
 
-        <div class="form-group">
-            <div class="input-group">
-                <span class="input-group-addon">Detalle</span>
-                <select ng-model="config.detail_view" class="form-control">
-                    <option ng-repeat="view in detail_views"
-                            ng-selected="{{view == config.detail_view}}"
-                            value="{{view}}">
-                        {{view}}
-                    </option>
-                </select>
-            </div>
-        </div>
+                        <md-input-container class="md-block">
+                            <md-chips ng-model="lang.translation.meta_keywords"
+                                      md-separator-keys="keys"
+                                      placeholder="Palabras Clave"
+                                      secondary-placeholder="Separados por coma"
+                                      md-enable-chip-edit="true"
+                                      md-removable="ctrl.removable" md-max-chips="15">
+                            </md-chips>
+                        </md-input-container>
 
-        <hr class="full-width">
-        <div class="form-heading">Contenido</div>
+                        <md-input-container class="md-block">
+                            <input ng-model="lang.translation.meta_title" type="text" placeholder="Meta T&iacute;tulo">
+                        </md-input-container>
 
-        <div class="form-group">
-            <div class="input-group">
-                <span class="input-group-addon">Orden</span>
-                <select ng-model="config.order" class="form-control">
-                    <option ng-selected="{{'manual' == config.order}}" value="manual">Manual</option>
-                    <option ng-selected="{{'date_asc' == config.order}}" value="date_asc">Fecha Ascendente</option>
-                    <option ng-selected="{{'date_desc' == config.order}}" value="date_desc">Fecha Descendente</option>
-                </select>
-            </div>
-        </div>
+                        <md-input-container class="md-block">
+                                <textarea placeholder="Meta Descripci&oacute;n"
+                                          ng-model="lang.translation.meta_description"></textarea>
+                        </md-input-container>
 
-        <div class="checkbox">
-            <label>
-                <input ng-model="config.pagination" type="checkbox" >
-                <span class="text">Paginar listado</span>
-            </label>
-        </div>
+                    </md-tab>
+                </md-tabs>
 
-        <div class="form-group" ng-show="config.pagination">
-            <div class="input-group">
-                <span class="input-group-addon">Cantidad paginado</span>
-                <input class="form-control" type="number" ng-model="config.quantity">
-            </div>
-        </div>
+            </md-card-content>
+        </md-card>
 
-    </div>
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Vistas</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+
+                <md-input-container>
+                    <label>Listado</label>
+                    <md-select ng-model="config.list_view">
+                        <md-option ng-repeat="view in list_views"
+                                   ng-selected="{{view == config.list_view}}"
+                                   ng-value="view">
+                            {{view}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container>
+                    <label>Detalle</label>
+                    <md-select ng-model="config.detail_view">
+                        <md-option ng-repeat="view in list_views"
+                                   ng-selected="{{view == config.detail_view}}"
+                                   ng-value="view">
+                            {{view}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+
+            </md-card-content>
+        </md-card>
+
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Contenido</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+
+                <md-input-container>
+                    <label>Orden</label>
+                    <md-select ng-model="config.order">
+                        <md-option ng-selected="{{'manual' == config.order}}" value="manual">Manual</md-option>
+                        <md-option ng-selected="{{'date_asc' == config.order}}" value="date_asc">Fecha Ascendente</md-option>
+                        <md-option ng-selected="{{'date_desc' == config.order}}" value="date_desc">Fecha Descendente</md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-switch ng-model="config.pagination" aria-label="Paginar listado">
+                    Paginar listado
+                </md-switch>
+
+                <md-slider-container ng-show="config.pagination">
+                    <span>Items</span>
+                    <md-slider flex min="0" max="255"
+                               ng-model="config.quantity"
+                               aria-label="Cantidad paginado"
+                               id="pagination-slider">
+                    </md-slider>
+                    <md-input-container>
+                        <input flex type="number" ng-model="config.quantity" aria-label="red" aria-controls="pagination-slider">
+                    </md-input-container>
+                </md-slider-container>
+
+            </md-card-content>
+        </md-card>
+
+    </md-content>
 
     <div class="panel-footer panel-controls">
-        <div class="btn-group btn-group btn-group-justified">
-            <a ng-click="save()" class="btn btn-info"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</a>
-            <a ng-click="saveAndClose()" class="btn btn-warning"><i class="fa fa-check" aria-hidden="true"></i> Guardar y Cerrar</a>
-        </div>
+        <md-toolbar class="md-accent">
+            <div class="md-toolbar-tools" layout-align="end center">
+                <md-button ng-click="save()" ><md-icon>save</md-icon> Guardar</md-button>
+                <md-button ng-click="saveAndClose()" ><md-icon>check</md-icon> Guardar y Cerrar</md-button>
+            </div>
+        </md-toolbar>
     </div>
 
 </div>

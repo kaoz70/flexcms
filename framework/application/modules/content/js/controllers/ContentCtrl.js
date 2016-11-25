@@ -61,7 +61,7 @@ angular.module('app')
 
     })
 
-    .controller('ContentCreateCtrl', function($scope, $rootScope, Content, $routeSegment, WindowFactory, $routeParams, Language){
+    .controller('ContentCreateCtrl', function($scope, $rootScope, Content, $routeSegment, WindowFactory, $routeParams, Language, $mdConstant){
 
         //Close the sidebar on this controller
         $rootScope.isSidebarOpen = false;
@@ -107,7 +107,7 @@ angular.module('app')
 
     })
 
-    .controller('ContentConfigCtrl', function($scope, $rootScope, Content, $routeSegment, WindowFactory, $routeParams){
+    .controller('ContentConfigCtrl', function($scope, $rootScope, Content, $routeSegment, WindowFactory, $routeParams, $mdConstant){
 
         //Close the sidebar on this controller
         $rootScope.isSidebarOpen = false;
@@ -121,6 +121,9 @@ angular.module('app')
         $scope.roles = [];
         $scope.list_views = [];
         $scope.detail_views = [];
+
+        //Keyword creation keys
+        $scope.keys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA];
 
         Content.getConfig($routeParams.widget_id).then(function (response) {
             $scope.config = response.data.data.config;

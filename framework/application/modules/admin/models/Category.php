@@ -145,6 +145,8 @@ class Category extends \App\Category implements NodeInterface {
             if(isset($input[$lang->id]['translation']['meta_keywords'])){
                 //remove the space if any from the start and end of each keyword, create an array
                 $trans_data->meta_keywords = $input[$lang->id]['translation']['meta_keywords'];
+            } else {
+                $trans_data->meta_keywords = [];
             }
 
             if(isset($input[$lang->id]['translation']['meta_description'])){
