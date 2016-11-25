@@ -8,7 +8,7 @@
  * @requires $scope
  * */
 angular.module('app')
-    .controller('PageCtrl', function($scope, $rootScope, Page, $routeSegment, WindowFactory, $routeParams, Content){
+    .controller('PageCtrl', function($scope, $rootScope, Page, $routeSegment, WindowFactory, $routeParams, Content, $window){
 
         //Open the sidebar on this controller
         $rootScope.isSidebarOpen = true;
@@ -20,9 +20,29 @@ angular.module('app')
         $scope.dragable = false;
         $scope.selected = {};
         $scope.query = "";
+        $scope.deleteSelection = [];
 
         $scope.onSortEnd = function () {
             Content.setOrder($rootScope.records, $routeParams.page_id);
+        };
+
+        $scope.onItemClick = function (id) {
+            $window.location.assign('#/' + $scope.section + '/edit/' + id);
+        };
+
+        // toggle selection for a given item by id
+        $scope.toggleDeleteSelection = function(id) {
+            var idx = $scope.deleteSelection.indexOf(id);
+
+            // is currently selected
+            if (idx > -1) {
+                $scope.deleteSelection.splice(idx, 1);
+            }
+
+            // is newly selected
+            else {
+                $scope.deleteSelection.push(id);
+            }
         };
 
         WindowFactory.add();

@@ -11,7 +11,7 @@ angular.module('app')
     .directive('listItemDelete', function (Content, $rootScope, $filter) {
         return {
             restrict: 'E',
-            template: '<i class="fa fa-times" aria-hidden="true"></i>',
+            template: '<md-icon>close</md-icon>',
             scope: {
                 item: '='
             },

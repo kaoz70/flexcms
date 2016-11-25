@@ -8,11 +8,28 @@ ul[dnd-list] > li {
 .dndDraggingSource {
   display: none;
 }
-.search {
-  margin: 9px -15px -10px -15px;
+.search md-content {
+  padding-bottom: 0;
+  padding-top: 0;
 }
-.search .input-group > * {
-  border-radius: 0;
+.search md-input-container {
+  margin-bottom: 0;
+}
+.panel-tools {
+  transition: all 200ms;
+  height: 80px;
+}
+.panel-tools .tools {
+  animation: slideInUp 200ms;
+}
+.panel-tools .tools.ng-hide {
+  animation: slideOutDown 200ms;
+}
+.panel-tools md-content {
+  overflow: hidden;
+}
+.panel-tools.ng-hide {
+  height: 0;
 }
 .node {
   display: flex;
@@ -81,13 +98,8 @@ ul[dnd-list] > li {
   height: 100%;
   overflow: auto;
 }
-.panel-footer .menu {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.panel-footer .menu li {
-  margin-bottom: 5px;
+.panel-footer.list a {
+  display: block;
 }
 .panel.small-width {
   min-width: 350px;

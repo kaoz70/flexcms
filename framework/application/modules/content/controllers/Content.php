@@ -44,11 +44,13 @@ class Content extends \AdminController implements \ContentInterface
         $data['items'] = static::getItems($page_id);
         $data['menu'] = [
             [
-                'title' => '<i class="fa fa-cog" aria-hidden="true"></i> configuraci&oacute;n',
+                'title' => 'configuraci&oacute;n',
+                'icon' => 'settings',
                 'url' => 'page/' . $page_id  . '/' . static::URL_CONFIG . '/' . $widget->id,
             ],
             [
-                'title' => '<i class="fa fa-plus" aria-hidden="true"></i> nuevo',
+                'title' => 'nuevo',
+                'icon' => 'add',
                 'url' => 'page/' . $page_id  . '/' . static::URL_CREATE,
             ],
         ];

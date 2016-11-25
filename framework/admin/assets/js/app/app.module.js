@@ -5,6 +5,7 @@
         .module('app', [
             'ngRoute',
             'ngMaterial',
+            'ngAnimate',
             'ui.bootstrap',
             'view-segment',
             'route-segment',

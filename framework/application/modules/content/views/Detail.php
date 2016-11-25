@@ -8,7 +8,7 @@
         </div>
     </md-toolbar>
 
-    <md-content>
+    <md-content class="panel-body">
 
         <md-card>
             <md-card-title>
