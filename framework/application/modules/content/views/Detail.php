@@ -1,44 +1,48 @@
 <div class="panel panel-primary medium-width">
-    <div class="panel-heading">
-        <h3 class="panel-title">Contenido<a class="anchorjs-link" href="#panel-title"><span class="anchorjs-icon"></span></a></h3>
-        <div class="panel-tools">
+
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Contenido</h2>
+            <span flex></span>
             <panel-dispose></panel-dispose>
         </div>
-    </div>
-    <div class="panel-body">
+    </md-toolbar>
 
-        <div class="form-heading">General</div>
+    <md-content>
 
-        <uib-tabset active="active">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">General</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
 
-            <uib-tab index="$index + 1" ng-repeat="lang in languages">
-                <uib-tab-heading>
-                    <span>{{lang.name}}</span>
-                </uib-tab-heading>
-                <div class="widget">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">T&iacute;tulo</span>
-                            <input type="text" class="form-control" ng-model="lang.translation.name">
-                        </div>
-                    </div>
+                <md-tabs md-dynamic-height="" md-border-bottom="">
+                    <md-tab ng-repeat="lang in languages" label="{{lang.name}}">
 
-                    <editor content-model="lang.translation.content"></editor>
+                        <md-input-container class="md-block">
+                            <input ng-model="lang.translation.name" type="text" placeholder="T&iacute;tulo" ng-required="true">
+                        </md-input-container>
 
-                </div>
-            </uib-tab>
+                        <editor content-model="lang.translation.content"></editor>
 
-        </uib-tabset>
+                    </md-tab>
+                </md-tabs>
 
-        <hr class="full-width">
-        <div class="form-heading">Im&aacute;genes</div>
+            </md-card-content>
+        </md-card>
 
-        <div class="field">
-            <div class="header">Im&aacute;genes</div>
-            <div class="content">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Im&aacute;genes</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
 
                 <fieldset id="upload-image">
-                    <legend>Im&aacute;gen Principal</legend>
+                    <legend>Imagen Principal</legend>
                     <div>
                         <input class="fileselect" type="file" name="fileselect[]" />
                         <div class="filedrag">o arrastre el archivo aquí</div>
@@ -53,139 +57,124 @@
                     </div>
                 </fieldset>
 
-            </div>
-        </div>
+            </md-card-content>
+        </md-card>
 
-        <hr class="full-width">
-        <div class="form-heading">Publicaci&oacute;n</div>
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Publicaci&oacute;n</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
 
-        <div class="form-group">
-            <div class="input-group">
-                <label class="input-group-addon">Zona Horaria</label>
-                <timezone-selector
-                    ng-model="content.timezone"
-                    display-utc="true"
-                    sort-by="offset"
-                    show-local="true"
-                    set-local="true"
-                    primary-choices="America/Guayaquil America/Bogota"
-                ></timezone-selector>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="dropdown">
-                <a class="dropdown-toggle" id="publication_start" role="button" data-toggle="dropdown">
+                <div class="form-group">
                     <div class="input-group">
-                        <label class="input-group-addon" for="publication_start">Fecha Inicio</label>
-                        <input type="text"
-                               name="date"
-                               class="form-control"
-                               value="{{content.publication_start | date:'EEEE dd \'de\' LLLL \'del\' yyyy \'a las\' HH:mm'}}" >
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                    </div>
-                </a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                    <datetimepicker data-ng-model="content.publication_start"
-                                    data-datetimepicker-config="{ dropdownSelector: '#publication_start' }"></datetimepicker>
-                </ul>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="dropdown">
-                <a class="dropdown-toggle" id="publication_end" role="button" data-toggle="dropdown">
-                    <div class="input-group">
-                        <label class="input-group-addon" for="publication_start">Fecha Fin</label>
-                        <input type="text"
-                               name="date"
-                               class="form-control"
-                               value="{{content.publication_end | date:'EEEE dd \'de\' LLLL \'del\' yyyy \'a las\' HH:mm'}}" >
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                    </div>
-                </a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                    <datetimepicker data-ng-model="content.publication_end"
-                                    data-datetimepicker-config="{ dropdownSelector: '#publication_end' }"></datetimepicker>
-                </ul>
-            </div>
-        </div>
-
-        <div class="checkbox">
-            <label>
-                <input ng-model="content.important" type="checkbox" >
-                <span class="text">Destacado</span>
-            </label>
-        </div>
-
-        <div class="checkbox">
-            <label>
-                <input ng-model="content.enabled" type="checkbox" >
-                <span class="text">Publicado</span>
-            </label>
-        </div>
-
-        <hr class="full-width">
-        <div class="form-heading">SEO</div>
-
-        <uib-tabset active="active">
-
-            <uib-tab index="$index + 1" ng-repeat="lang in languages">
-                <uib-tab-heading>
-                    <span>{{lang.name}}</span>
-                </uib-tab-heading>
-                <div class="widget">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">Palabras Clave</span>
-                            <ui-select multiple
-                                       tagging
-                                       tagging-label=""
-                                       ng-model="lang.translation.meta_keywords"
-                                       tagging-tokens=","
-                                       theme="bootstrap"
-                                       sortable="true">
-                                <ui-select-match>{{$item}}</ui-select-match>
-                                <ui-select-choices repeat="color in ctrl.availableColors | filter:$select.search">
-                                    {{color}}
-                                </ui-select-choices>
-                            </ui-select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">Meta T&iacute;tulo</span>
-                            <input class="form-control" ng-model="lang.translation.meta_title">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">Meta Descripci&oacute;n</span>
-                            <textarea class="form-control" ng-model="lang.translation.meta_description"></textarea>
-                        </div>
+                        <label class="input-group-addon">Zona Horaria</label>
+                        <timezone-selector
+                                ng-model="content.timezone"
+                                display-utc="true"
+                                sort-by="offset"
+                                show-local="true"
+                                set-local="true"
+                                primary-choices="America/Guayaquil America/Bogota"
+                        ></timezone-selector>
                     </div>
                 </div>
-            </uib-tab>
 
-        </uib-tabset>
+                <div layout-gt-xs="row" class="form-group">
 
-        <hr class="full-width">
-        <div class="form-heading">Avanzado</div>
+                    <div flex-gt-xs>
+                        <h4>Fecha inicial</h4>
+                        <md-datepicker ng-model="content.publication_start"
+                                       md-placeholder="Fecha Inicio"
+                                       md-open-on-focus></md-datepicker>
+                    </div>
 
-        <div class="form-group">
-            <div class="input-group">
-                <label class="input-group-addon" for="css_class">Clase CSS</label>
-                <input id="publication_end" class="form-control" name="css_class" type="datetime" ng-model="content.css_class" />
-            </div>
-        </div>
+                    <div flex-gt-xs>
+                        <h4>Fecha final</h4>
+                        <md-datepicker ng-model="content.publication_end"
+                                       md-placeholder="Fecha Fin"
+                                       md-open-on-focus></md-datepicker>
+                    </div>
 
-    </div>
+                </div>
+
+                <md-input-container class="md-block">
+                    <md-divider></md-divider>
+                </md-input-container>
+
+                <md-switch ng-model="content.important" aria-label="Destacado">
+                    Destacado
+                </md-switch>
+
+                <md-switch ng-model="content.enabled" aria-label="Publicado">
+                    Publicado
+                </md-switch>
+
+            </md-card-content>
+        </md-card>
+
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">SEO</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+
+                <md-tabs md-dynamic-height="" md-border-bottom="">
+                    <md-tab ng-repeat="lang in languages" label="{{lang.name}}">
+
+                        <md-input-container class="md-block">
+                            <md-chips ng-model="lang.translation.meta_keywords"
+                                      md-separator-keys="keys"
+                                      placeholder="Palabras Clave"
+                                      secondary-placeholder="Separados por coma"
+                                      md-enable-chip-edit="true"
+                                      md-removable="ctrl.removable" md-max-chips="15">
+                            </md-chips>
+                        </md-input-container>
+
+                        <md-input-container class="md-block">
+                            <input ng-model="lang.translation.meta_title" type="text" placeholder="Meta T&iacute;tulo">
+                        </md-input-container>
+
+                        <md-input-container class="md-block">
+                                <textarea placeholder="Meta Descripci&oacute;n"
+                                          ng-model="lang.translation.meta_description"></textarea>
+                        </md-input-container>
+
+                    </md-tab>
+                </md-tabs>
+
+            </md-card-content>
+        </md-card>
+
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Avanzado</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+
+                <md-input-container class="md-block">
+                    <input type="text" placeholder="Clase CSS" ng-model="content.css_class" />
+                </md-input-container>
+
+            </md-card-content>
+        </md-card>
+
+    </md-content>
 
     <div class="panel-footer panel-controls">
-        <div class="btn-group btn-group btn-group-justified">
-            <a ng-click="save()" class="btn btn-info"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</a>
-            <a ng-click="saveAndClose()" class="btn btn-warning"><i class="fa fa-check" aria-hidden="true"></i> Guardar y Cerrar</a>
-        </div>
+        <md-toolbar class="md-accent">
+            <div class="md-toolbar-tools" layout-align="end center">
+                <md-button ng-click="save()" ><md-icon>save</md-icon> Guardar</md-button>
+                <md-button ng-click="saveAndClose()" ><md-icon>check</md-icon> Guardar y Cerrar</md-button>
+            </div>
+        </md-toolbar>
     </div>
 
 </div>

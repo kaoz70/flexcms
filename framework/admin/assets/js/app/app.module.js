@@ -4,6 +4,7 @@
     angular
         .module('app', [
             'ngRoute',
+            'ngMaterial',
             'ui.bootstrap',
             'view-segment',
             'route-segment',
@@ -13,7 +14,6 @@
             'ncy-angular-breadcrumb',
             'ui.tinymce',
             'ui.bootstrap.datetimepicker',
-            'ui.select',
             'angular-timezone-selector',
             'ngSanitize',
             'dndLists',

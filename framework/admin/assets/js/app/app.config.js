@@ -39,6 +39,11 @@
 
     });
 
+    app.config(function($mdThemingProvider) {
+        $mdThemingProvider.theme('default')
+            .dark();
+    });
+
     /*app.config(function($breadcrumbProvider) {
         $breadcrumbProvider.setOptions({
             templateUrl: 'framework/admin/templates/breadcrumb.html',

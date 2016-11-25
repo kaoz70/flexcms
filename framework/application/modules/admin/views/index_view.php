@@ -15,8 +15,6 @@
     [2. Css References]
     -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="<?= admin_asset_path('css/bootstrap.min.css') ?>" type="text/css" id="link-bootstrap" />
-    <link rel="stylesheet" href="#null" type="text/css" id="link-bootstrap-rtl" />
     <link rel="stylesheet" href="<?= admin_asset_path('css/animate.min.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/codemirror/lib/codemirror.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/codemirror/addon/hint/show-hint.css') ?>" type="text/css" />
@@ -29,7 +27,7 @@
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/chosen/chosen.min.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../node_modules/angular-bootstrap-datetimepicker/src/css/datetimepicker.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/angular-ui-tree/dist/angular-ui-tree.css') ?>" type="text/css" />
-    <link rel="stylesheet" href="<?= admin_asset_path('../../packages/angular-ui-select//dist/select.min.css') ?>" type="text/css" />
+    <link rel="stylesheet" href="<?= admin_asset_path('../../packages/angular-material/angular-material.min.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/angular-timezone-selector/dist/angular-timezone-selector.min.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('css/pe-icon-7-stroke.css') ?>" type="text/css" />
 
@@ -208,6 +206,8 @@
     <script src="<?= admin_asset_path('../../packages/lodash/dist/lodash.min.js') ?>"></script>
 
     <script src="<?= admin_asset_path('../../node_modules/angular/angular.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/angular-aria/angular-aria.min.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/angular-material/angular-material.js') ?>"></script>
 
     <script src="<?= admin_asset_path('../../packages/codemirror/lib/codemirror.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/codemirror/addon/edit/closetag.js') ?>"></script>
@@ -230,7 +230,6 @@
     <script src="<?= admin_asset_path('../../node_modules/angular-route-segment/build/angular-route-segment.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/tinymce/tinymce.min.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/angular-ui-tinymce/dist/tinymce.min.js') ?>"></script>
-    <script src="<?= admin_asset_path('../../packages/angular-ui-select/dist/select.min.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/angular-timezone-selector/dist/angular-timezone-selector.min.js') ?>"></script>
 
     <script src="<?= admin_asset_path('../../node_modules/angular-sanitize/angular-sanitize.js') ?>"></script>

@@ -9,7 +9,7 @@
     function panelDispose(WindowFactory) {
         return {
             restrict: 'E',
-            template: '<a class="tools-action" href=""><i class="pe-7s-close"></i></a>',
+            template: '<a class="tools-action" href=""><md-icon>close</md-icon></a>',
             link: function(scope, el, attr) {
                 el.on('click', function() {
                     WindowFactory.remove(scope);

@@ -24,7 +24,7 @@ class Requirements {
 	 */
 	private static function php($version)
 	{
-		if( ! version_compare($version, PHP_VERSION)) {
+		if( ! version_compare($version, PHP_VERSION, '<=')) {
 			self::error("The provided PHP version should be higher than: <strong>" . $version . "</strong>. Current version is: <strong>" . PHP_MAJOR_VERSION . "." . PHP_MINOR_VERSION . "." . PHP_RELEASE_VERSION . "</strong>");
 		}
 	}

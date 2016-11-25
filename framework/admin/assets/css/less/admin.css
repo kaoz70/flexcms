@@ -73,6 +73,7 @@ ul[dnd-list] > li {
   position: relative;
 }
 .panel {
+  position: relative;
   display: flex;
   flex-direction: column;
 }
@@ -89,10 +90,10 @@ ul[dnd-list] > li {
   margin-bottom: 5px;
 }
 .panel.small-width {
-  max-width: 350px;
+  min-width: 350px;
 }
 .panel.medium-width {
-  max-width: 650px;
+  min-width: 650px !important;
 }
 .table-condensed > thead > tr > th {
   padding: 0 13px 4px 13px;

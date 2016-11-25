@@ -172,7 +172,7 @@ class Content extends BaseModel {
                 $trans_data = [
                     'name' => isset($translation->name) ? $translation->name : '',
                     'content' => isset($translation->content) ? $translation->content : '',
-                    'meta_keywords' => isset($translation->meta_keywords) ? $translation->meta_keywords : '',
+                    'meta_keywords' => isset($translation->meta_keywords) ? $translation->meta_keywords : [],
                     'meta_description' => isset($translation->meta_description) ? $translation->meta_description : '',
                     'meta_title' => isset($translation->meta_title) ? $translation->meta_title : '',
                 ];

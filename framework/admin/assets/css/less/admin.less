@@ -99,6 +99,7 @@ ul[dnd-list], ul[dnd-list] > li {
 }
 
 .panel {
+  position: relative;
   display: flex;
   flex-direction: column;
 }
@@ -120,10 +121,10 @@ ul[dnd-list], ul[dnd-list] > li {
 }
 
 .panel.small-width {
-  max-width: 350px;
+  min-width: 350px;
 }
 .panel.medium-width {
-  max-width: 650px;
+  min-width: 650px !important;
 }
 
 .table-condensed > thead > tr > th {

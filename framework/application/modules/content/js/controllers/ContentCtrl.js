@@ -9,7 +9,7 @@
  * */
 angular.module('app')
 
-    .controller('ContentEditCtrl', function($scope, $rootScope, Content, $routeSegment, WindowFactory, $routeParams, $filter){
+    .controller('ContentEditCtrl', function($scope, $rootScope, Content, $routeSegment, WindowFactory, $routeParams, $filter, $mdConstant){
 
         //Close the sidebar on this controller
         $rootScope.isSidebarOpen = false;
@@ -20,11 +20,17 @@ angular.module('app')
         $scope.languages = [];
         $scope.content = {};
 
+        //Keyword creation keys
+        $scope.keys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA];
+
         Content.edit($routeParams.id).then(function (response) {
 
             //Find the content by id in the records array
             var content = $filter('filter')($rootScope.records, {id: parseInt($routeParams.id, 10)}, true);
             $scope.content = content[0];
+
+            $scope.content.publication_start = new Date($scope.content.publication_start);
+            $scope.content.publication_end = new Date($scope.content.publication_end);
 
             $scope.languages = response.data.data.translations;
 
