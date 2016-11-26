@@ -20,6 +20,12 @@ angular.module('app')
         $scope.close_url = "#/page/" + $routeParams.page_id;
         $scope.languages = [];
         $scope.content = {};
+        $scope.editorInit = false;
+
+        //Wait until the editor has finished initializing
+        if($scope.editorInit) {
+            Loading.hide(panel);
+        }
 
         //Keyword creation keys
         $scope.keys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA];
@@ -78,11 +84,14 @@ angular.module('app')
             id: 0,
             enabled: true,
             important: false,
-            publication_start: null,
-            publication_end: null,
-            css_class: null,
             category_id: $routeParams.page_id
         };
+        $scope.editorInit = false;
+
+        //Wait until the editor has finished initializing
+        if($scope.editorInit) {
+            Loading.hide(panel);
+        }
 
         Language.getAll().then(function (response) {
 
@@ -132,11 +141,6 @@ angular.module('app')
         $scope.detail_views = [];
         $scope.editorInit = false;
 
-        //Wait until the editor has finished initializing
-        if($scope.editorInit) {
-            Loading.hide(panel);
-        }
-
         //Keyword creation keys
         $scope.keys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA];
 
@@ -147,6 +151,7 @@ angular.module('app')
             $scope.languages = response.data.data.translations;
             $scope.list_views = response.data.data.list_views;
             $scope.detail_views = response.data.data.detail_views;
+            Loading.hide(panel);
         });
 
         /**
