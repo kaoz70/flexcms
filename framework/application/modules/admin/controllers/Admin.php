@@ -54,27 +54,40 @@ class Admin extends AdminController {
             'password' => 'admin'
         ]);*/
 
-        $user = Sentinel::getUser();
-        $this->site_config = Config::get();
-        $data['title'] = $this->site_config['site_name'];
-        $data['error'] = $this->session->flashdata('error');
-        $data['assets_css'] = $this->assets_css;
+       try {
 
-        //User is loged in and is administrator
-        if ($user && Sentinel::hasAccess(['admin'])) {
-            $this->renderAdmin();
-        }
+           $user = Sentinel::getUser();
+           $this->site_config = Config::get();
+           $data['title'] = $this->site_config['site_name'];
+           $data['error'] = $this->session->flashdata('error');
+           $data['assets_css'] = $this->assets_css;
 
-        //User is logged in but not admin
-        else if ($user && !Sentinel::hasAccess(['admin'])) {
-            $data['error'] = 'Usted no tiene los permisos necesarios para poder entrar a esta secci&oacute;n. <a href="'. base_url() .'">regresar el inicio</a>';
-            $this->load->view('admin/login_view', $data);
-        }
+           //User is loged in and is administrator
+           if ($user && Sentinel::hasAccess(['admin'])) {
+               $this->renderAdmin();
+           }
 
-        //Not loged in
-        else {
-            $this->load->view('admin/login_view', $data);
-        }
+           //User is logged in but not admin
+           else if ($user && !Sentinel::hasAccess(['admin'])) {
+               $data['error'] = 'Usted no tiene los permisos necesarios para poder entrar a esta secci&oacute;n. <a href="'. base_url() .'">regresar el inicio</a>';
+               $this->load->view('admin/login_view', $data);
+           }
+
+           //Not loged in
+           else {
+               $this->load->view('admin/login_view', $data);
+           }
+
+       } catch (Exception $e) {
+
+           $data = [
+               "heading" => "Error",
+               "message" => $e->getMessage(),
+           ];
+
+           echo \App\View::blade(APPPATH . 'views/errors/html/general.blade.php', $data)->render();
+
+       }
 
     }
 

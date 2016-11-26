@@ -39,7 +39,6 @@ return array(
     'Humbug\\SelfUpdate\\' => array($vendorDir . '/padraic/phar-updater/src'),
     'Humbug\\' => array($vendorDir . '/padraic/humbug_get_contents/src/Humbug'),
     'Gajus\\Dindent\\' => array($vendorDir . '/gajus/dindent/src'),
-    'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
     'Doctrine\\Common\\Cache\\' => array($vendorDir . '/doctrine/cache/lib/Doctrine/Common/Cache'),
     'Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib/Doctrine/Common/Annotations'),
     'Doctrine\\Common\\' => array($vendorDir . '/doctrine/common/lib/Doctrine/Common'),

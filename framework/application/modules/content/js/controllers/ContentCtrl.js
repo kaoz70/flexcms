@@ -9,12 +9,13 @@
  * */
 angular.module('app')
 
-    .controller('ContentEditCtrl', function($scope, $rootScope, Content, $routeSegment, WindowFactory, $routeParams, $filter, $mdConstant){
+    .controller('ContentEditCtrl', function($scope, $rootScope, Content, $routeSegment, WindowFactory, $routeParams, $filter, $mdConstant, Loading){
 
         //Close the sidebar on this controller
         $rootScope.isSidebarOpen = false;
 
         WindowFactory.add();
+        var panel = Loading.show(angular.element('.panel')[angular.element('.panel').length - 1]);
 
         $scope.close_url = "#/page/" + $routeParams.page_id;
         $scope.languages = [];
@@ -39,6 +40,8 @@ angular.module('app')
                 $scope.content.translation.name = v;
             });
 
+            Loading.hide(panel);
+
         });
 
         /**
@@ -61,12 +64,13 @@ angular.module('app')
 
     })
 
-    .controller('ContentCreateCtrl', function($scope, $rootScope, Content, $routeSegment, WindowFactory, $routeParams, Language, $mdConstant){
+    .controller('ContentCreateCtrl', function($scope, $rootScope, Content, $routeSegment, WindowFactory, $routeParams, Language, $mdConstant, Loading){
 
         //Close the sidebar on this controller
         $rootScope.isSidebarOpen = false;
 
         WindowFactory.add();
+        var panel = Loading.show(angular.element('.panel')[angular.element('.panel').length - 1]);
 
         $scope.close_url = "#/page/" + $routeParams.page_id;
         $scope.languages = [];
@@ -81,11 +85,15 @@ angular.module('app')
         };
 
         Language.getAll().then(function (response) {
+
             $scope.languages = response.data;
             $scope.tinymceOptions = {
                 plugins: 'link image code',
                 toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
             };
+
+            Loading.hide(panel);
+
         });
 
         /**
@@ -107,12 +115,13 @@ angular.module('app')
 
     })
 
-    .controller('ContentConfigCtrl', function($scope, $rootScope, Content, $routeSegment, WindowFactory, $routeParams, $mdConstant){
+    .controller('ContentConfigCtrl', function($scope, $rootScope, Content, $routeSegment, WindowFactory, $routeParams, $mdConstant, Loading){
 
         //Close the sidebar on this controller
         $rootScope.isSidebarOpen = false;
 
         WindowFactory.add();
+        var panel = Loading.show(angular.element('.panel')[angular.element('.panel').length - 1]);
 
         $scope.close_url = "#/page/" + $routeParams.page_id;
         $scope.languages = [];
@@ -121,6 +130,12 @@ angular.module('app')
         $scope.roles = [];
         $scope.list_views = [];
         $scope.detail_views = [];
+        $scope.editorInit = false;
+
+        //Wait until the editor has finished initializing
+        if($scope.editorInit) {
+            Loading.hide(panel);
+        }
 
         //Keyword creation keys
         $scope.keys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA];

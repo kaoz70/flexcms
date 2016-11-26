@@ -281,6 +281,7 @@ return array(
     'catalog\\models\\Category' => $baseDir . '/framework/application/modules/catalog/models/Category.php',
     'catalog\\models\\Product' => $baseDir . '/framework/application/modules/catalog/models/Product.php',
     'content\\Content' => $baseDir . '/framework/application/modules/content/controllers/Content.php',
+    'content\\ContentTest' => $baseDir . '/framework/application/modules/content/tests/ContentTest.php',
     'gallery\\Category' => $baseDir . '/framework/application/modules/file/controllers/Category.php',
     'gallery\\File' => $baseDir . '/framework/application/modules/file/controllers/File.php',
     'gallery\\Youtube' => $baseDir . '/framework/application/modules/file/controllers/Youtube.php',

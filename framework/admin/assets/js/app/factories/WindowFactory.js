@@ -9,8 +9,6 @@
 angular.module('app')
     .factory('WindowFactory', function($routeSegment, $location, $window){
 
-        var pool = [];
-
         var Service = {
 
             /**
@@ -25,7 +23,9 @@ angular.module('app')
                         Service.stack(index, $("[app-view-segment='" + index + "']"), $routeSegment.chain.length);
                     });
 
-                    $("[app-view-segment='" + ($routeSegment.chain.length - 1) + "']").css('opacity', 1);
+                    $("[app-view-segment='" + ($routeSegment.chain.length - 1) + "']")
+                        .css('opacity', 1)
+                        .css('transform', 'translateX(-150px)');
 
                 }, 10);
 
@@ -56,10 +56,8 @@ angular.module('app')
 
                 var amount = 30,
                     right = amount - ((amount / num_items) * (index + 1)),
-                    margin = index * amount * 4,
                     opacity = 1 - ((right / 100) * 3),
-                    z = right * 2,
-                    deg = right * 2;
+                    z = right * 2;
 
                 //3d effect
                 item
@@ -69,10 +67,9 @@ angular.module('app')
                     .css('-o-transform', 'translateZ(-' + z + 'px) rotateY(' + z + 'deg)')
                     .css('transform', 'translateZ(-' + z + 'px) rotateY(' + z + 'deg)')
                     .css('opacity', opacity)
-                    .css('marginLeft', - margin + 'px')
                     .css('right', right + '%');
 
-            },
+            }
 
 
         };

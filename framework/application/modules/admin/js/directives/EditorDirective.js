@@ -13,7 +13,8 @@ angular.module('app')
             restrict: 'E',
             templateUrl: BASE_PATH + 'admin/Editor',
             scope: {
-                contentModel: '='
+                contentModel: '=',
+                editorInit: '='
             },
             link: {
                 pre: function prelink(scope){
@@ -36,7 +37,12 @@ angular.module('app')
 
                     //Init the editor
                     scope.tinymceOptions = {
-                        toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent'
+                        toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
+                        setup: function (ed) {
+                            ed.on('init', function() {
+                                scope.editorInit = true;
+                            });
+                        }
                     };
 
                 }

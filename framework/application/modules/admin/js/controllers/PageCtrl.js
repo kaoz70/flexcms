@@ -8,7 +8,7 @@
  * @requires $scope
  * */
 angular.module('app')
-    .controller('PageCtrl', function($scope, $rootScope, Page, $routeSegment, WindowFactory, $routeParams, Content, $window){
+    .controller('PageCtrl', function($scope, $rootScope, Page, $routeSegment, WindowFactory, $routeParams, Content, $window, Loading){
 
         //Open the sidebar on this controller
         $rootScope.isSidebarOpen = true;
@@ -46,6 +46,7 @@ angular.module('app')
         };
 
         WindowFactory.add();
+        var panel = Loading.show(angular.element('.panel')[angular.element('.panel').length - 1]);
 
         //Load the content
         Page.getOne($routeParams.page_id, $scope).then(function (response) {
@@ -53,6 +54,8 @@ angular.module('app')
             $rootScope.records = response.data.items;
             $scope.title = response.data.title;
             $scope.menu = response.data.menu;
+
+            Loading.hide(panel);
 
         });
 

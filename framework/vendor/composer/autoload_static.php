@@ -77,7 +77,6 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         ),
         'D' => 
         array (
-            'Dotenv\\' => 7,
             'Doctrine\\Common\\Cache\\' => 22,
             'Doctrine\\Common\\Annotations\\' => 28,
             'Doctrine\\Common\\' => 16,
@@ -228,10 +227,6 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'Gajus\\Dindent\\' => 
         array (
             0 => __DIR__ . '/..' . '/gajus/dindent/src',
-        ),
-        'Dotenv\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
         ),
         'Doctrine\\Common\\Cache\\' => 
         array (
@@ -638,6 +633,7 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'catalog\\models\\Category' => __DIR__ . '/../../..' . '/framework/application/modules/catalog/models/Category.php',
         'catalog\\models\\Product' => __DIR__ . '/../../..' . '/framework/application/modules/catalog/models/Product.php',
         'content\\Content' => __DIR__ . '/../../..' . '/framework/application/modules/content/controllers/Content.php',
+        'content\\ContentTest' => __DIR__ . '/../../..' . '/framework/application/modules/content/tests/ContentTest.php',
         'gallery\\Category' => __DIR__ . '/../../..' . '/framework/application/modules/file/controllers/Category.php',
         'gallery\\File' => __DIR__ . '/../../..' . '/framework/application/modules/file/controllers/File.php',
         'gallery\\Youtube' => __DIR__ . '/../../..' . '/framework/application/modules/file/controllers/Youtube.php',

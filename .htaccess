@@ -104,7 +104,3 @@ AddType application/octet-stream .otf .ttf
 
 </IfModule>
 # END Gzip
-
-<Files .env>
-deny from all
-</Files>

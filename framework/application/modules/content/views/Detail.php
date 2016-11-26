@@ -25,7 +25,7 @@
                             <input ng-model="lang.translation.name" type="text" placeholder="T&iacute;tulo" ng-required="true">
                         </md-input-container>
 
-                        <editor content-model="lang.translation.content"></editor>
+                        <editor content-model="lang.translation.content" editor-init="editorInit"></editor>
 
                     </md-tab>
                 </md-tabs>

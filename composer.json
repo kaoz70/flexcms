@@ -21,8 +21,7 @@
     "doctrine/dbal": "^2.5",
     "cartalyst/assetic-filters": "^1.2",
     "twig/twig": "^1.27",
-    "illuminate/pagination": "^5.3",
-    "vlucas/phpdotenv": "^2.4"
+    "illuminate/pagination": "^5.3"
   },
   "require-dev": {
     "codeclimate/php-test-reporter": "dev-master"
