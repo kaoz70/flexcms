@@ -32,6 +32,10 @@ ul[dnd-list] > li {
   height: 0;
 }
 .node {
+  -webkit-transition: all 200ms;
+  -moz-transition: all 200ms;
+  -o-transition: all 200ms;
+  transition: all 200ms;
   display: flex;
 }
 .node [ui-tree-handle] {
@@ -42,6 +46,9 @@ ul[dnd-list] > li {
 }
 #pages .node [ui-tree-handle] {
   display: none;
+}
+md-list-item {
+  width: 100%;
 }
 #windows {
   position: absolute;
@@ -65,6 +72,9 @@ ul[dnd-list] > li {
   transition: all 400ms;
   opacity: 0;
   right: -30%;
+}
+#windows > [app-view-segment] .panel > md-toolbar {
+  border-bottom: 5px solid;
 }
 #windows > [app-view-segment] > .panel {
   box-shadow: 0 4px 50px rgba(0, 0, 0, 0.76);

@@ -91,7 +91,10 @@ class Assets {
 
                     $fileinfo = pathinfo($file);
 
-                    $asset = new FileAsset($file, [ new ScssphpFilter(), new LessphpFilter() ] );
+                    $asset = new FileAsset($file, [
+                        new ScssphpFilter(),
+                        new LessphpFilter()
+                    ]);
 
                     $scripts = new AssetManager();
                     $asset->setTargetPath('dev.' . $fileinfo['filename'] . '.css');

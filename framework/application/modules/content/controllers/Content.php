@@ -124,13 +124,16 @@ class Content extends \AdminController implements \ContentInterface
         try{
 
             $content = $this->_store(\App\Content::findOrNew($id));
-            $items = static::getItems($content->category_id);
 
             //New content set the position
             if(!$id) {
+                $items = static::getItems($content->category_id);
                 $content->position = $items->count();
                 $content->save();
             }
+
+            //We get all the items again because if its a new Content it did'nt have the position set yet
+            $items = static::getItems($content->category_id);
 
             $response->setSuccess(true);
             $response->setMessage('Contenido actualizado correctamente');
@@ -155,31 +158,29 @@ class Content extends \AdminController implements \ContentInterface
     /**
      * Remove the item from the database
      *
-     * @param $id
-     *
+     * @param $page_id
      * @return mixed
      */
-    public function delete($id)
+    public function delete($page_id)
     {
 
         $response = new Response();
 
         try{
 
-            //Get the content
-            $content = \App\Content::find($id);
-
-            //Delete the content's translations
-            $translations = Translation::where('parent_id', $id)->where('type', $content->getType());
-            $translations->delete();
+            $ids = $this->input->post();
 
             //Delete the content
-            $content->delete();
+            \App\Content::destroy($ids);
+
+            //Delete the content's translations
+            $translations = Translation::whereIn('parent_id', $ids)->where('type', (new \App\Content())->getType());
+            $translations->delete();
 
             $response->setSuccess(true);
             $response->setMessage('Contenido eliminado satisfactoriamente');
 
-            $items = static::getItems($content->category_id);
+            $items = static::getItems($page_id);
 
             $response->setData($items);
 
@@ -202,13 +203,13 @@ class Content extends \AdminController implements \ContentInterface
 
         $contentPost = json_decode($this->input->post('content'));
 
-        $model->css_class = $contentPost->css_class;
+        $model->css_class = isset($contentPost->css_class) ? $contentPost->css_class : '';
         $model->enabled = (bool) $contentPost->enabled;
         $model->important = (bool) $contentPost->important;
         $model->category_id = $contentPost->category_id;
         $model->timezone = $contentPost->timezone;
-        $model->publication_start = $contentPost->publication_start;
-        $model->publication_end = $contentPost->publication_end;
+        $model->publication_start = isset($contentPost->publication_start) ? $contentPost->publication_start : NULL;
+        $model->publication_end = isset($contentPost->publication_end) ? $contentPost->publication_end : NULL;
         $model->save();
 
         $model->setTranslations(json_decode($this->input->post('translations')));

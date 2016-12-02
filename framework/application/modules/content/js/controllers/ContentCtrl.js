@@ -9,17 +9,16 @@
  * */
 angular.module('app')
 
-    .controller('ContentEditCtrl', function($scope, $rootScope, Content, $routeSegment, WindowFactory, $routeParams, $filter, $mdConstant, Loading){
+    .controller('ContentEditCtrl', function($scope, $rootScope, Content, $routeSegment, WindowFactory, $routeParams, $filter, $mdConstant, Loading, Selection){
 
         //Close the sidebar on this controller
-        $rootScope.isSidebarOpen = false;
+        $rootScope.isSidebarOpen = true;
 
         WindowFactory.add();
-        var panel = Loading.show(angular.element('.panel')[angular.element('.panel').length - 1]);
+        var panel = Loading.show();
 
         $scope.close_url = "#/page/" + $routeParams.page_id;
         $scope.languages = [];
-        $scope.content = {};
         $scope.editorInit = false;
 
         //Wait until the editor has finished initializing
@@ -33,8 +32,16 @@ angular.module('app')
         Content.edit($routeParams.id).then(function (response) {
 
             //Find the content by id in the records array
-            var content = $filter('filter')($rootScope.records, {id: parseInt($routeParams.id, 10)}, true);
+            var content = $filter('filter')($rootScope.records, {
+                id: parseInt($routeParams.id, 10)
+            }, true);
+
             $scope.content = content[0];
+
+            Selection.addToActiveList($scope.content);
+
+            //Set the selected item color
+            $scope.content.selected = true;
 
             $scope.content.publication_start = new Date($scope.content.publication_start);
             $scope.content.publication_end = new Date($scope.content.publication_end);
@@ -65,6 +72,7 @@ angular.module('app')
 
         $scope.saveAndClose = function () {
             Content.save($scope).then(onSave);
+            $scope.content.selected = false;
             WindowFactory.remove($scope);
         };
 
@@ -73,10 +81,10 @@ angular.module('app')
     .controller('ContentCreateCtrl', function($scope, $rootScope, Content, $routeSegment, WindowFactory, $routeParams, Language, $mdConstant, Loading){
 
         //Close the sidebar on this controller
-        $rootScope.isSidebarOpen = false;
+        $rootScope.isSidebarOpen = true;
 
         WindowFactory.add();
-        var panel = Loading.show(angular.element('.panel')[angular.element('.panel').length - 1]);
+        var panel = Loading.show();
 
         $scope.close_url = "#/page/" + $routeParams.page_id;
         $scope.languages = [];
@@ -127,10 +135,10 @@ angular.module('app')
     .controller('ContentConfigCtrl', function($scope, $rootScope, Content, $routeSegment, WindowFactory, $routeParams, $mdConstant, Loading){
 
         //Close the sidebar on this controller
-        $rootScope.isSidebarOpen = false;
+        $rootScope.isSidebarOpen = true;
 
         WindowFactory.add();
-        var panel = Loading.show(angular.element('.panel')[angular.element('.panel').length - 1]);
+        var panel = Loading.show();
 
         $scope.close_url = "#/page/" + $routeParams.page_id;
         $scope.languages = [];

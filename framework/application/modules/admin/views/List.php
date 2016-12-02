@@ -1,6 +1,31 @@
+<script type="text/ng-template" id="nodes_list_renderer.html">
+    <div class="node" md-colors="{backgroundColor: '{{node.selected ? 'default-accent-500' : ''}}'}">
+
+        <div ui-tree-handle><md-icon>reorder</md-icon></div>
+
+        <md-list-item ng-click="onItemClick(node)" ng-class="{'selected': selected === row}" >
+            <p>{{node.name ? node.name : node.translation.name}}</p>
+            <md-checkbox aria-label="Check to delete"
+                         class="md-secondary"
+                         ng-model="topping.wanted"
+                         ng-click="toggleDeleteSelection(node.id)"></md-checkbox>
+        </md-list-item>
+
+    </div>
+    <ol class="node-children" ui-tree-nodes="" ng-model="node.children">
+        <li ng-repeat="node in node.children | filter:query"
+             ui-tree-node
+             ng-include="'nodes_list_renderer.html'"
+             ng-class="{'selected': selected === node}"
+        >
+        </li>
+    </ol>
+
+</script>
+
 <div class="panel panel-primary small-width">
 
-    <md-toolbar>
+    <md-toolbar md-colors="{borderBottomColor: '{{primaryColor300}}'}">
         <div class="md-toolbar-tools">
             <h2>{{title}}</h2>
             <span flex></span>
@@ -11,7 +36,7 @@
     <div class="search">
 
         <md-content class="md-padding">
-            <md-input-container class="md-block">
+            <md-input-container class="md-block md-hue-1">
                 <md-icon>search</md-icon>
                 <input ng-model="query" type="text" placeholder="Buscar..." >
             </md-input-container>
@@ -22,42 +47,35 @@
     <div class="panel-tools" ng-show="deleteSelection.length">
         <md-content>
             <div class="tools md-padding" layout-align="end center" ng-show="deleteSelection.length">
-                <md-button class="md-icon-button">
+                <md-button class="md-icon-button" ng-click="delete($event)">
                     <md-icon class="md-warn">delete</md-icon>
                     <md-tooltip md-direction="bottom">
                         Eliminar {{deleteSelection.length}} items
                     </md-tooltip>
                 </md-button>
             </div>
-            <md-divider ></md-divider>
+            <md-divider></md-divider>
         </md-content>
     </div>
 
     <md-content class="panel-body">
 
+        <div ui-tree="treeOptions">
 
-        <md-list dnd-list="records">
+            <md-list ui-tree-nodes="" ng-model="records">
 
-            <md-list-item ng-repeat="row in records | filter:query"
-                          dnd-draggable="row"
-                          dnd-moved="records.splice($index, 1)"
-                          dnd-effect-allowed="move"
-                          dnd-selected="selected = row"
-                          dnd-dragend="onSortEnd()"
-                          ng-click="onItemClick(row.id)"
-                          ng-class="{'selected': selected === row}"
-            >
-                <p>{{row.name ? row.name : row.translation.name}}</p>
-                <md-checkbox class="md-secondary" ng-model="topping.wanted" ng-click="toggleDeleteSelection(row.id)"></md-checkbox>
-                <list-item-delete class="md-secondary" item="row" />
-            </md-list-item>
+                <li ng-repeat="node in records | filter:query"
+                    ui-tree-node
+                    ng-include="'nodes_list_renderer.html'"
+                ></li>
 
+            </md-list>
+        </div>
 
-        </md-list>
     </md-content>
 
     <div class="panel-footer panel-controls list">
-        <md-toolbar class="md-accent">
+        <md-toolbar class="md-secondary">
             <div class="md-toolbar-tools" layout="row" layout-align="end center">
                 <md-button class="md-icon-button" ng-repeat="item in menu" ng-href="#/{{item.url}}" >
                     <md-icon>{{item.icon}}</md-icon>

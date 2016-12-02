@@ -7,7 +7,7 @@
  *
  * */
 angular.module('app')
-    .factory('WindowFactory', function($routeSegment, $location, $window){
+    .factory('WindowFactory', function($routeSegment, $location, $window, Selection){
 
         var Service = {
 
@@ -23,9 +23,11 @@ angular.module('app')
                         Service.stack(index, $("[app-view-segment='" + index + "']"), $routeSegment.chain.length);
                     });
 
-                    $("[app-view-segment='" + ($routeSegment.chain.length - 1) + "']")
-                        .css('opacity', 1)
-                        .css('transform', 'translateX(-150px)');
+                    if($routeSegment.chain.length > 1) {
+                        $("[app-view-segment='" + ($routeSegment.chain.length - 1) + "']")
+                            .css('opacity', 1)
+                            .css('transform', 'translateX(-150px)');
+                    }
 
                 }, 10);
 
@@ -38,6 +40,8 @@ angular.module('app')
                 });
 
                 $("[app-view-segment='" + ($routeSegment.chain.length - 1) + "']").css('opacity', 0);
+
+                Selection.removeFromActiveList();
 
                 //Change the route once we have hidden the window
                 setTimeout(function () {

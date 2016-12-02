@@ -15,9 +15,12 @@ angular.module('app')
             .absolute()
             .center();
 
-        this.show = function(parent) {
+        this.show = function() {
+
+            var parent = angular.element('.panel')[angular.element('.panel').length - 1];
+
             return _mdPanel.open({
-                template: '<div class="panel-loading-wrapper" layout-align="center center"><md-progress-circular class="md-accent md-hue-1" md-diameter="30"></md-progress-circular></div>',
+                template: '<div class="panel-loading-wrapper" layout-align="center center"><md-progress-circular class="md-accent" md-diameter="30"></md-progress-circular></div>',
                 position: position,
                 attachTo: parent,
                 hasBackdrop: true,

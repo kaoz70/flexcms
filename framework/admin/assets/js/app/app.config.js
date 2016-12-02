@@ -11,6 +11,10 @@
         $rootScope.isSidebarOpen = false;
         $rootScope.$routeSegment = $routeSegment;
 
+        $rootScope.primaryColor300 = 'default-primary-300';
+        $rootScope.accentColor300 = 'default-accent-300';
+        $rootScope.selectedItems = [];
+
         $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
             $rootScope.hasFullContainer = toState.data.hasFullContainer;
 
@@ -40,15 +44,14 @@
     });
 
     app.config(function($mdThemingProvider) {
-        $mdThemingProvider.theme('default')
-            .dark();
-    });
 
-    /*app.config(function($breadcrumbProvider) {
-        $breadcrumbProvider.setOptions({
-            templateUrl: 'framework/admin/templates/breadcrumb.html',
-            includeAbstract: true,
-        });
-    });*/
+        $mdThemingProvider.theme('default')
+            .primaryPalette('blue')
+            //.secondaryPalette('teal')
+            .accentPalette('teal')
+            .warnPalette('red')
+            .dark();
+
+    });
 
 }());

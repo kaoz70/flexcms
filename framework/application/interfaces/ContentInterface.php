@@ -52,11 +52,10 @@ interface ContentInterface {
     /**
      * Remove the item from the database
      *
-     * @param $id
-     *
+     * @param $page_id
      * @return mixed
      */
-    public function delete($id);
+    public function delete($page_id);
 
     /**
      * Inserts or updates the current model with the provided post data

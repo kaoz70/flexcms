@@ -10,7 +10,17 @@ class Language extends AdminController implements AdminInterface {
 
     public function index()
     {
-        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => \App\Language::all()->getDictionary()]);
+
+        $data['items'] = \App\Language::all();
+        $data['menu'] = [
+            [
+                'title' => 'nuevo',
+                'icon' => 'add',
+                'url' => static::URL_CREATE,
+            ],
+        ];
+
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $data]);
     }
 
     public function create()

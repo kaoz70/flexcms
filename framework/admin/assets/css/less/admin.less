@@ -24,7 +24,7 @@ ul[dnd-list], ul[dnd-list] > li {
 
 .panel-tools {
 
-  transition: all 200ms;
+  .transition(all, 200ms);
   height: 80px;
 
   .tools {
@@ -44,6 +44,8 @@ ul[dnd-list], ul[dnd-list] > li {
 }
 
 .node {
+
+  .transition(all, 200ms);
   display: flex;
 
   [ui-tree-handle] {
@@ -90,6 +92,11 @@ ul[dnd-list], ul[dnd-list] > li {
       height: 100%;
       min-width: 350px;
       margin-right: 10px;
+
+      > md-toolbar {
+        border-bottom: 5px solid;
+      }
+
     }
   }
 
@@ -116,6 +123,14 @@ ul[dnd-list], ul[dnd-list] > li {
     opacity: 1;
   }
 
+  md-list-item {
+    width: 100%;
+  }
+
+}
+
+.angular-ui-tree-placeholder {
+  background-color: #212121;
 }
 
 .main-content {
@@ -129,6 +144,10 @@ ul[dnd-list], ul[dnd-list] > li {
 
   .md-panel {
     background-color: #212121;
+  }
+
+  [ui-tree-handle] {
+    margin-left: 15px;
   }
 
 }

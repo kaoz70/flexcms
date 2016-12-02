@@ -24,8 +24,13 @@ angular.module('app')
                 .error(Response.error);
         };
 
-        this.delete = function(id) {
-            return $http.delete(urls.delete + id)
+        this.delete = function(ids, page_id) {
+            return $http({
+                method: 'POST',
+                url: urls.delete + page_id,
+                data: $httpParamSerializer(ids),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            })
                 .success(function (response) {
                     if(Response.validate(response)) {
                         Notification.show('success', response.message);

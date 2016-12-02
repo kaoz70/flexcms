@@ -1,6 +1,6 @@
 <div class="panel panel-primary medium-width">
 
-    <md-toolbar>
+    <md-toolbar md-colors="{borderBottomColor: '{{primaryColor300}}'}">
         <div class="md-toolbar-tools">
             <h2>Contenido</h2>
             <span flex></span>
@@ -18,10 +18,10 @@
             </md-card-title>
             <md-card-content>
 
-                <md-tabs md-dynamic-height="" md-border-bottom="">
+                <md-tabs class="md-hue-1" md-dynamic-height="" md-border-bottom="">
                     <md-tab ng-repeat="lang in languages" label="{{lang.name}}">
 
-                        <md-input-container class="md-block">
+                        <md-input-container class="md-block md-hue-1">
                             <input ng-model="lang.translation.name" type="text" placeholder="T&iacute;tulo" ng-required="true">
                         </md-input-container>
 
@@ -84,16 +84,18 @@
 
                 <div layout-gt-xs="row" class="form-group">
 
-                    <div flex-gt-xs>
+                    <div flex-gt-xs class="md-hue-1">
                         <h4>Fecha inicial</h4>
                         <md-datepicker ng-model="content.publication_start"
+                                       class="md-hue-1"
                                        md-placeholder="Fecha Inicio"
                                        md-open-on-focus></md-datepicker>
                     </div>
 
-                    <div flex-gt-xs>
+                    <div flex-gt-xs class="md-hue-1">
                         <h4>Fecha final</h4>
                         <md-datepicker ng-model="content.publication_end"
+                                       class="md-hue-1"
                                        md-placeholder="Fecha Fin"
                                        md-open-on-focus></md-datepicker>
                     </div>
@@ -123,11 +125,12 @@
             </md-card-title>
             <md-card-content>
 
-                <md-tabs md-dynamic-height="" md-border-bottom="">
+                <md-tabs class="md-hue-1" md-dynamic-height="" md-border-bottom="">
                     <md-tab ng-repeat="lang in languages" label="{{lang.name}}">
 
-                        <md-input-container class="md-block">
+                        <md-input-container class="md-block md-hue-1">
                             <md-chips ng-model="lang.translation.meta_keywords"
+                                      class="md-hue-1"
                                       md-separator-keys="keys"
                                       placeholder="Palabras Clave"
                                       secondary-placeholder="Separados por coma"
@@ -136,11 +139,13 @@
                             </md-chips>
                         </md-input-container>
 
-                        <md-input-container class="md-block">
-                            <input ng-model="lang.translation.meta_title" type="text" placeholder="Meta T&iacute;tulo">
+                        <md-input-container class="md-block md-hue-1">
+                            <input ng-model="lang.translation.meta_title"
+                                   type="text"
+                                   placeholder="Meta T&iacute;tulo">
                         </md-input-container>
 
-                        <md-input-container class="md-block">
+                        <md-input-container class="md-block md-hue-1">
                                 <textarea placeholder="Meta Descripci&oacute;n"
                                           ng-model="lang.translation.meta_description"></textarea>
                         </md-input-container>
@@ -159,7 +164,7 @@
             </md-card-title>
             <md-card-content>
 
-                <md-input-container class="md-block">
+                <md-input-container class="md-block md-hue-1">
                     <input type="text" placeholder="Clase CSS" ng-model="content.css_class" />
                 </md-input-container>
 
@@ -169,10 +174,19 @@
     </md-content>
 
     <div class="panel-footer panel-controls">
-        <md-toolbar class="md-accent">
+        <md-toolbar class="md-secondary">
             <div class="md-toolbar-tools" layout-align="end center">
-                <md-button ng-click="save()" ><md-icon>save</md-icon> Guardar</md-button>
-                <md-button ng-click="saveAndClose()" ><md-icon>check</md-icon> Guardar y Cerrar</md-button>
+
+                <md-button class="md-icon-button" ng-click="save()" >
+                    <md-icon>save</md-icon>
+                    <md-tooltip md-direction="bottom">Guardar</md-tooltip>
+                </md-button>
+
+                <md-button class="md-icon-button" ng-click="saveAndClose()" >
+                    <md-icon>check</md-icon>
+                    <md-tooltip md-direction="bottom">Guardar y Cerrar</md-tooltip>
+                </md-button>
+
             </div>
         </md-toolbar>
     </div>

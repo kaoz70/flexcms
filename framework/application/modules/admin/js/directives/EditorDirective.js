@@ -35,10 +35,10 @@ angular.module('app')
                         extraKeys: {"Ctrl-Space": "autocomplete"}
                     };
 
-                    //Init the editor
+                    //TinyMCE Options
                     scope.tinymceOptions = {
                         toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
-                        setup: function (ed) {
+                        init_instance_callback: function (ed) {
                             ed.on('init', function() {
                                 scope.editorInit = true;
                             });

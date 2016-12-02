@@ -130,14 +130,14 @@
                        ng-click="closePanel()"
                        rel="Editar idiomas para sitios multi-idiomas"
                        class="ajax"
-                       ui-sref="language.index" >
+                       ng-href="#/language" >
                         <i class="material-icons">language</i><span>Idiomas</span></a>
                 </li>
                 <li ng-class="{'active open': $routeSegment.startsWith('config')}">
                     <a title="Configuración"
                        rel="Tamaños de imagenes, configuracion general"
                        class="ajax"
-                       ui-sref="config">
+                       ng-href="#/config">
                         <i class="material-icons">settings</i>
                         <span>Config</span></a>
                 </li>
