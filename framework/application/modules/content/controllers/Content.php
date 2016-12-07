@@ -11,6 +11,7 @@ $_ns = __NAMESPACE__;
 
 use App\Category;
 use App\Config;
+use App\Page;
 use App\Response;
 use App\Translation;
 use App\Widget;
@@ -37,7 +38,7 @@ class Content extends \AdminController implements \ContentInterface
         //We use this because we are in a static context
         $CI = &get_instance();
 
-        $page = Category::find($page_id);
+        $page = Page::find($page_id);
         $page->setType('page');
         $widget = Widget::getContentWidget($page_id);
 

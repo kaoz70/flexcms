@@ -39,12 +39,12 @@
     "repositories": [
         {
             "type": "composer",
-            "url": "http://packages.cartalyst.com"
+            "url": "https://packages.cartalyst.com"
         }
     ],
     "require": {
         "php": ">=5.3.0",
-        "symfony/http-foundation": "~2.5",
+        "symfony/http-foundation": "~2.5|~3.0",
         "kriswallsmith/assetic": "~1.2",
         "coffeescript/coffeescript": "~1",
         "richthegeek/phpsass": "~1"

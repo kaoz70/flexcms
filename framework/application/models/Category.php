@@ -17,7 +17,7 @@ class Category extends BaseModel implements NodeInterface {
 
     use NodeTrait;
 
-    private $type;
+    protected static $type;
 
     protected $reservedAttributes = array(
         'left'  => 'lft',
@@ -144,7 +144,7 @@ class Category extends BaseModel implements NodeInterface {
             if($childNode->id != $this->id) {
                 try {
 
-                    $translation = $childNode->getTranslation($lang, 'page');
+                    $translation = $childNode->getTranslation($lang, $this->getType());
 
                     if($translation->name === $name) {
                         $unique[] = FALSE;

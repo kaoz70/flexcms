@@ -14,8 +14,8 @@
     <!--
     [2. Css References]
     -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="<?= admin_asset_path('css/animate.min.css') ?>" type="text/css" />
+    <link rel="stylesheet" href="<?= admin_asset_path('../../packages/material-design-icons/iconfont/material-icons.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/codemirror/lib/codemirror.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/codemirror/addon/hint/show-hint.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/codemirror/addon/fold/foldgutter.css') ?>" type="text/css" />

@@ -25,9 +25,31 @@ class Config extends Model {
         $result = [];
 
         foreach (static::where('group', $group)->get() as $row) {
-            $result[$row->key] = $row->value;
-        }
 
+            //Check if string is a boolean
+            if($row->value == 'true' || $row->value == 'false') {
+                $value = filter_var($row->value, FILTER_VALIDATE_BOOLEAN);
+            }
+
+            //Check if string is float
+            elseif(is_numeric($row->value) && strpos($row->value, ".") !== false) {
+                $value = (float) $row->value;
+            }
+
+            //Check if string is int
+            elseif(is_numeric($row->value) && strpos($row->value, ".") === false) {
+                $value = (int) $row->value;
+            }
+
+            //Its string
+            else {
+                $value = $row->value;
+            }
+
+            $result[$row->key] = $value;
+            
+        }
+        
         return $result;
     }
 

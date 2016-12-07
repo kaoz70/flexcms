@@ -10,10 +10,6 @@
 angular.module('app')
     .controller('PageCtrl', function($scope, $rootScope, Page, $routeSegment, WindowFactory, $routeParams, Content, $window, Loading, $mdDialog, BASE_PATH, $mdColorPalette, $mdColors, $mdTheming, Selection){
 
-        console.log($mdColorPalette);
-        console.log($mdColors.getThemeColor('red-700-0.8'));
-        console.log($mdColors);
-
         //Open the sidebar on this controller
         $rootScope.isSidebarOpen = true;
 
@@ -26,6 +22,9 @@ angular.module('app')
         $scope.query = "";
         $scope.deleteSelection = Selection.init($scope);
         $scope.toggleDeleteSelection = Selection.toggleSelection;
+
+        $scope.showDelete = true;
+        $scope.showReorder = true;
 
         $scope.treeOptions = {
             dropped: function (scope, modelData, sourceIndex) {

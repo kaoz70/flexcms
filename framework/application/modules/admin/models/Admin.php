@@ -14,25 +14,6 @@ class Admin {
     const PATH = 'modules/';
 
     /**
-     * Get all module folders
-     *
-     * @return array
-     */
-    static private function getFolders()
-    {
-        $folders = [];
-        foreach (new \DirectoryIterator(APPPATH . static::PATH) as $file) {
-            if ($file->isDot()) continue;
-            if ($file->isDir()) {
-                $folders[] = $file->getFilename();
-            }
-        }
-
-        return $folders;
-
-    }
-
-    /**
      * Get the module configuration files
      *
      * @return array
@@ -42,7 +23,7 @@ class Admin {
         $items = [];
 
         //Get menu item data
-        foreach (static::getFolders() as $folder) {
+        foreach (Utils::getFolders(APPPATH . static::PATH) as $folder) {
             $config = json_decode(file_get_contents(APPPATH . static::PATH . DIRECTORY_SEPARATOR . $folder . DIRECTORY_SEPARATOR . 'config.json'));
             $config->menu->controller = $folder;
             if($config->menu->show) {
@@ -65,7 +46,7 @@ class Admin {
         $assets = [];
 
         //Iterate over each module folder
-        foreach (static::getFolders() as $folder) {
+        foreach (Utils::getFolders(APPPATH . static::PATH) as $folder) {
 
             $path = APPPATH . static::PATH . $folder . DIRECTORY_SEPARATOR . 'js';
 
@@ -118,7 +99,7 @@ class Admin {
         $items = [];
 
         //Get menu item data
-        foreach (static::getFolders() as $folder) {
+        foreach (Utils::getFolders(APPPATH . static::PATH) as $folder) {
             $config = json_decode(file_get_contents(APPPATH . static::PATH . DIRECTORY_SEPARATOR . $folder . DIRECTORY_SEPARATOR . 'config.json'));
             if(isset($config->content) && $config->content) {
                 $items[$folder] = $config;

@@ -16,6 +16,9 @@ angular.module('app')
         //Window title
         $scope.title = "Idiomas";
 
+        $scope.showDelete = true;
+        $scope.showReorder = true;
+
         //Base url
         $scope.section = "language";
 

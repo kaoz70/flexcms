@@ -1,12 +1,16 @@
 <script type="text/ng-template" id="nodes_list_renderer.html">
     <div class="node" md-colors="{backgroundColor: '{{node.selected ? 'default-accent-500' : ''}}'}">
 
-        <div ui-tree-handle><md-icon>reorder</md-icon></div>
+        <div ui-tree-handle ng-show="showReorder"><md-icon>reorder</md-icon></div>
 
         <md-list-item ng-click="onItemClick(node)" ng-class="{'selected': selected === row}" >
-            <p>{{node.name ? node.name : node.translation.name}}</p>
+            <p class="item-name">
+                <md-icon ng-show="node.icon">{{node.icon}}</md-icon>
+                <span>{{node.name ? node.name : node.translation.name}}</span>
+            </p>
             <md-checkbox aria-label="Check to delete"
                          class="md-secondary"
+                         ng-show="showDelete"
                          ng-model="topping.wanted"
                          ng-click="toggleDeleteSelection(node.id)"></md-checkbox>
         </md-list-item>

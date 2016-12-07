@@ -54,8 +54,13 @@ angular.module('app')
         };
 
         this.removeFromActiveList = function () {
+
             var item = activeItems.splice(-1,1)[0];
-            item.selected = false;
+
+            if(item) {
+                item.selected = false;
+            }
+            
         };
 
 });

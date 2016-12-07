@@ -45,7 +45,16 @@ angular.module('app')
 
                 //Change the route once we have hidden the window
                 setTimeout(function () {
-                    $window.location.assign($scope.close_url);
+
+                    var close_url;
+
+                    if($scope.close_url == undefined) {
+                        close_url = '#/';
+                    } else {
+                        close_url = $scope.close_url;
+                    }
+
+                    $window.location.assign(close_url);
                 }, 400);
 
             },

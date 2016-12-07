@@ -34,7 +34,8 @@
     "jquery": "2",
     "codemirror": "^5.19.0",
     "angular-ui-codemirror": "^0.3.0",
-    "animate.css": "^3.5.2"
+    "animate.css": "^3.5.2",
+    "material-design-icons": "^3.0.1"
   },
   "resolutions": {
     "magnific-popup": "^1.1.0",

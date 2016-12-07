@@ -16,6 +16,9 @@ ul[dnd-list] > li {
   margin-bottom: 0;
 }
 .panel-tools {
+  -webkit-transition: all 200ms;
+  -moz-transition: all 200ms;
+  -o-transition: all 200ms;
   transition: all 200ms;
   height: 80px;
 }
@@ -47,9 +50,6 @@ ul[dnd-list] > li {
 #pages .node [ui-tree-handle] {
   display: none;
 }
-md-list-item {
-  width: 100%;
-}
 #windows {
   position: absolute;
   top: 35px;
@@ -73,14 +73,14 @@ md-list-item {
   opacity: 0;
   right: -30%;
 }
-#windows > [app-view-segment] .panel > md-toolbar {
-  border-bottom: 5px solid;
-}
 #windows > [app-view-segment] > .panel {
   box-shadow: 0 4px 50px rgba(0, 0, 0, 0.76);
   height: 100%;
   min-width: 350px;
   margin-right: 10px;
+}
+#windows > [app-view-segment] > .panel > md-toolbar {
+  border-bottom: 5px solid;
 }
 #windows > [app-view-segment].active {
   opacity: 1;
@@ -100,6 +100,19 @@ md-list-item {
 #windows md-backdrop {
   opacity: 1;
 }
+#windows md-list-item {
+  width: 100%;
+}
+#windows md-list-item .item-name {
+  display: flex;
+  justify-content: flex-start;
+}
+#windows md-list-item .item-name md-icon {
+  margin: 0 14px 0 0;
+}
+.angular-ui-tree-placeholder {
+  background-color: #212121;
+}
 .main-content {
   position: relative;
 }
@@ -110,6 +123,9 @@ md-list-item {
 }
 .panel .md-panel {
   background-color: #212121;
+}
+.panel [ui-tree-handle] {
+  margin-left: 15px;
 }
 .panel-loading-wrapper {
   width: 100%;
