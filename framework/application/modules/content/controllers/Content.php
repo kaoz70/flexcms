@@ -308,7 +308,11 @@ class Content extends \AdminController implements \ContentInterface
      */
     private function getViews($theme, $view)
     {
-        return array_values(preg_grep("~^{$view}_.*\.(php)$~", scandir(FCPATH . 'themes/' . $theme . '/views/pages/content/')));
+        $path = FCPATH . 'themes/' . $theme . '/views/pages/content/';
+        if(!file_exists($path)) {
+            throw new Exception("Path does not exist: ");
+        }
+        return array_values(preg_grep("~^{$view}_.*\.(php)$~", scandir($path)));
     }
 
     public function reorder($page_id)

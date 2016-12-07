@@ -1716,6 +1716,7 @@ hr {
 .sidebar.menu .sidebar-menu .menu > li > a {
   color: #e5e5e5;
   display: block;
+  box-sizing: border-box;
   height: 75px;
   padding: 13px 10px 7px;
   text-align: center;
