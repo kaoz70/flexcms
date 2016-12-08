@@ -64,7 +64,7 @@
 
     <md-content class="panel-body">
 
-        <div ui-tree="treeOptions">
+        <div ui-tree="treeOptions" ng-show="records.length">
 
             <md-list ui-tree-nodes="" ng-model="records">
 

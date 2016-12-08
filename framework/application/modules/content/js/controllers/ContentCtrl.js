@@ -62,8 +62,7 @@ angular.module('app')
          * @param response
          */
         var onSave = function (response) {
-            $scope.content = response.data.data.content;
-            $scope.languages = response.data.data.translations;
+            $rootScope.records = response.data.data;
         };
 
         $scope.save = function () {
@@ -104,7 +103,7 @@ angular.module('app')
 
             // We need to send an object to the server so that the translations save correctly,
             // so we transform the array into an object here
-            angular.forEach(response.data.items, function(value) {
+            angular.forEach(response.data.data.items, function(value) {
                 $scope.languages[value.id] = value;
                 $scope.languages[value.id].translation = {};
             });

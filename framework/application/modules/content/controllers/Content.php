@@ -38,6 +38,8 @@ class Content extends \AdminController implements \ContentInterface
         //We use this because we are in a static context
         $CI = &get_instance();
 
+        $response = new Response();
+
         $page = Page::find($page_id);
         $page->setType('page');
         $widget = Widget::getContentWidget($page_id);
@@ -56,13 +58,15 @@ class Content extends \AdminController implements \ContentInterface
             ],
         ];
 
+        $response->setData($data);
+
         try {
             $data['title'] = $page->getTranslation(1) ? $page->getTranslation(1)->name : "{missing translation}";
         } catch (\TranslationException $e) {
             $data['title'] = "{Missing translation}";
         }
 
-        $CI->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $data]);
+        $CI->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
 
     }
 

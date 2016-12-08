@@ -40,9 +40,9 @@ angular.module('app')
         //Load the content
         Page.getOne($routeParams.page_id, $scope).then(function (response) {
 
-            $rootScope.records = response.data.items;
-            $scope.title = response.data.title;
-            $scope.menu = response.data.menu;
+            $rootScope.records = response.data.data.items;
+            $scope.title = response.data.data.title;
+            $scope.menu = response.data.data.menu;
 
             Loading.hide(panel);
 
