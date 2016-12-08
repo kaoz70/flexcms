@@ -24,7 +24,7 @@ angular.module('app')
             })
                 .success(function (response) {
                     if(Response.validate(response)) {
-                        Notification.show('success', response.message);
+                        Notification.show(response.type, response.message);
                     }
                 })
                 .error(Response.error);

@@ -58,6 +58,8 @@ class MY_Exceptions extends CI_Exceptions
 
 	public function show_exception($exception)
 	{
+	    $headers = getallheaders();
+
 		$templates_path = config_item('error_views_path');
 		if (empty($templates_path))
 		{
@@ -74,8 +76,12 @@ class MY_Exceptions extends CI_Exceptions
 		{
 			$templates_path .= 'cli'.DIRECTORY_SEPARATOR;
 		}
-		else if (get_instance()->input->is_ajax_request()) {
-			get_instance()->output->set_content_type('application/json');
+
+		//Is an ajax request
+		else if (
+		    (isset($headers['X-XSRF-TOKEN'])) || //Angular request
+		    (isset($headers['X-Requested-With']) && 'XMLHttpRequest' == $headers['X-Requested-With'])
+        ) {
 			set_status_header(500);
 			$templates_path .= 'json'.DIRECTORY_SEPARATOR;
 		}

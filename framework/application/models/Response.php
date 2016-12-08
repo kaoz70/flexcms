@@ -11,7 +11,26 @@ namespace App;
 class Response implements \JsonSerializable
 {
     private $success = true;
+
+    /**
+     * Should the request activate the notification button in case of an error?
+     * usually used in controlled Exceptions
+     * @var bool
+     */
+    private $notify = true;
+
+    /**
+     * The message that the user will see
+     *
+     * @var string
+     */
     private $message = '';
+
+    /**
+     * Data to send
+     *
+     * @var array
+     */
     private $data = [];
 
     /**
@@ -19,7 +38,7 @@ class Response implements \JsonSerializable
      *
      * @var string
      */
-    private $type = 'danger';
+    private $type = 'success';
 
     /**
      * @param string $type
@@ -38,6 +57,22 @@ class Response implements \JsonSerializable
     }
 
     /**
+     * @param bool $notify
+     */
+    public function setNotify($notify)
+    {
+        $this->notify = $notify;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNotify()
+    {
+        return $this->notify;
+    }
+
+    /**
      * @param string $message
      */
     public function setMessage($message)
@@ -49,21 +84,27 @@ class Response implements \JsonSerializable
      * Format the error messages
      *
      * @param $message
-     * @param \Exception $error
-     * @return \stdClass
+     * @param \Exception $exception
      */
-    public function setError($message, \Exception $error){
+    public function setError($message, \Exception $exception){
 
+        $data = [
+            'type' => get_class($exception),
+            'message' => $exception->getMessage(),
+            'file' => $exception->getFile(),
+            'line' => $exception->getLine(),
+        ];
+
+        if (defined('SHOW_DEBUG_BACKTRACE') && SHOW_DEBUG_BACKTRACE === TRUE) {
+            $data['trace'] = $exception->getTrace();
+        }
+
+        $this->setData($data);
         $this->setSuccess(false);
-
-        $response = new \stdClass();
-        $response->message = $message;
-        $response->error_code = $error->getCode() ?: 1;
-        $response->error_message = $error->getMessage();
+        $this->setType('danger');
 
         $this->message = $message;
 
-        return $response;
     }
 
     /**
@@ -121,6 +162,7 @@ class Response implements \JsonSerializable
         return [
             'success' => $this->isSuccess(),
             'message' => $this->getMessage(),
+            'notify' => $this->isNotify(),
             'data' => $this->getData(),
             'type' => $this->getType(),
         ];

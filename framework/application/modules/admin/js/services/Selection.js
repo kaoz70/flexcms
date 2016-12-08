@@ -88,7 +88,7 @@ angular.module('app')
             }
 
             $mdDialog.show({
-                templateUrl: BASE_PATH + 'admin/WarningDialog',
+                templateUrl: BASE_PATH + 'admin/dialogs/DeleteDialog',
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 controller: DialogController,

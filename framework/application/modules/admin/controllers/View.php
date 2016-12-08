@@ -10,7 +10,14 @@ class View extends AdminController {
      */
     public function show($module, $view)
     {
-        $this->load->view("$module/$view");
+
+        //Sending a folder segment also
+        if($v = $this->uri->segment(6)) {
+            $this->load->view("$module/$view/$v");
+        } else {
+            $this->load->view("$module/$view");
+        }
+
     }
 
 }

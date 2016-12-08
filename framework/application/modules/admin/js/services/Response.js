@@ -7,7 +7,42 @@
  *
  * */
 angular.module('app')
-    .service('Response', function(){
+    .service('Response', function($mdDialog, Notification, $http, $httpParamSerializer, BASE_PATH){
+
+        var closeHandler = function () {
+            $mdDialog.hide();
+        };
+        
+        var notifyHandler = function (data) {
+            
+            $http({
+                method: 'POST',
+                url: 'admin/notifyError',
+                data: $httpParamSerializer(data),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            })
+                .success(function (response) {
+
+                    var view = 'SuccessDialog';
+
+                    if(response.type == 'warning') {
+                        view = 'WarningDialog';
+                    }
+
+                    $mdDialog.show({
+                        templateUrl: BASE_PATH + 'admin/dialogs/' + view,
+                        parent: angular.element(document.body),
+                        controller: function ($scope) {
+                            $scope.message = response.message;
+                            $scope.close = closeHandler;
+                        },
+                        clickOutsideToClose:true
+                    });
+
+                })
+                .error(Response.error);
+
+        };
 
         /**
          * Validate a correct response with no errors
@@ -19,8 +54,8 @@ angular.module('app')
 
             try {
 
-                //Is there any erro code present?
-                if (response.error_code) {
+                //Is it a successful response?
+                if (!response.success) {
                     throw response.message;
                 }
 
@@ -32,10 +67,22 @@ angular.module('app')
                 return response;
 
             } catch (err) {
-                $('#modal-danger')
-                    .modal('show')
-                    .find('.modal-body')
-                    .html(err);
+
+                $mdDialog.show({
+                    templateUrl: BASE_PATH + 'admin/dialogs/ErrorDialog',
+                    parent: angular.element(document.body),
+                    controller: function ($scope) {
+                        $scope.message = err;
+                        $scope.detail = response.data.message;
+                        $scope.showNotificationButton = response.notify;
+                        $scope.close = closeHandler;
+                        $scope.notify = function () {
+                            notifyHandler(response.data);
+                        };
+                    },
+                    clickOutsideToClose:true
+                });
+
             }
 
             return false;
@@ -43,10 +90,22 @@ angular.module('app')
         };
 
         this.error = function (data, status) {
-            $('#modal-danger')
-                .modal('show')
-                .find('.modal-body')
-                .html('Al parecer hay un error de servidor<br />[Error: ' + status + ']');
+
+            $mdDialog.show({
+                templateUrl: BASE_PATH + 'admin/dialogs/ErrorDialog',
+                parent: angular.element(document.body),
+                controller: function ($scope) {
+                    $scope.message = 'Error de servidor<br />[Error: ' + status + ']';
+                    $scope.detail = data.message;
+                    $scope.close = closeHandler;
+                    $scope.showNotificationButton = true;
+                    $scope.notify = function () {
+                        notifyHandler(data);
+                    };
+                },
+                clickOutsideToClose:true
+            });
+
         }
 
 });

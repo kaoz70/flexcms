@@ -8,7 +8,7 @@
  * @requires $scope
  * */
 angular.module('app')
-    .controller('LanguageCtrl', function($scope, $rootScope, Language, $routeSegment, WindowFactory, Loading, Selection){
+    .controller('LanguageCtrl', function($scope, $rootScope, Language, $routeSegment, WindowFactory, Loading, Selection, $mdDialog){
 
         //Close the sidebar on this controller
         $rootScope.isSidebarOpen = false;
@@ -31,8 +31,8 @@ angular.module('app')
 
         //Load the content
         Language.getAll().then(function (response) {
-            $rootScope.records = response.data.items;
-            $scope.menu = response.data.menu;
+            $rootScope.records = response.data.data.items;
+            $scope.menu = response.data.data.menu;
             Loading.hide(panel);
         });
 
@@ -42,10 +42,12 @@ angular.module('app')
 
                 Language.delete($scope.deleteSelection).then(function (response) {
 
-                    $rootScope.records = response.data.data;
+                    if(response.success) {
+                        $rootScope.records = response.data.data;
+                        $scope.deleteSelection = [];
+                    }
 
                     $mdDialog.hide();
-                    $scope.deleteSelection = [];
 
                 });
 

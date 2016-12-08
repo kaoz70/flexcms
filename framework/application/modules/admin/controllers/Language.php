@@ -13,16 +13,25 @@ class Language extends AdminController implements AdminInterface {
     public function index()
     {
 
-        $data['items'] = \App\Language::all();
-        $data['menu'] = [
-            [
-                'title' => 'nuevo',
-                'icon' => 'add',
-                'url' => static::URL_CREATE,
-            ],
-        ];
+        $response = new Response();
 
-        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $data]);
+        try{
+
+            $data['items'] = \App\Language::all();
+            $data['menu'] = [
+                [
+                    'title' => 'nuevo',
+                    'icon' => 'add',
+                    'url' => static::URL_CREATE,
+                ],
+            ];
+
+            $response->setData($data);
+        } catch (Exception $e) {
+            $response->setError('Ocurri&oacute; un problema al actualizar el idioma!', $e);
+        }
+
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
     }
 
     public function edit($id)
@@ -78,7 +87,8 @@ class Language extends AdminController implements AdminInterface {
             $ids = $this->input->post();
 
             if(\App\Language::all()->count() === 1) {
-                throw new LengthException('Debe tener al menos un idioma!');
+                $response->setNotify(false);
+                throw new LengthException('Debe tener al menos un idioma disponible!');
             }
 
             //Delete the content

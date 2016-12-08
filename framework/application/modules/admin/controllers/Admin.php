@@ -200,4 +200,32 @@ class Admin extends AdminController {
 
     }
 
+    public function notifyError()
+    {
+
+        $response = new \App\Response();
+
+        //Save a log of the error
+        log_message('error', json_encode($this->input->post()));
+
+        //Send an email
+        $mail = new \PHPMailer();
+
+        $mail->setFrom('flexcms@dejabu.ec', 'FlexCMS');
+        $mail->addAddress('miguel@dejabu.ec', 'Miguel Suarez');     // Add a recipient
+
+        $mail->Subject = '[] Notificacion de error';
+        $mail->Body = json_encode($this->input->post());
+
+        if($mail->send()) {
+            $response->setMessage('Notificacion enviada correctamente');
+        } else {
+            $response->setType('warning');
+            $response->setMessage('No se pudo enviar el email con los datos del error, pero se guardo un registro');
+        }
+
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
+
+    }
+
 }
