@@ -58,13 +58,14 @@ class Content extends \AdminController implements \ContentInterface
             ],
         ];
 
-        $response->setData($data);
 
         try {
             $data['title'] = $page->getTranslation(1) ? $page->getTranslation(1)->name : "{missing translation}";
         } catch (\TranslationException $e) {
             $data['title'] = "{Missing translation}";
         }
+
+        $response->setData($data);
 
         $CI->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
 
