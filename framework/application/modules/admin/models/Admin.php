@@ -11,7 +11,7 @@ namespace App;
 
 class Admin {
 
-    const PATH = 'modules/';
+    const PATH = 'modules' . DIRECTORY_SEPARATOR;
 
     /**
      * Get the module configuration files

@@ -79,7 +79,10 @@ angular.module('app')
                     .css('-moz-transform', 'translateZ(-' + z + 'px) rotateY(' + z + 'deg)')
                     .css('-o-transform', 'translateZ(-' + z + 'px) rotateY(' + z + 'deg)')
                     .css('transform', 'translateZ(-' + z + 'px) rotateY(' + z + 'deg)')
-                    .css('opacity', opacity)
+                    .css('-webkit-filter', 'brightness(' + opacity + ')')
+                    .css('-moz-filter', 'brightness(' + opacity + ')')
+                    .css('-o-filter', 'brightness(' + opacity + ')')
+                    .css('filter', 'brightness(' + opacity + ')')
                     .css('right', right + '%');
 
             }

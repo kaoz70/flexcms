@@ -24,11 +24,13 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Assets {
 
     //Path to where generated assets go
-    static $asset_path = 'assets/cache';
+    static $asset_path = 'assets' . DIRECTORY_SEPARATOR . 'cache';
 
     static $cache;
 
     static $writer;
+
+    static $productionEnv = 'production';
 
     /**
      * Create the stylesheet tag
@@ -45,7 +47,7 @@ class Assets {
         self::init($theme);
 
         //Generate CSS and minify each file
-        if(ENVIRONMENT === 'production' OR ENVIRONMENT === 'testing') {
+        if(ENVIRONMENT === static::$productionEnv) {
 
             try {
 
@@ -139,7 +141,7 @@ class Assets {
         self::init($theme);
 
         //Concatenate JS and minify each file
-        if($prefix === 'admin' || ENVIRONMENT === 'production' || ENVIRONMENT === 'testing') {
+        if($prefix === 'admin' || ENVIRONMENT === static::$productionEnv) {
 
             try {
 
@@ -155,7 +157,7 @@ class Assets {
 
                 self::$cache = self::getAssetCache($asset);
 
-                $compiled_path = self::$asset_path . '/' . self::$cache->getTargetPath();
+                $compiled_path = self::$asset_path . DIRECTORY_SEPARATOR . self::$cache->getTargetPath();
                 $asset_path = base_url() .$compiled_path;
 
                 self::writeFile($files, $compiled_path);
@@ -188,7 +190,7 @@ class Assets {
         $factory->setAssetManager($am);
         $factory->setFilterManager($fm);
 
-        if(ENVIRONMENT !== 'production' AND ENVIRONMENT !== 'testing') {
+        if(ENVIRONMENT !== static::$productionEnv) {
             set_time_limit(0);
             $factory->setDebug(TRUE);
         }
@@ -206,7 +208,9 @@ class Assets {
 
     private static function init($theme)
     {
-        if($theme) self::$asset_path = 'themes/' . $theme . '/cache';
+        if($theme) {
+            self::$asset_path = 'themes/' . $theme . '/cache';
+        }
         self::$writer = new AssetWriter(self::$asset_path);
     }
 
@@ -232,15 +236,6 @@ class Assets {
 
     var $m_config;
 
-    function __construct(){
-        parent::__construct();
-        $this->load->model('configuracion_model', 'Config');
-        $this->load->model('banners_model', 'Banners');
-
-        $this->m_config = $this->Config->get();
-
-    }
-
     public function slideshow_js()
     {
 
@@ -255,7 +250,7 @@ class Assets {
             $js .= $this->load->view('admin/request/html', $data, TRUE);
         }
 
-        if(ENVIRONMENT === 'production') {
+        if(ENVIRONMENT === static::$productionEnv) {
             $js = JSMin::minify($js);
         }
 

@@ -250,12 +250,8 @@
     <script src="<?= admin_asset_path('js/lib/angular/angular-breadcrumb.min.js') ?>"></script>
     <script src="<?= admin_asset_path('js/main.js') ?>"></script>
 
-
-    <script src="<?= admin_asset_path('js/app/app.module.js') ?>"></script>
-    <script src="<?= admin_asset_path('js/app/app.config.js') ?>"></script>
-    <script src="<?= admin_asset_path('js/app/app.routes.js') ?>"></script>
-
     <?php
+    //Load the all the modules JS
     \theme\Assets::js_group('admin', $assets_js);
     ?>
 
@@ -265,10 +261,7 @@
     <script src="<?= admin_asset_path('js/app/directives/WindowDirective.js') ?>"></script>
     <script src="<?= admin_asset_path('js/app/directives/ListItemDirective.js') ?>"></script>
 
-    <script src="<?= admin_asset_path('js/app/factories/WindowFactory.js') ?>"></script>
     <script src="<?= admin_asset_path('js/app/controllers/main.controller.js') ?>"></script>
-    <script src="<?= admin_asset_path('js/app/services/Template.js') ?>"></script>
-    <script src="<?= admin_asset_path('js/app/services/Notification.js') ?>"></script>
     <script src="<?= admin_asset_path('js/app/controllers/sidebar.controller.js') ?>"></script>
 
 </div>
