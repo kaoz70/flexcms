@@ -17,13 +17,6 @@ interface AdminInterface {
     public function index();
 
     /**
-     * Create form interface
-     *
-     * @return mixed
-     */
-    public function create();
-
-    /**
      * Edit form interface
      *
      * @param $id
@@ -49,22 +42,11 @@ interface AdminInterface {
     public function update($id);
 
     /**
-     * Remove the item from the database
-     *
-     * @param $id
+     * Remove the items from the database
      *
      * @return mixed
      */
-    public function delete($id);
-
-    /**
-     * Shows the editor view
-     *
-     * @param Model $model
-     * @param bool $new
-     * @return mixed
-     */
-    public function _showView(Model $model, $new = FALSE);
+    public function delete();
 
     /**
      * Inserts or updates the current model with the provided post data

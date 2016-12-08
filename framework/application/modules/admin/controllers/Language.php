@@ -1,8 +1,10 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php use App\Response;
+
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Language extends AdminController implements AdminInterface {
 
-    const URL_CREATE = 'admin/language/create';
+    const URL_CREATE = 'language/create';
     const URL_UPDATE = 'admin/language/update/';
     const URL_DELETE = 'admin/language/delete/';
     const URL_INSERT = 'admin/language/insert';
@@ -23,11 +25,6 @@ class Language extends AdminController implements AdminInterface {
         $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $data]);
     }
 
-    public function create()
-    {
-        $this->_showView(new \App\Language(), true);
-    }
-
     public function edit($id)
     {
         $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => \App\Language::find($id)]);
@@ -36,14 +33,13 @@ class Language extends AdminController implements AdminInterface {
     public function update($id)
     {
 
-        $response = new stdClass();
-        $response->error_code = 0;
+        $response = new Response();
 
         try{
             $this->_store(\App\Language::find($id));
-            $response->message = 'Idioma actualizado correctamente';
+            $response->setMessage('Idioma actualizado correctamente');
         } catch (Exception $e) {
-            $response = $this->error('Ocurri&oacute; un problema al actualizar el idioma!', $e);
+            $response->setError('Ocurri&oacute; un problema al actualizar el idioma!', $e);
         }
 
         $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
@@ -52,30 +48,17 @@ class Language extends AdminController implements AdminInterface {
 
     public function insert()
     {
-        $response = new stdClass();
-        $response->error_code = 0;
+
+        $response = new Response();
 
         try{
-            $lang = $this->_store(new App\Language());
-            $response->new_id = $lang->id;
+
+            $this->_store(new App\Language());
+            $response->setMessage('Idioma creado correctamente');
+            $response->setData(\App\Language::all());
+
         } catch (Exception $e) {
-            $response = $this->error('Ocurri&oacute; un problema al crear el idioma!', $e);
-        }
-
-        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
-    }
-
-    public function delete($id)
-    {
-
-        $response = new stdClass();
-        $response->error_code = 0;
-
-        try{
-            $lang = \App\Language::find($id);
-            $lang->delete();
-        } catch (Exception $e) {
-            $response = $this->cms_general->error('Ocurri&oacute; un problema al crear el idioma!', $e);
+            $response->setError('Ocurri&oacute; un error al crear el idioma!', $e);
         }
 
         $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
@@ -83,24 +66,31 @@ class Language extends AdminController implements AdminInterface {
     }
 
     /**
-     * @param \Illuminate\Database\Eloquent\Model $model
-     * @param bool $new
-     * @return mixed
+     *
      */
-    public function _showView(\Illuminate\Database\Eloquent\Model $model, $new = FALSE)
+    public function delete()
     {
 
-        $data['titulo'] = $new ? "Crear Idioma" : "Modificar Idioma";
-        $data['link'] = $new ? base_url(static::URL_INSERT) : base_url(static::URL_UPDATE . $model->id);
-        $data['txt_boton'] = $new ? "crear" : "modificar";
-        $data['nuevo'] = $new ? 'nuevo' : '';
+        $response = new Response();
 
-        $data['lang'] = $model;
+        try{
 
-        $data['url_edit'] = base_url(static::URL_EDIT);
-        $data['url_delete'] = base_url(static::URL_DELETE);
+            $ids = $this->input->post();
 
-        $this->load->view('admin/lang_view', $data);
+            if(\App\Language::all()->count() === 1) {
+                throw new LengthException('Debe tener al menos un idioma!');
+            }
+
+            //Delete the content
+            \App\Language::destroy($ids);
+
+            $response->setMessage('Idioma eliminado correctamente');
+
+        } catch (Exception $e) {
+            $response->setError('Ocurri&oacute; un problema al eliminar el idioma!', $e);
+        }
+
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
 
     }
 

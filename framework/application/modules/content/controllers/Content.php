@@ -67,16 +67,6 @@ class Content extends \AdminController implements \ContentInterface
     }
 
     /**
-     * Create form interface
-     *
-     * @return mixed
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Edit form interface
      *
      * @param $id
@@ -90,10 +80,9 @@ class Content extends \AdminController implements \ContentInterface
 
         try{
             $content = \App\Content::getForEdit($id);
-            $response->setSuccess(true);
             $response->setData($content);
         } catch (Exception $e) {
-            $response->setMessage($this->error('Ocurri&oacute; un problema al obtener el contenido!', $e));
+            $response->setError('Ocurri&oacute; un problema al obtener el contenido!', $e);
         }
 
         $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
@@ -136,13 +125,12 @@ class Content extends \AdminController implements \ContentInterface
             //We get all the items again because if its a new Content it did'nt have the position set yet
             $items = static::getItems($content->category_id);
 
-            $response->setSuccess(true);
             $response->setMessage('Contenido actualizado correctamente');
 
             $response->setData($items);
 
         } catch (Exception $e) {
-            $response->setMessage($this->error('Ocurri&oacute; un problema al actualizar el contenido!', $e));
+            $response->setError('Ocurri&oacute; un problema al actualizar el contenido!', $e);
         }
 
         $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
@@ -178,7 +166,6 @@ class Content extends \AdminController implements \ContentInterface
             $translations = Translation::whereIn('parent_id', $ids)->where('type', (new \App\Content())->getType());
             $translations->delete();
 
-            $response->setSuccess(true);
             $response->setMessage('Contenido eliminado satisfactoriamente');
 
             $items = static::getItems($page_id);
@@ -186,7 +173,7 @@ class Content extends \AdminController implements \ContentInterface
             $response->setData($items);
 
         } catch (Exception $e) {
-            $response->setMessage($this->error('Ocurri&oacute; un problema al eliminar el contenido!', $e));
+            $response->setError('Ocurri&oacute; un problema al eliminar el contenido!', $e);
         }
 
         $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
@@ -232,9 +219,8 @@ class Content extends \AdminController implements \ContentInterface
 
         try{
             $response->setData($this->getConfig($widget_id));
-            $response->setSuccess(true);
         } catch (Exception $e) {
-            $response->setMessage($this->error('Ocurri&oacute; un problema al eliminar el contenido!', $e));
+            $response->setError('Ocurri&oacute; un problema al eliminar el contenido!', $e);
         }
 
         $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
@@ -288,11 +274,10 @@ class Content extends \AdminController implements \ContentInterface
             $page->save();
 
             $response->setData(static::getItems($page->id));
-            $response->setSuccess(true);
             $response->setMessage('Configuraci&oacute;n guardada correctamente');
 
         } catch (Exception $e) {
-            $response->setMessage($this->error('Ocurri&oacute; un problema guardar la configuraci&oacute;n!', $e));
+            $response->setError('Ocurri&oacute; un problema guardar la configuraci&oacute;n!', $e);
         }
 
         $this->load->view(static::RESPONSE_VIEW, array(static::RESPONSE_VAR => $response));
@@ -305,6 +290,7 @@ class Content extends \AdminController implements \ContentInterface
      * @param $theme
      * @param $view
      * @return array
+     * @throws Exception
      */
     private function getViews($theme, $view)
     {
@@ -335,7 +321,7 @@ class Content extends \AdminController implements \ContentInterface
             }
 
         } catch (Exception $e) {
-            $response->setMessage($this->error('Ocurri&oacute; un problema al reorganizar el contenido!', $e));
+            $response->setError('Ocurri&oacute; un problema al reorganizar el contenido!', $e);
         }
 
         $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );

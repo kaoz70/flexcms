@@ -18,13 +18,6 @@ interface ContentInterface {
     public static function index($page_id);
 
     /**
-     * Create form interface
-     *
-     * @return mixed
-     */
-    public function create();
-
-    /**
      * Edit form interface
      *
      * @param $id

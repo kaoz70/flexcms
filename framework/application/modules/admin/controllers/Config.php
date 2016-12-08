@@ -16,11 +16,10 @@ class Config extends AdminController {
             $data['pages'] = \App\Page::getList(1);
             $data['themes'] = Utils::getFolders('./themes/');
 
-            $response->setSuccess(true);
             $response->setData($data);
 
         } catch (Exception $e) {
-            $response->setMessage($this->error('Ocurri&oacute; un problema al obtener la configuraci&oacute;n!', $e));
+            $response->setError('Ocurri&oacute; un problema al obtener la configuraci&oacute;n!', $e);
         }
 
         $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );
@@ -34,10 +33,9 @@ class Config extends AdminController {
 
         try{
             \App\Config::saveData($this->input->post());
-            $response->setSuccess(true);
             $response->setMessage("Configuraci&oacute;n guardada correctamente");
         } catch (Exception $e) {
-            $response->setMessage($this->error('Ocurri&oacute; un problema al guardar!', $e));
+            $response->setError('Ocurri&oacute; un problema al guardar!', $e);
         }
 
         $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );

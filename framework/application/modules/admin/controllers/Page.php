@@ -22,11 +22,10 @@ class Page extends AdminController {
             $depth = 99999;
             $tree = $this->getNodes($root, $depth);
 
-            $response->setSuccess(true);
             $response->setData($tree);
 
         } catch (Exception $e) {
-            $response->setMessage($this->error('Ocurri&oacute; un problema al obtener las p&aacute;ginas!', $e));
+            $response->setError('Ocurri&oacute; un problema al obtener las p&aacute;ginas!', $e);
         }
 
         $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );
@@ -71,7 +70,7 @@ class Page extends AdminController {
         } catch (Exception $e) {
 
             $response = new \App\Response();
-            $response->setMessage($e->getMessage());
+            $response->setError($e->getMessage(), $e);
             $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
 
         }

@@ -10,6 +10,7 @@
             $routeSegmentProvider
                 .when('/language', 'language')
                 .when('/language/edit/:id', 'language.edit')
+                .when('/language/create', 'language.create')
                 .segment('language', {
                     'default': true,
                     templateUrl: BASE_PATH + 'admin/List',
@@ -20,7 +21,12 @@
                         templateUrl: BASE_PATH + 'admin/LanguageDetail',
                         controller: 'LanguageEditCtrl',
                         dependencies: ['id']
-                    });
+                    })
+                    .segment('create', {
+                        templateUrl: BASE_PATH + 'admin/LanguageDetail',
+                        controller: 'LanguageCreateCtrl'
+                    })
+            ;
 
         });
 

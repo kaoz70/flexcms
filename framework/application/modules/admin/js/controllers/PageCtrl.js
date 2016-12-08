@@ -8,7 +8,7 @@
  * @requires $scope
  * */
 angular.module('app')
-    .controller('PageCtrl', function($scope, $rootScope, Page, $routeSegment, WindowFactory, $routeParams, Content, $window, Loading, $mdDialog, BASE_PATH, $mdColorPalette, $mdColors, $mdTheming, Selection){
+    .controller('PageCtrl', function($scope, $rootScope, Page, $routeSegment, WindowFactory, $routeParams, Content, $window, Loading, $mdDialog, $mdColorPalette, $mdColors, $mdTheming, Selection){
 
         //Open the sidebar on this controller
         $rootScope.isSidebarOpen = true;
@@ -50,42 +50,17 @@ angular.module('app')
 
         $scope.delete = function (ev) {
 
-            var items = $scope.deleteSelection,
-                parentScope = $scope;
+            Selection.delete(ev, function() {
 
-            function DialogController($scope, $mdDialog) {
+                Content.delete($scope.deleteSelection, $routeParams.page_id).then(function (response) {
 
-                if(items.length > 1) {
-                    $scope.message = '¿Est&aacute; seguro de que desea eliminar estos ' + items.length + ' elementos?';
-                } else {
-                    $scope.message = '¿Est&aacute; seguro de que desea eliminar este elemento?';
-                }
+                    $rootScope.records = response.data.data;
 
-                $scope.cancel = function() {
                     $mdDialog.hide();
-                };
+                    $scope.deleteSelection = [];
 
-                $scope.delete = function() {
+                });
 
-                    Content.delete(items, $routeParams.page_id).then(function (response) {
-
-                        $rootScope.records = response.data.data;
-
-                        $mdDialog.hide();
-                        parentScope.deleteSelection = [];
-
-                    });
-
-                };
-
-            }
-
-            $mdDialog.show({
-                templateUrl: BASE_PATH + 'admin/WarningDialog',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                controller: DialogController,
-                clickOutsideToClose:true
             });
 
         }

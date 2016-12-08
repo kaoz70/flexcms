@@ -7,13 +7,12 @@
  *
  * */
 angular.module('app')
-    .service('Language', function($q, $http, $httpParamSerializer, Notification, Response){
+    .service('Language', function($http, Request, Response){
 
         var urls = {
             index: 'admin/language',
-            create: 'admin/language/create',
             update: 'admin/language/update/',
-            delete: 'admin/language/delete/',
+            delete: 'admin/language/delete',
             insert: 'admin/language/insert',
             edit: 'admin/language/edit/'
         };
@@ -31,18 +30,15 @@ angular.module('app')
         };
 
         this.save = function(language) {
-            return $http({
-                method: 'POST',
-                url: urls.update + language.id,
-                data: $httpParamSerializer(language),
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-                .success(function (response) {
-                    if(Response.validate(response)) {
-                        Notification.show('success', response.message);
-                    }
-                })
-                .error(Response.error);
+            return Request.post(language, urls.update + language.id);
+        };
+
+        this.insert = function(language) {
+            return Request.post(language, urls.insert);
+        };
+
+        this.delete = function(ids) {
+            return Request.post(ids, urls.delete);
         };
 
 });

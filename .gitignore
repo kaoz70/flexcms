@@ -26,3 +26,4 @@ framework/application/logs/
 framework/node_modules/.bin/
 framework/packages/material-design-icons/**
 !framework/packages/material-design-icons/iconfont
+!index.html

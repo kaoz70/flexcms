@@ -19,6 +19,7 @@
             'ngSanitize',
             'dndLists',
             'ui.tree',
-            'ui.codemirror'
+            'ui.codemirror',
+            'luegg.directives'
         ]);
 }());

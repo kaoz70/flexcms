@@ -134,33 +134,37 @@ class Category extends \App\Category implements NodeInterface {
 
         foreach(Language::all() as $lang){
 
-            $trans = Translation::firstOrNew(['language_id' => $lang->id, 'parent_id' => $this->id, 'type' => $this->section]);
-            $trans_data = json_decode($trans->data);
+            if(isset($input[$lang->id])) {
 
-            $trans_data->name = $input[$lang->id]['translation']['name'];
-            $trans_data->menu_name = $input[$lang->id]['translation']['menu_name'];
+                $trans = Translation::firstOrNew(['language_id' => $lang->id, 'parent_id' => $this->id, 'type' => $this->section]);
+                $trans_data = json_decode($trans->data);
 
-            //We update this form two different places so we have to check if they are sending the data
+                $trans_data->name = $input[$lang->id]['translation']['name'];
+                $trans_data->menu_name = $input[$lang->id]['translation']['menu_name'];
 
-            if(isset($input[$lang->id]['translation']['meta_keywords'])){
-                //remove the space if any from the start and end of each keyword, create an array
-                $trans_data->meta_keywords = $input[$lang->id]['translation']['meta_keywords'];
-            } else {
-                $trans_data->meta_keywords = [];
+                //We update this form two different places so we have to check if they are sending the data
+
+                if(isset($input[$lang->id]['translation']['meta_keywords'])){
+                    //remove the space if any from the start and end of each keyword, create an array
+                    $trans_data->meta_keywords = $input[$lang->id]['translation']['meta_keywords'];
+                } else {
+                    $trans_data->meta_keywords = [];
+                }
+
+                if(isset($input[$lang->id]['translation']['meta_description'])){
+                    //remove the space if any from the start and end of each keyword, create an array
+                    $trans_data->meta_description = $input[$lang->id]['translation']['meta_description'];
+                }
+
+                if(isset($input[$lang->id]['translation']['meta_title'])){
+                    //remove the space if any from the start and end of each keyword, create an array
+                    $trans_data->meta_title = $input[$lang->id]['translation']['meta_title'];
+                }
+
+                $trans->data = json_encode($trans_data);
+                $trans->save();
+
             }
-
-            if(isset($input[$lang->id]['translation']['meta_description'])){
-                //remove the space if any from the start and end of each keyword, create an array
-                $trans_data->meta_description = $input[$lang->id]['translation']['meta_description'];
-            }
-
-            if(isset($input[$lang->id]['translation']['meta_title'])){
-                //remove the space if any from the start and end of each keyword, create an array
-                $trans_data->meta_title = $input[$lang->id]['translation']['meta_title'];
-            }
-
-            $trans->data = json_encode($trans_data);
-            $trans->save();
 
         }
     }

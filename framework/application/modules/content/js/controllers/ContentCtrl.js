@@ -18,7 +18,7 @@ angular.module('app')
         var panel = Loading.show();
 
         $scope.close_url = "#/page/" + $routeParams.page_id;
-        $scope.languages = [];
+        $scope.languages = {};
         $scope.editorInit = false;
 
         //Wait until the editor has finished initializing
@@ -29,7 +29,7 @@ angular.module('app')
         //Keyword creation keys
         $scope.keys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA];
 
-        Content.edit($routeParams.id).then(function (response) {
+        Content.getOne($routeParams.id).then(function (response) {
 
             //Find the content by id in the records array
             var content = $filter('filter')($rootScope.records, {
@@ -87,9 +87,8 @@ angular.module('app')
         var panel = Loading.show();
 
         $scope.close_url = "#/page/" + $routeParams.page_id;
-        $scope.languages = [];
+        $scope.languages = {};
         $scope.content = {
-            id: 0,
             enabled: true,
             important: false,
             category_id: $routeParams.page_id
@@ -103,7 +102,13 @@ angular.module('app')
 
         Language.getAll().then(function (response) {
 
-            $scope.languages = response.data;
+            // We need to send an object to the server so that the translations save correctly,
+            // so we transform the array into an object here
+            angular.forEach(response.data.items, function(value) {
+                $scope.languages[value.id] = value;
+                $scope.languages[value.id].translation = {};
+            });
+
             $scope.tinymceOptions = {
                 plugins: 'link image code',
                 toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'

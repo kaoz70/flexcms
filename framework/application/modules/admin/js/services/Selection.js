@@ -7,7 +7,7 @@
  *
  * */
 angular.module('app')
-    .service('Selection', function($window, $rootScope){
+    .service('Selection', function($window, $rootScope, $mdDialog, BASE_PATH){
 
         var selection,
             scope,
@@ -62,6 +62,40 @@ angular.module('app')
             }
             
         };
+
+        /**
+         * Show a dialog and if successful input execute the callback
+         *
+         * @param ev
+         * @param callback
+         */
+        this.delete = function (ev, callback) {
+
+            function DialogController($scope, $mdDialog) {
+
+                if(selection.length > 1) {
+                    $scope.message = '¿Est&aacute; seguro de que desea eliminar estos ' + selection.length + ' elementos?';
+                } else {
+                    $scope.message = '¿Est&aacute; seguro de que desea eliminar este elemento?';
+                }
+
+                $scope.cancel = function() {
+                    $mdDialog.hide();
+                };
+
+                $scope.delete = callback;
+
+            }
+
+            $mdDialog.show({
+                templateUrl: BASE_PATH + 'admin/WarningDialog',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                controller: DialogController,
+                clickOutsideToClose:true
+            });
+
+        }
 
 });
 

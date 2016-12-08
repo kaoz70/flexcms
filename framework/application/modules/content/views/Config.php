@@ -8,7 +8,7 @@
         </div>
     </md-toolbar>
 
-    <md-content class="panel-body">
+    <md-content class="panel-body" scroll-glue="!!config.pagination">
 
         <md-card>
             <md-card-title>

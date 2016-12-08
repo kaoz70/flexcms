@@ -36,6 +36,23 @@ angular.module('app')
             Loading.hide(panel);
         });
 
+        $scope.delete = function (ev) {
+
+            Selection.delete(ev, function() {
+
+                Language.delete($scope.deleteSelection).then(function (response) {
+
+                    $rootScope.records = response.data.data;
+
+                    $mdDialog.hide();
+                    $scope.deleteSelection = [];
+
+                });
+
+            });
+
+        }
+
     })
 
     .controller('LanguageEditCtrl', function($scope, $rootScope, $routeParams, Language, $routeSegment, WindowFactory, $filter, Loading, Selection){
@@ -66,6 +83,23 @@ angular.module('app')
         $scope.save = function () {
             Language.save($scope.language);
             WindowFactory.remove($scope);
+        };
+
+    })
+    .controller('LanguageCreateCtrl', function($scope, $rootScope, $routeParams, Language, $routeSegment, WindowFactory, $filter, Loading, Selection){
+
+        //Close the sidebar on this controller
+        $rootScope.isSidebarOpen = false;
+
+        WindowFactory.add();
+
+        $scope.save = function () {
+
+            Language.insert($scope.language).then(function (response) {
+                $rootScope.records = response.data.data;
+                WindowFactory.remove($scope);
+            });
+
         };
 
     })

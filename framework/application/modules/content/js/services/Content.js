@@ -7,7 +7,7 @@
  *
  * */
 angular.module('app')
-    .service('Content', function($q, $http, $httpParamSerializer, Notification, Response){
+    .service('Content', function($http, Request, Response){
 
         var urls = {
             update: 'admin/content/update/',
@@ -18,25 +18,14 @@ angular.module('app')
             reorder: 'admin/content/reorder/'
         };
 
-        this.edit = function(id) {
+        this.getOne = function(id) {
             return $http.get(urls.edit + id)
                 .success(Response.validate)
                 .error(Response.error);
         };
 
         this.delete = function(ids, page_id) {
-            return $http({
-                method: 'POST',
-                url: urls.delete + page_id,
-                data: $httpParamSerializer(ids),
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-                .success(function (response) {
-                    if(Response.validate(response)) {
-                        Notification.show('success', response.message);
-                    }
-                })
-                .error(Response.error);
+            return Request.post(ids, urls.delete + page_id);
         };
 
         this.getConfig = function (widget_id) {
@@ -50,21 +39,11 @@ angular.module('app')
             var data = {
                 config: $scope.config,
                 translations: $scope.languages,
-                page: $scope.page,
+                page: $scope.page
             };
 
-            return $http({
-                method: 'POST',
-                url: urls.config_save + widget_id,
-                data: $httpParamSerializer(data),
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-                .success(function (response) {
-                    if(Response.validate(response)) {
-                        Notification.show('success', response.message);
-                    }
-                })
-                .error(Response.error);
+            return Request.post(data, urls.config_save + widget_id);
+
         };
 
         this.save = function($scope) {
@@ -74,18 +53,7 @@ angular.module('app')
                 translations: $scope.languages
             };
 
-            return $http({
-                method: 'POST',
-                url: urls.update + $scope.content.id,
-                data: $httpParamSerializer(data),
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-                .success(function (response) {
-                    if(Response.validate(response)) {
-                        Notification.show('success', response.message);
-                    }
-                })
-                .error(Response.error);
+            return Request.post(data, urls.update + $scope.content.id);
 
         };
 
@@ -94,24 +62,13 @@ angular.module('app')
             var order = [],
                 data = {};
 
-            angular.forEach(list, function(value, key) {
+            angular.forEach(list, function(value) {
                 order.push(value.id);
             });
 
             data.order = JSON.stringify(order);
 
-            return $http({
-                method: 'POST',
-                url: urls.reorder + page_id,
-                data: $httpParamSerializer(data),
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-                .success(function (response) {
-                    if(Response.validate(response)) {
-                        Notification.show(response.type, response.message);
-                    }
-                })
-                .error(Response.error);
+            return Request.post(data, urls.reorder + page_id);
 
         };
 

@@ -7,7 +7,7 @@
  *
  * */
 angular.module('app')
-    .service('Config', function($q, $http, $httpParamSerializer, Notification, Response){
+    .service('Config', function($http, Request, Response){
 
         var urls = {
             index: 'admin/config',
@@ -35,19 +35,7 @@ angular.module('app')
         };
 
         this.save = function(config) {
-
-            return $http({
-                method: 'POST',
-                url: urls.save,
-                data: $httpParamSerializer(config),
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-                .success(function (response) {
-                    if(Response.validate(response)) {
-                        Notification.show('success', response.message);
-                    }
-                })
-                .error(Response.error);
+            return Request.post(config, urls.save);
         };
 
 });

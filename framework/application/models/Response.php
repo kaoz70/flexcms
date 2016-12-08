@@ -10,7 +10,7 @@ namespace App;
  */
 class Response implements \JsonSerializable
 {
-    private $success = false;
+    private $success = true;
     private $message = '';
     private $data = [];
 
@@ -43,6 +43,27 @@ class Response implements \JsonSerializable
     public function setMessage($message)
     {
         $this->message = $message;
+    }
+
+    /**
+     * Format the error messages
+     *
+     * @param $message
+     * @param \Exception $error
+     * @return \stdClass
+     */
+    public function setError($message, \Exception $error){
+
+        $this->setSuccess(false);
+
+        $response = new \stdClass();
+        $response->message = $message;
+        $response->error_code = $error->getCode() ?: 1;
+        $response->error_message = $error->getMessage();
+
+        $this->message = $message;
+
+        return $response;
     }
 
     /**

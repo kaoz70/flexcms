@@ -35,7 +35,8 @@
     "codemirror": "^5.19.0",
     "angular-ui-codemirror": "^0.3.0",
     "animate.css": "^3.5.2",
-    "material-design-icons": "^3.0.1"
+    "material-design-icons": "^3.0.1",
+    "angular-scroll-glue": "^2.1.0"
   },
   "resolutions": {
     "magnific-popup": "^1.1.0",
