@@ -84,7 +84,7 @@ class BaseModel extends Model {
     public function getTranslations()
     {
 
-        $languages = Language::all();
+        $languages = Language::orderBy('position', 'asc')->get();
         $arr = [];
 
         foreach($languages as $lang) {
@@ -115,7 +115,7 @@ class BaseModel extends Model {
         $contentTrans = new EditTranslations();
         $contentTrans->setContent($content);
 
-        foreach (Language::all() as $lang) {
+        foreach (Language::orderBy('position', 'asc')->get() as $lang) {
             $contentTrans->add($lang, $content->getTranslation($lang->id));
         }
 

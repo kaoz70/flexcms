@@ -11,6 +11,7 @@ $_ns = __NAMESPACE__;
 
 use App\Category;
 use App\Config;
+use App\Language;
 use App\Page;
 use App\Response;
 use App\Translation;
@@ -60,7 +61,7 @@ class Content extends \AdminController implements \ContentInterface
 
 
         try {
-            $data['title'] = $page->getTranslation(1) ? $page->getTranslation(1)->name : "{missing translation}";
+            $data['title'] = $page->getTranslation(Language::getDefault()->id) ? $page->getTranslation(Language::getDefault()->id)->name : "{missing translation}";
         } catch (\TranslationException $e) {
             $data['title'] = "{Missing translation}";
         }
@@ -146,7 +147,7 @@ class Content extends \AdminController implements \ContentInterface
     {
         $widget = Widget::getContentWidget($id);
         $contentOrder = $widget->getConfig()->order;
-        return \App\Content::getByPage($id, 1, $contentOrder);
+        return \App\Content::getByPage($id, Language::getDefault()->id, $contentOrder);
     }
 
     /**
@@ -318,7 +319,6 @@ class Content extends \AdminController implements \ContentInterface
             $contentOrder = $widget->getConfig()->order;
 
             if($contentOrder == 'manual') {
-                $response->setSuccess(true);
                 $response->setMessage('Se guard&oacute; el nuevo orden de elementos');
             } else {
                 $response->setType('warning');

@@ -262,7 +262,6 @@
     <script src="<?= admin_asset_path('js/app/directives/WindowDirective.js') ?>"></script>
     <script src="<?= admin_asset_path('js/app/directives/ListItemDirective.js') ?>"></script>
 
-    <script src="<?= admin_asset_path('js/app/controllers/main.controller.js') ?>"></script>
     <script src="<?= admin_asset_path('js/app/controllers/sidebar.controller.js') ?>"></script>
 
 </div>

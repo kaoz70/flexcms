@@ -28,7 +28,7 @@ angular.module('app')
             return $http.get(urls.pages + language)
                 .success(Response.validate)
                 .error(Response.error);
-        }
+        };
 
         this.save = function(language) {
             return $http({

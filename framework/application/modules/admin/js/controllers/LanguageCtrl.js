@@ -36,13 +36,20 @@ angular.module('app')
             Loading.hide(panel);
         });
 
+        $scope.treeOptions = {
+            dropped: function (scope, modelData, sourceIndex) {
+                Language.setOrder($rootScope.records);
+            }
+        };
+
         $scope.delete = function (ev) {
 
             Selection.delete(ev, function() {
 
                 Language.delete($scope.deleteSelection).then(function (response) {
 
-                    if(response.success) {
+                    if(response.data.success) {
+
                         $rootScope.records = response.data.data;
                         $scope.deleteSelection = [];
                     }

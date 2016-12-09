@@ -17,7 +17,7 @@ class Language extends AdminController implements AdminInterface {
 
         try{
 
-            $data['items'] = \App\Language::all();
+            $data['items'] = \App\Language::orderBy('position', 'asc')->get();
             $data['menu'] = [
                 [
                     'title' => 'nuevo',
@@ -27,6 +27,7 @@ class Language extends AdminController implements AdminInterface {
             ];
 
             $response->setData($data);
+
         } catch (Exception $e) {
             $response->setError('Ocurri&oacute; un problema al actualizar el idioma!', $e);
         }
@@ -36,7 +37,17 @@ class Language extends AdminController implements AdminInterface {
 
     public function edit($id)
     {
-        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => \App\Language::find($id)]);
+
+        $response = new Response();
+
+        try{
+            $response->setData(\App\Language::find($id));
+        } catch (Exception $e) {
+            $response->setError('Ocurri&oacute; un problema al actualizar el idioma!', $e);
+        }
+
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
+
     }
 
     public function update($id)
@@ -62,9 +73,12 @@ class Language extends AdminController implements AdminInterface {
 
         try{
 
-            $this->_store(new App\Language());
+            $lang = $this->_store(new App\Language());
+            $lang->position = \App\Language::all()->count();
+            $lang->save();
+
             $response->setMessage('Idioma creado correctamente');
-            $response->setData(\App\Language::all());
+            $response->setData(\App\Language::orderBy('position', 'asc')->get());
 
         } catch (Exception $e) {
             $response->setError('Ocurri&oacute; un error al crear el idioma!', $e);
@@ -94,6 +108,7 @@ class Language extends AdminController implements AdminInterface {
             //Delete the content
             \App\Language::destroy($ids);
 
+            $response->setData(\App\Language::orderBy('position', 'asc')->get());
             $response->setMessage('Idioma eliminado correctamente');
 
         } catch (Exception $e) {
@@ -117,6 +132,24 @@ class Language extends AdminController implements AdminInterface {
         $model->save();
         return $model;
     }
+
+    public function reorder()
+    {
+
+        $response = new Response();
+
+        try{
+
+            \App\Language::reorder($this->input->post('order'), '');
+            $response->setMessage('Se guard&oacute; el nuevo orden de elementos');
+
+        } catch (Exception $e) {
+            $response->setError('Ocurri&oacute; un problema al reorganizar los idiomas!', $e);
+        }
+
+        $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );
+    }
+
 }
 
 /* End of file welcome.php */

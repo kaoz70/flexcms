@@ -31,7 +31,7 @@
                     })
                     .segment('config', {
                         templateUrl: BASE_PATH + 'content/Config',
-                        controller: 'ContentConfigCtrl',
+                        controller: 'PageConfigCtrl',
                         dependencies: ['page_id']
                     });
 

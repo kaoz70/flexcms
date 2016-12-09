@@ -23,7 +23,7 @@
             $rootScope.isSidebarOpen = false;
         };
 
-        Page.getAll(1).then(function (response) {
+        Page.getAll(null).then(function (response) {
             $scope.pages = response.data.data;
         });
         

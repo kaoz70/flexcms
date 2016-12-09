@@ -9,8 +9,12 @@ class Page extends AdminController {
     var $link;
     var $mptt;
 
-    public function all($lang_id)
+    public function all($lang_id = null)
     {
+
+        if(!$lang_id) {
+            $lang_id = \App\Language::getDefault()->id;
+        }
 
         $response = new Response();
 

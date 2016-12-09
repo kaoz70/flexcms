@@ -14,7 +14,8 @@ angular.module('app')
             update: 'admin/language/update/',
             delete: 'admin/language/delete',
             insert: 'admin/language/insert',
-            edit: 'admin/language/edit/'
+            edit: 'admin/language/edit/',
+            reorder: 'admin/language/reorder'
         };
 
         this.getAll = function() {
@@ -27,6 +28,21 @@ angular.module('app')
             return $http.get(urls.edit + id)
                 .success(Response.validate)
                 .error(Response.error);
+        };
+
+        this.setOrder = function(list) {
+
+            var order = [],
+                data = {};
+
+            angular.forEach(list, function(value) {
+                order.push(value.id);
+            });
+
+            data.order = JSON.stringify(order);
+
+            return Request.post(data, urls.reorder);
+
         };
 
         this.save = function(language) {

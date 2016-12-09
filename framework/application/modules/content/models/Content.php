@@ -88,10 +88,9 @@ class Content extends BaseModel {
             ->get();
 
         foreach ($content as &$c){
-            try {
-                $c->getTranslation($lang);
-            } catch (\TranslationException $e) {
-                $c->translation = "{Missing translation}";
+            if(!$c->getTranslation($lang)) {
+                $c->translation = new \stdClass();
+                $c->translation->name = "{Missing translation}";
             }
         }
 
