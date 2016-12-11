@@ -154,39 +154,45 @@ class Content extends BaseModel {
     /**
      * Stores the translation data
      *
-     * @param $input
+     * @param $inputs
      * @return array
      */
-    public function setTranslations($input)
+    public function setTranslations($inputs)
     {
 
         $translations = [];
 
         foreach(Language::all() as $lang){
 
-            if(isset($input->{$lang->id})) {
+            foreach ($inputs as $input) {
 
-                $translation = $input->{$lang->id}->translation;
+                if($input->id === $lang->id) {
 
-                $trans_data = [
-                    'name' => isset($translation->name) ? $translation->name : '',
-                    'content' => isset($translation->content) ? $translation->content : '',
-                    'meta_keywords' => isset($translation->meta_keywords) ? $translation->meta_keywords : [],
-                    'meta_description' => isset($translation->meta_description) ? $translation->meta_description : '',
-                    'meta_title' => isset($translation->meta_title) ? $translation->meta_title : '',
-                ];
+                    $translation = $input->translation;
 
-                $trans = Translation::firstOrNew([
-                    'language_id' => $lang->id,
-                    'parent_id' => $this->id,
-                    'type' => $this->type
-                ]);
-                $trans->data = json_encode($trans_data);
-                $trans->save();
+                    $trans_data = [
+                        'name' => isset($translation->name) ? $translation->name : '',
+                        'content' => isset($translation->content) ? $translation->content : '',
+                        'meta_keywords' => isset($translation->meta_keywords) ? $translation->meta_keywords : [],
+                        'meta_description' => isset($translation->meta_description) ? $translation->meta_description : '',
+                        'meta_title' => isset($translation->meta_title) ? $translation->meta_title : '',
+                    ];
 
-                $translations[$lang->id] = $trans_data;
+                    $trans = Translation::firstOrNew([
+                        'language_id' => $lang->id,
+                        'parent_id' => $this->id,
+                        'type' => $this->type
+                    ]);
+                    $trans->data = json_encode($trans_data);
+                    $trans->save();
+
+                    $translations[$lang->id] = $trans_data;
+
+                }
 
             }
+
+
 
         }
 

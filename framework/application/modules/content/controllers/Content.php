@@ -272,7 +272,7 @@ class Content extends \AdminController implements \ContentInterface
             //Update the page's config
             $pageData = json_decode($this->input->post('page'), true);
 
-            $page = \admin\Category::find($widget->category_id);
+            $page = Page::find($widget->category_id);
             $page->popup = (bool) $pageData['popup'];
             $page->enabled = (bool) $pageData['enabled'];
             $page->group_visibility = $pageData['group_visibility'];

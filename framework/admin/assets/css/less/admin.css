@@ -172,3 +172,9 @@ md-dialog-content .icon {
 md-dialog-content .icon i {
   font-size: 103px;
 }
+.keep-one md-list > li:first-child {
+  background: #404040;
+}
+.keep-one md-list > li:first-child .delete {
+  display: none;
+}

@@ -38,7 +38,7 @@ angular.module('app')
 
             var data = {
                 config: $scope.config,
-                translations: $scope.languages,
+                translations: JSON.stringify($scope.languages),
                 page: $scope.page
             };
 
@@ -50,7 +50,7 @@ angular.module('app')
 
             var data = {
                 content: $scope.content,
-                translations: $scope.languages
+                translations: JSON.stringify($scope.languages)
             };
 
             return Request.post(data, urls.update + $scope.content.id);

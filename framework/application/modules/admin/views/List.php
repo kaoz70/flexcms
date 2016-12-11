@@ -9,14 +9,14 @@
                 <span>{{node.name ? node.name : node.translation.name}}</span>
             </p>
             <md-checkbox aria-label="Check to delete"
-                         class="md-secondary"
+                         class="md-secondary delete"
                          ng-show="showDelete"
                          ng-model="topping.wanted"
                          ng-click="toggleDeleteSelection(node.id)"></md-checkbox>
         </md-list-item>
 
     </div>
-    <ol class="node-children" ui-tree-nodes="" ng-model="node.children">
+    <ol class="node-children" ui-tree-nodes="" ng-model="node.children" >
         <li ng-repeat="node in node.children | filter:query"
              ui-tree-node
              ng-include="'nodes_list_renderer.html'"
@@ -64,7 +64,7 @@
 
     <md-content class="panel-body">
 
-        <div ui-tree="treeOptions" ng-show="records.length">
+        <div ui-tree="treeOptions" ng-show="records.length" ng-class="keepOne">
 
             <md-list ui-tree-nodes="" ng-model="records">
 

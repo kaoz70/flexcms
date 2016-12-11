@@ -70,7 +70,7 @@ class BaseModel extends Model {
             $this->translation = json_decode($translation->data);
             return $this->translation;
         } else {
-            return null;
+            return $this->translation = null;
         }
 
     }

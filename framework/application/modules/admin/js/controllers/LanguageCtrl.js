@@ -18,6 +18,7 @@ angular.module('app')
 
         $scope.showDelete = true;
         $scope.showReorder = true;
+        $scope.keepOne = 'keep-one';
 
         //Base url
         $scope.section = "language";

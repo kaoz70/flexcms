@@ -18,7 +18,7 @@ angular.module('app')
         var panel = Loading.show();
 
         $scope.close_url = "#/page/" + $routeParams.page_id;
-        $scope.languages = {};
+        $scope.languages = [];
         $scope.editorInit = false;
 
         //Wait until the editor has finished initializing
@@ -49,7 +49,7 @@ angular.module('app')
             $scope.languages = response.data.data.translations;
 
             //Change the name in the item list
-            $scope.$watch('languages["1"].translation.name', function(v){
+            $scope.$watch('languages[0].translation.name', function(v){
                 $scope.content.translation.name = v;
             });
 
@@ -86,7 +86,7 @@ angular.module('app')
         var panel = Loading.show();
 
         $scope.close_url = "#/page/" + $routeParams.page_id;
-        $scope.languages = {};
+        $scope.languages = [];
         $scope.content = {
             enabled: true,
             important: false,
@@ -101,12 +101,7 @@ angular.module('app')
 
         Language.getAll().then(function (response) {
 
-            // We need to send an object to the server so that the translations save correctly,
-            // so we transform the array into an object here
-            angular.forEach(response.data.data.items, function(value) {
-                $scope.languages[value.id] = value;
-                $scope.languages[value.id].translation = {};
-            });
+            $scope.languages = response.data.data.items;
 
             $scope.tinymceOptions = {
                 plugins: 'link image code',

@@ -31,7 +31,7 @@ class EditTranslations
             'translation' => $content
         ];
 
-        return $this->translations->put($language->id, $langArr);
+        return $this->translations->push($langArr);
 
     }
 

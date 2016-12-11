@@ -9,10 +9,10 @@ class Page extends AdminController {
     var $link;
     var $mptt;
 
-    public function all($lang_id = null)
+    public function all($lang_id = 'null')
     {
 
-        if(!$lang_id) {
+        if($lang_id === 'null') {
             $lang_id = \App\Language::getDefault()->id;
         }
 
@@ -20,7 +20,8 @@ class Page extends AdminController {
 
         try{
 
-            $root = \App\Category::find(1);
+            //Get the root page
+            $root = \App\Page::find(1);
             $root->setLang($lang_id);
 
             $depth = 99999;
