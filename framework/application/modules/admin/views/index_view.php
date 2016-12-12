@@ -6,7 +6,7 @@
     [1. Meta Tags]
     -->
     <meta charset="utf-8" />
-    <title ng-bind="'FLexCMS | ' + pageTitle || 'FLexCMS'">FLexCMS</title>
+    <title ng-bind="'FlexCMS | ' + pageTitle || 'FlexCMS'">FlexCMS</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -43,6 +43,17 @@
         </ol>
     </script>
 
+    <script type="text/ng-template" id="nodes_layout_renderer.html">
+        <div class="node">
+            <div ui-tree-handle><i class="fa fa-bars" aria-hidden="true"></i></div>
+            <a ng-href='#/layout/{{node.id}}'>{{node.translation.name ? node.translation.name : '{missing translation}'}}</a>
+        </div>
+        <ol class="node-children" ui-tree-nodes="" ng-model="node.children">
+            <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_layout_renderer.html'">
+            </li>
+        </ol>
+    </script>
+
     <script>
         var system = {
             base_url: "<?= base_url() ?>"
@@ -70,7 +81,7 @@
         <div class="sidebar-menu">
             <ul class="menu">
 
-                <li ng-class="{'active open': $state.includes('dashboard')}">
+                <li ng-class="{'active open': $routeSegment.startsWith('layout')}">
                     <a ng-click="openPanel()">
                         <i class="material-icons">view_quilt</i>
                         <span>Estructura</span>
@@ -83,7 +94,7 @@
 
                             <div ui-tree>
                                 <ol ui-tree-nodes="" ng-model="pages" id="tree-root">
-                                    <li ng-repeat="node in pages" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+                                    <li ng-repeat="node in pages" ui-tree-node ng-include="'nodes_layout_renderer.html'"></li>
                                 </ol>
                             </div>
 
@@ -115,11 +126,10 @@
                 </li>
 
                 <? foreach ($menu as $item): ?>
-                    <li ng-class="{'active open': $state.includes('<?=$item->controller?>')}">
+                    <li ng-class="{'active open': $routeSegment.startsWith('<?=$item->controller?>')}">
                         <a title="<?=$item->name->es?>"
                            rel="<?=$item->tooltip->es?>"
-                           class="ajax"
-                           ui-sref="<?=$item->controller ?>">
+                           ng-href="#/<?=$item->controller ?>">
                             <i class="material-icons"><?=$item->icon?></i>
                             <span><?=$item->name->es?></span></a>
                     </li>
@@ -129,14 +139,12 @@
                     <a title="Idiomas"
                        ng-click="closePanel()"
                        rel="Editar idiomas para sitios multi-idiomas"
-                       class="ajax"
                        ng-href="#/language" >
                         <i class="material-icons">language</i><span>Idiomas</span></a>
                 </li>
-                <li ng-class="{'active open': $routeSegment.startsWith('config')}">
+                <li ng-class="{'active': $routeSegment.startsWith('config')}">
                     <a title="Configuración"
                        rel="Tamaños de imagenes, configuracion general"
-                       class="ajax"
                        ng-href="#/config">
                         <i class="material-icons">settings</i>
                         <span>Config</span></a>
@@ -264,43 +272,6 @@
 
     <script src="<?= admin_asset_path('js/app/controllers/sidebar.controller.js') ?>"></script>
 
-</div>
-
-<div id="modal-danger" class="modal modal-message modal-danger fade" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <i class="pe-7s-shield"></i>
-            </div>
-            <div class="modal-title">Error</div>
-
-            <div class="modal-body"></div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">OK</button>
-            </div>
-        </div>
-        <!-- / .modal-content -->
-    </div>
-    <!-- / .modal-dialog -->
-</div>
-
-<div id="modal-warning" class="modal modal-message modal-warning fade" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <i class="pe-7s-attention"></i>
-            </div>
-            <div class="modal-title">Error</div>
-
-            <div class="modal-body"></div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" >Cancelar</button>
-                <button type="button" class="btn btn-warning" data-dismiss="modal" data-ok >Eliminar</button>
-            </div>
-        </div>
-        <!-- / .modal-content -->
-    </div>
-    <!-- / .modal-dialog -->
 </div>
 
 </body>

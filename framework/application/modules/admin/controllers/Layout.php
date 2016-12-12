@@ -7,16 +7,16 @@ use App\Content;
 use App\Row;
 use Illuminate\Database\Eloquent\Model;
 
-class Structure extends BaseController implements AdminInterface {
+class Layout extends AdminController implements AdminInterface {
 
     var $theme;
 
-    const URL_CREATE = 'admin/structure/create';
-    const URL_UPDATE = 'admin/structure/update/';
-    const URL_DELETE = 'admin/structure/delete/';
-    const URL_INSERT = 'admin/structure/insert';
-    const URL_REORDER = 'admin/structure/reorder';
-    const URL_EDIT = 'admin/structure/edit/';
+    const URL_CREATE = 'admin/layout/create';
+    const URL_UPDATE = 'admin/layout/update/';
+    const URL_DELETE = 'admin/layout/delete/';
+    const URL_INSERT = 'admin/layout/insert';
+    const URL_REORDER = 'admin/layout/reorder';
+    const URL_EDIT = 'admin/layout/edit/';
 
     function __construct(){
         parent::__construct();
@@ -75,14 +75,6 @@ class Structure extends BaseController implements AdminInterface {
     }
 
     /**
-     * Show the create view
-     */
-    public function create()
-    {
-        $this->_showView($this->insert(), TRUE);
-    }
-
-    /**
      * Show the edit view
      *
      * @param $id
@@ -90,7 +82,35 @@ class Structure extends BaseController implements AdminInterface {
      */
     public function edit($id)
     {
-        $this->_showView(\admin\Category::find($id));
+
+        $response = new \App\Response();
+
+        try {
+
+            $page = \App\Page::find($id);
+            $page->getTranslations();
+
+            $data['page'] = $page;
+            $data['languages'] = Language::all();
+            $data['theme'] = $this->theme;
+
+            $root = Category::allRoot()->first();
+            $root->findChildren(999);
+            $data['pages'] = $root->getChildren();
+
+            $data['roles'] =  \App\Role::all();
+
+            $page_data = json_decode($page->data);
+            $data['rows'] = $page_data ? $page_data->structure : array();
+
+            $response->setData($data);
+
+        } catch (Exception $e) {
+            $response->setError('Hubo un problema para obtener la estructura', $e);
+        }
+
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
+
     }
 
     /**
@@ -100,42 +120,7 @@ class Structure extends BaseController implements AdminInterface {
      */
     public function insert()
     {
-        return \admin\Category::insertTemporary('page');
-    }
-
-    /**
-     * Shows the edit/create view
-     *
-     * @param $model
-     * @param bool $new
-     *
-     * @return mixed
-     */
-    public function _showView(Model $model, $new = FALSE)
-    {
-        $category = $model;
-        $data = $category->toArray();
-        $data['translations'] = $category->getTranslations('page');
-
-        $data['idiomas'] = Language::all();
-        $data['nuevo'] = $new ? 'nuevo' : '';
-        $data['removeUrl'] = $new ? base_url( static::URL_DELETE . $model->id) : '';
-        $data['theme'] = $this->theme;
-
-        $root = Category::allRoot()->first();
-        $root->findChildren(999);
-        $data['pages'] = $root->getChildren();
-
-        $data['roles'] =  \App\Role::all();
-
-        $data['titulo'] = $new ? "Crear Pagina" : "Modificar Pagina";
-        $data['txt_boton'] = $new ? "crear" : "modificar";
-        $data['link'] = base_url(static::URL_UPDATE . $data['id']);
-
-        $page_data = json_decode($data['data']);
-        $data['structure'] = $page_data ? $page_data->structure : array();
-
-        return $this->load->view('page', $data);
+        //
     }
 
     public function update($id)
@@ -145,7 +130,7 @@ class Structure extends BaseController implements AdminInterface {
         $response->error_code = 0;
 
         try{
-            \admin\Category::updatePage($id, $this->input->post());
+            \App\Page::updatePage($id, $this->input->post());
             $response->new_id = $id;
         } catch (Exception $e) {
             $response = $this->error('Ocurri&oacute; un problema al actualizar la p&aacute;gina!', $e);
@@ -155,14 +140,15 @@ class Structure extends BaseController implements AdminInterface {
 
     }
 
-    public function delete($id)
+    public function delete()
     {
 
         $response = new stdClass();
         $response->error_code = 0;
 
         try{
-            Category::remove($id);
+            $ids = $this->input->post('ids');
+            Category::remove($ids);
         } catch (Exception $e) {
             $response = $this->error('Ocurri&oacute; un problema al eliminar la p&aacute;ina!', $e);
         }
