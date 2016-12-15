@@ -50,7 +50,7 @@
 
     <div class="panel-tools" ng-show="deleteSelection.length">
         <md-content>
-            <div class="tools md-padding" layout-align="end center" ng-show="deleteSelection.length">
+            <div class="tools md-padding" layout-align="end center">
                 <md-button class="md-icon-button" ng-click="delete($event)">
                     <md-icon class="md-warn">delete</md-icon>
                     <md-tooltip md-direction="bottom">

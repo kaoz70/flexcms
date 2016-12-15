@@ -52,6 +52,15 @@
             .warnPalette('red')
             .dark();
 
+        console.log($mdThemingProvider);
+
+        $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
+        $mdThemingProvider.theme('dark-green').backgroundPalette('green');
+
+        $mdThemingProvider.theme('docs-dark', 'default')
+            .primaryPalette('yellow')
+            .dark();
+
     });
 
 }());

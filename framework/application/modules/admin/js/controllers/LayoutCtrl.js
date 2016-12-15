@@ -22,6 +22,7 @@ angular.module('app')
         $scope.roles = [];
         $scope.rows = [];
         $scope.selected = [];
+        $scope.device = "large";
 
         WindowFactory.add();
         var panel = Loading.show();
@@ -43,6 +44,10 @@ angular.module('app')
 
         });
 
+        var calculateSpan = function (span) {
+            return (100 * span) / 12;
+        };
+
         $scope.addRow = function (columns) {
 
             var cols = [];
@@ -52,22 +57,22 @@ angular.module('app')
                     span: {
                         large: 12 / columns,
                         medium: 12 / columns,
-                        small: 12 / columns,
+                        small: 12 / columns
                     },
                     offset: {
                         large: 0,
                         medium: 0,
-                        small: 0,
+                        small: 0
                     },
                     push: {
                         large: 0,
                         medium: 0,
-                        small: 0,
+                        small: 0
                     },
                     pull: {
                         large: 0,
                         medium: 0,
-                        small: 0,
+                        small: 0
                     }
                 });
             }
@@ -78,20 +83,7 @@ angular.module('app')
                 expanded: false
             })
         };
-        
-        $scope.calculateSpans = function (column, length) {
 
-            var span;
-
-            if(column.span) {
-                span = column.span.large;
-            } else {
-                span = 100 / length;
-            }
-
-            return span;
-
-        };
 
         $scope.delete = function (ev) {
 
