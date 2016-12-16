@@ -39,6 +39,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $hook['pre_system'] = function() {
 
+    set_error_handler(function ($errno, $errstr) {
+        \App\Error::exception($errstr);
+    }, E_WARNING);
+
     //Check if the server meets the App's requirements
     \App\Requirements::check();
 
