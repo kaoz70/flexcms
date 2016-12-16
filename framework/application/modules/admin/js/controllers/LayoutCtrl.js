@@ -8,7 +8,7 @@
  * @requires $scope
  * */
 angular.module('app')
-    .controller('LayoutCtrl', function($scope, $rootScope, Layout, $routeSegment, WindowFactory, $routeParams, Content, $window, Loading, $mdDialog, $mdColorPalette, $mdColors, $mdTheming, Selection){
+    .controller('LayoutCtrl', function($scope, $rootScope, Layout, $routeSegment, $mdSidenav, WindowFactory, $routeParams, Content, $window, Loading, $mdDialog, $mdColorPalette, $mdColors, $mdTheming, Selection){
 
         //Open the sidebar on this controller
         $rootScope.isSidebarOpen = true;
@@ -21,6 +21,7 @@ angular.module('app')
         $scope.pages = [];
         $scope.roles = [];
         $scope.rows = [];
+        $scope.widgets = [];
         $scope.selected = [];
         $scope.device = "large";
 
@@ -35,6 +36,7 @@ angular.module('app')
             $scope.pages = response.data.data.pages;
             $scope.roles = response.data.data.roles;
             $scope.rows = response.data.data.rows;
+            $scope.widgets = response.data.data.widgets;
 
             Loading.hide(panel);
 
@@ -47,6 +49,14 @@ angular.module('app')
         var calculateSpan = function (span) {
             return (100 * span) / 12;
         };
+
+        $scope.toggleRight = buildToggler('right');
+
+        function buildToggler(componentId) {
+            return function() {
+                $mdSidenav(componentId).toggle();
+            }
+        }
 
         $scope.addRow = function (columns) {
 

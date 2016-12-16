@@ -1,7 +1,13 @@
 {
   "name": "Content",
+  "icon": "description",
+  "category": "Content",
   "groups": [
     "general",
     "main"
-  ]
+  ],
+  "description": {
+    "es": "Muestra el contenido de la pagina al que se le va a asignar",
+    "en": "Show the current page's content"
+  }
 }

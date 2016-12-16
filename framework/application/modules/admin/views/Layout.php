@@ -39,6 +39,9 @@
         <div class="md-toolbar-tools">
             <h2>{{page.translation.name}}</h2>
             <span flex></span>
+            <md-button ng-click="toggleRight()" class="md-icon-button" aria-label="Settings">
+                <md-icon>view_module</md-icon>
+            </md-button>
             <panel-dispose></panel-dispose>
         </div>
     </md-toolbar>
@@ -130,16 +133,30 @@
                             <span class="md-headline">Estructura</span>
                         </md-card-title-text>
                     </md-card-title>
-                    <md-card-content>
+                    <md-card-content layout-margin>
 
-                        <md-radio-group ng-model="device" layout="row" layout-margin layout-align="center center">
+                        <div layout="row" layout-padding layout-align="center center">
 
-                            <md-radio-button value="none" class="md-primary">No previsualizar</md-radio-button>
-                            <md-radio-button value="large">Desktop</md-radio-button>
-                            <md-radio-button value="medium">Tablet</md-radio-button>
-                            <md-radio-button value="small">Phone</md-radio-button>
+                            <md-button class="md-icon-button" ng-click="device = 'none'">
+                                <md-tooltip md-direction="bottom">No preview</md-tooltip>
+                                <md-icon ng-class="device == 'none' ? 'md-accent' : ''">phonelink_off</md-icon>
+                            </md-button>
 
-                        </md-radio-group>
+                            <md-button class="md-icon-button" ng-click="device = 'large'">
+                                <md-tooltip md-direction="bottom">Desktop</md-tooltip>
+                                <md-icon ng-class="device == 'large' ? 'md-accent' : ''">desktop_windows</md-icon>
+                            </md-button>
+
+                            <md-button class="md-icon-button" ng-click="device = 'medium'">
+                                <md-tooltip md-direction="bottom">Tablet</md-tooltip>
+                                <md-icon ng-class="device == 'medium' ? 'md-accent' : ''">tablet</md-icon>
+                            </md-button>
+                            <md-button class="md-icon-button" ng-click="device = 'small'">
+                                <md-tooltip md-direction="bottom">Phone</md-tooltip>
+                                <md-icon ng-class="device == 'small' ? 'md-accent' : ''">phone</md-icon>
+                            </md-button>
+
+                        </div>
 
                         <div dnd-list="rows" dnd-allowed-types="['row']">
 
@@ -485,6 +502,47 @@
         </div>
 
     </md-content>
+
+    <md-sidenav class="md-sidenav-right"
+                md-component-id="right"
+                md-disable-backdrop md-whiteframe="4">
+
+        <md-toolbar class="md-theme-indigo">
+            <div class="md-toolbar-tools">
+                <md-button ng-click="toggleRight()" class="md-icon-button" aria-label="Settings">
+                    <md-icon>close</md-icon>
+                </md-button>
+                <h1 class="md-toolbar-tools"> Widgets</h1>
+            </div>
+        </md-toolbar>
+
+        <md-content layout-margin>
+
+            <md-input-container class="md-block md-hue-1">
+                <md-icon>search</md-icon>
+                <input ng-model="query" type="text" placeholder="Buscar..." >
+            </md-input-container>
+
+            <md-card ng-repeat="widget in widgets | filter:query">
+
+                <md-card-header>
+                    <md-card-avatar>
+                        <md-icon>{{widget.icon}}</md-icon>
+                    </md-card-avatar>
+                    <md-card-header-text>
+                        <span class="md-title">{{widget.name}}</span>
+                        <span class="md-subhead">{{widget.category}}</span>
+                    </md-card-header-text>
+                </md-card-header>
+
+                <md-card-content>
+                    <p>{{widget.description[languages[0].slug]}}</p>
+                </md-card-content>
+            </md-card>
+
+        </md-content>
+
+    </md-sidenav>
 
     <div class="panel-footer panel-controls">
         <md-toolbar class="md-secondary">

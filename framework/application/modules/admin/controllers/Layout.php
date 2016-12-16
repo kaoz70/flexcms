@@ -92,6 +92,7 @@ class Layout extends AdminController implements AdminInterface {
 
             $data['page'] = $page;
             $data['languages'] = Language::all();
+            $data['widgets'] = \App\Widget::getInstalled();
             $data['theme'] = $this->theme;
 
             $root = Category::allRoot()->first();
