@@ -128,11 +128,13 @@
             <div flex="70">
 
                 <md-card>
+
                     <md-card-title>
                         <md-card-title-text>
                             <span class="md-headline">Estructura</span>
                         </md-card-title-text>
                     </md-card-title>
+
                     <md-card-content layout-margin>
 
                         <div layout="row" layout-padding layout-align="center center">
@@ -156,14 +158,21 @@
                                 <md-icon ng-class="device == 'small' ? 'md-accent' : ''">phone</md-icon>
                             </md-button>
 
+                            <div flex></div>
+
+                            <md-button ng-repeat="item in [1,2,3,4]" class="md-icon-button" ng-click="addRow(item)">
+                                <md-tooltip md-direction="bottom">A&ntilde;adir {{item}} columna{{item > 1 ? 's' : ''}}</md-tooltip>
+                                <md-icon>filter_{{item}}</md-icon>
+                            </md-button>
+
                         </div>
 
-                        <div dnd-list="rows" dnd-allowed-types="['row']">
+                        <div dnd-list="rows" dnd-allowed-types="['row-type']">
 
                             <md-card ng-repeat="row in rows"
                                      md-theme="dark-blue"
                                      dnd-draggable="row"
-                                     dnd-type="'row'"
+                                     dnd-type="'row-type'"
                                      dnd-effect-allowed="move"
                                      ng-init="hideRowConfig = true"
                                      dnd-moved="rows.splice($index, 1)"
@@ -196,17 +205,20 @@
                                     </md-card-content>
                                 </div>
 
-
-                                <md-card-content>
+                                <md-card-content dnd-list="row.columns"
+                                                 layout="row"
+                                                 dnd-allowed-types="['col-type']"
+                                                 dnd-horizontal-list="true">
 
                                     <div class="col-{{column.span[device]}} offset-{{column.offset[device]}} push-{{column.push[device]}} pull-{{column.pull[device]}}"
                                          ng-repeat="column in row.columns"
-                                         dnd-allowed-types="['column']"
                                          dnd-effect-allowed="move"
-                                         dnd-type="'column'"
+                                         dnd-type="'col-type'"
+                                         dnd-draggable="column"
+                                         dnd-moved="row.columns.splice($index, 1)"
                                          md-theme="dark-green"
                                          ng-init="hideColConfig = true"
-                                         dnd-list="row.columns">
+                                         >
 
                                         <md-card layout-fill>
 
@@ -439,8 +451,6 @@
                                                 </div>
                                             </md-card-content>
 
-
-
                                         </md-card>
 
                                     </div>
@@ -453,8 +463,6 @@
 
                     </md-card-content>
                 </md-card>
-
-
 
 
                 <div view-source="nested"></div>
@@ -471,10 +479,6 @@
                         >
                             <button type="button" class="btn btn-default btn-lg" disabled="disabled">{{item.type}}</button>
                         </li>
-                        <li ng-click="addRow(1)">add 1 column</li>
-                        <li ng-click="addRow(2)">add 2 column</li>
-                        <li ng-click="addRow(3)">add 3 column</li>
-                        <li ng-click="addRow(4)">add 4 column</li>
                     </ul>
                 </div>
 
@@ -494,9 +498,6 @@
 
                 <h2>Generated Model</h2>
                 <pre>{{modelAsJson}}</pre>
-
-
-
 
             </div>
         </div>
