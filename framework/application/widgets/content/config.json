@@ -1,7 +1,6 @@
 {
   "name": "Content",
   "icon": "description",
-  "category": "Content",
   "groups": [
     "general",
     "main"

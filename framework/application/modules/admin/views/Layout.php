@@ -1,35 +1,20 @@
-<!-- Markup for lists inside the dropzone. It's inside a seperate template
-     because it will be used recursively. The dnd-list directive enables
-     to drop elements into the referenced array. The dnd-draggable directive
-     makes an element draggable and will transfer the object that was
-     assigned to it. If an element was dragged away, you have to remove
-     it from the original list yourself using the dnd-moved attribute -->
-<script type="text/ng-template" id="list.html">
-    <ul dnd-list="row">
-        <li ng-repeat="column in columns"
-            dnd-draggable="item"
-            dnd-effect-allowed="move"
-            dnd-moved="list.splice($index, 1)"
-            dnd-selected="models.selected = item"
-            ng-class="{selected: models.selected === column}"
-            ng-include="column.type + '.html'">
-        </li>
-    </ul>
-</script>
 
-<!-- This template is responsible for rendering a container element. It uses
-     the above list template to render each container column -->
-<script type="text/ng-template" id="container.html">
-    <div class="container-element box box-blue">
-        <h3>Container {{item.id}}</h3>
-        <div class="column" ng-repeat="list in item.columns" ng-include="'list.html'"></div>
-        <div class="clearfix"></div>
-    </div>
-</script>
 
-<!-- Template for a normal list item -->
-<script type="text/ng-template" id="item.html">
-    <div class="item">Item {{item.id}}</div>
+<!-- Template for a widget list item -->
+<script type="text/ng-template" id="widget.html">
+    <md-card-header>
+        <md-card-avatar>
+            <md-icon>{{widget.icon}}</md-icon>
+        </md-card-avatar>
+        <md-card-header-text>
+            <span class="md-title">{{widget.name}}</span>
+            <span class="md-subhead">{{widget.groups.join(", ")}}</span>
+        </md-card-header-text>
+    </md-card-header>
+
+    <md-card-content>
+        <p>{{widget.description[languages[0].slug]}}</p>
+    </md-card-content>
 </script>
 
 
@@ -206,6 +191,7 @@
                                 </div>
 
                                 <md-card-content dnd-list="row.columns"
+                                                 class="columns"
                                                  layout="row"
                                                  dnd-allowed-types="['col-type']"
                                                  dnd-horizontal-list="true">
@@ -524,22 +510,7 @@
                 <input ng-model="query" type="text" placeholder="Buscar..." >
             </md-input-container>
 
-            <md-card ng-repeat="widget in widgets | filter:query">
-
-                <md-card-header>
-                    <md-card-avatar>
-                        <md-icon>{{widget.icon}}</md-icon>
-                    </md-card-avatar>
-                    <md-card-header-text>
-                        <span class="md-title">{{widget.name}}</span>
-                        <span class="md-subhead">{{widget.category}}</span>
-                    </md-card-header-text>
-                </md-card-header>
-
-                <md-card-content>
-                    <p>{{widget.description[languages[0].slug]}}</p>
-                </md-card-content>
-            </md-card>
+            <md-card ng-repeat="widget in widgets | filter:query" ng-include="'widget.html'"></md-card>
 
         </md-content>
 

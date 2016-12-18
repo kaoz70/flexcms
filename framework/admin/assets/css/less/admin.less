@@ -8,28 +8,23 @@
   position: relative;
 }
 
-
-/**
- * An element with .dndPlaceholder class will be added as child of the dnd-list
- * while the user is dragging over it.
- */
 .dndPlaceholder {
   background-color: #242424;
   min-height: 100px;
+  min-width: 20px;
   border: 1px dashed #333;
   margin: 0 10px;
   display: block;
   position: relative;
 }
 
-[dnd-list] {
-  [dnd-list] {
-    .dndPlaceholder {
-      //float: left;
-    }
-  }
+.columns {
+  flex-wrap: wrap;
 }
 
+.dndDraggingSource {
+  display: none;
+}
 
 .dndDraggingSource {
   display: none;
@@ -282,7 +277,6 @@ md-dialog-content {
  */
 
 [class*="col-"] {
-  .transition(all 200ms ease);
   position: relative;
   box-sizing: border-box;
   float: left;

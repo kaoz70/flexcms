@@ -46,10 +46,6 @@ angular.module('app')
 
         });
 
-        var calculateSpan = function (span) {
-            return (100 * span) / 12;
-        };
-
         $scope.toggleRight = buildToggler('right');
 
         function buildToggler(componentId) {
