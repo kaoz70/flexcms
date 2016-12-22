@@ -21,6 +21,20 @@ class BaseModel extends Model {
     private $lang;
 
     /**
+     * Translation data for one language
+     *
+     * @var
+     */
+    public $translation;
+
+    /**
+     * Holds all the item's translations
+     *
+     * @var
+     */
+    public $translations;
+
+    /**
      * @param mixed $lang
      */
     public function setLang($lang)
@@ -84,19 +98,13 @@ class BaseModel extends Model {
     public function getTranslations()
     {
 
-        $languages = Language::orderBy('position', 'asc')->get();
         $arr = [];
 
-        foreach($languages as $lang) {
-            try {
-                $arr[$lang->id] = $this->getTranslation($lang->id);
-            } catch (\TranslationException $e) {
-                //No translation available
-                $arr[$lang->id] = '';
-            } catch (RuntimeException $e) {
-                throw new RuntimeException($e->getMessage());
-            }
+        foreach(Language::orderBy('position', 'asc')->get() as $lang) {
+            $arr[] = $this->getTranslation($lang->id);
         }
+
+        $this->translations = $arr;
 
         return $arr;
 

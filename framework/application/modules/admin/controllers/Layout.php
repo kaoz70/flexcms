@@ -87,11 +87,9 @@ class Layout extends AdminController implements AdminInterface {
 
         try {
 
-            $page = \App\Page::find($id);
-            $page->getTranslations();
+            $page = \App\Page::getForEdit($id);
 
             $data['page'] = $page;
-            $data['languages'] = Language::all();
             $data['widgets'] = \App\Widget::getInstalled();
             $data['theme'] = $this->theme;
 
@@ -101,7 +99,7 @@ class Layout extends AdminController implements AdminInterface {
 
             $data['roles'] =  \App\Role::all();
 
-            $page_data = json_decode($page->data);
+            $page_data = json_decode($page['content']->data);
             $data['rows'] = $page_data ? $page_data->structure : array();
 
             $response->setData($data);
