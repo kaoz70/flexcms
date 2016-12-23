@@ -45,6 +45,10 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         array (
             'Psr\\Log\\' => 8,
         ),
+        'M' => 
+        array (
+            'M1\\Env\\' => 7,
+        ),
         'L' => 
         array (
             'League\\OAuth2\\Client\\' => 21,
@@ -168,6 +172,10 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
+        'M1\\Env\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/m1/env/src',
+        ),
         'League\\OAuth2\\Client\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/oauth2-client/src',
@@ -279,6 +287,14 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
     );
 
     public static $prefixesPsr0 = array (
+        'j' => 
+        array (
+            'josegonzalez\\Dotenv' => 
+            array (
+                0 => __DIR__ . '/..' . '/josegonzalez/dotenv/src',
+                1 => __DIR__ . '/..' . '/josegonzalez/dotenv/tests',
+            ),
+        ),
         'T' => 
         array (
             'Twig_' => 
@@ -372,7 +388,7 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'App\\Config' => __DIR__ . '/../../..' . '/framework/application/models/Config.php',
         'App\\Content' => __DIR__ . '/../../..' . '/framework/application/modules/content/models/Content.php',
         'App\\EditTranslations' => __DIR__ . '/../../..' . '/framework/application/models/EditTranslations.php',
-        'App\\Email' => __DIR__ . '/../../..' . '/framework/application/libraries/App/Email.php',
+        'App\\Error' => __DIR__ . '/../../..' . '/framework/application/libraries/App/Error.php',
         'App\\Field' => __DIR__ . '/../../..' . '/framework/application/models/Field.php',
         'App\\FieldData' => __DIR__ . '/../../..' . '/framework/application/models/FieldData.php',
         'App\\Image' => __DIR__ . '/../../..' . '/framework/application/models/Image.php',
@@ -459,6 +475,7 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'JSTokenizer' => __DIR__ . '/..' . '/mrclay/minify/min/lib/JSMinPlus.php',
         'LangWorker' => __DIR__ . '/../../..' . '/framework/application/workers/LangWorker.php',
         'Language' => __DIR__ . '/../../..' . '/framework/application/modules/admin/controllers/Language.php',
+        'Layout' => __DIR__ . '/../../..' . '/framework/application/modules/admin/controllers/Layout.php',
         'Link' => __DIR__ . '/../../..' . '/framework/application/modules/link/controllers/Link.php',
         'Logo' => __DIR__ . '/../../..' . '/framework/application/modules/theme/controllers/Logo.php',
         'Map' => __DIR__ . '/../../..' . '/framework/application/modules/map/controllers/Map.php',
@@ -589,7 +606,6 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'Slider' => __DIR__ . '/../../..' . '/framework/application/modules/slider/controllers/Slider.php',
         'Slider\\Models\\Field' => __DIR__ . '/../../..' . '/framework/application/modules/slider/models/Field.php',
         'Stats' => __DIR__ . '/../../..' . '/framework/application/modules/admin/controllers/Stats.php',
-        'Structure' => __DIR__ . '/../../..' . '/framework/application/modules/admin/controllers/Structure.php',
         'Submit' => __DIR__ . '/../../..' . '/framework/application/controllers/Submit.php',
         'Theme' => __DIR__ . '/../../..' . '/framework/application/modules/theme/controllers/Theme.php',
         'TranslationException' => __DIR__ . '/../../..' . '/framework/application/models/TranslationException.php',
@@ -597,7 +613,6 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'View' => __DIR__ . '/../../..' . '/framework/application/modules/admin/controllers/View.php',
         'Widget' => __DIR__ . '/../../..' . '/framework/application/modules/admin/controllers/Widget.php',
         'WidgetInterface' => __DIR__ . '/../../..' . '/framework/application/interfaces/WidgetInterface.php',
-        'admin\\Category' => __DIR__ . '/../../..' . '/framework/application/modules/admin/models/Category.php',
         'admin\\auth\\Main' => __DIR__ . '/../../..' . '/framework/application/modules/auth/controllers/Main.php',
         'auth\\Field' => __DIR__ . '/../../..' . '/framework/application/modules/auth/controllers/Field.php',
         'auth\\Roles' => __DIR__ . '/../../..' . '/framework/application/modules/auth/controllers/Roles.php',

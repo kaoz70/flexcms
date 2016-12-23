@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname(dirname($vendorDir));
 
 return array(
+    'josegonzalez\\Dotenv' => array($vendorDir . '/josegonzalez/dotenv/src', $vendorDir . '/josegonzalez/dotenv/tests'),
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
     'Michelf' => array($vendorDir . '/michelf/php-markdown'),
     'JasonLewis\\ResourceWatcher' => array($vendorDir . '/cartalyst/resource-watcher/src'),

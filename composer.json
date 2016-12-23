@@ -22,7 +22,8 @@
     "cartalyst/assetic-filters": "^1.2",
     "twig/twig": "^1.27",
     "illuminate/pagination": "^5.3",
-    "phpmailer/phpmailer": "^5.2"
+    "phpmailer/phpmailer": "^5.2",
+    "josegonzalez/dotenv": "^2.0"
   },
   "require-dev": {
     "codeclimate/php-test-reporter": "dev-master"

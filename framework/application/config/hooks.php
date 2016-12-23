@@ -39,6 +39,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $hook['pre_system'] = function() {
 
+    // If there's a .env present its probably a DEV environment,
+    // so we load the .env file data into the $_ENV var
+    if(file_exists(FCPATH . '.env')) {
+        $overwrite = true;
+        $loader = new josegonzalez\Dotenv\Loader(FCPATH . '.env');
+        $loader->parse();
+        $loader->toEnv($overwrite);
+    }
+
     set_error_handler(function ($errno, $errstr) {
         \App\Error::exception($errstr);
     }, E_WARNING);

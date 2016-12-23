@@ -23,10 +23,13 @@ class Error
 
         log_message('Error', $message);
 
-        if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
-            echo View::blade(APPPATH . 'views/errors/html/general.blade.php', $data)->render();
+        $isAngular = isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest');
+        $acceptsJsonResponse = (strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false);
+
+        if ($isAngular || $acceptsJsonResponse) {
+            echo View::blade(APPPATH . 'views/errors/json/general.blade.php', $data)->render();
         } else {
-            echo View::blade(APPPATH . 'views/errors/json/error_general.php', $data)->render();
+            echo View::blade(APPPATH . 'views/errors/html/error_general.php', $data)->render();
         }
 
         exit;
