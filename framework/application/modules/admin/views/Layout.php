@@ -35,7 +35,7 @@
 
         <div layout="row">
 
-            <div flex="30">
+            <div flex="25">
 
                 <md-card>
                     <md-card-title>
@@ -110,7 +110,7 @@
 
             </div>
 
-            <div flex="70">
+            <div flex="75">
 
                 <md-card>
 
@@ -171,7 +171,16 @@
                                         </h2>
                                         <span flex></span>
                                         <md-button ng-click="hideRowConfig = !hideRowConfig" class="md-icon-button" aria-label="Configuraci&oacute;n">
+                                            <md-tooltip md-direction="bottom">Configuraci&oacute;n</md-tooltip>
                                             <md-icon>settings</md-icon>
+                                        </md-button>
+                                        <md-button ng-click="addColumn($event, row)" class="md-icon-button" aria-label="A&ntilde;adir columna">
+                                            <md-tooltip md-direction="bottom">A&ntilde;adir columna</md-tooltip>
+                                            <md-icon>add</md-icon>
+                                        </md-button>
+                                        <md-button ng-click="deleteRow($event, $index)" class="md-icon-button" aria-label="Eliminar fila">
+                                            <md-tooltip md-direction="bottom">Eliminar fila</md-tooltip>
+                                            <md-icon>delete</md-icon>
                                         </md-button>
                                     </div>
                                 </md-toolbar>
@@ -216,7 +225,12 @@
                                                     </h2>
                                                     <span flex></span>
                                                     <md-button ng-click="hideColConfig = !hideColConfig" class="md-icon-button" aria-label="Configuraci&oacute;n">
+                                                        <md-tooltip md-direction="bottom">Configuraci&oacute;n</md-tooltip>
                                                         <md-icon>settings</md-icon>
+                                                    </md-button>
+                                                    <md-button ng-click="deleteColumn($event, $index, row.columns)" class="md-icon-button" aria-label="Eliminar columna">
+                                                        <md-tooltip md-direction="bottom">Eliminar columna</md-tooltip>
+                                                        <md-icon>delete</md-icon>
                                                     </md-button>
                                                 </div>
                                             </md-toolbar>
@@ -465,20 +479,6 @@
                         >
                             <button type="button" class="btn btn-default btn-lg" disabled="disabled">{{item.type}}</button>
                         </li>
-                    </ul>
-                </div>
-
-                <div ng-if="selected" class="box box-grey box-padding">
-                    <h3>Selected</h3>
-                    <strong>Type: </strong> {{selected.type}}<br>
-                    <input type="text" ng-model="selected.id" class="form-control" style="margin-top: 5px" />
-                </div>
-
-                <div class="trashcan box box-grey box-padding">
-                    <!-- If you use [] as referenced list, the dropped elements will be lost -->
-                    <h3>Trashcan</h3>
-                    <ul dnd-list="[]">
-                        <li><md-icon>delete</md-icon></li>
                     </ul>
                 </div>
 

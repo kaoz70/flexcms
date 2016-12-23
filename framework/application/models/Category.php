@@ -25,20 +25,6 @@ class Category extends BaseModel implements NodeInterface {
         'tree'  => 'tree',
     );
 
-    /**
-     * Translation data for one language
-     *
-     * @var
-     */
-    public $translation;
-
-    /**
-     * Holds all the item's translations
-     *
-     * @var
-     */
-    public $translations;
-
     protected $appends = ['translation', 'translations'];
 
     /**
