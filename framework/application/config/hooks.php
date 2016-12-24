@@ -48,22 +48,8 @@ $hook['pre_system'] = function() {
         $loader->toEnv($overwrite);
     }
 
-    /*set_error_handler(function ($errno, $errstr) {
-        \App\Error::exception($errstr);
-    }, E_WARNING);*/
-
-    // Set some nice error handlers
-    /*$isAngular = isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest');
-    $acceptsJsonResponse = (strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false);
-    $whoops = new \Whoops\Run;
-
-    if ($isAngular || $acceptsJsonResponse) {
-        $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler);
-    } else {
-        $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-    }
-
-    $whoops->register();*/
+    //Initialize error handlers
+    \App\Error::initHandlers();
 
     //Check if the server meets the App's requirements
     \App\Requirements::check();

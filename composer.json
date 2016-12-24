@@ -23,7 +23,8 @@
     "twig/twig": "^1.27",
     "illuminate/pagination": "^5.3",
     "phpmailer/phpmailer": "^5.2",
-    "josegonzalez/dotenv": "^2.0"
+    "josegonzalez/dotenv": "^2.0",
+    "filp/whoops": "^2.1"
   },
   "require-dev": {
     "codeclimate/php-test-reporter": "dev-master"

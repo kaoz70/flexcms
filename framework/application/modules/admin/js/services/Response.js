@@ -7,7 +7,7 @@
  *
  * */
 angular.module('app')
-    .service('Response', function($mdDialog, Notification, $http, $httpParamSerializer, BASE_PATH){
+    .service('Response', function($mdDialog, Notification, $http, $httpParamSerializer, BASE_PATH, $document){
 
         var closeHandler = function () {
             $mdDialog.hide();
@@ -93,10 +93,12 @@ angular.module('app')
 
             $mdDialog.show({
                 templateUrl: BASE_PATH + 'admin/dialogs/ErrorDialog',
-                parent: angular.element(document.body),
+                parent: $document[0].body,
                 controller: function ($scope) {
                     $scope.message = 'Error de servidor<br />[Error: ' + status + ']';
-                    $scope.detail = data.message;
+                    $scope.detail = data.error.message;
+                    $scope.file = data.error.file;
+                    $scope.line = data.error.line;
                     $scope.close = closeHandler;
                     $scope.showNotificationButton = true;
                     $scope.notify = function () {

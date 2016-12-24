@@ -16,6 +16,8 @@
                 </div>
                 <h2 ng-bind-html="message"></h2>
                 <p>Detalle: <span ng-bind-html="detail"></span></p>
+                <p ng-show="file">Archivo: <span ng-bind-html="file"></span></p>
+                <p ng-show="line">Linea: <span ng-bind-html="line"></span></p>
             </div>
         </md-dialog-content>
 

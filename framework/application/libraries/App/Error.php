@@ -12,8 +12,35 @@ namespace App;
 class Error
 {
 
+    public static function initHandlers()
+    {
+
+        if(ENVIRONMENT === 'development') {
+
+            // Set some nice error handlers
+            $whoops = new \Whoops\Run;
+
+            if (self::isAjaxRequest()) {
+                $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler);
+            } else {
+                $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+            }
+
+            $whoops->register();
+
+        } else {
+
+            set_error_handler(function ($errno, $errstr) {
+                self::exception($errstr);
+            }, E_WARNING);
+
+        }
+
+    }
+
     public static function exception($message)
     {
+
         $data = [
             "heading" => "Error",
             "message" => $message,
@@ -23,16 +50,29 @@ class Error
 
         log_message('Error', $message);
 
-        $isAngular = isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest');
-        $acceptsJsonResponse = (strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false);
-
-        if ($isAngular || $acceptsJsonResponse) {
+        if (self::isAjaxRequest()) {
             echo View::blade(APPPATH . 'views/errors/json/general.blade.php', $data)->render();
         } else {
             echo View::blade(APPPATH . 'views/errors/html/error_general.php', $data)->render();
         }
 
         exit;
+
+    }
+
+    /**
+     * Checks if the request is an ajax request
+     *
+     * @return bool
+     */
+    private static function isAjaxRequest()
+    {
+
+        $isAngular = isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest');
+        $acceptsJsonResponse = (strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false);
+
+        return $isAngular || $acceptsJsonResponse;
+
     }
 
 }

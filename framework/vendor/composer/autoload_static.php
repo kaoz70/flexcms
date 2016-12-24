@@ -16,11 +16,15 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'edc6464955a37aa4d5fbf39d40fb6ee7' => __DIR__ . '/..' . '/symfony/polyfill-php55/bootstrap.php',
         'd9d39f82a605ebe5918f683dd402334c' => __DIR__ . '/..' . '/padraic/humbug_get_contents/src/function.php',
         '742b7e606e92b28dd726e835467f413a' => __DIR__ . '/..' . '/herrera-io/json/src/lib/json_version.php',
-        '6bc45d0537e6858fd179bdbc31d62c79' => __DIR__ . '/..' . '/raveren/kint/Kint.class.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
+        '6bc45d0537e6858fd179bdbc31d62c79' => __DIR__ . '/..' . '/raveren/kint/Kint.class.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        'W' => 
+        array (
+            'Whoops\\' => 7,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Php55\\' => 23,
@@ -100,6 +104,10 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
     );
 
     public static $prefixDirsPsr4 = array (
+        'Whoops\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/filp/whoops/src/Whoops',
+        ),
         'Symfony\\Polyfill\\Php55\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php55',
@@ -422,11 +430,8 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'CMS_Catalog' => __DIR__ . '/../../..' . '/framework/application/modules/catalog/controllers/_CMS_Catalog.php',
         'CMS_Faq' => __DIR__ . '/../../..' . '/framework/application/modules/faq/controllers/CMS_Faq.php',
         'CMS_Gallery' => __DIR__ . '/../../..' . '/framework/application/modules/file/controllers/CMS_Gallery.php',
-        'CMS_General' => __DIR__ . '/../../..' . '/framework/application/libraries/CMS_General.php',
-        'CMS_Links' => __DIR__ . '/../../..' . '/framework/application/modules/link/controllers/CMS_Links.php',
         'CMS_Modules' => __DIR__ . '/../../..' . '/framework/application/libraries/CMS_Modules.php',
         'CMS_Publications' => __DIR__ . '/../../..' . '/framework/application/modules/content/controllers/_CMS_Publications.php',
-        'CMS_Redirect' => __DIR__ . '/../../..' . '/framework/application/libraries/CMS_Redirect.php',
         'CMS_Services' => __DIR__ . '/../../..' . '/framework/application/modules/content/controllers/_CMS_Services.php',
         'CSSmin' => __DIR__ . '/..' . '/mrclay/minify/min/lib/CSSmin.php',
         'Calendar_model' => __DIR__ . '/../../..' . '/framework/application/modules/calendar/models/Calendar_model.php',
@@ -450,9 +455,7 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'Descargas_model' => __DIR__ . '/../../..' . '/framework/application/modules/file/models/Descargas_model.php',
         'DooDigestAuth' => __DIR__ . '/..' . '/mrclay/minify/min/lib/DooDigestAuth.php',
         'EasyPeasyICS' => __DIR__ . '/..' . '/phpmailer/phpmailer/extras/EasyPeasyICS.php',
-        'Enlaces_model' => __DIR__ . '/../../..' . '/framework/application/modules/link/models/Enlaces_model.php',
         'Errors' => __DIR__ . '/../../..' . '/framework/application/controllers/Errors.php',
-        'Facebook' => __DIR__ . '/../../..' . '/framework/application/libraries/Facebook.php',
         'Faq' => __DIR__ . '/../../..' . '/framework/application/modules/faq/controllers/Faq.php',
         'Faq_model' => __DIR__ . '/../../..' . '/framework/application/modules/faq/models/Faq_model.php',
         'Field' => __DIR__ . '/../../..' . '/framework/application/controllers/Field.php',
@@ -461,7 +464,6 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'HTTP_ConditionalGet' => __DIR__ . '/..' . '/mrclay/minify/min/lib/HTTP/ConditionalGet.php',
         'HTTP_Encoder' => __DIR__ . '/..' . '/mrclay/minify/min/lib/HTTP/Encoder.php',
         'Html' => __DIR__ . '/../../..' . '/framework/application/controllers/Html.php',
-        'Image_moo' => __DIR__ . '/../../..' . '/framework/application/libraries/Image_moo.php',
         'Imagen' => __DIR__ . '/../../..' . '/framework/application/modules/admin/controllers/Imagen.php',
         'JSCompilerContext' => __DIR__ . '/..' . '/mrclay/minify/min/lib/JSMinPlus.php',
         'JSMin' => __DIR__ . '/..' . '/mrclay/minify/min/lib/JSMin.php',
@@ -476,7 +478,6 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'LangWorker' => __DIR__ . '/../../..' . '/framework/application/workers/LangWorker.php',
         'Language' => __DIR__ . '/../../..' . '/framework/application/modules/admin/controllers/Language.php',
         'Layout' => __DIR__ . '/../../..' . '/framework/application/modules/admin/controllers/Layout.php',
-        'Link' => __DIR__ . '/../../..' . '/framework/application/modules/link/controllers/Link.php',
         'Logo' => __DIR__ . '/../../..' . '/framework/application/modules/theme/controllers/Logo.php',
         'Map' => __DIR__ . '/../../..' . '/framework/application/modules/map/controllers/Map.php',
         'Mapas_model' => __DIR__ . '/../../..' . '/framework/application/modules/map/models/Mapas_model.php',
