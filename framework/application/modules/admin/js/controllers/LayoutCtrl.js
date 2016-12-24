@@ -8,7 +8,7 @@
  * @requires $scope
  * */
 angular.module('app')
-    .controller('LayoutCtrl', function($scope, $rootScope, Layout, $routeSegment, $mdSidenav, WindowFactory, $routeParams, Content, $window, Loading, $mdDialog, $mdColorPalette, $mdColors, $mdTheming, Selection){
+    .controller('LayoutCtrl', function($scope, $rootScope, Layout, $routeSegment, $mdSidenav, WindowFactory, $routeParams, Content, $window, Loading, $mdDialog){
 
         //Open the sidebar on this controller
         $rootScope.isSidebarOpen = true;
@@ -27,6 +27,32 @@ angular.module('app')
 
         WindowFactory.add();
         var panel = Loading.show();
+
+        var addColumn = function (columns) {
+            return {
+                class: '',
+                span: {
+                    large: 12 / columns,
+                    medium: 12 / columns,
+                    small: 12 / columns
+                },
+                offset: {
+                    large: 0,
+                    medium: 0,
+                    small: 0
+                },
+                push: {
+                    large: 0,
+                    medium: 0,
+                    small: 0
+                },
+                pull: {
+                    large: 0,
+                    medium: 0,
+                    small: 0
+                }
+            }
+        };
 
         //Load the content
         Layout.get($routeParams.page_id, $scope).then(function (response) {
@@ -68,32 +94,6 @@ angular.module('app')
             })
         };
 
-        var addColumn = function (columns) {
-            return {
-                class: '',
-                span: {
-                    large: 12 / columns,
-                    medium: 12 / columns,
-                    small: 12 / columns
-                },
-                offset: {
-                    large: 0,
-                    medium: 0,
-                    small: 0
-                },
-                push: {
-                    large: 0,
-                    medium: 0,
-                    small: 0
-                },
-                pull: {
-                    large: 0,
-                    medium: 0,
-                    small: 0
-                }
-            }
-        };
-
         $scope.deleteRow = function (ev, index) {
 
             var confirm = $mdDialog.confirm()
@@ -108,7 +108,7 @@ angular.module('app')
                 $scope.rows.splice(index, 1)
             });
 
-        }
+        };
 
         $scope.deleteColumn = function (ev, index, columns) {
 
@@ -124,7 +124,7 @@ angular.module('app')
                 columns.splice(index, 1)
             });
 
-        }
+        };
 
         $scope.addColumn = function (ev, row) {
 

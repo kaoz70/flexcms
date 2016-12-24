@@ -18,15 +18,6 @@ class MY_Loader extends MX_Loader {
             APPPATH . 'views/' => TRUE
         );
 
-        // Modules
-        $module_view_paths = glob(APPPATH . 'modules/*/views/', GLOB_ONLYDIR);
-
-        foreach ($module_view_paths as $module_view_path) {
-            $this->_ci_view_paths = array(
-                $module_view_path => TRUE,
-            );
-        }
-
         $this->_ci_library_paths = array(APPPATH, BASEPATH);
 
         $this->_ci_model_paths = array(APPPATH);
@@ -35,6 +26,30 @@ class MY_Loader extends MX_Loader {
 
         log_message('debug', "Loader Class Initialized");
 
+    }
+
+    /**
+     * Added the widgets view paths
+     *
+     * @param string $view
+     * @param array $vars
+     * @param bool $return
+     * @return object|string
+     */
+    public function view($view, $vars = array(), $return = FALSE)
+    {
+        list($path, $_view) = Modules::find($view, $this->_module, 'views/');
+
+        if ($path != FALSE)
+        {
+            $this->_ci_view_paths = array($path => TRUE) + $this->_ci_view_paths;
+            $view = $_view;
+        }
+
+        // Widgets
+        $this->_ci_view_paths[APPPATH . 'widgets' . DIRECTORY_SEPARATOR] = TRUE;
+
+        return $this->_ci_load(array('_ci_view' => $view, '_ci_vars' => $this->_ci_object_to_array($vars), '_ci_return' => $return));
     }
 
     public function set_theme($theme_name)

@@ -14,7 +14,7 @@ use App\Translation;
 
 class Field extends \App\Field {
 
-    protected $type = 'contact_field';
+    protected static $type = 'contact_field';
 
     public function setTranslations($input)
     {

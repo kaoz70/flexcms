@@ -9,21 +9,45 @@
 namespace App\Widget;
 
 use App\Admin;
+use App\Error;
+use App\Language;
 use App\View;
 use App\Widget;
 use Exception;
 
 class Content implements \WidgetInterface {
 
+    /**
+     * View path to where the admin view is located
+     *
+     * @var string
+     */
+    private static $admin_view = 'content/views/Admin.php';
+
+    /**
+     * @return string
+     */
+    public static function getAdminView()
+    {
+        return self::$admin_view;
+    }
+
+    /**
+     * Admin data
+     *
+     * @param null $id
+     * @return mixed
+     */
     static function admin($id){
 
         try {
-            $widget = Widget::find($id);
-            $widget->types = Admin::getContentModules();
-            $widget->data = json_decode($widget->data);
-            return View::blade(APPPATH . 'widgets/content/views/admin.blade.php', $widget)->render();
+            $widget = Widget::getForEdit($id);
+            $widget['types'] = Admin::getContentModules();
+            $widget['config'] =  json_decode(file_get_contents(APPPATH . 'widgets/content/config.json'));
+            $widget['content']->data = json_decode($widget['content']->data);
+            return $widget;
         } catch (Exception $e) {
-            show_error($e->getMessage());
+            Error::exception($e->getMessage());
         }
 
     }

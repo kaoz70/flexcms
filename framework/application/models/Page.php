@@ -125,7 +125,7 @@ class Page extends Category
 
                 if($input['id'] === $lang->id) {
 
-                    $trans = Translation::firstOrNew(['language_id' => $lang->id, 'parent_id' => $this->id, 'type' => $this->getType()]);
+                    $trans = Translation::firstOrNew(['language_id' => $lang->id, 'parent_id' => $this->id, 'type' => self::getType()]);
                     $trans_data = json_decode($trans->data);
 
                     $trans_data->name = $input['translation']['name'];

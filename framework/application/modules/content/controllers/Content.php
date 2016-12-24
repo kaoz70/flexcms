@@ -169,7 +169,7 @@ class Content extends \AdminController implements \ContentInterface
             \App\Content::destroy($ids);
 
             //Delete the content's translations
-            $translations = Translation::whereIn('parent_id', $ids)->where('type', (new \App\Content())->getType());
+            $translations = Translation::whereIn('parent_id', $ids)->where('type', \App\Content::getType());
             $translations->delete();
 
             $response->setMessage('Contenido eliminado satisfactoriamente');

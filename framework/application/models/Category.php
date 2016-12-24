@@ -103,14 +103,6 @@ class Category extends BaseModel implements NodeInterface {
     }
 
     /**
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
      * Loops through each child nodes to see if the passed name is unique or not
      *
      * @param $children
@@ -130,7 +122,7 @@ class Category extends BaseModel implements NodeInterface {
             if($childNode->id != $this->id) {
                 try {
 
-                    $translation = $childNode->getTranslation($lang, $this->getType());
+                    $translation = $childNode->getTranslation($lang, self::getType());
 
                     if($translation->name === $name) {
                         $unique[] = FALSE;

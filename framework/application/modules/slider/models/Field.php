@@ -13,7 +13,7 @@ use App\Translation;
 
 class Field extends \App\Field {
 
-    protected $type = 'slider_field';
+    protected static $type = 'slider_field';
 
     public function setTranslations($input)
     {

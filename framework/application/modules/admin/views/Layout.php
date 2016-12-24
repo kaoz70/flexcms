@@ -438,15 +438,14 @@
 
                                             <md-card-content>
                                                 <div dnd-list="column" dnd-allowed-types="['widget']">
-                                                    <div ng-repeat="widget in column.widgets"
-                                                         layout="row"
+                                                    <div ng-repeat="id in column.widgets"
                                                          dnd-type="'widget'"
                                                          dnd-draggable="widget"
                                                          dnd-effect-allowed="move"
                                                          dnd-moved="column.splice($index, 1)"
                                                          dnd-selected="selected = item"
                                                          ng-class="{selected: selected === widget}">
-                                                        {{widget}}
+                                                        <widget widget-id="id"></widget>
                                                     </div>
                                                 </div>
                                             </md-card-content>

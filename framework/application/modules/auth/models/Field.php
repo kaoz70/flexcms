@@ -17,7 +17,7 @@ use App\User;
 class Field extends \App\Field {
 
     protected $section = 'user';
-    protected $type = 'user_field';
+    protected static $type = 'user_field';
 
     public function setTranslations($input)
     {

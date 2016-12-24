@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class BaseModel extends Model {
 
+    protected static $type = 'base';
+
     protected $casts = [
         'enabled' => 'boolean',
         'important' => 'boolean',
@@ -33,6 +35,14 @@ class BaseModel extends Model {
      * @var
      */
     public $translations;
+
+    /**
+     * @return string
+     */
+    public static function getType()
+    {
+        return self::$type;
+    }
 
     /**
      * @param mixed $lang
@@ -71,7 +81,7 @@ class BaseModel extends Model {
     public function getTranslation($lang_id)
     {
 
-        if(!$this->type) {
+        if(!$this->getType()) {
             throw new \RuntimeException("Please set the model " . __CLASS__ . "'s protected type variable");
         }
 
@@ -111,7 +121,7 @@ class BaseModel extends Model {
     }
 
     /**
-     * Get one content with all the available translations
+     * Get a model with all the available translations
      *
      * @param $content_id
      * @return mixed

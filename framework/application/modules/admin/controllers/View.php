@@ -8,7 +8,7 @@ class View extends AdminController {
      * @param $module
      * @param $view
      */
-    public function show($module, $view)
+    public function module($module, $view)
     {
 
         //Sending a folder segment also
@@ -18,6 +18,11 @@ class View extends AdminController {
             $this->load->view("$module/$view");
         }
 
+    }
+
+    public function widget($widget, $v, $view)
+    {
+        $this->load->view("$widget/$v/$view");
     }
 
 }

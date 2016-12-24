@@ -1,6 +1,10 @@
 {
   "content": true,
   "menu": {
-    "show": false
+    "show": false,
+    "icon": "insert_drive_file",
+    "name": {
+      "es": "Publicaciones"
+    }
   }
 }

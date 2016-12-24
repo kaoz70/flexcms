@@ -4,7 +4,8 @@
     var app = angular.module('app');
 
     //Base path used to find templates
-    app.constant('BASE_PATH', 'admin/view/show/');
+    app.constant('BASE_PATH', 'admin/view/module/');
+    app.constant('WIDGET_PATH', 'admin/view/widget/');
 
     app.run(function($rootScope, $timeout, $route, $routeSegment) {
 

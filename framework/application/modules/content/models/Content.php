@@ -17,7 +17,7 @@ class Content extends BaseModel {
     protected $table = 'content';
 
     const PAGE_ID = 'category_id';
-    protected $type = 'content';
+    protected static $type = 'content';
 
     /**
      * Format the publications start time
@@ -96,14 +96,6 @@ class Content extends BaseModel {
 
         return $content;
 
-    }
-
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
     }
 
     /**

@@ -1,6 +1,9 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php use App\Response;
+use App\Translation;
 
-class Widget extends CI_Controller {
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class Widget extends AdminController implements AdminInterface {
 
     var $theme = 'default';
 
@@ -25,52 +28,78 @@ class Widget extends CI_Controller {
         $this->load->view('admin/widgets_list', $data);
     }
 
-    public function sort($page_id)
+    /**
+     * Edit form interface
+     *
+     * @param $id
+     *
+     * @return mixed
+     */
+    public function edit($id)
     {
-        $orig = json_decode($this->input->post('orig'));
-        $target = json_decode($this->input->post('target'));
 
-        $page = \App\Category::find($page_id);
-        $data = json_decode($page->data);
-        $data->structure[$orig->row_id]->columns[$orig->column_id]->widgets = $orig->ids;
-        $data->structure[$target->row_id]->columns[$target->column_id]->widgets = $target->ids;
+        $response = new Response();
 
-        $page->data = json_encode($data);
-        $page->save();
+        try{
+
+            $widget = \App\Widget::find($id);
+
+            //Get the widgets's class
+            $class = "\\App\\Widget\\{$widget->type}";
+
+            $data = [
+                'widget' => $class::admin($widget->id),
+                'view_url' => $class::getAdminView(),
+                'languages' => \App\Language::all(),
+            ];
+
+            $response->setData($data);
+
+        } catch (Exception $e) {
+            $response->setError('Ocurri&oacute; un problema al eliminar el widget!', $e);
+        }
+
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
+
 
     }
 
     /**
-     * Deletes a widget and resets the positions
+     * Insert the item into database
      *
-     * @param $page_id
-     * @param $row_id
-     * @param $column_id
-     * @param $widget_id
+     * @return mixed
      */
-    public function delete($page_id, $row_id, $column_id, $widget_id)
+    public function insert()
+    {
+        // TODO: Implement insert() method.
+    }
+
+    /**
+     * Deletes a widget
+     */
+    public function delete()
     {
 
-        //Get and save the structure
-        $page = \App\Category::find($page_id);
-        $data = json_decode($page->data);
-        $widgets = $data->structure[$row_id]->columns[$column_id]->widgets;
+        $response = new Response();
 
-        foreach ($widgets as $key => $widget) {
-            if($widget === (int)$widget_id) {
-                unset($widgets[$key]);
-            }
+        try{
+
+            $ids = $this->input->post();
+
+            //Delete the content
+            \App\Widget::destroy($ids);
+
+            //Delete the widget's translations
+            $translations = Translation::whereIn('parent_id', $ids)->where('type', \App\Widget::getType());
+            $translations->delete();
+
+            $response->setMessage('Widget eliminado satisfactoriamente');
+
+        } catch (Exception $e) {
+            $response->setError('Ocurri&oacute; un problema al eliminar el widget!', $e);
         }
 
-        //re index the positions
-        $data->structure[$row_id]->columns[$column_id]->widgets = array_values($widgets);
-
-        $page->data = json_encode($data);
-        $page->save();
-
-        if($widget = \App\Widget::find($widget_id)) {
-            $widget->delete();
-        }
+        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
 
     }
 
@@ -85,6 +114,26 @@ class Widget extends CI_Controller {
         $widget->save();
 
     }
+
+    /**
+     * Inserts or updates the current model with the provided post data
+     *
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @return mixed
+     */
+    public function _store(\Illuminate\Database\Eloquent\Model $model)
+    {
+        // TODO: Implement _store() method.
+    }
+
+
+
+
+
+
+
+
+
 
 
     /**

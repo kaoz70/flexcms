@@ -9,12 +9,12 @@
 namespace App;
 
 
-use Illuminate\Database\Eloquent\Model;
 
-class Widget extends Model implements \WidgetInterface {
+class Widget extends BaseModel implements \WidgetInterface {
 
     protected $CI;
     protected $groups;
+    protected static $type = 'widget';
 
     public function __construct() {
         parent::__construct();

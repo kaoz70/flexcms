@@ -17,7 +17,7 @@ use App\Translation;
 class Product extends BaseModel
 {
 
-    protected $type = 'product';
+    protected static $type = 'product';
 
     static function get($page_id)
     {

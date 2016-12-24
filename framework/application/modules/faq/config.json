@@ -1,6 +1,10 @@
 {
   "content": true,
   "menu": {
-    "show": false
+    "show": false,
+    "icon": "question_answer",
+    "name": {
+      "es": "Preguntas Frecuentes"
+    }
   }
 }

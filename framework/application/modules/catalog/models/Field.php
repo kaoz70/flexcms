@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 class Field extends \App\Field {
 
     protected $section = 'product';
-    protected $type = 'product_field';
+    protected static $type = 'product_field';
 
     public function setTranslations($input)
     {
