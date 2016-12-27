@@ -1462,7 +1462,7 @@ hr {
   margin-left: 0;
 }
 .sidebar.menu.compact {
-  width: 95px;
+  width: 155px;
 }
 .sidebar.menu.compact .sidebar-menu .menu > li {
   position: relative;
@@ -1480,7 +1480,7 @@ hr {
   visibility: visible;
 }
 .sidebar.menu.compact .sidebar-footer {
-  width: 95px;
+  width: 155px;
   overflow: hidden;
 }
 .sidebar.menu.compact .sidebar-footer .footer-user {
@@ -1495,8 +1495,8 @@ hr {
   top: 0;
   display: block;
   margin: 0;
-  width: 47.5px;
-  height: 47.5px;
+  width: 77.5px;
+  height: 77.5px;
   padding: 10px 9px;
 }
 .sidebar.menu.compact .sidebar-footer .footer-links .links-logout span {
@@ -1507,7 +1507,7 @@ hr {
   vertical-align: middle;
 }
 .sidebar.menu.compact ~ .main-content {
-  margin-left: 95px;
+  margin-left: 155px;
 }
 .sidebar.menu.compact .sidebar-header .header-brand .brand-slogan {
   display: none;
@@ -1516,10 +1516,10 @@ hr {
   display: none;
 }
 .sidebar.menu.compact .sidebar-header .header-notification .notification:before {
-  width: 95px;
+  width: 155px;
 }
 .sidebar.menu.compact .sidebar-header .header-notification .notification .more {
-  width: 95px;
+  width: 155px;
   text-align: center;
 }
 .sidebar.menu.compact .sidebar-header .header-notification .notification .more .more-text {
@@ -1533,7 +1533,7 @@ hr {
   background-color: #292929;
   bottom: 50px;
   content: '';
-  left: 95px;
+  left: 155px;
   position: absolute;
   right: 0;
   top: 125px;
@@ -1553,7 +1553,7 @@ hr {
   height: 75px;
   left: 0;
   text-align: center;
-  width: 95px;
+  width: 155px;
 }
 .sidebar.menu .sidebar-header .header-brand .brand-logo img {
   height: 55px;
@@ -1567,7 +1567,7 @@ hr {
   height: 75px;
   padding: 38px 0 0;
   right: 0;
-  width: 255px;
+  width: 195px;
 }
 .sidebar.menu .sidebar-header .header-brand .brand-slogan .slogan-title {
   font-size: 16px;
@@ -1603,7 +1603,7 @@ hr {
   line-height: 50px;
   text-align: center;
   vertical-align: middle;
-  width: 95px;
+  width: 155px;
 }
 .sidebar.menu .sidebar-header .header-notification .notification .text {
   -webkit-transition: all 0.3s ease;
@@ -1701,7 +1701,6 @@ hr {
   width: 100%;
 }
 .sidebar.menu .sidebar-menu .menu > li {
-  height: 75px;
   width: 100%;
 }
 .sidebar.menu .sidebar-menu .menu > li.open > a {
@@ -1713,14 +1712,16 @@ hr {
 .sidebar.menu .sidebar-menu .menu > li.active > a {
   color: #29c7ca;
 }
+.sidebar.menu .sidebar-menu .menu > li.active > a span {
+  color: inherit;
+}
 .sidebar.menu .sidebar-menu .menu > li > a {
   color: #e5e5e5;
   display: block;
   box-sizing: border-box;
-  height: 75px;
-  padding: 13px 10px 7px;
-  text-align: center;
-  width: 95px;
+  padding: 10px 15px;
+  width: 155px;
+  text-decoration: none;
 }
 .sidebar.menu .sidebar-menu .menu > li > a:hover,
 .sidebar.menu .sidebar-menu .menu > li > a:focus {
@@ -1734,22 +1735,24 @@ hr {
   margin-bottom: 2px;
 }
 .sidebar.menu .sidebar-menu .menu > li > a span {
-  font-size: 1.2em;
+  font-size: 1em;
   font-weight: 300;
+  color: #848484;
+  padding-left: 12px;
 }
 .sidebar.menu .sidebar-menu .menu > li > ul {
   background-color: #292929;
   display: block;
   left: 0;
   list-style: none;
-  margin-left: 95px;
+  margin-left: 155px;
   margin-top: 0;
   padding: 0;
   position: absolute;
   top: 0;
   vertical-align: top;
   visibility: hidden;
-  width: 255px;
+  width: 195px;
   z-index: 1;
 }
 .sidebar.menu .sidebar-menu .menu > li > ul li {
@@ -2038,7 +2041,7 @@ hr {
 }
 @media only screen and (max-width: 1050px) and (min-width: 600px) {
   .sidebar.menu {
-    width: 95px;
+    width: 155px;
   }
   .sidebar.menu .sidebar-menu .menu > li {
     position: relative;
@@ -2056,7 +2059,7 @@ hr {
     visibility: visible;
   }
   .sidebar.menu .sidebar-footer {
-    width: 95px;
+    width: 155px;
     overflow: hidden;
   }
   .sidebar.menu .sidebar-footer .footer-user {
@@ -2071,8 +2074,8 @@ hr {
     top: 0;
     display: block;
     margin: 0;
-    width: 47.5px;
-    height: 47.5px;
+    width: 77.5px;
+    height: 77.5px;
     padding: 10px 9px;
   }
   .sidebar.menu .sidebar-footer .footer-links .links-logout span {
@@ -2083,7 +2086,7 @@ hr {
     vertical-align: middle;
   }
   .sidebar.menu ~ .main-content {
-    margin-left: 95px;
+    margin-left: 155px;
   }
   .sidebar.menu .sidebar-header .header-brand .brand-slogan {
     display: none;
@@ -2092,10 +2095,10 @@ hr {
     display: none;
   }
   .sidebar.menu .sidebar-header .header-notification .notification:before {
-    width: 95px;
+    width: 155px;
   }
   .sidebar.menu .sidebar-header .header-notification .notification .more {
-    width: 95px;
+    width: 155px;
     text-align: center;
   }
   .sidebar.menu .sidebar-header .header-notification .notification .more .more-text {
@@ -2123,7 +2126,7 @@ hr {
   }
 }
 .minimized .sidebar.menu {
-  width: 95px;
+  width: 155px;
 }
 .minimized .sidebar.menu .sidebar-menu .menu > li {
   position: relative;
@@ -2141,7 +2144,7 @@ hr {
   visibility: visible;
 }
 .minimized .sidebar.menu .sidebar-footer {
-  width: 95px;
+  width: 155px;
   overflow: hidden;
 }
 .minimized .sidebar.menu .sidebar-footer .footer-user {
@@ -2156,8 +2159,8 @@ hr {
   top: 0;
   display: block;
   margin: 0;
-  width: 47.5px;
-  height: 47.5px;
+  width: 77.5px;
+  height: 77.5px;
   padding: 10px 9px;
 }
 .minimized .sidebar.menu .sidebar-footer .footer-links .links-logout span {
@@ -2168,7 +2171,7 @@ hr {
   vertical-align: middle;
 }
 .minimized .sidebar.menu ~ .main-content {
-  margin-left: 95px;
+  margin-left: 155px;
 }
 .minimized .sidebar.menu .sidebar-header .header-brand .brand-slogan {
   display: none;
@@ -2177,10 +2180,10 @@ hr {
   display: none;
 }
 .minimized .sidebar.menu .sidebar-header .header-notification .notification:before {
-  width: 95px;
+  width: 155px;
 }
 .minimized .sidebar.menu .sidebar-header .header-notification .notification .more {
-  width: 95px;
+  width: 155px;
   text-align: center;
 }
 .minimized .sidebar.menu .sidebar-header .header-notification .notification .more .more-text {

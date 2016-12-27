@@ -11,6 +11,7 @@ md-input-container input {
 [dnd-list],
 [dnd-list] > * {
   position: relative;
+  min-height: 100px;
 }
 .dndPlaceholder {
   background-color: #242424;

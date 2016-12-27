@@ -11,7 +11,7 @@
 
 @sidebar-brand-height: @sidebar-header-height * .6;
 
-@sidebar-logo-width: @sidebar-brand-height + 20;
+@sidebar-logo-width: @sidebar-brand-height + 80;
 
 @sidebar-account-height: @sidebar-header-height * .4;
 @sidebar-notification-background: @primary-darker;
@@ -374,7 +374,6 @@
                 width: 100%;
 
                 > li {
-                    height: @sidebar-brand-height;
                     width: 100%;
 
                     &.open {
@@ -390,6 +389,11 @@
                     &.active {
                         > a {
                             color: @sidebar-menu-active-color;
+
+                          span {
+                            color: inherit;
+                          }
+
                         }
                     }
 
@@ -397,10 +401,9 @@
                         color: @sidebar-menu-color;
                         display: block;
                         box-sizing: border-box;
-                        height: @sidebar-brand-height;
-                        padding: 13px 10px 7px;
-                        text-align: center;
+                        padding: 10px 15px;
                         width: @sidebar-logo-width;
+                        text-decoration: none;
 
                         &:hover, &:focus {
                             color: @sidebar-menu-hover-color;
@@ -416,8 +419,10 @@
                         }
 
                         span {
-                            font-size: 1.2em;
+                            font-size: 1em;
                             font-weight: 300;
+                            color: #848484;
+                            padding-left: 12px;
                         }
                     }
 
