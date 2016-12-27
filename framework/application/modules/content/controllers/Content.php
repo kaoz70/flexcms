@@ -42,7 +42,6 @@ class Content extends \AdminController implements \ContentInterface
         $response = new Response();
 
         $page = Page::find($page_id);
-        $page->setType('page');
         $widget = Widget::getContentWidget($page_id);
 
         $data['items'] = static::getItems($page_id);

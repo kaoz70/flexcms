@@ -36,6 +36,24 @@ class BaseModel extends Model {
      */
     public $translations;
 
+    protected $appends = ['translation', 'translations'];
+
+    /**
+     * @return object
+     */
+    public function getTranslationAttribute()
+    {
+        return $this->translation;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTranslationsAttribute()
+    {
+        return $this->translations;
+    }
+
     /**
      * @return string
      */

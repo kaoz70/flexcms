@@ -25,8 +25,6 @@ class Category extends BaseModel implements NodeInterface {
         'tree'  => 'tree',
     );
 
-    protected $appends = ['translation', 'translations'];
-
     /**
      * Return popup attribute as boolean instead of int
      *
@@ -36,22 +34,6 @@ class Category extends BaseModel implements NodeInterface {
     public function getPopupAttribute($value)
     {
         return (boolean)$value;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTranslationAttribute()
-    {
-        return $this->translation;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTranslationsAttribute()
-    {
-        return $this->translations;
     }
 
     /**
