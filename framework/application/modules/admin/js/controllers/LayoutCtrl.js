@@ -8,6 +8,14 @@
  * @requires $scope
  * */
 angular.module('app')
+
+    .controller('LayoutIndexCtrl', function($rootScope){
+
+        //Open the sidebar on this controller
+        $rootScope.isSidebarOpen = true;
+
+    })
+
     .controller('LayoutCtrl', function($scope, $rootScope, Layout, $routeSegment, $mdSidenav, WindowFactory, $routeParams, Content, $window, Loading, $mdDialog){
 
         //Open the sidebar on this controller

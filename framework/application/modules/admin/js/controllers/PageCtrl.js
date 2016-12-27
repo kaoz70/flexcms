@@ -8,6 +8,13 @@
  * @requires $scope
  * */
 angular.module('app')
+    .controller('PageIndexCtrl', function($rootScope){
+
+        //Open the sidebar on this controller
+        $rootScope.isSidebarOpen = true;
+
+    })
+
     .controller('PageCtrl', function($scope, $rootScope, Page, $routeSegment, WindowFactory, $routeParams, Content, $window, Loading, $mdDialog, $mdColorPalette, $mdColors, $mdTheming, Selection){
 
         //Open the sidebar on this controller
@@ -22,6 +29,7 @@ angular.module('app')
         $scope.query = "";
         $scope.deleteSelection = Selection.init($scope);
         $scope.toggleDeleteSelection = Selection.toggleSelection;
+        $scope.close_url = "#/page/";
 
         $scope.showDelete = true;
         $scope.showReorder = true;

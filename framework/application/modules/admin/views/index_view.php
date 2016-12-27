@@ -82,7 +82,7 @@
             <ul class="menu">
 
                 <li ng-class="{'active open': $routeSegment.startsWith('layout')}">
-                    <a ng-click="openPanel()">
+                    <a ng-href="#/layout">
                         <i class="material-icons">view_quilt</i>
                         <span>Estructura</span>
                     </a>
@@ -104,7 +104,7 @@
                 </li>
 
                 <li ng-class="{'active open': $routeSegment.startsWith('page')}">
-                    <a ng-click="openPanel()">
+                    <a ng-href="#/page">
                         <i class="material-icons">view_list</i>
                         <span>P&aacute;ginas</span>
                     </a>

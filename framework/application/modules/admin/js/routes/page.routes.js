@@ -8,12 +8,16 @@
             $routeSegmentProvider.options.autoLoadTemplates = true;
 
             $routeSegmentProvider
+                .when('/page', 'page_index')
                 .when('/page/:page_id', 'page')
                 .when('/page/:page_id/content/edit/:id', 'page.content')
                 .when('/page/:page_id/content/create', 'page.create')
                 .when('/page/:page_id/config/:widget_id', 'page.config')
-                .segment('page', {
+                .segment('page_index', {
                     'default': true,
+                    controller: 'PageIndexCtrl'
+                })
+                .segment('page', {
                     templateUrl: BASE_PATH + 'admin/List',
                     controller: 'PageCtrl',
                     dependencies: ['page_id']
