@@ -133,7 +133,7 @@
                         <a title="<?=$item->name->es?>"
                            rel="<?=$item->tooltip->es?>"
                            ng-href="#/<?=$item->controller ?>">
-                            <md-tooltip md-direction="right"><?=$item->name->es?></md-tooltip>
+                            <md-tooltip md-direction="right"><?=$item->tooltip->es?></md-tooltip>
                             <md-icon><?=$item->icon?></md-icon>
                             <span><?=$item->name->es?></span>
                         </a>
