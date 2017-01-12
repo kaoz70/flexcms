@@ -566,7 +566,7 @@ s.loadImage = function (imgElement, src, srcset, sizes, checkForComplete, callba
 s.preloadImages = function () {
     s.imagesToLoad = s.container.find('img');
     function _onReady() {
-        if (typeof s === 'undefined' || s === null) return;
+        if (typeof s === 'undefined' || s === null || !s) return;
         if (s.imagesLoaded !== undefined) s.imagesLoaded++;
         if (s.imagesLoaded === s.imagesToLoad.length) {
             if (s.params.updateOnImagesReady) s.update();
@@ -664,6 +664,7 @@ s.maxTranslate = function () {
 s.updateAutoHeight = function () {
     var activeSlides = [];
     var newHeight = 0;
+    var i;
 
     // Find slides currently in view
     if(s.params.slidesPerView !== 'auto' && s.params.slidesPerView > 1) {
@@ -891,6 +892,38 @@ s.updateSlidesOffset = function () {
 };
 
 /*=========================
+  Dynamic Slides Per View
+  ===========================*/
+s.currentSlidesPerView = function () {
+    var spv = 1, i, j;
+    if (s.params.centeredSlides) {
+        var size = s.slides[s.activeIndex].swiperSlideSize;
+        var breakLoop;
+        for (i = s.activeIndex + 1; i < s.slides.length; i++) {
+            if (s.slides[i] && !breakLoop) {
+                size += s.slides[i].swiperSlideSize;
+                spv ++;
+                if (size > s.size) breakLoop = true;
+            }
+        }
+        for (j = s.activeIndex - 1; j >= 0; j--) {
+            if (s.slides[j] && !breakLoop) {
+                size += s.slides[j].swiperSlideSize;
+                spv ++;
+                if (size > s.size) breakLoop = true;
+            }
+        }
+    }
+    else {
+        for (i = s.activeIndex + 1; i < s.slides.length; i++) {
+            if (s.slidesGrid[i] - s.slidesGrid[s.activeIndex] < s.size) {
+                spv++;
+            }
+        }
+    }
+    return spv;
+};
+/*=========================
   Slider/slides progress
   ===========================*/
 s.updateSlidesProgress = function (translate) {
@@ -984,7 +1017,7 @@ s.updateActiveIndex = function () {
     s.updateRealIndex();
 };
 s.updateRealIndex = function(){
-    s.realIndex = s.slides.eq(s.activeIndex).attr('data-swiper-slide-index') || s.activeIndex;
+    s.realIndex = parseInt(s.slides.eq(s.activeIndex).attr('data-swiper-slide-index') || s.activeIndex, 10);
 };
 
 /*=========================
@@ -1163,6 +1196,7 @@ s.updatePagination = function () {
   Common update method
   ===========================*/
 s.update = function (updateTranslate) {
+    if (!s) return;
     s.updateContainerSize();
     s.updateSlidesSize();
     s.updateProgress();
@@ -1407,12 +1441,13 @@ s.updateClickedSlide = function (e) {
     if (s.params.slideToClickedSlide && s.clickedIndex !== undefined && s.clickedIndex !== s.activeIndex) {
         var slideToIndex = s.clickedIndex,
             realIndex,
-            duplicatedSlides;
+            duplicatedSlides,
+            slidesPerView = s.params.slidesPerView === 'auto' ? s.currentSlidesPerView() : s.params.slidesPerView;
         if (s.params.loop) {
             if (s.animating) return;
-            realIndex = $(s.clickedSlide).attr('data-swiper-slide-index');
+            realIndex = parseInt($(s.clickedSlide).attr('data-swiper-slide-index'), 10);
             if (s.params.centeredSlides) {
-                if ((slideToIndex < s.loopedSlides - s.params.slidesPerView/2) || (slideToIndex > s.slides.length - s.loopedSlides + s.params.slidesPerView/2)) {
+                if ((slideToIndex < s.loopedSlides - slidesPerView/2) || (slideToIndex > s.slides.length - s.loopedSlides + slidesPerView/2)) {
                     s.fixLoop();
                     slideToIndex = s.wrapper.children('.' + s.params.slideClass + '[data-swiper-slide-index="' + realIndex + '"]:not(.' + s.params.slideDuplicateClass + ')').eq(0).index();
                     setTimeout(function () {
@@ -1424,7 +1459,7 @@ s.updateClickedSlide = function (e) {
                 }
             }
             else {
-                if (slideToIndex > s.slides.length - s.params.slidesPerView) {
+                if (slideToIndex > s.slides.length - slidesPerView) {
                     s.fixLoop();
                     slideToIndex = s.wrapper.children('.' + s.params.slideClass + '[data-swiper-slide-index="' + realIndex + '"]:not(.' + s.params.slideDuplicateClass + ')').eq(0).index();
                     setTimeout(function () {
@@ -1571,7 +1606,7 @@ s.onTouchMove = function (e) {
 
     if (typeof isScrolling === 'undefined') {
         var touchAngle;
-        if (s.isHorizontal() && s.touches.currentY === s.touches.startY || !s.isHorizontal() && s.touches.currentX !== s.touches.startX) {
+        if (s.isHorizontal() && s.touches.currentY === s.touches.startY || !s.isHorizontal() && s.touches.currentX === s.touches.startX) {
             isScrolling = false;
         }
         else {

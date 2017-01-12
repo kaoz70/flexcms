@@ -33,7 +33,13 @@ angular.module('app')
         //Load the content
         Language.getAll().then(function (response) {
             $rootScope.records = response.data.data.items;
-            $scope.menu = response.data.data.menu;
+            $scope.menu = [
+                {
+                    title: 'nuevo',
+                    icon: 'add',
+                    url:'language/create'
+                }
+            ];
             Loading.hide(panel);
         });
 

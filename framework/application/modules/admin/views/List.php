@@ -1,9 +1,9 @@
 <script type="text/ng-template" id="nodes_list_renderer.html">
-    <div class="node" md-colors="{backgroundColor: '{{node.selected ? 'default-accent-500' : ''}}'}">
+    <div class="node" md-colors="{backgroundColor: '{{node.selected ? 'default-accent-500' : 'default-background-A400'}}'}">
 
         <div ui-tree-handle ng-show="showReorder"><md-icon>reorder</md-icon></div>
 
-        <md-list-item ng-click="onItemClick(node)" ng-class="{'selected': selected === row}" >
+        <md-list-item ng-click="onItemClick(node, nodes, '#/' + section + '/edit/' + node.id, $event, $scope)" ng-class="{'selected': selected === row}" >
             <p class="item-name">
                 <md-icon ng-show="node.icon">{{node.icon}}</md-icon>
                 <span>{{node.name ? node.name : node.translation.name}}</span>
@@ -64,11 +64,11 @@
 
     <md-content class="panel-body">
 
-        <div ui-tree="treeOptions" ng-show="records.length" ng-class="keepOne">
+        <div ui-tree="treeOptions" ng-show="items.length" ng-class="keepOne">
 
-            <md-list ui-tree-nodes="" ng-model="records">
+            <md-list ui-tree-nodes="" ng-model="items">
 
-                <li ng-repeat="node in records | filter:query"
+                <li ng-repeat="node in items | filter:query"
                     ui-tree-node
                     ng-include="'nodes_list_renderer.html'"
                 ></li>
@@ -90,3 +90,5 @@
     </div>
 
 </div>
+
+<div app-view-segment="1"></div>

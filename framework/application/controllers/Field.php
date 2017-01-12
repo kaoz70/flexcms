@@ -107,9 +107,4 @@ class Field extends AdminController
 
     }
 
-    public function _store(Model $model)
-    {
-
-    }
-
 }

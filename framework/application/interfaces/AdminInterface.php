@@ -10,43 +10,35 @@ use Illuminate\Database\Eloquent\Model;
 interface AdminInterface {
 
     /**
-     * List of items
+     * Gets one or all resources
+     *
+     * @param null $id
+     * @return mixed
+     */
+    public function index_get($id = null);
+
+    /**
+     * Insert a new resource
      *
      * @return mixed
      */
-    public function index();
+    public function index_put();
 
     /**
-     * Edit form interface
+     * Update a resource
      *
      * @param $id
-     *
      * @return mixed
      */
-    public function edit($id);
+    public function index_post($id);
 
     /**
-     * Insert the item into database
-     *
-     * @return mixed
-     */
-    public function insert();
-
-    /**
-     * Update the item in the database
+     * Delete a resource
      *
      * @param $id
-     *
      * @return mixed
      */
-    public function update($id);
-
-    /**
-     * Remove the items from the database
-     *
-     * @return mixed
-     */
-    public function delete();
+    public function index_delete($id);
 
     /**
      * Inserts or updates the current model with the provided post data

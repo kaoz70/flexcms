@@ -10,10 +10,12 @@
     function MainController($scope, $rootScope, Page, $routeSegment) {
 
         yima.init();
+        $rootScope.isSidebarOpen = true;
 
         $scope.$routeSegment = $routeSegment;
-        $rootScope.isSidebarOpen = true;
-        $scope.pages = {};
+        $scope.pages = Page.get({ id: 'null' }, function (response) {
+            $scope.pages = response.data;
+        });
 
         $scope.openPanel = function () {
             $rootScope.isSidebarOpen = true;
@@ -22,10 +24,6 @@
         $scope.closePanel = function () {
             $rootScope.isSidebarOpen = false;
         };
-
-        Page.getAll(null).then(function (response) {
-            $scope.pages = response.data.data;
-        });
 
     }
 }());

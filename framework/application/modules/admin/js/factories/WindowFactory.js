@@ -7,7 +7,7 @@
  *
  * */
 angular.module('app')
-    .factory('WindowFactory', function($routeSegment, $location, $window, Selection){
+    .factory('WindowFactory', function($routeSegment){
 
         var Service = {
 
@@ -16,46 +16,30 @@ angular.module('app')
              */
             add: function () {
 
-                //Timeout here because we are getting a "pop" when the route changes
                 setTimeout(function () {
+                    var panels = $(".panel");
 
                     $.each($routeSegment.chain, function (index) {
-                        Service.stack(index, $("[app-view-segment='" + index + "']"), $routeSegment.chain.length);
+                        Service.stack(index, $(panels[index]), $routeSegment.chain.length);
                     });
-
-                    if($routeSegment.chain.length > 1) {
-                        $("[app-view-segment='" + ($routeSegment.chain.length - 1) + "']")
-                            .css('opacity', 1)
-                            .css('transform', 'translateX(-150px)');
-                    }
-
-                }, 10);
+                }, 50);
 
             },
 
-            remove: function ($scope) {
+            remove: function (scope) {
 
                 $.each($routeSegment.chain, function (index) {
-                    Service.stack(index, $("[app-view-segment='" + index + "']"), $routeSegment.chain.length - 1);
+                    Service.stack(index, $($(".panel")[index]), $routeSegment.chain.length - 1);
                 });
 
-                $("[app-view-segment='" + ($routeSegment.chain.length - 1) + "']").css('opacity', 0);
+                $($(".panel")[$routeSegment.chain.length - 1])
+                    .css('left', '100%')
+                    .css('opacity', 0);
 
-                Selection.removeFromActiveList();
-
-                //Change the route once we have hidden the window
-                setTimeout(function () {
-
-                    var close_url;
-
-                    if($scope.close_url == undefined) {
-                        close_url = '#/';
-                    } else {
-                        close_url = $scope.close_url;
-                    }
-
-                    $window.location.assign(close_url);
-                }, 400);
+                //Deselect the selected item
+                angular.forEach(scope.$parent.items, function (item) {
+                    item.selected = false;
+                });
 
             },
 
@@ -68,22 +52,24 @@ angular.module('app')
             stack: function (index, item, num_items) {
 
                 var amount = 30,
-                    right = amount - ((amount / num_items) * (index + 1)),
-                    opacity = 1 - ((right / 100) * 3),
-                    z = right * 2;
+                    multiplier = amount - ((amount / num_items) * (index + 1)),
+                    left = index * 15,
+                    opacity = 1 - ((multiplier / 100) * 3),
+                    z = multiplier * 8,
+                    r = multiplier * 2;
 
                 //3d effect
                 item
-                    .addClass('active')
-                    .css('-webkit-transform', 'translateZ(-' + z + 'px) rotateY(' + z + 'deg)')
-                    .css('-moz-transform', 'translateZ(-' + z + 'px) rotateY(' + z + 'deg)')
-                    .css('-o-transform', 'translateZ(-' + z + 'px) rotateY(' + z + 'deg)')
-                    .css('transform', 'translateZ(-' + z + 'px) rotateY(' + z + 'deg)')
+                    .css('opacity', 1)
+                    .css('-webkit-transform', 'translateZ(-' + z + 'px) rotateY(' + r + 'deg)')
+                    .css('-moz-transform', 'translateZ(-' + z + 'px) rotateY(' + r + 'deg)')
+                    .css('-o-transform', 'translateZ(-' + z + 'px) rotateY(' + r + 'deg)')
+                    .css('transform', 'translateZ(-' + z + 'px) rotateY(' + r + 'deg)')
                     .css('-webkit-filter', 'brightness(' + opacity + ')')
                     .css('-moz-filter', 'brightness(' + opacity + ')')
                     .css('-o-filter', 'brightness(' + opacity + ')')
                     .css('filter', 'brightness(' + opacity + ')')
-                    .css('right', right + '%');
+                    .css('left', left + '%');
 
             }
 
@@ -91,4 +77,5 @@ angular.module('app')
         };
 
         return Service;
+
     });

@@ -17,7 +17,7 @@ class Response implements \JsonSerializable
      * usually used in controlled Exceptions
      * @var bool
      */
-    private $notify = true;
+    private $notify = false;
 
     /**
      * The message that the user will see

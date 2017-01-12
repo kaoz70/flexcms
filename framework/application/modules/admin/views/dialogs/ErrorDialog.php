@@ -12,12 +12,13 @@
         <md-dialog-content>
             <div class="md-dialog-content">
                 <div class="icon" md-colors="{backgroundColor: 'default-warn'}">
-                    <i class="pe-7s-attention"></i>
+                    <div><i class="pe-7s-attention"></i></div>
+                    <div>{{status}}</div>
                 </div>
-                <h2 ng-bind-html="message"></h2>
-                <p>Detalle: <span ng-bind-html="detail"></span></p>
-                <p ng-show="file">Archivo: <span ng-bind-html="file"></span></p>
-                <p ng-show="line">Linea: <span ng-bind-html="line"></span></p>
+                <h2>{{message}} [{{status}}]</h2>
+                <div ng-show="detail">Detalle: <span ng-bind-html="detail"></span></div>
+                <div ng-show="file">Archivo: {{file}}</div>
+                <div ng-show="line">Linea: {{line}}</span></div>
             </div>
         </md-dialog-content>
 

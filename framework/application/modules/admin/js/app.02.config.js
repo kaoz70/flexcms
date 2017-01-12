@@ -44,7 +44,7 @@
 
     });
 
-    app.config(function($mdThemingProvider) {
+    app.config(function($mdThemingProvider, $locationProvider) {
 
         $mdThemingProvider.theme('default')
             .primaryPalette('blue')
@@ -61,6 +61,8 @@
         $mdThemingProvider.theme('docs-dark', 'default')
             .primaryPalette('yellow')
             .dark();
+
+        $locationProvider.hashPrefix('');
 
     });
 

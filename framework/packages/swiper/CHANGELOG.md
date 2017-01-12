@@ -1,5 +1,10 @@
 # Change Log
 
+## Swiper 3.4.1 - Released on December 13, 2016
+  * Fixed Zoom for RTL
+  * Improved slideToClickedSlide behavior when loop is enabled
+  * Minor fixes
+
 ## Swiper 3.4.0 - Released on October 16, 2016
   * **Custom build** available. Now you can create custom swiper build using the folowing modules: effects, lazy-load, scrollbar, controller, hashnav, history, keyboard, mousewheel, parallax, zoom, a11y. Using cli `gulp custom -zoom,effects,lazy-loading`
   * New **zoom** functionality that enables double tap and pinch to zoom slide's inner image:
@@ -35,6 +40,7 @@
   * New `onScroll` event/callback that triggers when swiping/scrolling happens with mousewheel
   * New `touchReleaseOnEdges` parameter to release touch events on slider edge position (beginning, end) and allow for further page scrolling
   * Multirow (slidesPerColumn) support for vertical direction, which is in this case becomes multicolumn
+  * `paginationBulletRender` now accepts `swiper` instance as a first argument, `paginationBulletRender(index, className)` -> `paginationBulletRender(swiper, index, className)`
   * New "swiper-slide-duplicate-active", "swiper-slide-duplicate-next", "swiper-slide-duplicate-prev" classes that will be added in loop mode to the slides representing duplicated looped slides
   * All css classes are now configurable via new parameters: lazyLoadingClass, notificationClass, containerModifierClass, paginationClickableClass, paginationModifierClass, lazyStatusLoadingClass, lazyStatusLoadedClass, lazyPreloaderClass, notificationClass, preloaderClass, zoomContainerClass, slideDuplicateActiveClass, slideDuplicateNextClass, slideDuplicatePrevClass
 

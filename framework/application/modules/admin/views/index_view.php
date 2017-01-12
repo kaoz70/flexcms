@@ -11,6 +11,7 @@
     <meta name="keywords" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <link rel="shortcut icon" href="<?= admin_asset_path('img/favicon.png') ?>" type="image/x-icon">
+
     <!--
     [2. Css References]
     -->
@@ -201,11 +202,6 @@
 
         <div id="windows">
             <div app-view-segment="0"></div>
-            <div app-view-segment="1"></div>
-            <div app-view-segment="2"></div>
-            <div app-view-segment="3"></div>
-            <div app-view-segment="4"></div>
-            <div app-view-segment="5"></div>
         </div>
 
     </div>
@@ -252,10 +248,12 @@
     <script src="<?= admin_asset_path('../../packages/angular-ui-tinymce/dist/tinymce.min.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/angular-timezone-selector/dist/angular-timezone-selector.min.js') ?>"></script>
 
+    <script src="<?= admin_asset_path('../../node_modules/angular-resource/angular-resource.js') ?>"></script>
     <script src="<?= admin_asset_path('../../node_modules/angular-sanitize/angular-sanitize.js') ?>"></script>
     <script src="<?= admin_asset_path('../../node_modules/angular-bootstrap-datetimepicker/src/js/datetimepicker.js') ?>"></script>
     <script src="<?= admin_asset_path('../../node_modules/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js') ?>"></script>
     <script src="<?= admin_asset_path('../../node_modules/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../node_modules/angular-ui-router/release/angular-ui-router.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/angular-ui-tree/dist/angular-ui-tree.min.js') ?>"></script>
 
     <script src="<?= admin_asset_path('js/lib/notifications/snap.svg-min.js') ?>"></script>
@@ -264,7 +262,6 @@
     <script src="<?= admin_asset_path('js/lib/angular/angular-animate.min.js') ?>"></script>
     <script src="<?= admin_asset_path('js/lib/angular/angular-touch.min.js') ?>"></script>
     <script src="<?= admin_asset_path('js/lib/angular/ui-bootstrap-tpls.min.js') ?>"></script>
-    <script src="<?= admin_asset_path('js/lib/angular/angular-ui-router.min.js') ?>"></script>
     <script src="<?= admin_asset_path('js/lib/angular/ocLazyLoad.min.js') ?>"></script>
     <script src="<?= admin_asset_path('js/lib/angular/angular-breadcrumb.min.js') ?>"></script>
     <script src="<?= admin_asset_path('js/main.js') ?>"></script>
@@ -276,7 +273,6 @@
 
     <script src="<?= admin_asset_path('js/app/directives/easypiechart.directive.js') ?>"></script>
     <script src="<?= admin_asset_path('js/app/directives/sparkline.directive.js') ?>"></script>
-    <script src="<?= admin_asset_path('js/app/directives/panel.directive.js') ?>"></script>
     <script src="<?= admin_asset_path('js/app/directives/WindowDirective.js') ?>"></script>
     <script src="<?= admin_asset_path('js/app/directives/ListItemDirective.js') ?>"></script>
 

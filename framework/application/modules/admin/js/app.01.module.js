@@ -20,6 +20,7 @@
             'dndLists',
             'ui.tree',
             'ui.codemirror',
-            'luegg.directives'
+            'luegg.directives',
+            'ngResource'
         ]);
 }());

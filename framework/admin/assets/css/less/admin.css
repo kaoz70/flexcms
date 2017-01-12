@@ -22,6 +22,11 @@ md-input-container input {
   display: block;
   position: relative;
 }
+.angular-ui-tree-empty {
+  background-image: none !important;
+  border: none !important;
+  min-height: 100% !important;
+}
 .columns {
   flex-wrap: wrap;
 }
@@ -86,48 +91,38 @@ md-input-container input {
 }
 #windows {
   position: absolute;
-  top: 35px;
-  left: 13px;
-  right: 13px;
-  display: flex;
-  overflow: auto;
-  padding: 42px 0;
+  top: 0;
+  left: 15px;
+  right: 0;
   bottom: 0;
+  overflow: hidden;
+  padding: 42px 0;
   -webkit-perspective: 2000px;
   -moz-perspective: 2000px;
   perspective: 2000px;
 }
-#windows > [app-view-segment] {
-  height: 100%;
-  position: relative;
+#windows .panel {
+  box-shadow: 0 4px 50px rgba(0, 0, 0, 0.76);
+  min-width: 350px;
+  margin-right: 10px;
+  -webkit-transform-origin: 0 0;
+  -moz-transform-origin: 0 0;
+  -o-transform-origin: 0 0;
+  transform-origin: 0 0;
+  position: absolute;
   -webkit-transition: all 400ms;
   -moz-transition: all 400ms;
   -o-transition: all 400ms;
   transition: all 400ms;
   opacity: 0;
-  right: -30%;
+  top: 15px;
+  bottom: 15px;
+  left: 100%;
 }
-#windows > [app-view-segment] > .panel {
-  box-shadow: 0 4px 50px rgba(0, 0, 0, 0.76);
-  height: 100%;
-  min-width: 350px;
-  margin-right: 10px;
-}
-#windows > [app-view-segment] > .panel > md-toolbar {
+#windows .panel > md-toolbar {
   border-bottom: 5px solid;
 }
-#windows > [app-view-segment].active {
-  opacity: 1;
-}
-#windows > [app-view-segment].active:first-child {
-  left: 0;
-}
-#windows > [app-view-segment]:not(.active) {
-  z-index: -1;
-  opacity: 0;
-  right: -30%;
-}
-#windows > [app-view-segment].ng-leave {
+#windows [app-view-segment].ng-leave {
   display: none;
   position: absolute;
 }
@@ -160,6 +155,9 @@ md-input-container input {
 }
 .panel [ui-tree-handle] {
   margin-left: 15px;
+}
+panel-dispose button {
+  margin-right: -8px !important;
 }
 .panel-loading-wrapper {
   width: 100%;

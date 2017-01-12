@@ -2,7 +2,7 @@
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Language extends AdminController implements AdminInterface {
+class Language extends RESTController implements AdminInterface {
 
     const URL_CREATE = 'language/create';
     const URL_UPDATE = 'admin/language/update/';
@@ -10,47 +10,36 @@ class Language extends AdminController implements AdminInterface {
     const URL_INSERT = 'admin/language/insert';
     const URL_EDIT = 'admin/language/edit/';
 
-    public function index()
+    /**
+     * Get one or all the forms
+     *
+     * @param null $id
+     * @return string
+     */
+    public function index_get($id = null)
     {
 
         $response = new Response();
 
         try{
 
-            $data['items'] = \App\Language::orderBy('position', 'asc')->get();
-            $data['menu'] = [
-                [
-                    'title' => 'nuevo',
-                    'icon' => 'add',
-                    'url' => static::URL_CREATE,
-                ],
-            ];
+            if($id) {
+                $data = \App\Language::find($id);
+            } else {
+                $data = \App\Language::orderBy('position', 'asc')->get();
+            }
 
             $response->setData($data);
 
         } catch (Exception $e) {
-            $response->setError('Ocurri&oacute; un problema al actualizar el idioma!', $e);
+            $response->setError('Ocurri&oacute; un problema al obtener el idioma!', $e);
         }
 
-        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
-    }
-
-    public function edit($id)
-    {
-
-        $response = new Response();
-
-        try{
-            $response->setData(\App\Language::find($id));
-        } catch (Exception $e) {
-            $response->setError('Ocurri&oacute; un problema al actualizar el idioma!', $e);
-        }
-
-        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
+        $this->response($response);
 
     }
 
-    public function update($id)
+    public function index_post($id)
     {
 
         $response = new Response();
@@ -66,7 +55,7 @@ class Language extends AdminController implements AdminInterface {
 
     }
 
-    public function insert()
+    public function index_put()
     {
 
         $response = new Response();
@@ -91,7 +80,7 @@ class Language extends AdminController implements AdminInterface {
     /**
      *
      */
-    public function delete()
+    public function index_delete($id)
     {
 
         $response = new Response();
