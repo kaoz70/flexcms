@@ -6,7 +6,7 @@
         .module('app')
         .directive('panelDispose', panelDispose);
 
-    function panelDispose(WindowFactory, $routeSegment, $routeParams, $window) {
+    function panelDispose(WindowFactory) {
         return {
             restrict: 'E',
             scope: {
@@ -16,35 +16,11 @@
             link: function(scope, el) {
                 el.on('click', function() {
 
-                    WindowFactory.remove(scope);
+                    WindowFactory.back(scope);
 
-                    scope.closeCallback();
-
-                    setTimeout(function () {
-
-                        var url = "#/",
-                            segments = $routeSegment.chain;
-
-                        //Remove the last segment
-                        segments.splice(segments.length -1, 1);
-
-                        //Create the segment url
-                        angular.forEach(segments, function (item) {
-
-                            url += item.name + "/";
-
-                            if(item.params.dependencies !== undefined) {
-                                angular.forEach(item.params.dependencies, function (value) {
-                                    url += $routeParams[value] + "/";
-                                });
-                            }
-
-                        });
-
-                        //Change the route once we have hidden the window
-                        $window.location.assign(url);
-
-                    }, 400);
+                    if(scope.closeCallback !== undefined) {
+                        scope.closeCallback();
+                    }
 
                 });
             }

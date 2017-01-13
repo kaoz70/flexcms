@@ -44,7 +44,7 @@
 
     });
 
-    app.config(function($mdThemingProvider, $locationProvider) {
+    app.config(function($mdThemingProvider, $locationProvider, $httpProvider) {
 
         $mdThemingProvider.theme('default')
             .primaryPalette('blue')
@@ -53,7 +53,7 @@
             .warnPalette('red')
             .dark();
 
-        console.log($mdThemingProvider);
+        //console.log($mdThemingProvider);
 
         $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
         $mdThemingProvider.theme('dark-green').backgroundPalette('green');
@@ -63,6 +63,72 @@
             .dark();
 
         $locationProvider.hashPrefix('');
+
+        $httpProvider.interceptors.push(function($q, Notification, Response, $injector, BASE_PATH) {
+            return {
+
+                // called if HTTP CODE = 2xx
+                'response': function(response) {
+
+                    try {
+                        Response.validate(response);
+                        Notification.show(response.data.type, response.data.message);
+                    } catch (err) {
+
+                        var $mdDialog = $injector.get('$mdDialog');
+
+                        $mdDialog.show({
+                            templateUrl: BASE_PATH + 'admin/dialogs/ErrorDialog',
+                            parent: angular.element(document.body),
+                            controller: function ($scope) {
+                                $scope.message = err;
+                                $scope.detail = response.data.data.message;
+                                $scope.showNotificationButton = response.data.notify;
+                                $scope.close = function () {
+                                    $mdDialog.hide();
+                                };
+                                $scope.notify = function () {
+                                    Response.notify(response.data);
+                                };
+                            },
+                            clickOutsideToClose:true
+                        });
+
+                    }
+
+                    return response;
+
+                },
+
+                // called if HTTP CODE != 2xx
+                'responseError': function(rejection) {
+
+                    console.log(rejection);
+
+                    var $mdDialog = $injector.get('$mdDialog');
+
+                    $mdDialog.show({
+                        templateUrl: BASE_PATH + 'admin/dialogs/ErrorDialog',
+                        parent: angular.element(document.body),
+                        controller: function ($scope) {
+                            $scope.message = rejection.statusText;
+                            $scope.status = rejection.status;
+                            $scope.showNotificationButton = true;
+                            $scope.close = function () {
+                                $mdDialog.hide();
+                            };
+                            $scope.notify = function () {
+                                Response.notify(rejection);
+                            };
+                        },
+                        clickOutsideToClose:true
+                    });
+
+                    return $q.reject(rejection);
+
+                }
+            };
+        });
 
     });
 

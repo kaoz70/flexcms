@@ -18,6 +18,7 @@ use Illuminate\Database\QueryException;
 class Field extends \Field implements \AdminParentInterface {
 
     const TRANSLATION_SECTION = 'form_field';
+    const FIELD_SECTION = 'form';
 
     const URL_CREATE = 'admin/contact/field/create/';
     const URL_UPDATE = 'admin/contact/field/update';

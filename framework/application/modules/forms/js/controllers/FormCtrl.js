@@ -39,7 +39,7 @@ angular.module('app')
         $scope.toggleDeleteSelection = Selection.toggleSelection;
         $scope.onItemClick = Selection.onItemClick;
 
-        WindowFactory.add();
+        WindowFactory.add($scope);
 
         $scope.delete = function (ev) {
 
@@ -62,49 +62,28 @@ angular.module('app')
 
     })
 
-    .controller('FormEditCtrl', function($scope, $rootScope, $routeParams, Form, Field, WindowFactory, $filter, Selection, $mdDialog, languages){
+    .controller('FormEditCtrl', function($scope, $rootScope, $routeParams, Form, Field, WindowFactory, Selection, $mdDialog, languages){
 
         var fieldCount = 0;
 
         //Close the sidebar on this controller
         $rootScope.isSidebarOpen = false;
 
-        //Find the form by id in the parent list array
-        var selected = $filter('filter')($scope.$parent.items, {
-            id: parseInt($routeParams.id, 10)
-        }, true);
+        //Add the panel window and get the current selected item form the list
+        var selected = WindowFactory.add($scope);
 
-        //We store the original data here in case the user closes the panel
-        var origData = angular.copy(selected[0]);
+        //We store the original data here in case the user closes the panel (cancel)
+        var origData = angular.copy(selected);
 
-        $scope.formData = selected[0];
-        $scope.formData.selected = true;
-        $scope.fields = $scope.formData.fields;
+        $scope.formData = selected;
+        $scope.items = $scope.formData.fields;
 
         //Base url
         $scope.section = "forms/edit/" + $scope.formData.id;
 
-        WindowFactory.add();
-
         $scope.deleteSelection = Selection.init($scope);
         $scope.toggleDeleteSelection = Selection.toggleSelection;
         $scope.onItemClick = Selection.onItemClick;
-
-        var saveHandler = function (response, close) {
-
-            //Create the form fields
-            Form.insertFields($scope.items , response.data.data.form).then(function () {
-
-                //Save the fields back int the form
-                $scope.formData.fields = $scope.fields;
-
-                if(close) {
-                    WindowFactory.remove($scope);
-                }
-
-            });
-
-        };
 
         $scope.save = function () {
 
@@ -112,8 +91,9 @@ angular.module('app')
             $scope.form.$setSubmitted();
 
             if($scope.form.$valid) {
-                Form.save($scope.formData, function (response) {
-                    saveHandler(response, false)
+                Form.update({id: $scope.formData.id}, $scope.formData, function(response) {
+                    $scope.items = response.data.fields;
+                    angular.copy(response.data, origData);
                 });
             }
 
@@ -125,8 +105,9 @@ angular.module('app')
             $scope.form.$setSubmitted();
 
             if($scope.form.$valid) {
-                Form.save($scope.formData, function (response) {
-                    saveHandler(response, true)
+                Form.update({id: $scope.formData.id}, $scope.formData, function(response) {
+                    angular.copy(response.data, origData);
+                    WindowFactory.back($scope);
                 });
             }
 
@@ -156,7 +137,7 @@ angular.module('app')
         };
 
         $scope.addField = function () {
-            $scope.fields.push(Field.newDummyField(languages.data, fieldCount));
+            $scope.items.push(Field.newDummyField(languages.data, fieldCount));
             fieldCount++;
         };
 
@@ -170,7 +151,7 @@ angular.module('app')
         $rootScope.isSidebarOpen = false;
 
         $scope.form = {};
-        $scope.fields = [];
+        $scope.items = [];
 
         WindowFactory.add($scope);
 
@@ -219,13 +200,6 @@ angular.module('app')
 
         };
 
-        /**
-         * Handler used when the user clicks on the close panel button
-         */
-        $scope.closeHandler = function () {
-            //Reset the data
-        };
-
         $scope.delete = function (ev) {
 
             Selection.delete(ev, function() {
@@ -242,7 +216,7 @@ angular.module('app')
         };
 
         $scope.addField = function () {
-            $scope.fields.push(Field.newDummyField($scope.languages, fieldCount));
+            $scope.items.push(Field.newDummyField($scope.languages, fieldCount));
             fieldCount++;
         };
 
@@ -255,17 +229,20 @@ angular.module('app')
         var form = $scope.$parent.formData;
 
         //Check if we are accessing this controller after a window reload
-        /*if(list === undefined || (list.length - 1) < $routeParams.field_id) {
-            WindowFactory.remove($scope);
+        if($scope.$parent.items.length === 0) {
+            WindowFactory.back($scope);
             return;
-        }*/
+        }
 
-        $scope.field = form.fields[$routeParams.field_id];
-        $scope.types = types.data;
+        //Find the form by id in the parent list array
+        var selected = $filter('filter')(form.fields, {
+            id: parseInt($routeParams.field_id, 10)
+        }, true);
 
-        Selection.addToActiveList($scope.field);
+        $scope.field = selected[0];
+        $scope.types = types.data.data;
 
-        WindowFactory.add();
+        WindowFactory.add($scope);
 
         $scope.save = function () {
 
@@ -273,7 +250,7 @@ angular.module('app')
             $scope.form.$setSubmitted();
 
             if($scope.form.$valid) {
-                WindowFactory.remove($scope);
+                WindowFactory.back($scope);
             }
 
         };

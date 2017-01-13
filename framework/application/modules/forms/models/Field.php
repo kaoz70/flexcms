@@ -26,17 +26,27 @@ class Field extends \App\Field {
             ->get();
     }
 
-    public function setTranslations($input)
+    public function getTranslationsAttribute()
+    {
+        return Translation::where([
+            'parent_id' => $this->id,
+            'type' => static::$type,
+        ])
+            ->join('languages', 'languages.id', '=', 'translations.language_id')
+            ->get();
+    }
+
+    public function setTranslations($translations)
     {
 
-        foreach(Language::all() as $key => $lang){
+        foreach($translations as $lang){
 
             $trans = Translation::firstOrNew([
-                'language_id' => $lang->id,
+                'language_id' => $lang['language_id'],
                 'parent_id' => $this->id,
-                'type' => $this->type,
+                'type' => static::$type,
             ]);
-            $trans->data = json_encode($input[$key]['translation']);
+            $trans->data = json_encode($lang['data']);
             $trans->save();
 
         }

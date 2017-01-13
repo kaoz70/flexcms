@@ -13,5 +13,10 @@ use Illuminate\Database\Eloquent\Model;
 class Translation extends Model {
 
     protected $fillable = [ 'parent_id', 'language_id', 'type' ];
+    
+    public function getDataAttribute($value)
+    {
+        return json_decode($value);
+    }
 
 }

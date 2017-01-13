@@ -32,6 +32,16 @@ class Field extends BaseModel {
 
     }
 
+    public function getRequiredAttribute($value)
+    {
+        return (boolean) $value;
+    }
+
+    public function getLabelEnabledAttribute($value)
+    {
+        return (boolean) $value;
+    }
+
     public function input()
     {
         return $this->belongsTo('App\Input')->first();

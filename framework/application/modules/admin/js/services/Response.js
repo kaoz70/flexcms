@@ -7,89 +7,70 @@
  *
  * */
 angular.module('app')
-    .service('Response', function($mdDialog, Notification, $http, $httpParamSerializer, BASE_PATH, $document){
+    .service('Response', function(Notification, $httpParamSerializer, BASE_PATH, $document, $injector){
 
         var closeHandler = function () {
             $mdDialog.hide();
         };
         
-        var notifyHandler = function (data) {
+        this.notify = function (data) {
+
+            var $http = $injector.get('$http');
             
             $http({
                 method: 'POST',
                 url: 'admin/notifyError',
                 data: $httpParamSerializer(data),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-                .success(function (response) {
+            }, function (response) {
 
-                    var view = 'SuccessDialog';
+                var view = 'SuccessDialog';
 
-                    if(response.type == 'warning') {
-                        view = 'WarningDialog';
-                    }
+                if(response.type == 'warning') {
+                    view = 'WarningDialog';
+                }
 
-                    $mdDialog.show({
-                        templateUrl: BASE_PATH + 'admin/dialogs/' + view,
-                        parent: angular.element(document.body),
-                        controller: function ($scope) {
-                            $scope.message = response.message;
-                            $scope.close = closeHandler;
-                        },
-                        clickOutsideToClose:true
-                    });
+                $mdDialog.show({
+                    templateUrl: BASE_PATH + 'admin/dialogs/' + view,
+                    parent: angular.element(document.body),
+                    controller: function ($scope) {
+                        $scope.message = response.message;
+                        $scope.close = closeHandler;
+                    },
+                    clickOutsideToClose:true
+                });
 
-                })
-                .error(Response.error);
+            }, Response.error);
 
         };
 
         /**
          * Validate a correct response with no errors
          *
-         * @param response
+         * @param responseData
          * @returns {*}
          */
         this.validate = function(response) {
 
-            try {
+            var responseData = response.data;
 
-                //Is it a successful response?
-                if (!response.success) {
-                    throw response.message;
-                }
-
-                //Is it a valid JSON response?
-                else if(response == undefined || typeof response == "string") {
-                    throw "Hubo un problema con la petición";
-                }
-
-                return response;
-
-            } catch (err) {
-
-                $mdDialog.show({
-                    templateUrl: BASE_PATH + 'admin/dialogs/ErrorDialog',
-                    parent: angular.element(document.body),
-                    controller: function ($scope) {
-                        $scope.message = err;
-                        $scope.detail = response.data.message;
-                        $scope.showNotificationButton = response.notify;
-                        $scope.close = closeHandler;
-                        $scope.notify = function () {
-                            notifyHandler(response.data);
-                        };
-                    },
-                    clickOutsideToClose:true
-                });
-
+            //Is it a successful response?
+            if (response.headers('Content-Type') === "application/json; charset=utf-8" && !responseData.success) {
+                throw responseData.message;
             }
 
-            return false;
+            //Is it a valid JSON response?
+            else if(response.headers('Content-Type') === "application/json; charset=utf-8" && (responseData === undefined || typeof responseData === "string")) {
+                throw "Hubo un problema con la petición";
+            }
+
+            return true;
 
         };
 
         this.error = function (data, status) {
+
+            var $this = this;
 
             $mdDialog.show({
                 templateUrl: BASE_PATH + 'admin/dialogs/ErrorDialog',
@@ -102,7 +83,7 @@ angular.module('app')
                     $scope.close = closeHandler;
                     $scope.showNotificationButton = true;
                     $scope.notify = function () {
-                        notifyHandler(data);
+                        $this.notify(data);
                     };
                 },
                 clickOutsideToClose:true

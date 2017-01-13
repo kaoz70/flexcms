@@ -58,11 +58,11 @@
                         </md-content>
                     </div>
 
-                    <div ui-tree="treeOptions" ng-show="fields.length">
+                    <div ui-tree="treeOptions" ng-show="items.length">
 
                         <md-list ui-tree-nodes="" ng-model="items">
 
-                            <div ng-repeat="node in fields | filter:query"
+                            <div ng-repeat="node in items | filter:query"
                                  ui-tree-node
                             >
 
@@ -72,7 +72,7 @@
 
                                     <md-list-item ng-click="onItemClick(node, items, '#/' + section + '/field/edit/' + node.id, $event)" ng-class="{'selected': selected === row}" >
                                         <p class="item-name">
-                                            <span>{{node.translations[0].translation.name}}</span>
+                                            <span>{{node.translations[0].data.name}}</span>
                                         </p>
                                         <md-checkbox aria-label="Check to delete"
                                                      class="md-secondary delete"

@@ -15,6 +15,18 @@ angular.module('app')
         return $resource(system.base_url + 'admin/forms/:id', { id: '@id'}, {
             query: {
                 isArray: false
+            },
+            insert: {
+                method: 'PUT'
+            },
+            update: {
+                method: 'POST'
+            },
+            get: {
+                method: 'GET'
+            },
+            delete: {
+                method: 'DELETE'
             }
         });
     });

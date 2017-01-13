@@ -55,6 +55,20 @@
                                     });
                                 return deferred.promise;
 
+                            },
+                            form: function(Form, $routeParams, $q) {
+
+                                var deferred = $q.defer();
+                                Form.get({
+                                        id: $routeParams.id
+                                    },
+                                    function(successData) {
+                                        deferred.resolve(successData);
+                                    }, function(errorData) {
+                                        deferred.reject(errorData);
+                                    });
+                                return deferred.promise;
+
                             }
                         },
                         untilResolved: {

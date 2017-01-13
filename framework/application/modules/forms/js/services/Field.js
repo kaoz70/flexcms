@@ -23,8 +23,9 @@ angular.module('app')
             var field = {
                 id: fieldCount,
                 required: false,
+                label_enabled: false,
                 enabled: true,
-                type: 13,
+                input_id: 13,
                 isNew: true,
                 translations: []
             };
@@ -32,8 +33,9 @@ angular.module('app')
 
             angular.forEach(languages, function (value) {
                 field.translations.push({
+                    language_id: value.id,
                     name: value.name,
-                    translation: {
+                    data: {
                         name: 'campo ' + (fieldCount + 1),
                         placeholder: ''
                     }
@@ -42,7 +44,7 @@ angular.module('app')
 
             return field;
 
-        }
+        };
 
 });
 

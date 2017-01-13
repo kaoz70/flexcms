@@ -2,7 +2,7 @@
 
     <md-toolbar md-colors="{borderBottomColor: '{{primaryColor300}}'}">
         <div class="md-toolbar-tools">
-            <h2>Contenido</h2>
+            <h2>Campo</h2>
             <span flex></span>
             <panel-dispose></panel-dispose>
         </div>
@@ -24,11 +24,11 @@
                         <md-tab ng-repeat="lang in field.translations" label="{{lang.name}}">
 
                             <md-input-container class="md-block md-hue-1">
-                                <input ng-model="lang.translation.name" type="text" placeholder="T&iacute;tulo" ng-required="true">
+                                <input ng-model="lang.data.name" type="text" placeholder="Etiqueta" ng-required="true">
                             </md-input-container>
 
                             <md-input-container class="md-block md-hue-1">
-                                <input ng-model="lang.translation.placeholder" type="text" placeholder="Placeholder">
+                                <input ng-model="lang.data.placeholder" type="text" placeholder="Placeholder">
                             </md-input-container>
 
                         </md-tab>
@@ -37,7 +37,7 @@
                     <div>
                         <md-input-container>
                             <label>Tipo</label>
-                            <md-select ng-model="field.type" ng-required="true">
+                            <md-select ng-model="field.input_id" ng-required="true">
                                 <md-option ng-value="type.id" ng-repeat="type in types">{{type.content}}</md-option>
                             </md-select>
                         </md-input-container>
@@ -62,6 +62,10 @@
 
                     <md-switch ng-model="field.required" aria-label="Obligatorio">
                         Obligatorio
+                    </md-switch>
+
+                    <md-switch ng-model="field.label_enabled" aria-label="Mostrar etiqueta">
+                        Mostrar etiqueta
                     </md-switch>
 
                     <md-switch ng-model="field.enabled" aria-label="Publicado">

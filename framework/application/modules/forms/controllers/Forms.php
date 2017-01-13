@@ -8,6 +8,7 @@
 
 namespace Contact;
 use App\Response;
+use Contact\Models\Field;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 
@@ -78,7 +79,9 @@ class Forms extends \RESTController implements \AdminInterface {
         $response = new Response();
 
         try{
-            $this->_store(Models\Form::find($id));
+            $form = $this->_store(Models\Form::find($id));
+            $response->setData($form);
+            $response->setMessage('Formulario actualizado correctamente');
         } catch (QueryException $e) {
             $response = $this->error('Ocurri&oacute; un problema al actualizar el formulario!', $e);
         }
@@ -122,10 +125,27 @@ class Forms extends \RESTController implements \AdminInterface {
     public function _store(Model $model)
     {
 
+        //Save the form
         $model->name = $this->post('name');
         $model->email = $this->post('email');
         $model->save();
 
+        //Save the fields
+        foreach ($this->post('fields') as $index => $fieldData) {
+            $field = isset($fieldData['isNew']) ? new Field() : Field::find($fieldData['id']);
+            $field->input_id = $fieldData['input_id'];
+            $field->parent_id = $model->id;
+            $field->position = $index + 1;
+            $field->css_class = isset($fieldData['css_class']) ? $fieldData['css_class'] : null;
+            $field->section = static::FIELD_SECTION;
+            $field->label_enabled = $fieldData['label_enabled'];
+            $field->required = $fieldData['required'];
+            $field->validation = isset($fieldData['validation']) ? $fieldData['validation'] : null;
+            $field->save();
+            $field->setTranslations($fieldData['translations']);
+        }
+
         return $model;
+
     }
 }

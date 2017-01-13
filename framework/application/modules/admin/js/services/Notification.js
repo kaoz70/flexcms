@@ -18,6 +18,10 @@ angular.module('app')
 
     this.show = function(type, message) {
 
+        if(message === undefined || message === '') {
+            return;
+        }
+
         options.message = message;
         options.type = type;
 

@@ -79,7 +79,9 @@ angular.module('app')
         };
 
         this.addToActiveList = function (item) {
-            item.selected = true;
+            if(item) {
+                item.selected = true;
+            }
         };
 
         /**
