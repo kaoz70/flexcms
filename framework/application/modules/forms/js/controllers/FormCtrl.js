@@ -35,34 +35,24 @@ angular.module('app')
         //Base url
         $scope.section = "forms";
 
-        $scope.deleteSelection = Selection.init($scope);
-        $scope.toggleDeleteSelection = Selection.toggleSelection;
-        $scope.onItemClick = Selection.onItemClick;
+        $scope.selection = new Selection(function (node) {
 
-        WindowFactory.add($scope);
+            Form.delete({id: node.id}, function (response) {
 
-        $scope.delete = function (ev) {
+                $scope.items = response.data;
 
-            Selection.delete(ev, function() {
-
-                Form.delete($scope.deleteSelection).then(function (response) {
-
-                    if(response.data.success) {
-                        $scope.items = response.data.data;
-                        $scope.deleteSelection = [];
-                    }
-
-                    $mdDialog.hide();
-
-                });
+                //Remove from the selected array
+                $scope.selection.toggle(node.id);
 
             });
 
-        }
+        });
+
+        WindowFactory.add($scope);
 
     })
 
-    .controller('FormEditCtrl', function($scope, $rootScope, $routeParams, Form, Field, WindowFactory, Selection, $mdDialog, languages, $window, $routeSegment){
+    .controller('FormEditCtrl', function($scope, $rootScope, $routeParams, Form, Field, WindowFactory, Selection, $mdDialog, languages){
 
         var fieldCount = 0;
 
@@ -81,9 +71,16 @@ angular.module('app')
         //Base url
         $scope.section = "forms/edit/" + $scope.formData.id;
 
-        $scope.deleteSelection = Selection.init($scope);
-        $scope.toggleDeleteSelection = Selection.toggleSelection;
-        $scope.onItemClick = Selection.onItemClick;
+        $scope.selection = new Selection(function (node) {
+
+            var result = $.grep($scope.items, function(e){
+                return e.id === node;
+            });
+
+            var index = $scope.items.indexOf(result[0]);
+            $scope.items.splice(index, 1);
+
+        });
 
         $scope.save = function () {
 
@@ -121,21 +118,6 @@ angular.module('app')
             angular.copy(origData, $scope.formData);
         };
 
-        $scope.delete = function (ev) {
-
-            Selection.delete(ev, function() {
-
-                angular.forEach($scope.deleteSelection, function(value) {
-                    $scope.items.splice(value, 1)
-                });
-
-                $scope.deleteSelection = [];
-                $mdDialog.hide();
-
-            });
-
-        };
-
         $scope.addField = function () {
             $scope.items.push(Field.newDummyField(languages.data, fieldCount));
             fieldCount++;
@@ -143,37 +125,34 @@ angular.module('app')
 
     })
 
-    .controller('FormCreateCtrl', function($scope, $rootScope, $routeParams, Form, $routeSegment, WindowFactory, $filter, Loading, Selection, $mdDialog, Language, Field){
+    .controller('FormCreateCtrl', function($scope, $rootScope, $routeParams, Form, Field, WindowFactory, Selection, $mdDialog, languages){
 
-        var fieldCount = 0;
+        var fieldCount = 0,
+            isNew = true;
 
         //Close the sidebar on this controller
         $rootScope.isSidebarOpen = false;
 
-        $scope.form = {};
-        $scope.items = [];
+        $scope.formData = {
+            fields: []
+        };
+        $scope.items = $scope.formData.fields;
 
         WindowFactory.add($scope);
 
         //Base url
         $scope.section = "forms/create";
 
-        $scope.deleteSelection = Selection.init($scope);
-        $scope.toggleDeleteSelection = Selection.toggleSelection;
-        $scope.onItemClick = Selection.onItemClick;
+        $scope.selection = new Selection(function (node) {
 
-        var saveHandler = function (response, close) {
-
-            $rootScope.scopeList[0].items = response.data.data.list;
-
-            //Create the form fields
-            Form.insertFields($scope.items , response.data.data.form).then(function () {
-                if(close) {
-                    WindowFactory.remove($scope);
-                }
+            var result = $.grep($scope.items, function(e){
+                return e.id === node;
             });
 
-        };
+            var index = $scope.items.indexOf(result[0]);
+            $scope.items.splice(index, 1);
+
+        });
 
         $scope.save = function () {
 
@@ -181,42 +160,50 @@ angular.module('app')
             $scope.form.$setSubmitted();
 
             if($scope.form.$valid) {
-                Form.insert($scope.form).then(function (response) {
-                    saveHandler(response, false)
-                });
+
+                if(isNew) {
+                    Form.save($scope.formData, function(response) {
+                        $scope.formData = response.data;
+                        $scope.items = response.data.fields;
+                        $scope.$parent.items.push($scope.formData);
+                        $scope.formData.selected = true;
+                        isNew = false;
+                    });
+                } else {
+                    Form.update({id: $scope.formData.id}, $scope.formData, function(response) {
+                        $scope.formData = response.data;
+                        $scope.items = response.data.fields;
+                    });
+                }
+
             }
 
         };
+
         $scope.saveAndClose = function () {
 
             //Check for a valid form
             $scope.form.$setSubmitted();
 
             if($scope.form.$valid) {
-                Form.insert($scope.form).then(function (response) {
-                    saveHandler(response, true)
-                });
+
+                if(isNew) {
+                    Form.save($scope.formData, function() {
+                        WindowFactory.back($scope);
+                        $scope.$parent.items.push($scope.formData);
+                    });
+                } else {
+                    Form.update({id: $scope.formData.id}, $scope.formData, function() {
+                        WindowFactory.back($scope);
+                    });
+                }
+
             }
 
         };
 
-        $scope.delete = function (ev) {
-
-            Selection.delete(ev, function() {
-
-                angular.forEach($scope.deleteSelection, function(value) {
-                    $scope.items.splice(value, 1)
-                });
-
-                $scope.deleteSelection = [];
-                $mdDialog.hide();
-
-            });
-
-        };
-
         $scope.addField = function () {
-            $scope.items.push(Field.newDummyField($scope.languages, fieldCount));
+            $scope.items.push(Field.newDummyField(languages.data, fieldCount));
             fieldCount++;
         };
 

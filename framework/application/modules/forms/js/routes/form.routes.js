@@ -109,6 +109,23 @@
                     .segment('create', {
                         templateUrl: BASE_PATH + 'forms/FormDetail',
                         controller: 'FormCreateCtrl',
+                        resolve: {
+                            languages: function(Language, $routeParams, $q) {
+
+                                var deferred = $q.defer();
+                                Language.query(
+                                    function(successData) {
+                                        deferred.resolve(successData);
+                                    }, function(errorData) {
+                                        deferred.reject(errorData);
+                                    });
+                                return deferred.promise;
+
+                            }
+                        },
+                        untilResolved: {
+                            templateUrl: BASE_PATH + 'admin/Loading'
+                        },
                         resolveFailed: {
                             controller: 'ErrorCtrl'
                         }

@@ -44,13 +44,13 @@
                         <md-tooltip md-direction="bottom">A&ntilde;adir campo</md-tooltip>
                     </md-button>
 
-                    <div class="panel-tools" ng-show="deleteSelection.length">
+                    <div class="panel-tools" ng-show="selection.getLength()">
                         <md-content>
                             <div class="tools md-padding" layout-align="end center">
-                                <md-button class="md-icon-button" ng-click="delete($event)">
+                                <md-button class="md-icon-button" ng-click="selection.delete($event)">
                                     <md-icon class="md-warn">delete</md-icon>
                                     <md-tooltip md-direction="bottom">
-                                        Eliminar {{deleteSelection.length}} items
+                                        Eliminar {{selection.getLength()}} items
                                     </md-tooltip>
                                 </md-button>
                             </div>
@@ -70,13 +70,13 @@
 
                                     <div ui-tree-handle><md-icon>reorder</md-icon></div>
 
-                                    <md-list-item ng-click="onItemClick(node, items, '#/' + section + '/field/edit/' + node.id, $event)" ng-class="{'selected': selected === row}" >
+                                    <md-list-item ng-click="selection.onItemClick(node, items, '#/' + section + '/field/edit/' + node.id, $event)" ng-class="{'selected': selected === row}" >
                                         <p class="item-name">
                                             <span>{{node.translations[0].data.name}}</span>
                                         </p>
                                         <md-checkbox aria-label="Check to delete"
                                                      class="md-secondary delete"
-                                                     ng-click="toggleDeleteSelection(node.id)"></md-checkbox>
+                                                     ng-click="selection.toggle(node.id)"></md-checkbox>
                                     </md-list-item>
 
                                 </div>

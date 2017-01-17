@@ -9,6 +9,7 @@
 namespace Contact;
 use App\Response;
 use Contact\Models\Field;
+use Contact\Models\Form;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 
@@ -48,22 +49,20 @@ class Forms extends \RESTController implements \AdminInterface {
 
     }
 
-    public function index_put()
+    /**
+     * Create a new form
+     */
+    public function index_post()
     {
 
         $response = new Response();
 
         try{
 
-            $form = $this->_store(new Models\Form());
-
-            $data = [
-                'form' => $form,
-                'items' => Models\Form::all(),
-            ];
+            $form = $this->_store(new Models\Form(), $this->post());
 
             $response->setMessage('Formulario creado correctamente');
-            $response->setData($data);
+            $response->setData($form);
 
         } catch (QueryException $e) {
             $response->setError('Ocurri&oacute; un error al crear el formulario!', $e);
@@ -73,13 +72,19 @@ class Forms extends \RESTController implements \AdminInterface {
 
     }
 
-    public function index_post($id)
+    /**
+     * Update a form
+     *
+     * @param $id
+     * @return string
+     */
+    public function index_put($id)
     {
 
         $response = new Response();
 
         try{
-            $form = $this->_store(Models\Form::find($id));
+            $form = $this->_store(Models\Form::find($id), $this->put());
             $response->setData($form);
             $response->setMessage('Formulario actualizado correctamente');
         } catch (QueryException $e) {
@@ -97,15 +102,14 @@ class Forms extends \RESTController implements \AdminInterface {
 
         try{
 
-            $ids = $this->input->post();
-
             //Delete the form
-            Models\Form::destroy($ids);
+            $form = Form::find($id);
+            $form->delete();
 
             //Delete the form's fields
-            Models\Field::deleteWithTranslations($ids);
+            Field::deleteWithTranslations($id);
 
-            $response->setMessage('Formulario eliminado satisfactoriamente');
+            $response->setMessage("Formulario {$form->name} eliminado satisfactoriamente");
             $response->setData(Models\Form::all());
 
         } catch (QueryException $e) {
@@ -122,27 +126,29 @@ class Forms extends \RESTController implements \AdminInterface {
      * @param Model $model
      * @return mixed
      */
-    public function _store(Model $model)
+    public function _store(Model $model, $data)
     {
 
         //Save the form
-        $model->name = $this->post('name');
-        $model->email = $this->post('email');
+        $model->name = $data['name'];
+        $model->email = $data['email'];
         $model->save();
 
         //Save the fields
-        foreach ($this->post('fields') as $index => $fieldData) {
-            $field = isset($fieldData['isNew']) ? new Field() : Field::find($fieldData['id']);
-            $field->input_id = $fieldData['input_id'];
-            $field->parent_id = $model->id;
-            $field->position = $index + 1;
-            $field->css_class = isset($fieldData['css_class']) ? $fieldData['css_class'] : null;
-            $field->section = static::FIELD_SECTION;
-            $field->label_enabled = $fieldData['label_enabled'];
-            $field->required = $fieldData['required'];
-            $field->validation = isset($fieldData['validation']) ? $fieldData['validation'] : null;
-            $field->save();
-            $field->setTranslations($fieldData['translations']);
+        if(isset($data['fields'])) {
+            foreach ($data['fields'] as $index => $fieldData) {
+                $field = isset($fieldData['isNew']) ? new Field() : Field::find($fieldData['id']);
+                $field->input_id = $fieldData['input_id'];
+                $field->parent_id = $model->id;
+                $field->position = $index + 1;
+                $field->css_class = isset($fieldData['css_class']) ? $fieldData['css_class'] : null;
+                $field->section = static::FIELD_SECTION;
+                $field->label_enabled = $fieldData['label_enabled'];
+                $field->required = $fieldData['required'];
+                $field->validation = isset($fieldData['validation']) ? $fieldData['validation'] : null;
+                $field->save();
+                $field->setTranslations($fieldData['translations']);
+            }
         }
 
         return $model;

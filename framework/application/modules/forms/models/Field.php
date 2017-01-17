@@ -55,24 +55,21 @@ class Field extends \App\Field {
     /**
      * Deletes the form fields and its translations
      *
-     * @param array $form_ids
+     * @param $form_id
      */
-    public static function deleteWithTranslations(array $form_ids)
+    public static function deleteWithTranslations($form_id)
     {
 
-        foreach ($form_ids as $id) {
+        //Find the field
+        $field = static::where('parent_id', $form_id)->where('section', 'form')->first();
 
-            //Find the field
-            $field = static::where('parent_id', $id)->where('section', 'form')->first();
+        if($field) {
 
-            if($field) {
-                //Delete any translations
-                Translation::where('parent_id', $field->id)->where('type', static::$type)->delete();
+            //Delete any translations
+            Translation::where('parent_id', $field->id)->where('type', static::$type)->delete();
 
-                //Delete the field
-                $field->delete();
-
-            }
+            //Delete the field
+            $field->delete();
 
         }
 

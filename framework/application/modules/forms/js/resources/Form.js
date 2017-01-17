@@ -16,11 +16,11 @@ angular.module('app')
             query: {
                 isArray: false
             },
-            insert: {
-                method: 'PUT'
+            save: {
+                method: 'POST'
             },
             update: {
-                method: 'POST'
+                method: 'PUT'
             },
             get: {
                 method: 'GET'

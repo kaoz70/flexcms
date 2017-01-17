@@ -20,17 +20,17 @@ interface AdminInterface {
     /**
      * Insert a new resource
      *
+     * @param $id
      * @return mixed
      */
-    public function index_put();
+    public function index_put($id);
 
     /**
      * Update a resource
      *
-     * @param $id
      * @return mixed
      */
-    public function index_post($id);
+    public function index_post();
 
     /**
      * Delete a resource
@@ -44,8 +44,9 @@ interface AdminInterface {
      * Inserts or updates the current model with the provided post data
      *
      * @param Model $model
+     * @param $data
      * @return mixed
      */
-    public function _store(Model $model);
+    public function _store(Model $model, $data);
 
 }

@@ -16,11 +16,11 @@
             link: function(scope, el) {
                 el.on('click', function() {
 
-                    WindowFactory.back(scope);
-
                     if(scope.closeCallback !== undefined) {
                         scope.closeCallback();
                     }
+
+                    WindowFactory.back(scope.$parent);
 
                 });
             }

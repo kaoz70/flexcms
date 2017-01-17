@@ -39,13 +39,13 @@ class Language extends RESTController implements AdminInterface {
 
     }
 
-    public function index_post($id)
+    public function index_put($id)
     {
 
         $response = new Response();
 
         try{
-            $this->_store(\App\Language::find($id));
+            $this->_store(\App\Language::find($id), $this->put());
             $response->setMessage('Idioma actualizado correctamente');
         } catch (Exception $e) {
             $response->setError('Ocurri&oacute; un problema al actualizar el idioma!', $e);
@@ -55,14 +55,14 @@ class Language extends RESTController implements AdminInterface {
 
     }
 
-    public function index_put()
+    public function index_post()
     {
 
         $response = new Response();
 
         try{
 
-            $lang = $this->_store(new App\Language());
+            $lang = $this->_store(new App\Language(), $this->post());
             $lang->position = \App\Language::all()->count();
             $lang->save();
 
@@ -114,10 +114,10 @@ class Language extends RESTController implements AdminInterface {
      * @param \Illuminate\Database\Eloquent\Model $model
      * @return mixed
      */
-    public function _store(\Illuminate\Database\Eloquent\Model $model)
+    public function _store(\Illuminate\Database\Eloquent\Model $model, $data)
     {
-        $model->name = $this->input->post('name');
-        $model->slug = $this->input->post('slug');
+        $model->name = $data['name'];
+        $model->slug = $data['slug'];
         $model->save();
         return $model;
     }
