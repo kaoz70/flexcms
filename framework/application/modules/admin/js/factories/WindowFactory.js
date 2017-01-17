@@ -39,20 +39,85 @@ angular.module('app')
 
             },
 
-            remove: function (scope) {
+            /**
+             * Removes the "n" last windows
+             *
+             * @param amount
+             * @param scope
+             */
+            remove: function (amount, scope) {
+
+                var windowsToKeep = $routeSegment.chain.length - amount,
+                    timeout = 0;
 
                 $.each($routeSegment.chain, function (index) {
-                    Service.stack(index, $($(".panel")[index]), $routeSegment.chain.length - 1);
+                    Service.stack(index, $($(".panel")[index]), windowsToKeep);
                 });
 
-                $($(".panel")[$routeSegment.chain.length - 1])
-                    .css('left', '100%')
-                    .css('opacity', 0);
+                //Get the last panels
+                var panels = $(".panel").slice(-amount).get().reverse();
+
+                angular.forEach(panels, function (panel) {
+
+                    $(panel)
+                        .css('opacity', 1)
+                        .css('-webkit-transform', 'translateZ(0) rotateY(0)')
+                        .css('-moz-transform', 'translateZ(0) rotateY(0)')
+                        .css('-o-transform', 'translateZ(0) rotateY(0)')
+                        .css('transform', 'translateZ(0) rotateY(0)')
+                        .css('-webkit-filter', 'brightness(1)')
+                        .css('-moz-filter', 'brightness(1)')
+                        .css('-o-filter', 'brightness(1)')
+                        .css('filter', 'brightness(1)');
+
+                    setTimeout(function () {
+
+                        $(panel)
+                            .css('left', '100%')
+                            .css('opacity', 0);
+
+                    }, timeout);
+
+                    timeout += 200;
+
+                });
 
                 //Deselect the selected item
-                angular.forEach(scope.$parent.items, function (item) {
-                    item.selected = false;
-                });
+                if(scope) {
+                    angular.forEach(scope.$parent.items, function (item) {
+                        item.selected = false;
+                    });
+                }
+
+            },
+
+            /**
+             * Removes all panel windows that are after the passed index
+             *
+             * @param index
+             * @param url
+             */
+            removeFromIndex: function (index, url) {
+
+                var timeout = 0;
+
+                //Prevent Circular Dependency Injector error
+                var delta = $routeSegment.chain.length - index;
+
+                //Remove any child windows
+                if(delta > 1) {
+
+                    for (var i = 0; i < delta - 1; i++) {
+                        this.remove(delta - 1);
+                        timeout += 400;
+                    }
+
+                }
+
+                //Go to the new URL
+                setTimeout(function () {
+                    $window.location.assign(url);
+                }, timeout);
 
             },
 
@@ -63,12 +128,12 @@ angular.module('app')
              */
             back: function (scope) {
 
-                this.remove(scope);
+                this.remove(1, scope);
 
                 setTimeout(function () {
 
                     var url = "#/",
-                        segments = $routeSegment.chain;
+                        segments = angular.copy($routeSegment.chain);
 
                     //Remove the last segment
                     segments.splice(segments.length -1, 1);
@@ -78,7 +143,6 @@ angular.module('app')
 
                         url += item.name + "/";
 
-                        //Add the route parameters
                         if(item.params.dependencies !== undefined) {
                             angular.forEach(item.params.dependencies, function (value) {
                                 url += $routeParams[value] + "/";

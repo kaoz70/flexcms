@@ -3,7 +3,7 @@
 
         <div ui-tree-handle ng-show="showReorder"><md-icon>reorder</md-icon></div>
 
-        <md-list-item ng-click="onItemClick(node, nodes, '#/' + section + '/edit/' + node.id, $event, $scope)" ng-class="{'selected': selected === row}" >
+        <md-list-item ng-click="onItemClick(node, nodes, '#/' + section + '/edit/' + node.id, $event)" ng-class="{'selected': selected === row}" >
             <p class="item-name">
                 <md-icon ng-show="node.icon">{{node.icon}}</md-icon>
                 <span>{{node.name ? node.name : node.translation.name}}</span>

@@ -7,7 +7,7 @@
  *
  * */
 angular.module('app')
-    .service('Selection', function($window, $rootScope, $mdDialog, BASE_PATH, $routeSegment, $injector){
+    .service('Selection', function($window, $rootScope, $mdDialog, BASE_PATH, WindowFactory){
 
         var selection,
             scope;
@@ -41,40 +41,23 @@ angular.module('app')
          * @param nodes
          * @param url
          */
-        this.onItemClick = function(node, nodes, url, $event, $scope) {
+        this.onItemClick = function(node, nodes, url, $event) {
+
+            if(node.selected) {
+                return;
+            }
 
             //Remove the selected state from any other item
             angular.forEach(nodes, function(item) {
                 item.selected = false;
             });
 
-            console.log($scope);
-
             //Set the current node as selected
             node.selected = true;
 
             //Get the current element parent panel index so that we know if there are child windows
             var currentPanelIndex = $('[app-view-segment]').index($($event.target).closest('[app-view-segment]'));
-            var timeout = 0;
-
-            //Prevent Circular Dependency Injector error
-            var WindowFactory = $injector.get('WindowFactory');
-            var delta = $routeSegment.chain.length - currentPanelIndex;
-
-            //Remove any child windows
-            /*if(delta > 1) {
-
-                for (var i = 0; i < delta - 1; i++) {
-                    WindowFactory.remove($scope);
-                    timeout += 400;
-                }
-
-            }*/
-
-            //Go to the new URL
-            setTimeout(function () {
-                $window.location.assign(url);
-            }, timeout);
+            WindowFactory.removeFromIndex(currentPanelIndex, url);
 
         };
 

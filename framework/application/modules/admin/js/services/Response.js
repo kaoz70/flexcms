@@ -56,7 +56,7 @@ angular.module('app')
 
             //Is it a successful response?
             if (response.headers('Content-Type') === "application/json; charset=utf-8" && !responseData.success) {
-                throw responseData.message;
+                throw responseData.message ? responseData.message : "Hubo un problema con la petición";
             }
 
             //Is it a valid JSON response?

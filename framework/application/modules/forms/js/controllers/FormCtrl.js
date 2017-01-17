@@ -62,7 +62,7 @@ angular.module('app')
 
     })
 
-    .controller('FormEditCtrl', function($scope, $rootScope, $routeParams, Form, Field, WindowFactory, Selection, $mdDialog, languages){
+    .controller('FormEditCtrl', function($scope, $rootScope, $routeParams, Form, Field, WindowFactory, Selection, $mdDialog, languages, $window, $routeSegment){
 
         var fieldCount = 0;
 

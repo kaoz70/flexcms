@@ -109,7 +109,7 @@ class BaseModel extends Model {
             ->first();
 
         if($translation) {
-            $this->translation = json_decode($translation->data);
+            $this->translation = $translation->data;
             return $this->translation;
         } else {
             return $this->translation = null;
