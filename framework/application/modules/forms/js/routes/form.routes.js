@@ -87,13 +87,12 @@
                                 types: function(Field, $q) {
 
                                     var deferred = $q.defer();
-
-                                    Field.getTypes().then(function(successData) {
-                                        deferred.resolve(successData);
-                                    }, function(errorData) {
-                                        deferred.reject(errorData);
-                                    });
-
+                                    Field.query(
+                                        function(successData) {
+                                            deferred.resolve(successData);
+                                        }, function(errorData) {
+                                            deferred.reject(errorData);
+                                        });
                                     return deferred.promise;
 
                                 }
@@ -139,13 +138,12 @@
                                 types: function(Field, $q) {
 
                                     var deferred = $q.defer();
-
-                                    Field.getTypes().then(function(successData) {
-                                        deferred.resolve(successData);
-                                    }, function(errorData) {
-                                        deferred.reject(errorData);
-                                    });
-
+                                    Field.query(
+                                        function(successData) {
+                                            deferred.resolve(successData);
+                                        }, function(errorData) {
+                                            deferred.reject(errorData);
+                                        });
                                     return deferred.promise;
 
                                 }

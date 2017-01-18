@@ -7,21 +7,25 @@
  *
  * */
 angular.module('app')
-    .service('Field', function($http){
+    .service('FieldService', function($http, $routeParams, $filter){
 
-        var urls = {
-            insert: 'admin/form/field/insert/',
-            types: 'admin/forms/field/getTypes'
-        };
+        this.getField = function ($scope) {
 
-        this.getTypes = function() {
-            return $http.get(urls.types);
+            var form = $scope.$parent.formData;
+
+            //Find the form by id in the parent list array
+            var selected = $filter('filter')(form.fields, {
+                id: parseInt($routeParams.field_id, 10)
+            }, true);
+
+            return selected[0];
+
         };
 
         this.newDummyField = function (languages, fieldCount) {
 
             var field = {
-                id: fieldCount,
+                id: Date.now(),
                 required: false,
                 label_enabled: false,
                 enabled: true,

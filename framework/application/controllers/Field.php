@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * Date: 7/27/2016
  * Time: 10:33 AM
  */
-class Field extends AdminController
+class Field extends RESTController
 {
 
     const FIELD_SECTION = '';
@@ -67,7 +67,7 @@ class Field extends AdminController
 
     }
 
-    public function delete($id)
+    /*public function delete($id)
     {
 
         $response = new stdClass();
@@ -84,7 +84,7 @@ class Field extends AdminController
 
         $this->load->view(static::RESPONSE_VIEW, array(static::RESPONSE_VAR => $response));
 
-    }
+    }*/
 
     public function reorder()
     {

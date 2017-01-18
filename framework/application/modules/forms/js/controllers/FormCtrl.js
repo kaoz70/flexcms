@@ -52,7 +52,7 @@ angular.module('app')
 
     })
 
-    .controller('FormEditCtrl', function($scope, $rootScope, $routeParams, Form, Field, WindowFactory, Selection, $mdDialog, languages){
+    .controller('FormEditCtrl', function($scope, $rootScope, $routeParams, Form, Field, FieldService, WindowFactory, Selection, $mdDialog, languages){
 
         var fieldCount = 0;
 
@@ -73,12 +73,20 @@ angular.module('app')
 
         $scope.selection = new Selection(function (node) {
 
-            var result = $.grep($scope.items, function(e){
-                return e.id === node;
-            });
+            if(node.isNew) {
 
-            var index = $scope.items.indexOf(result[0]);
-            $scope.items.splice(index, 1);
+                var result = $.grep($scope.items, function(e){
+                    return e.id === node.id;
+                });
+
+                var index = $scope.items.indexOf(result[0]);
+                $scope.items.splice(index, 1);
+
+            } else {
+                Field.delete({id: node.id}, function (response) {
+                    $scope.items = response.data;
+                });
+            }
 
         });
 
@@ -88,6 +96,9 @@ angular.module('app')
             $scope.form.$setSubmitted();
 
             if($scope.form.$valid) {
+
+                $scope.formData.fields = $scope.items;
+
                 Form.update({id: $scope.formData.id}, $scope.formData, function(response) {
                     $scope.items = response.data.fields;
                     angular.copy(response.data, origData);
@@ -102,6 +113,9 @@ angular.module('app')
             $scope.form.$setSubmitted();
 
             if($scope.form.$valid) {
+
+                $scope.formData.fields = $scope.items;
+
                 Form.update({id: $scope.formData.id}, $scope.formData, function(response) {
                     angular.copy(response.data, origData);
                     WindowFactory.back($scope);
@@ -119,13 +133,13 @@ angular.module('app')
         };
 
         $scope.addField = function () {
-            $scope.items.push(Field.newDummyField(languages.data, fieldCount));
+            $scope.items.push(FieldService.newDummyField(languages.data, fieldCount));
             fieldCount++;
         };
 
     })
 
-    .controller('FormCreateCtrl', function($scope, $rootScope, $routeParams, Form, Field, WindowFactory, Selection, $mdDialog, languages){
+    .controller('FormCreateCtrl', function($scope, $rootScope, $routeParams, Form, Field, FieldService, WindowFactory, Selection, $mdDialog, languages){
 
         var fieldCount = 0,
             isNew = true;
@@ -203,17 +217,15 @@ angular.module('app')
         };
 
         $scope.addField = function () {
-            $scope.items.push(Field.newDummyField(languages.data, fieldCount));
+            $scope.items.push(FieldService.newDummyField(languages.data, fieldCount));
             fieldCount++;
         };
 
     })
-    .controller('FieldEditCtrl', function($scope, $rootScope, $routeParams, Form, $routeSegment, WindowFactory, $filter, Loading, Language, Selection, Field, types){
+    .controller('FieldEditCtrl', function($scope, $rootScope, $routeParams, Form, $routeSegment, WindowFactory, $filter, Loading, Language, Selection, Field, types, FieldService){
 
         //Close the sidebar on this controller
         $rootScope.isSidebarOpen = false;
-
-        var form = $scope.$parent.formData;
 
         //Check if we are accessing this controller after a window reload
         if($scope.$parent.items.length === 0) {
@@ -221,13 +233,8 @@ angular.module('app')
             return;
         }
 
-        //Find the form by id in the parent list array
-        var selected = $filter('filter')(form.fields, {
-            id: parseInt($routeParams.field_id, 10)
-        }, true);
-
-        $scope.field = selected[0];
-        $scope.types = types.data.data;
+        $scope.field = FieldService.getField($scope);
+        $scope.types = types.data;
 
         WindowFactory.add($scope);
 

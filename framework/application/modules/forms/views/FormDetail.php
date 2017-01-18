@@ -76,7 +76,7 @@
                                         </p>
                                         <md-checkbox aria-label="Check to delete"
                                                      class="md-secondary delete"
-                                                     ng-click="selection.toggle(node.id)"></md-checkbox>
+                                                     ng-click="selection.toggle(node)"></md-checkbox>
                                     </md-list-item>
 
                                 </div>

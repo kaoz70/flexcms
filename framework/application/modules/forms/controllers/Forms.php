@@ -134,7 +134,7 @@ class Forms extends \RESTController implements \AdminInterface {
         $model->email = $data['email'];
         $model->save();
 
-        //Save the fields
+        //Save the fields if any
         if(isset($data['fields'])) {
             foreach ($data['fields'] as $index => $fieldData) {
                 $field = isset($fieldData['isNew']) ? new Field() : Field::find($fieldData['id']);
