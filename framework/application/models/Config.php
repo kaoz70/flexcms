@@ -55,9 +55,17 @@ class Config extends Model {
 
     static function saveData(array $data)
     {
+
         foreach ($data as $key => $value) {
             $row = static::where('key', $key)->first();
-            $row->value = $value;
+
+            //Check if string is a boolean
+            if($value === true || $value === false) {
+                $row->value =  $value ? 'true' : 'false';
+            } else {
+                $row->value = $value;
+            }
+
             $row->save();
         }
     }

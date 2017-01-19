@@ -12,7 +12,27 @@
                 .segment('config', {
                     'default': true,
                     templateUrl: BASE_PATH + 'admin/ConfigGeneral',
-                    controller: 'ConfigCtrl'
+                    controller: 'ConfigCtrl',
+                    resolve: {
+                        config: function(Config, $q) {
+
+                            var deferred = $q.defer();
+                            Config.get({section: 'general'}, function(successData) {
+                                deferred.resolve(successData);
+                            }, function(errorData) {
+                                deferred.reject(errorData);
+                            });
+
+                            return deferred.promise;
+
+                        }
+                    },
+                    untilResolved: {
+                        templateUrl: BASE_PATH + 'admin/Loading'
+                    },
+                    resolveFailed: {
+                        controller: 'ErrorCtrl'
+                    }
                 });
 
         });

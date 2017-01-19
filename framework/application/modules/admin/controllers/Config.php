@@ -3,10 +3,9 @@ use App\Utils;
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Config extends AdminController {
+class Config extends RESTController {
 
-    public function general(){
-
+    public function index_get(){
 
         $response = new Response();
 
@@ -22,23 +21,23 @@ class Config extends AdminController {
             $response->setError('Ocurri&oacute; un problema al obtener la configuraci&oacute;n!', $e);
         }
 
-        $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );
+        $this->response($response);
 
     }
 
-    public function save()
+    public function index_put()
     {
 
         $response = new Response();
 
         try{
-            \App\Config::saveData($this->input->post());
+            \App\Config::saveData($this->put());
             $response->setMessage("Configuraci&oacute;n guardada correctamente");
         } catch (Exception $e) {
             $response->setError('Ocurri&oacute; un problema al guardar!', $e);
         }
 
-        $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );
+        $this->response($response);
 
     }
 

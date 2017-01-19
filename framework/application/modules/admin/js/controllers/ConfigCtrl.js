@@ -8,31 +8,33 @@
  * @requires $scope
  * */
 angular.module('app')
-    .controller('ConfigCtrl', function($scope, $rootScope, Config, $routeSegment, WindowFactory, Loading){
+    .controller('ConfigCtrl', function($scope, $rootScope, Config, $routeSegment, WindowFactory, config){
 
         //Close the sidebar on this controller
         $rootScope.isSidebarOpen = false;
 
-        WindowFactory.add();
-        var panel = Loading.show();
+        WindowFactory.add($scope);
 
         //Base url
         $scope.section = "config";
 
-        $scope.config = {};
-        $scope.pages = [];
-        $scope.themes = [];
+        $scope.config = config.data.config;
+        $scope.pages = config.data.pages;
+        $scope.themes = config.data.themes;
+        $scope.production = ($scope.config.environment === 'production');
 
-        Config.getGeneral().then(function (response) {
-            $scope.config = response.data.data.config;
-            $scope.pages = response.data.data.pages;
-            $scope.themes = response.data.data.themes;
-            Loading.hide(panel);
-        });
+        $scope.onProductionChange = function(state) {
+            if(state) {
+                $scope.config.environment = 'production';
+                $scope.config.indent_html = false;
+            } else {
+                $scope.config.environment = 'development';
+            }
+        };
 
         $scope.saveAndClose = function () {
-            Config.save($scope.config);
-            WindowFactory.remove($scope);
+            Config.update($scope.config);
+            WindowFactory.back($scope);
         };
 
     })

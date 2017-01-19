@@ -48,7 +48,9 @@
                     </md-input-container>
                 </div>
 
-                <md-switch ng-model="config.production" aria-label="Indentar HTML">
+                <md-switch ng-model="production"
+                           ng-change="onProductionChange(production)"
+                           aria-label="Producci&oacute;n">
                     Producci&oacute;n
                 </md-switch>
 
