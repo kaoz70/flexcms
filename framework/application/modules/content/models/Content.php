@@ -158,23 +158,24 @@ class Content extends BaseModel {
 
             foreach ($inputs as $input) {
 
-                if($input->id === $lang->id) {
+                if($input['id'] === $lang->id) {
 
-                    $translation = $input->translation;
+                    $translation = $input['translation'];
 
                     $trans_data = [
-                        'name' => isset($translation->name) ? $translation->name : '',
-                        'content' => isset($translation->content) ? $translation->content : '',
-                        'meta_keywords' => isset($translation->meta_keywords) ? $translation->meta_keywords : [],
-                        'meta_description' => isset($translation->meta_description) ? $translation->meta_description : '',
-                        'meta_title' => isset($translation->meta_title) ? $translation->meta_title : '',
+                        'name' => isset($translation['name']) ? $translation['name'] : '',
+                        'content' => isset($translation['content']) ? $translation['content'] : '',
+                        'meta_keywords' => isset($translation['meta_keywords']) ? $translation['meta_keywords'] : [],
+                        'meta_description' => isset($translation['meta_description']) ? $translation['meta_description'] : '',
+                        'meta_title' => isset($translation['meta_title']) ? $translation['meta_title'] : '',
                     ];
 
                     $trans = Translation::firstOrNew([
                         'language_id' => $lang->id,
                         'parent_id' => $this->id,
-                        'type' => $this->type
+                        'type' => static::$type
                     ]);
+
                     $trans->data = json_encode($trans_data);
                     $trans->save();
 

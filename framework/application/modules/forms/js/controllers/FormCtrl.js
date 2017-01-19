@@ -42,7 +42,7 @@ angular.module('app')
                 $scope.items = response.data;
 
                 //Remove from the selected array
-                $scope.selection.toggle(node.id);
+                $scope.selection.remove(node.id);
 
             });
 

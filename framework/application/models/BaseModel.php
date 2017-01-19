@@ -105,16 +105,28 @@ class BaseModel extends Model {
 
         $translation = $this->hasOne('App\Translation', 'parent_id')
             ->where('language_id', $lang_id)
-            ->where('type', $this->type)
+            ->where('type', static::$type)
             ->first();
 
         if($translation) {
             $this->translation = $translation->data;
+            $this->createProperties($translation->data);
             return $this->translation;
         } else {
             return $this->translation = null;
         }
 
+    }
+
+    /**
+     * Add translation properties directly to the model
+     *
+     * @param $data
+     */
+    public function createProperties($data){
+        foreach ($data as $name => $value) {
+            $this->{$name} = $value;
+        }
     }
 
     /**

@@ -114,10 +114,8 @@ class Page extends Category
 
     }
 
-    public function setTranslations($input)
+    public function setTranslations($inputs)
     {
-
-        $inputs = json_decode($input, true);
 
         foreach(Language::all() as $lang){
 
@@ -126,7 +124,7 @@ class Page extends Category
                 if($input['id'] === $lang->id) {
 
                     $trans = Translation::firstOrNew(['language_id' => $lang->id, 'parent_id' => $this->id, 'type' => self::getType()]);
-                    $trans_data = json_decode($trans->data);
+                    $trans_data = $trans->data ?: new \stdClass();
 
                     $trans_data->name = $input['translation']['name'];
                     $trans_data->menu_name = $input['translation']['menu_name'];

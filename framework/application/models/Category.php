@@ -37,6 +37,17 @@ class Category extends BaseModel implements NodeInterface {
     }
 
     /**
+     * Return popup attribute as boolean instead of int
+     *
+     * @param $value
+     * @return bool
+     */
+    public function getDataAttribute($value)
+    {
+        return json_decode($value);
+    }
+
+    /**
      * Calls the recursive function to check for unique names on each nodes
      *
      * @param $name

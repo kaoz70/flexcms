@@ -9,31 +9,48 @@ class Pages extends RESTController {
     var $link;
     var $mptt;
 
-    public function index_get($lang_id = 'null')
+    /**
+     * Get one or all the forms
+     *
+     * @param null $id
+     * @return string
+     */
+    public function index_get($id = null)
     {
-
-        if($lang_id === 'null') {
-            $lang_id = \App\Language::getDefault()->id;
-        }
 
         $response = new Response();
 
         try{
 
-            //Get the root page
-            $root = \App\Page::find(1);
-            $root->setLang($lang_id);
+            if($id && $id !== 'null') {
+                $data = $this->edit($id);
+            } else {
+                $data = $this->tree();
+            }
 
-            $depth = 99999;
-            $tree = $this->getNodes($root, $depth);
+            $response->setData($data);
 
-            $response->setData($tree);
-
-        } catch (Exception $e) {
-            $response->setError('Ocurri&oacute; un problema al obtener las p&aacute;ginas!', $e);
+        } catch (\Illuminate\Database\QueryException $e) {
+            $response->setError('Ocurri&oacute; un problema!', $e);
         }
 
         $this->response($response);
+
+    }
+
+    private function tree()
+    {
+
+        $lang_id = \App\Language::getDefault()->id;
+
+        //Get the root page
+        $root = \App\Page::find(1);
+        $root->setLang($lang_id);
+
+        $depth = 99999;
+        $tree = $this->getNodes($root, $depth);
+
+        return $tree;
 
     }
 
@@ -59,26 +76,16 @@ class Pages extends RESTController {
 
     }
 
-    public function edit($id)
+    private function edit($id)
     {
 
-        try {
+        //Get the content module
+        $contentWidget = \App\Widget::getContentWidget($id);
+        $contentType = $contentWidget->getData();
+        $class = '\\' . $contentType->content_type . '\Content';
 
-            //Get the content module
-            $contentWidget = \App\Widget::getContentWidget($id);
-            $contentType = $contentWidget->getData();
-            $class = '\\' . $contentType->content_type . '\Content';
-
-            //Get the content's index page
-            $class::index($id);
-
-        } catch (Exception $e) {
-
-            $response = new \App\Response();
-            $response->setError($e->getMessage(), $e);
-            $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
-
-        }
+        //Get the content's index page
+        return $class::index($id);
 
     }
 

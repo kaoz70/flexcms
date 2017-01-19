@@ -18,7 +18,7 @@ interface AdminInterface {
     public function index_get($id = null);
 
     /**
-     * Insert a new resource
+     * Update a resource
      *
      * @param $id
      * @return mixed
@@ -26,7 +26,7 @@ interface AdminInterface {
     public function index_put($id);
 
     /**
-     * Update a resource
+     * Insert a new resource
      *
      * @return mixed
      */

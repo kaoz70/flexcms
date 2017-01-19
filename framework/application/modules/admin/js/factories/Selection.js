@@ -30,6 +30,11 @@ angular.module('app')
 
             };
 
+            this.remove = function (node) {
+                var idx = selection.indexOf(node);
+                selection.splice(idx, 1);
+            };
+
             this.toggle = function (node) {
                 toggleSelection(node);
             };

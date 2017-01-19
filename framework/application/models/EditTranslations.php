@@ -61,10 +61,11 @@ class EditTranslations
 
     public function getAll()
     {
-        return [
-            'content' => $this->getContent(),
-            'translations' => $this->getTranslations()
-        ];
+
+        $content = $this->getContent();
+        $content->translations = $this->getTranslations();
+
+        return $content;
     }
 
 }

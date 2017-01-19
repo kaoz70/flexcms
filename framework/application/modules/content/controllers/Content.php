@@ -16,30 +16,20 @@ use App\Page;
 use App\Response;
 use App\Translation;
 use App\Widget;
+use ErrorException;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\QueryException;
 use stdClass;
 
-class Content extends \AdminController implements \ContentInterface
+class Content extends \RESTController implements \AdminInterface
 {
 
     const URL_CREATE = 'content/create/';
-    const URL_UPDATE = 'content/update/';
-    const URL_DELETE = 'content/delete/';
-    const URL_INSERT = 'content/insert';
-    const URL_EDIT = 'content/edit';
-    const URL_REORDER = 'content/reorder/';
-    const URL_SEARCH = 'content/search/';
     const URL_CONFIG = 'config';
-    const URL_SAVE_CONFIG = 'content/config_save';
 
     public static function index($page_id)
     {
-
-        //We use this because we are in a static context
-        $CI = &get_instance();
-
-        $response = new Response();
 
         $page = Page::find($page_id);
         $widget = Widget::getContentWidget($page_id);
@@ -58,87 +48,17 @@ class Content extends \AdminController implements \ContentInterface
             ],
         ];
 
-
         try {
-            $data['title'] = $page->getTranslation(Language::getDefault()->id) ? $page->getTranslation(Language::getDefault()->id)->name : "{missing translation}";
+
+            $data['title'] = $page->getTranslation(Language::getDefault()->id) ?
+                $page->getTranslation(Language::getDefault()->id)->name :
+                "{missing translation}";
+
         } catch (\TranslationException $e) {
             $data['title'] = "{Missing translation}";
         }
 
-        $response->setData($data);
-
-        $CI->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
-
-    }
-
-    /**
-     * Edit form interface
-     *
-     * @param $id
-     *
-     * @return mixed
-     */
-    public function edit($id)
-    {
-
-        $response = new Response();
-
-        try{
-            $content = \App\Content::getForEdit($id);
-            $response->setData($content);
-        } catch (Exception $e) {
-            $response->setError('Ocurri&oacute; un problema al obtener el contenido!', $e);
-        }
-
-        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
-
-    }
-
-    /**
-     * Insert the item into database
-     *
-     * @return mixed
-     */
-    public function insert()
-    {
-        //
-    }
-
-    /**
-     * Update the item in the database
-     *
-     * @param $id
-     *
-     * @return mixed
-     */
-    public function update($id)
-    {
-
-        $response = new Response();
-
-        try{
-
-            $content = $this->_store(\App\Content::findOrNew($id));
-
-            //New content set the position
-            if(!$id) {
-                $items = static::getItems($content->category_id);
-                $content->position = $items->count();
-                $content->save();
-            }
-
-            //We get all the items again because if its a new Content it did'nt have the position set yet
-            $items = static::getItems($content->category_id);
-
-            $response->setMessage('Contenido actualizado correctamente');
-
-            $response->setData($items);
-
-        } catch (Exception $e) {
-            $response->setError('Ocurri&oacute; un problema al actualizar el contenido!', $e);
-        }
-
-        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
+        return $data;
 
     }
 
@@ -150,30 +70,121 @@ class Content extends \AdminController implements \ContentInterface
     }
 
     /**
-     * Remove the item from the database
+     * Gets one or all resources
      *
-     * @param $page_id
+     * @param null $id
      * @return mixed
      */
-    public function delete($page_id)
+    public function index_get($id = null)
+    {
+
+        $response = new Response();
+
+        try{
+            $content = \App\Content::getForEdit($id);
+            $response->setData($content);
+        } catch (Exception $e) {
+            $response->setError('Ocurri&oacute; un problema al obtener el contenido!', $e);
+        }
+
+        $this->response($response);
+
+    }
+
+    /**
+     * Update a resource
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function index_put($id)
+    {
+
+        $response = new Response();
+
+        try {
+
+            $content = $this->_store(\App\Content::findOrNew($id), $this->put());
+            $items = static::getItems($content->category_id);
+
+            $data = [
+                'content' => \App\Content::getForEdit($content->id),
+                'items' => $items,
+            ];
+
+            $response->setMessage('Contenido actualizado correctamente');
+            $response->setData($data);
+
+        } catch (ErrorException $e) {
+            $response->setError('Ocurri&oacute; un problema al actualizar el contenido!', $e);
+        }
+
+        $this->response($response);
+
+    }
+
+    /**
+     * Insert a new resource
+     *
+     * @return mixed
+     */
+    public function index_post()
+    {
+
+        $response = new Response();
+
+        try {
+
+            $content = $this->_store(new \App\Content(), $this->post());
+            $items = static::getItems($content->category_id);
+            $content->position = $items->count();
+            $content->save();
+
+            //We get all the items again because if its a new Content it did'nt have the position set yet
+            $items = static::getItems($content->category_id);
+
+            $data = [
+                'content' => \App\Content::getForEdit($content->id),
+                'items' => $items,
+            ];
+
+            $response->setMessage('Contenido creado correctamente');
+            $response->setData($data);
+
+        } catch (QueryException $e) {
+            $response->setError('Ocurri&oacute; un problema al crear el contenido!', $e);
+        } catch (ErrorException $e) {
+            $response->setError('Ocurri&oacute; un problema al crear el contenido!', $e);
+        }
+
+        $this->response($response);
+
+    }
+
+    /**
+     * Delete a resource
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function index_delete($id)
     {
 
         $response = new Response();
 
         try{
 
-            $ids = $this->input->post();
-
             //Delete the content
-            \App\Content::destroy($ids);
+            $content = \App\Content::find($id);
+            $content->delete();
 
             //Delete the content's translations
-            $translations = Translation::whereIn('parent_id', $ids)->where('type', \App\Content::getType());
+            $translations = Translation::where('parent_id', $id)->where('type', \App\Content::getType());
             $translations->delete();
 
             $response->setMessage('Contenido eliminado satisfactoriamente');
 
-            $items = static::getItems($page_id);
+            $items = static::getItems($content->category_id);
 
             $response->setData($items);
 
@@ -181,7 +192,7 @@ class Content extends \AdminController implements \ContentInterface
             $response->setError('Ocurri&oacute; un problema al eliminar el contenido!', $e);
         }
 
-        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
+        $this->response($response);
 
     }
 
@@ -191,21 +202,19 @@ class Content extends \AdminController implements \ContentInterface
      * @param Model $model
      * @return mixed
      */
-    public function _store(Model $model)
+    public function _store(Model $model, $data)
     {
 
-        $contentPost = json_decode($this->input->post('content'));
-
-        $model->css_class = isset($contentPost->css_class) ? $contentPost->css_class : '';
-        $model->enabled = (bool) $contentPost->enabled;
-        $model->important = (bool) $contentPost->important;
-        $model->category_id = $contentPost->category_id;
-        $model->timezone = $contentPost->timezone;
-        $model->publication_start = isset($contentPost->publication_start) ? $contentPost->publication_start : NULL;
-        $model->publication_end = isset($contentPost->publication_end) ? $contentPost->publication_end : NULL;
+        $model->css_class = isset($data['css_class']) ? $data['css_class'] : '';
+        $model->enabled = (bool) $data['enabled'];
+        $model->important = (bool) $data['important'];
+        $model->category_id = $data['category_id'];
+        $model->timezone = $data['timezone'];
+        $model->publication_start = isset($data['publication_start']) ? $data['publication_start'] : NULL;
+        $model->publication_end = isset($data['publication_end']) ? $data['publication_end'] : NULL;
         $model->save();
 
-        $model->setTranslations(json_decode($this->input->post('translations')));
+        $model->setTranslations($data['translations']);
 
         return $model;
 
@@ -217,7 +226,7 @@ class Content extends \AdminController implements \ContentInterface
      * @param $widget_id
      * @return mixed
      */
-    public function config($widget_id)
+    public function config_get($widget_id)
     {
 
         $response = new Response();
@@ -228,7 +237,7 @@ class Content extends \AdminController implements \ContentInterface
             $response->setError('Ocurri&oacute; un problema al eliminar el contenido!', $e);
         }
 
-        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
+        $this->response($response);
 
     }
 
@@ -236,7 +245,7 @@ class Content extends \AdminController implements \ContentInterface
     {
 
         $widget = Widget::find($widget_id);
-        $data = Category::getForEdit($widget->category_id);
+        $data['page'] = Category::getForEdit($widget->category_id);
         $data['config'] = $widget->getConfig();
 
         $data['roles'] =  \App\Role::all();
@@ -255,27 +264,27 @@ class Content extends \AdminController implements \ContentInterface
      * @param $widget_id
      * @return mixed
      */
-    public function config_save($widget_id)
+    public function config_put($widget_id)
     {
 
         $response = new Response();
 
         try{
 
-            $configData = $this->input->post('config');
+            $configData = $this->put('config');
 
             //Update the widget's config
             $widget = Widget::find($widget_id);
             $widget->setConfig($configData);
 
             //Update the page's config
-            $pageData = json_decode($this->input->post('page'), true);
+            $pageData = $this->put('page');
 
             $page = Page::find($widget->category_id);
             $page->popup = (bool) $pageData['popup'];
             $page->enabled = (bool) $pageData['enabled'];
             $page->group_visibility = $pageData['group_visibility'];
-            $page->setTranslations($this->input->post('translations'));
+            $page->setTranslations($pageData['translations']);
             $page->save();
 
             $response->setData(static::getItems($page->id));
@@ -285,7 +294,7 @@ class Content extends \AdminController implements \ContentInterface
             $response->setError('Ocurri&oacute; un problema guardar la configuraci&oacute;n!', $e);
         }
 
-        $this->load->view(static::RESPONSE_VIEW, array(static::RESPONSE_VAR => $response));
+        $this->response($response);
 
     }
 
@@ -306,7 +315,7 @@ class Content extends \AdminController implements \ContentInterface
         return array_values(preg_grep("~^{$view}_.*\.(php)$~", scandir($path)));
     }
 
-    public function reorder($page_id)
+    public function reorder_post($page_id)
     {
         $response = new Response();
 
@@ -328,7 +337,8 @@ class Content extends \AdminController implements \ContentInterface
             $response->setError('Ocurri&oacute; un problema al reorganizar el contenido!', $e);
         }
 
-        $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );
+        $this->response($response);
+
     }
 
 }

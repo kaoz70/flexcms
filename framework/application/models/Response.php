@@ -88,6 +88,9 @@ class Response implements \JsonSerializable
      */
     public function setError($message, \Exception $exception){
 
+        $CI = &get_instance();
+        $CI->output->set_status_header(500);
+
         $data = [
             'type' => get_class($exception),
             'message' => $exception->getMessage(),
@@ -95,10 +98,7 @@ class Response implements \JsonSerializable
             'line' => $exception->getLine(),
         ];
 
-        if (defined('SHOW_DEBUG_BACKTRACE') && SHOW_DEBUG_BACKTRACE === TRUE) {
-            $data['trace'] = $exception->getTrace();
-        }
-
+        $this->setNotify(true);
         $this->setData($data);
         $this->setSuccess(false);
         $this->setType('danger');

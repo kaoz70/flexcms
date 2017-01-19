@@ -19,7 +19,7 @@
             <md-card-content>
 
                 <md-tabs class="md-hue-1" md-dynamic-height="" md-border-bottom="">
-                    <md-tab ng-repeat="lang in languages" label="{{lang.name}}">
+                    <md-tab ng-repeat="lang in page.translations" label="{{lang.name}}">
 
                         <md-input-container class="md-block md-hue-1">
                             <input ng-model="lang.translation.name" type="text" placeholder="T&iacute;tulo" ng-required="true">
@@ -75,7 +75,7 @@
             <md-card-content>
 
                 <md-tabs class="md-hue-1" md-dynamic-height="" md-border-bottom="">
-                    <md-tab ng-repeat="lang in languages" label="{{lang.name}}">
+                    <md-tab ng-repeat="lang in page.translations" label="{{lang.name}}">
 
                         <md-input-container class="md-block  md-hue-1">
                             <md-chips ng-model="lang.translation.meta_keywords"
