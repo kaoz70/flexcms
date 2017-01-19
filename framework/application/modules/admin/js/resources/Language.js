@@ -11,35 +11,20 @@ angular.module('app')
         return $resource(system.base_url + 'admin/language/:id', { id: '@id'}, {
             query: {
                 isArray: false
+            },
+            update: {
+                method: 'PUT'
+            },
+            reorder: {
+                method: 'PUT'
             }
         });
     });
 
-/*angular.module('app')
-    .service('Language', function($http, Request, Response){
+angular.module('app')
+    .service('LanguageService', function($http, Request){
 
-        var urls = {
-            index: 'admin/language',
-            update: 'admin/language/update/',
-            delete: 'admin/language/delete',
-            insert: 'admin/language/insert',
-            edit: 'admin/language/edit/',
-            reorder: 'admin/language/reorder'
-        };
-
-        this.getAll = function() {
-            return $http.get(urls.index)
-                .success(Response.validate)
-                .error(Response.error);
-        };
-
-        this.getOne = function(id) {
-            return $http.get(urls.edit + id)
-                .success(Response.validate)
-                .error(Response.error);
-        };
-
-        this.setOrder = function(list) {
+        this.reorder = function(list) {
 
             var order = [],
                 data = {};
@@ -50,21 +35,9 @@ angular.module('app')
 
             data.order = JSON.stringify(order);
 
-            return Request.post(data, urls.reorder);
+            return Request.post(data, 'admin/language/reorder');
 
         };
 
-        this.save = function(language) {
-            return Request.post(language, urls.update + language.id);
-        };
-
-        this.insert = function(language) {
-            return Request.post(language, urls.insert);
-        };
-
-        this.delete = function(ids) {
-            return Request.post(ids, urls.delete);
-        };
-
-});*/
+});
 

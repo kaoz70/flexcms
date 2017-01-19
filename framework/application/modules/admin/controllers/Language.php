@@ -39,6 +39,12 @@ class Language extends RESTController implements AdminInterface {
 
     }
 
+    /**
+     * Update a language
+     *
+     * @param $id
+     * @return string
+     */
     public function index_put($id)
     {
 
@@ -51,10 +57,13 @@ class Language extends RESTController implements AdminInterface {
             $response->setError('Ocurri&oacute; un problema al actualizar el idioma!', $e);
         }
 
-        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
+        $this->response($response);
 
     }
 
+    /**
+     * Create a language
+     */
     public function index_post()
     {
 
@@ -73,12 +82,12 @@ class Language extends RESTController implements AdminInterface {
             $response->setError('Ocurri&oacute; un error al crear el idioma!', $e);
         }
 
-        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
+        $this->response($response);
 
     }
 
     /**
-     *
+     * Deletes a language
      */
     public function index_delete($id)
     {
@@ -87,15 +96,14 @@ class Language extends RESTController implements AdminInterface {
 
         try{
 
-            $ids = $this->input->post();
-
             if(\App\Language::all()->count() === 1) {
                 $response->setNotify(false);
                 throw new LengthException('Debe tener al menos un idioma disponible!');
             }
 
             //Delete the content
-            \App\Language::destroy($ids);
+            $language = \App\Language::find($id);
+            $language->delete();
 
             $response->setData(\App\Language::orderBy('position', 'asc')->get());
             $response->setMessage('Idioma eliminado correctamente');
@@ -104,8 +112,26 @@ class Language extends RESTController implements AdminInterface {
             $response->setError('Ocurri&oacute; un problema al eliminar el idioma!', $e);
         }
 
-        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
+        $this->response($response);
 
+    }
+
+
+    public function reorder_post()
+    {
+
+        $response = new Response();
+
+        try{
+
+            \App\Language::reorder($this->post('order'), '');
+            $response->setMessage('Se guard&oacute; el nuevo orden de elementos');
+
+        } catch (Exception $e) {
+            $response->setError('Ocurri&oacute; un problema al reorganizar los idiomas!', $e);
+        }
+
+        $this->response($response);
     }
 
     /**
@@ -120,23 +146,6 @@ class Language extends RESTController implements AdminInterface {
         $model->slug = $data['slug'];
         $model->save();
         return $model;
-    }
-
-    public function reorder()
-    {
-
-        $response = new Response();
-
-        try{
-
-            \App\Language::reorder($this->input->post('order'), '');
-            $response->setMessage('Se guard&oacute; el nuevo orden de elementos');
-
-        } catch (Exception $e) {
-            $response->setError('Ocurri&oacute; un problema al reorganizar los idiomas!', $e);
-        }
-
-        $this->load->view(static::RESPONSE_VIEW, [ static::RESPONSE_VAR => $response ] );
     }
 
 }

@@ -4,7 +4,7 @@
         <div class="md-toolbar-tools">
             <h2>{{language.name}}</h2>
             <span flex></span>
-            <panel-dispose></panel-dispose>
+            <panel-dispose close-callback="closeHandler"></panel-dispose>
         </div>
     </md-toolbar>
 

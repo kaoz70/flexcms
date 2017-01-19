@@ -8,7 +8,7 @@
  * @requires $scope
  * */
 angular.module('app')
-    .controller('LanguageCtrl', function($scope, $rootScope, Language, $routeSegment, WindowFactory, Loading, Selection, $mdDialog){
+    .controller('LanguageCtrl', function($scope, $rootScope, Language, LanguageService, $routeSegment, WindowFactory, Loading, Selection, languages){
 
         //Close the sidebar on this controller
         $rootScope.isSidebarOpen = false;
@@ -20,100 +20,92 @@ angular.module('app')
         $scope.showReorder = true;
         $scope.keepOne = 'keep-one';
 
+        $scope.items = languages.data;
+
+        //Menu
+        $scope.menu = [
+            {
+                title: 'nuevo',
+                icon: 'add',
+                url:'language/create'
+            }
+        ];
+
         //Base url
         $scope.section = "language";
 
-        $scope.deleteSelection = Selection.init($scope);
-        $scope.toggleDeleteSelection = Selection.toggleSelection;
-        $scope.onItemClick = Selection.onItemClick;
+        $scope.selection = new Selection(function (node) {
 
-        WindowFactory.add();
-        var panel = Loading.show();
+            Language.delete({id: node.id}, function (response) {
 
-        //Load the content
-        Language.getAll().then(function (response) {
-            $rootScope.records = response.data.data.items;
-            $scope.menu = [
-                {
-                    title: 'nuevo',
-                    icon: 'add',
-                    url:'language/create'
-                }
-            ];
-            Loading.hide(panel);
-        });
+                $scope.items = response.data;
 
-        $scope.treeOptions = {
-            dropped: function (scope, modelData, sourceIndex) {
-                Language.setOrder($rootScope.records);
-            }
-        };
-
-        $scope.delete = function (ev) {
-
-            Selection.delete(ev, function() {
-
-                Language.delete($scope.deleteSelection).then(function (response) {
-
-                    if(response.data.success) {
-
-                        $rootScope.records = response.data.data;
-                        $scope.deleteSelection = [];
-                    }
-
-                    $mdDialog.hide();
-
-                });
+                //Remove from the selected array
+                $scope.selection.remove(node.id);
 
             });
 
-        }
-
-    })
-
-    .controller('LanguageEditCtrl', function($scope, $rootScope, $routeParams, Language, $routeSegment, WindowFactory, $filter, Loading, Selection){
-
-        //Close the sidebar on this controller
-        $rootScope.isSidebarOpen = false;
-
-        WindowFactory.add();
-        var panel = Loading.show();
-
-        $scope.close_url = '#/language';
-
-        Language.getOne($routeParams.id).then(function (response) {
-
-            //Find the content by id in the records array
-            var language = $filter('filter')($rootScope.records, {
-                id: parseInt($routeParams.id, 10)
-            }, true);
-
-            $scope.language = language[0];
-            Selection.addToActiveList($scope.language);
-            $scope.title = response.data.name;
-
-            Loading.hide(panel);
-
         });
 
-        $scope.save = function () {
-            Language.save($scope.language);
-            WindowFactory.remove($scope);
+        WindowFactory.add($scope);
+
+        $scope.treeOptions = {
+            dropped: function () {
+                LanguageService.reorder($scope.items);
+            }
         };
 
     })
-    .controller('LanguageCreateCtrl', function($scope, $rootScope, $routeParams, Language, $routeSegment, WindowFactory, $filter, Loading, Selection){
+
+    .controller('LanguageEditCtrl', function($scope, $rootScope, Language, $routeSegment, WindowFactory, $filter, language){
 
         //Close the sidebar on this controller
         $rootScope.isSidebarOpen = false;
 
-        WindowFactory.add();
+        WindowFactory.add($scope);
+
+        //We store the original data here in case the user closes the panel (cancel)
+        var origData = angular.copy(language.data);
+
+        $scope.language = language.data;
+        $scope.title = language.data.name;
+
+        //Find the content by id in the records array
+        var ct = $filter('filter')($scope.$parent.items, {
+            id: parseInt(language.data.id, 10)
+        }, true);
+
+        //Change the name in the item list
+        $scope.$watch('language.name', function(v){
+            ct[0].name = v;
+        });
+
+        $scope.save = function () {
+            Language.update({id: $scope.language.id}, $scope.language);
+            WindowFactory.back($scope);
+        };
+
+        /**
+         * Handler used when the user clicks on the close panel button
+         */
+        $scope.closeHandler = function () {
+            //Reset the data
+            angular.copy(origData, ct[0]);
+        };
+
+    })
+    .controller('LanguageCreateCtrl', function($scope, $rootScope, $routeParams, Language, $routeSegment, WindowFactory){
+
+        //Close the sidebar on this controller
+        $rootScope.isSidebarOpen = false;
+
+        WindowFactory.add($scope);
 
         $scope.save = function () {
 
-            Language.insert($scope.language).then(function (response) {
-                $rootScope.records = response.data.data;
-                WindowFactory.remove($scope);
+            Language.save($scope.language, function (response) {
+                $scope.$parent.items = response.data;
+                WindowFactory.back($scope);
             });
 
         };

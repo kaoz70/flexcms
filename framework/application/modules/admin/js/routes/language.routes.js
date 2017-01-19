@@ -14,13 +14,53 @@
                 .segment('language', {
                     'default': true,
                     templateUrl: BASE_PATH + 'admin/List',
-                    controller: 'LanguageCtrl'
+                    controller: 'LanguageCtrl',
+                    resolve: {
+                        languages: function(Language, $q) {
+
+                            var deferred = $q.defer();
+                            Language.query(
+                                function(successData) {
+                                    deferred.resolve(successData);
+                                }, function(errorData) {
+                                    deferred.reject(errorData);
+                                });
+                            return deferred.promise;
+
+                        }
+                    },
+                    untilResolved: {
+                        templateUrl: BASE_PATH + 'admin/Loading'
+                    },
+                    resolveFailed: {
+                        controller: 'ErrorCtrl'
+                    }
                 })
                 .within()
                     .segment('edit', {
                         templateUrl: BASE_PATH + 'admin/LanguageDetail',
                         controller: 'LanguageEditCtrl',
-                        dependencies: ['id']
+                        dependencies: ['id'],
+                        resolve: {
+                            language: function(Language, $q, $routeParams) {
+
+                                var deferred = $q.defer();
+                                Language.get({id: $routeParams.id},
+                                    function(successData) {
+                                        deferred.resolve(successData);
+                                    }, function(errorData) {
+                                        deferred.reject(errorData);
+                                    });
+                                return deferred.promise;
+
+                            }
+                        },
+                        untilResolved: {
+                            templateUrl: BASE_PATH + 'admin/Loading'
+                        },
+                        resolveFailed: {
+                            controller: 'ErrorCtrl'
+                        }
                     })
                     .segment('create', {
                         templateUrl: BASE_PATH + 'admin/LanguageDetail',
