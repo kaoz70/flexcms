@@ -224,6 +224,7 @@
     <script src="<?= admin_asset_path('../../packages/angular-aria/angular-aria.min.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/angular-material/angular-material.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/angular-scroll-glue/src/scrollglue.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/ng-file-upload/ng-file-upload.js') ?>"></script>
 
     <script src="<?= admin_asset_path('../../packages/codemirror/lib/codemirror.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/codemirror/addon/edit/closetag.js') ?>"></script>

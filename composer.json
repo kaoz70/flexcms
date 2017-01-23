@@ -18,21 +18,28 @@
     "cartalyst/themes": "^3.0",
     "symfony/http-foundation": "^2.7",
     "symfony/var-dumper": "^3.1",
+    "symfony/console": "3.1.9",
     "doctrine/dbal": "^2.5",
     "cartalyst/assetic-filters": "^1.2",
     "twig/twig": "^1.27",
     "illuminate/pagination": "^5.3",
     "phpmailer/phpmailer": "^5.2",
     "josegonzalez/dotenv": "^2.0",
-    "filp/whoops": "^2.1"
+    "filp/whoops": "^2.1",
+    "dosjein/external_artisan": "dev-master"
   },
   "require-dev": {
-    "codeclimate/php-test-reporter": "dev-master"
+    "codeclimate/php-test-reporter": "dev-master",
+    "barryvdh/laravel-ide-helper": "^2.2"
   },
   "repositories": [
     {
       "type": "composer",
       "url": "https://packages.cartalyst.com"
+    },
+    {
+      "url": "https://github.com/dosjein/external_artisan.git",
+      "type": "git"
     }
   ],
   "extra": {

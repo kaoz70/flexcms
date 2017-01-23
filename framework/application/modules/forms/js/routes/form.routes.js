@@ -15,7 +15,7 @@
                 .when('/forms/create/field/edit/:field_id', 'forms.create.edit')
                 .segment('forms', {
                     'default': true,
-                    templateUrl: BASE_PATH + 'admin/List',
+                    templateUrl: BASE_PATH + 'admin/List1',
                     controller: 'FormCtrl',
                     resolve: {
                         response: function(Form, $q) {

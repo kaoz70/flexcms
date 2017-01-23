@@ -13,12 +13,15 @@
                 .when('/page/:page_id/content/edit/:id', 'page.content')
                 .when('/page/:page_id/content/create', 'page.create')
                 .when('/page/:page_id/config/:widget_id', 'page.config')
+                .when('/page/:page_id/images', 'page.images')
+                .when('/page/:page_id/images/create', 'page.images.create')
+                .when('/page/:page_id/images/edit/:image_id', 'page.images.edit')
                 .segment('page_index', {
                     'default': true,
                     controller: 'PageIndexCtrl'
                 })
                 .segment('page', {
-                    templateUrl: BASE_PATH + 'admin/List',
+                    templateUrl: BASE_PATH + 'admin/List1',
                     controller: 'PageCtrl',
                     resolve: {
                         page: function(Page, $routeParams, $q) {
@@ -117,7 +120,44 @@
                         resolveFailed: {
                             controller: 'ErrorCtrl'
                         }
-                    });
+                    })
+                    .segment('images', {
+                        templateUrl: BASE_PATH + 'admin/List2',
+                        controller: 'ImageConfigCtrl',
+                        dependencies: ['page_id'],
+                        resolve: {
+                            images: function(ImageConfig, $q, $routeParams) {
+
+                                var deferred = $q.defer();
+                                ImageConfig.query({id: $routeParams.page_id}, function(successData) {
+                                    deferred.resolve(successData);
+                                }, function(errorData) {
+                                    deferred.reject(errorData);
+                                });
+
+                                return deferred.promise;
+
+                            }
+                        },
+                        untilResolved: {
+                            templateUrl: BASE_PATH + 'admin/Loading'
+                        },
+                        resolveFailed: {
+                            controller: 'ErrorCtrl'
+                        }
+                    })
+                    .within()
+                        .segment('create', {
+                            templateUrl: BASE_PATH + 'admin/ImageConfigDetail',
+                            controller: 'ImageConfigCreateCtrl',
+                            dependencies: ['page_id'],
+                            untilResolved: {
+                                templateUrl: BASE_PATH + 'admin/Loading'
+                            },
+                            resolveFailed: {
+                                controller: 'ErrorCtrl'
+                            }
+                        });
 
         });
 

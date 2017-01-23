@@ -7,7 +7,7 @@
     app.constant('BASE_PATH', 'admin/view/module/');
     app.constant('WIDGET_PATH', 'admin/view/widget/');
 
-    app.run(function($rootScope, $timeout, $route, $routeSegment) {
+    app.run(function($rootScope, $timeout, $route, $routeSegment, $templateCache, $http, BASE_PATH) {
 
         $rootScope.isSidebarOpen = false;
         $rootScope.$routeSegment = $routeSegment;
@@ -41,6 +41,11 @@
                 }, 500);*/
 
             });
+
+        //Cache some templates so that the route segment provided doesn't have problems detecting its segment index
+        $http.get(BASE_PATH + 'admin/List', { cache: $templateCache });
+        $http.get(BASE_PATH + 'admin/List1', { cache: $templateCache });
+        $http.get(BASE_PATH + 'admin/List2', { cache: $templateCache });
 
     });
 

@@ -13,7 +13,7 @@
                 .when('/language/create', 'language.create')
                 .segment('language', {
                     'default': true,
-                    templateUrl: BASE_PATH + 'admin/List',
+                    templateUrl: BASE_PATH + 'admin/List1',
                     controller: 'LanguageCtrl',
                     resolve: {
                         languages: function(Language, $q) {

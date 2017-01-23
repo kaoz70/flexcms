@@ -90,4 +90,4 @@
 
 </div>
 
-<div app-view-segment="1"></div>
+<div app-view-segment="{{viewSegment}}"></div>

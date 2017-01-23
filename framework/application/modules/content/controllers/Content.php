@@ -25,9 +25,6 @@ use stdClass;
 class Content extends \RESTController implements \AdminInterface
 {
 
-    const URL_CREATE = 'content/create/';
-    const URL_CONFIG = 'config';
-
     public static function index($page_id)
     {
 
@@ -37,14 +34,19 @@ class Content extends \RESTController implements \AdminInterface
         $data['items'] = static::getItems($page_id);
         $data['menu'] = [
             [
+                'title' => 'ima&aacute;enes',
+                'icon' => 'photo',
+                'url' => 'page/' . $page_id  . '/images/',
+            ],
+            [
                 'title' => 'configuraci&oacute;n',
                 'icon' => 'settings',
-                'url' => 'page/' . $page_id  . '/' . static::URL_CONFIG . '/' . $widget->id,
+                'url' => 'page/' . $page_id  . '/config/' . $widget->id,
             ],
             [
                 'title' => 'nuevo',
                 'icon' => 'add',
-                'url' => 'page/' . $page_id  . '/' . static::URL_CREATE,
+                'url' => 'page/' . $page_id  . '/content/create/',
             ],
         ];
 

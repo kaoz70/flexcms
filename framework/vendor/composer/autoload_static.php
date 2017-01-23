@@ -42,6 +42,7 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
             'Symfony\\Component\\Debug\\' => 24,
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Component\\Config\\' => 25,
+            'Symfony\\Component\\ClassLoader\\' => 30,
             'Seld\\JsonLint\\' => 14,
             'Satooshi\\' => 9,
         ),
@@ -51,6 +52,7 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         ),
         'M' => 
         array (
+            'MessageBird\\' => 12,
             'M1\\Env\\' => 7,
         ),
         'L' => 
@@ -73,6 +75,7 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
             'Illuminate\\Database\\' => 20,
             'Illuminate\\Contracts\\' => 21,
             'Illuminate\\Container\\' => 21,
+            'Illuminate\\Console\\' => 19,
         ),
         'H' => 
         array (
@@ -100,6 +103,10 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
             'Cartalyst\\Interpret\\' => 20,
             'Cartalyst\\AsseticFilters\\' => 25,
             'Carbon\\' => 7,
+        ),
+        'B' => 
+        array (
+            'Barryvdh\\LaravelIdeHelper\\' => 26,
         ),
     );
 
@@ -168,6 +175,10 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         array (
             0 => __DIR__ . '/..' . '/symfony/config',
         ),
+        'Symfony\\Component\\ClassLoader\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/class-loader',
+        ),
         'Seld\\JsonLint\\' => 
         array (
             0 => __DIR__ . '/..' . '/seld/jsonlint/src/Seld/JsonLint',
@@ -179,6 +190,10 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
+        'MessageBird\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/messagebird/php-rest-api/src/MessageBird',
         ),
         'M1\\Env\\' => 
         array (
@@ -231,6 +246,10 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'Illuminate\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/container',
+        ),
+        'Illuminate\\Console\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/console',
         ),
         'Humbug\\SelfUpdate\\' => 
         array (
@@ -292,6 +311,10 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
+        'Barryvdh\\LaravelIdeHelper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/barryvdh/laravel-ide-helper/src',
+        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -310,6 +333,20 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
                 0 => __DIR__ . '/..' . '/twig/twig/lib',
             ),
         ),
+        'S' => 
+        array (
+            'Shivergard\\DreamApply\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/dosjein/external_artisan/src',
+            ),
+        ),
+        'P' => 
+        array (
+            'Pimple' => 
+            array (
+                0 => __DIR__ . '/..' . '/pimple/pimple/src',
+            ),
+        ),
         'M' => 
         array (
             'Michelf' => 
@@ -322,6 +359,13 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
             'JasonLewis\\ResourceWatcher' => 
             array (
                 0 => __DIR__ . '/..' . '/cartalyst/resource-watcher/src',
+            ),
+        ),
+        'I' => 
+        array (
+            'IniParser' => 
+            array (
+                0 => __DIR__ . '/..' . '/austinhyde/iniparser/src',
             ),
         ),
         'H' => 
@@ -372,6 +416,13 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
                 0 => __DIR__ . '/..' . '/cartalyst/dependencies/src',
             ),
         ),
+        'B' => 
+        array (
+            'Barryvdh' => 
+            array (
+                0 => __DIR__ . '/..' . '/barryvdh/reflection-docblock/src',
+            ),
+        ),
         'A' => 
         array (
             'Assetic' => 
@@ -400,7 +451,7 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'App\\Field' => __DIR__ . '/../../..' . '/framework/application/models/Field.php',
         'App\\FieldData' => __DIR__ . '/../../..' . '/framework/application/models/FieldData.php',
         'App\\Image' => __DIR__ . '/../../..' . '/framework/application/models/Image.php',
-        'App\\ImageSection' => __DIR__ . '/../../..' . '/framework/application/models/ImageSection.php',
+        'App\\ImageConfig' => __DIR__ . '/../../..' . '/framework/application/models/ImageConfig.php',
         'App\\Input' => __DIR__ . '/../../..' . '/framework/application/models/Input.php',
         'App\\Language' => __DIR__ . '/../../..' . '/framework/application/models/Language.php',
         'App\\Page' => __DIR__ . '/../../..' . '/framework/application/models/Page.php',
@@ -523,7 +574,7 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'PHPMailerOAuth' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmaileroauth.php',
         'PHPMailerOAuthGoogle' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmaileroauthgoogle.php',
         'POP3' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.pop3.php',
-        'Page' => __DIR__ . '/../../..' . '/framework/application/modules/admin/controllers/Page.php',
+        'Pages' => __DIR__ . '/../../..' . '/framework/application/modules/admin/controllers/Pages.php',
         'Publicidad_model' => __DIR__ . '/../../..' . '/framework/application/modules/advert/models/Publicidad_model.php',
         'RESTController' => __DIR__ . '/../../..' . '/framework/application/controllers/RESTController.php',
         'REST_Controller' => __DIR__ . '/../../..' . '/framework/application/libraries/REST_Controller.php',
@@ -605,6 +656,10 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'Search_model' => __DIR__ . '/../../..' . '/framework/application/models/_Search_model.php',
         'Seguridad' => __DIR__ . '/../../..' . '/framework/application/libraries/Seguridad.php',
         'SessionHandlerInterface' => __DIR__ . '/..' . '/symfony/polyfill-php54/Resources/stubs/SessionHandlerInterface.php',
+        'Shivergard\\DreamApply\\FakeLaravel' => __DIR__ . '/..' . '/dosjein/external_artisan/src/helpers/FakeLaravel.php',
+        'Shivergard\\DreamApply\\InitArtisan' => __DIR__ . '/..' . '/dosjein/external_artisan/src/InitArtisan.php',
+        'Shivergard\\DreamApply\\Inspire' => __DIR__ . '/..' . '/dosjein/external_artisan/src/Console/Commands/Inspire.php',
+        'Shivergard\\DreamApply\\Kernel' => __DIR__ . '/..' . '/dosjein/external_artisan/src/Console/Kernel.php',
         'Slider' => __DIR__ . '/../../..' . '/framework/application/modules/slider/controllers/Slider.php',
         'Slider\\Models\\Field' => __DIR__ . '/../../..' . '/framework/application/modules/slider/models/Field.php',
         'Stats' => __DIR__ . '/../../..' . '/framework/application/modules/admin/controllers/Stats.php',

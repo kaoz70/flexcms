@@ -21,6 +21,7 @@
             'ui.tree',
             'ui.codemirror',
             'luegg.directives',
-            'ngResource'
+            'ngResource',
+            'ngFileUpload'
         ]);
 }());
