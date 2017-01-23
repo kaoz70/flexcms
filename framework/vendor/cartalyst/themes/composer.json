@@ -19,7 +19,7 @@
 	"require": {
 		"php": ">=5.3.0",
 		"cartalyst/dependencies": "~1",
-		"herrera-io/json": "1.0.*",
+		"kherge/json": "1.0.*",
 		"illuminate/filesystem": "~5.0",
 		"illuminate/support": "~5.0",
 		"illuminate/view": "~5.0",

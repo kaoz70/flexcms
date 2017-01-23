@@ -26,7 +26,6 @@ return array(
     'Seld\\JsonLint\\' => array($vendorDir . '/seld/jsonlint/src/Seld/JsonLint'),
     'Satooshi\\' => array($vendorDir . '/satooshi/php-coveralls/src/Satooshi'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
-    'MessageBird\\' => array($vendorDir . '/messagebird/php-rest-api/src/MessageBird'),
     'M1\\Env\\' => array($vendorDir . '/m1/env/src'),
     'League\\OAuth2\\Client\\' => array($vendorDir . '/league/oauth2-client/src'),
     'League\\OAuth1\\' => array($vendorDir . '/league/oauth1-client/src'),

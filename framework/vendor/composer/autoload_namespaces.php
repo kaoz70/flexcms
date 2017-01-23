@@ -8,12 +8,9 @@ $baseDir = dirname(dirname($vendorDir));
 return array(
     'josegonzalez\\Dotenv' => array($vendorDir . '/josegonzalez/dotenv/src', $vendorDir . '/josegonzalez/dotenv/tests'),
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
-    'Shivergard\\DreamApply\\' => array($vendorDir . '/dosjein/external_artisan/src'),
-    'Pimple' => array($vendorDir . '/pimple/pimple/src'),
     'Michelf' => array($vendorDir . '/michelf/php-markdown'),
     'JasonLewis\\ResourceWatcher' => array($vendorDir . '/cartalyst/resource-watcher/src'),
-    'IniParser' => array($vendorDir . '/austinhyde/iniparser/src'),
-    'Herrera\\Json' => array($vendorDir . '/herrera-io/json/src/lib'),
+    'Herrera\\Json' => array($vendorDir . '/kherge/json/src/lib'),
     'Guzzle\\Tests' => array($vendorDir . '/guzzle/guzzle/tests'),
     'Guzzle' => array($vendorDir . '/guzzle/guzzle/src'),
     'Doctrine\\DBAL\\' => array($vendorDir . '/doctrine/dbal/lib'),

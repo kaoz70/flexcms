@@ -14,7 +14,7 @@ return array(
     '3e2471375464aac821502deb0ac64275' => $vendorDir . '/symfony/polyfill-php54/bootstrap.php',
     'edc6464955a37aa4d5fbf39d40fb6ee7' => $vendorDir . '/symfony/polyfill-php55/bootstrap.php',
     'd9d39f82a605ebe5918f683dd402334c' => $vendorDir . '/padraic/humbug_get_contents/src/function.php',
-    '742b7e606e92b28dd726e835467f413a' => $vendorDir . '/herrera-io/json/src/lib/json_version.php',
+    '47dfa57bf49fa256e41e9439c8ac76ad' => $vendorDir . '/kherge/json/src/lib/json_version.php',
     '667aeda72477189d0494fecd327c3641' => $vendorDir . '/symfony/var-dumper/Resources/functions/dump.php',
     '6bc45d0537e6858fd179bdbc31d62c79' => $vendorDir . '/raveren/kint/Kint.class.php',
 );

@@ -15,7 +15,7 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         '3e2471375464aac821502deb0ac64275' => __DIR__ . '/..' . '/symfony/polyfill-php54/bootstrap.php',
         'edc6464955a37aa4d5fbf39d40fb6ee7' => __DIR__ . '/..' . '/symfony/polyfill-php55/bootstrap.php',
         'd9d39f82a605ebe5918f683dd402334c' => __DIR__ . '/..' . '/padraic/humbug_get_contents/src/function.php',
-        '742b7e606e92b28dd726e835467f413a' => __DIR__ . '/..' . '/herrera-io/json/src/lib/json_version.php',
+        '47dfa57bf49fa256e41e9439c8ac76ad' => __DIR__ . '/..' . '/kherge/json/src/lib/json_version.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '6bc45d0537e6858fd179bdbc31d62c79' => __DIR__ . '/..' . '/raveren/kint/Kint.class.php',
     );
@@ -52,7 +52,6 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         ),
         'M' => 
         array (
-            'MessageBird\\' => 12,
             'M1\\Env\\' => 7,
         ),
         'L' => 
@@ -190,10 +189,6 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
-        ),
-        'MessageBird\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/messagebird/php-rest-api/src/MessageBird',
         ),
         'M1\\Env\\' => 
         array (
@@ -333,20 +328,6 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
                 0 => __DIR__ . '/..' . '/twig/twig/lib',
             ),
         ),
-        'S' => 
-        array (
-            'Shivergard\\DreamApply\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/dosjein/external_artisan/src',
-            ),
-        ),
-        'P' => 
-        array (
-            'Pimple' => 
-            array (
-                0 => __DIR__ . '/..' . '/pimple/pimple/src',
-            ),
-        ),
         'M' => 
         array (
             'Michelf' => 
@@ -361,18 +342,11 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
                 0 => __DIR__ . '/..' . '/cartalyst/resource-watcher/src',
             ),
         ),
-        'I' => 
-        array (
-            'IniParser' => 
-            array (
-                0 => __DIR__ . '/..' . '/austinhyde/iniparser/src',
-            ),
-        ),
         'H' => 
         array (
             'Herrera\\Json' => 
             array (
-                0 => __DIR__ . '/..' . '/herrera-io/json/src/lib',
+                0 => __DIR__ . '/..' . '/kherge/json/src/lib',
             ),
         ),
         'G' => 
@@ -656,10 +630,6 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'Search_model' => __DIR__ . '/../../..' . '/framework/application/models/_Search_model.php',
         'Seguridad' => __DIR__ . '/../../..' . '/framework/application/libraries/Seguridad.php',
         'SessionHandlerInterface' => __DIR__ . '/..' . '/symfony/polyfill-php54/Resources/stubs/SessionHandlerInterface.php',
-        'Shivergard\\DreamApply\\FakeLaravel' => __DIR__ . '/..' . '/dosjein/external_artisan/src/helpers/FakeLaravel.php',
-        'Shivergard\\DreamApply\\InitArtisan' => __DIR__ . '/..' . '/dosjein/external_artisan/src/InitArtisan.php',
-        'Shivergard\\DreamApply\\Inspire' => __DIR__ . '/..' . '/dosjein/external_artisan/src/Console/Commands/Inspire.php',
-        'Shivergard\\DreamApply\\Kernel' => __DIR__ . '/..' . '/dosjein/external_artisan/src/Console/Kernel.php',
         'Slider' => __DIR__ . '/../../..' . '/framework/application/modules/slider/controllers/Slider.php',
         'Slider\\Models\\Field' => __DIR__ . '/../../..' . '/framework/application/modules/slider/models/Field.php',
         'Stats' => __DIR__ . '/../../..' . '/framework/application/modules/admin/controllers/Stats.php',

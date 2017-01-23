@@ -11,6 +11,12 @@ We do not give estimated times for completion on `Accepted` Proposals.
 
 ---
 
+### v3.0.7 - 2017-01-23
+
+`UPDATED`
+
+- Switched out abandoned json package.
+
 ### v3.0.6 - 2016-10-01
 
 `FIXED`
