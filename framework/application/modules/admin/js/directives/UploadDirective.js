@@ -13,40 +13,16 @@ angular.module('app')
             restrict: 'E',
             templateUrl: BASE_PATH + 'admin/FileUpload',
             scope: {
-                model: '=',
+                model: '='
             },
-            link: function (scope, element, attrs) {
-
-
-
-               /* var input = $(element[0].querySelector('#fileInput'));
-                var button = $(element[0].querySelector('#uploadButton'));
-                var textInput = $(element[0].querySelector('#textInput'));
-
-                if (input.length && button.length && textInput.length) {
-                    button.click(function(e) {
-                        input.click();
-                    });
-                    textInput.click(function(e) {
-                        input.click();
-                    });
-                }
-
-                input.on('change', function(e) {
-                    var files = e.target.files;
-                    if (files[0]) {
-                        scope.fileName = files[0].name;
-                    } else {
-                        scope.fileName = null;
-                    }
-                    scope.$apply();
-                });
-
-
-*/
+            link: function (scope) {
 
                 scope.progress = 0;
                 scope.show_progress = false;
+
+                if(scope.model && scope.model.file_path) {
+                    scope.file = scope.model.file_path;
+                }
 
                 // upload on file select or drop
                 scope.upload = function (file) {
@@ -62,12 +38,10 @@ angular.module('app')
                         scope.file = file;
                         scope.show_progress = false;
                         scope.model = resp.data.data;
-                        console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
                     }, function (resp) {
                         console.log('Error status: ' + resp.status);
                     }, function (evt) {
-                        var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                        scope.progress = progressPercentage;
+                        scope.progress = parseInt(100.0 * evt.loaded / evt.total);
                     });
                 };
 

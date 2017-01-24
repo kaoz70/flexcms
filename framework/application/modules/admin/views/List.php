@@ -89,5 +89,3 @@
     </div>
 
 </div>
-
-<div app-view-segment="{{viewSegment}}"></div>

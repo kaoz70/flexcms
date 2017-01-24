@@ -8,7 +8,7 @@
  * */
 angular.module('app')
     .factory('ImageConfig', function($resource){
-        return $resource(system.base_url + 'admin/pages/images/:id', {id: '@id'}, {
+        return $resource(system.base_url + 'admin/imageConfig/:method/:page_id/:image_id', {id: '@id'}, {
             query: {
                 isArray: false
             },

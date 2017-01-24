@@ -1,4 +1,5 @@
 <?php use App\Response;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
@@ -106,45 +107,6 @@ class Pages extends RESTController {
                 'unique' => $category->isUniqueName($name, $lang)
             ]
         ]);
-
-    }
-
-    public function images_get($page_id)
-    {
-
-        $response = new Response();
-
-        try{
-            $response->setData(\App\ImageConfig::where('category_id', $page_id)->orderBy('position', 'asc')->get());
-        } catch (\Illuminate\Database\QueryException $e) {
-            $response->setError('Ocurri&oacute; un problema al obener las imagenes!', $e);
-        }
-
-        $this->response($response);
-
-    }
-
-    /**
-     * Create new image configuration
-     *
-     * @param $page_id
-     */
-    public function images_post($page_id)
-    {
-
-        $response = new Response();
-
-        try{
-
-            $imageConfig = new \App\ImageConfig();
-            $imageConfig->category_id;
-
-            $response->setData(\App\ImageConfig::where('category_id', $page_id)->orderBy('position', 'asc')->get());
-        } catch (\Illuminate\Database\QueryException $e) {
-            $response->setError('Ocurri&oacute; un problema al obener las imagenes!', $e);
-        }
-
-        $this->response($response);
 
     }
 

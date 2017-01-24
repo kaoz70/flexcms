@@ -15,7 +15,7 @@ angular.module('app')
 
     })
 
-    .controller('PageCtrl', function($scope, $rootScope, Page, $routeSegment, WindowFactory, $routeParams, Content, ContentService, page, $window, Loading, $mdDialog, $mdColorPalette, $mdColors, $mdTheming, Selection){
+    .controller('PageCtrl', function($scope, $rootScope, Page, $routeSegment, WindowFactory, $routeParams, Content, page, $window, Loading, $mdDialog, $mdColorPalette, $mdColors, $mdTheming, Selection){
 
         //Open the sidebar on this controller
         $rootScope.isSidebarOpen = true;
@@ -46,7 +46,7 @@ angular.module('app')
 
         $scope.treeOptions = {
             dropped: function () {
-                ContentService.setOrder($scope.items, $routeParams.page_id);
+                Content.update({id: $routeParams.page_id, method: 'reorder'}, $scope.items);
             }
         };
 

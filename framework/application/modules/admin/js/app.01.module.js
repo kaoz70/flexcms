@@ -22,6 +22,7 @@
             'ui.codemirror',
             'luegg.directives',
             'ngResource',
-            'ngFileUpload'
+            'ngFileUpload',
+            'mdColorPicker'
         ]);
 }());

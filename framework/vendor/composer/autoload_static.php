@@ -424,6 +424,7 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'App\\Error' => __DIR__ . '/../../..' . '/framework/application/libraries/App/Error.php',
         'App\\Field' => __DIR__ . '/../../..' . '/framework/application/models/Field.php',
         'App\\FieldData' => __DIR__ . '/../../..' . '/framework/application/models/FieldData.php',
+        'App\\File' => __DIR__ . '/../../..' . '/framework/application/models/File.php',
         'App\\Image' => __DIR__ . '/../../..' . '/framework/application/models/Image.php',
         'App\\ImageConfig' => __DIR__ . '/../../..' . '/framework/application/models/ImageConfig.php',
         'App\\Input' => __DIR__ . '/../../..' . '/framework/application/models/Input.php',

@@ -1,6 +1,6 @@
 <div class="panel panel-primary small-width">
 
-    <md-toolbar class="md-accent" md-colors="{borderBottomColor: '{{accentColor300}}'}">
+    <md-toolbar md-colors="{borderBottomColor: '{{primaryColor300}}'}">
         <div class="md-toolbar-tools">
             <h2>Configucaci&oacute;n de Imagen</h2>
             <span flex></span>
@@ -33,11 +33,16 @@
                         Forzar JPG
                     </md-switch>
 
+                    <div label="Color de fondo (solo PNG)"
+                         md-color-picker
+                         ng-model="image.background_color"></div>
+
                     <md-slider-container>
                         <span>Calidad</span>
                         <md-slider flex min="0" max="100"
                                    ng-model="image.quality"
                                    aria-label="Calidad"
+                                   default="#fff"
                                    id="quality-slider">
                         </md-slider>
                         <md-input-container class="md-hue-1">
@@ -131,8 +136,6 @@
                             Repetir
                         </md-switch>
 
-                        {{watermark_data}}
-
                     </div>
 
 
@@ -144,7 +147,7 @@
     </md-content>
 
     <div class="panel-footer panel-controls">
-        <md-toolbar class="md-accent">
+        <md-toolbar class="md-secondary">
             <div class="md-toolbar-tools" layout-align="end center">
 
                 <md-button class="md-icon-button" ng-click="saveAndClose()" >

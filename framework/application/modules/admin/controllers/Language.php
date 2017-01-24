@@ -116,15 +116,14 @@ class Language extends RESTController implements AdminInterface {
 
     }
 
-
-    public function reorder_post()
+    public function reorder_put()
     {
 
         $response = new Response();
 
         try{
 
-            \App\Language::reorder($this->post('order'), '');
+            \App\Language::reorder($this->put(), '');
             $response->setMessage('Se guard&oacute; el nuevo orden de elementos');
 
         } catch (Exception $e) {

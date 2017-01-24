@@ -14,14 +14,14 @@ class Upload extends RESTController {
         $response = new \App\Response();
 
         $config['allowed_types'] = 'gif|jpg|png|pdf|xls|doc';
-        $config['upload_path'] = sys_get_temp_dir();
+        $config['upload_path'] = './framework/uploads';
 
         $this->load->library('upload', $config);
 
         if ( ! $this->upload->do_upload('file')) {
             $response->setError($this->upload->display_errors(), new Exception($this->upload->display_errors()));
         } else {
-            $response->setData($this->upload->data());
+            $response->setData(\App\File::fromUpload($this->upload->data()));
         }
 
         $this->response($response);

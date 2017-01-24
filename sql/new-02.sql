@@ -29,3 +29,19 @@ ADD COLUMN `watermark_repeat` TINYINT(1) NULL AFTER `watermark_alpha`;
 
 ALTER TABLE `images_config`
 ADD COLUMN `watermark` TINYINT(1) NULL AFTER `restrict_proportions`;
+
+ALTER TABLE `files`
+ADD COLUMN `created_at` TIMESTAMP NULL AFTER `type`,
+ADD COLUMN `updated_at` TIMESTAMP NULL AFTER `created_at`,
+ADD COLUMN `deleted_at` TIMESTAMP NULL AFTER `updated_at`;
+
+ALTER TABLE `files`
+ADD COLUMN `mime_type` VARCHAR(45) NULL AFTER `type`,
+ADD COLUMN `file_ext` VARCHAR(45) NULL AFTER `mime_type`,
+ADD COLUMN `raw_name` VARCHAR(45) NULL AFTER `file_ext`;
+
+ALTER TABLE `images_config`
+CHANGE COLUMN `id` `id` INT(11) NOT NULL AUTO_INCREMENT ;
+
+ALTER TABLE `files`
+CHANGE COLUMN `type` `type` VARCHAR(10) NULL DEFAULT NULL ;

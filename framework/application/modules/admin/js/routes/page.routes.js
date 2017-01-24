@@ -124,12 +124,11 @@
                     .segment('images', {
                         templateUrl: BASE_PATH + 'admin/List2',
                         controller: 'ImageConfigCtrl',
-                        dependencies: ['page_id'],
                         resolve: {
                             images: function(ImageConfig, $q, $routeParams) {
 
                                 var deferred = $q.defer();
-                                ImageConfig.query({id: $routeParams.page_id}, function(successData) {
+                                ImageConfig.query({page_id: $routeParams.page_id}, function(successData) {
                                     deferred.resolve(successData);
                                 }, function(errorData) {
                                     deferred.reject(errorData);
@@ -150,7 +149,33 @@
                         .segment('create', {
                             templateUrl: BASE_PATH + 'admin/ImageConfigDetail',
                             controller: 'ImageConfigCreateCtrl',
-                            dependencies: ['page_id'],
+                            untilResolved: {
+                                templateUrl: BASE_PATH + 'admin/Loading'
+                            },
+                            resolveFailed: {
+                                controller: 'ErrorCtrl'
+                            }
+                        })
+                        .segment('edit', {
+                            templateUrl: BASE_PATH + 'admin/ImageConfigDetail',
+                            controller: 'ImageConfigEditCtrl',
+                            resolve: {
+                                image: function(ImageConfig, $q, $routeParams) {
+
+                                    var deferred = $q.defer();
+                                    ImageConfig.get({
+                                        page_id: $routeParams.page_id,
+                                        image_id: $routeParams.image_id
+                                    }, function(successData) {
+                                        deferred.resolve(successData);
+                                    }, function(errorData) {
+                                        deferred.reject(errorData);
+                                    });
+
+                                    return deferred.promise;
+
+                                }
+                            },
                             untilResolved: {
                                 templateUrl: BASE_PATH + 'admin/Loading'
                             },

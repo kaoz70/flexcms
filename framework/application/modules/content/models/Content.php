@@ -193,15 +193,12 @@ class Content extends BaseModel {
 
     }
 
-    protected static function reorder($inputs, $page_id)
+    protected static function reorder($items, $page_id)
     {
-
-        //Get the ids
-        $ids = json_decode($inputs, true);
 
         for($i = 0 ; $i < static::where(static::PAGE_ID, $page_id)->get()->count() ; $i++){
 
-            $row = static::find($ids[$i]);
+            $row = static::find($items[$i]['id']);
             $row->position = $i + 1;
             $row->save();
 

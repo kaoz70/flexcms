@@ -8,7 +8,7 @@
  * */
 angular.module('app')
     .factory('Content', function($resource){
-        return $resource(system.base_url + 'admin/content/:id', { id: '@id'}, {
+        return $resource(system.base_url + 'admin/content/:method/:id', { id: '@id'}, {
             query: {
                 isArray: false
             },
@@ -37,27 +37,4 @@ angular.module('app')
         });
     })
 
-    
-    .service('ContentService', function($http, Request) {
-
-        var urls = {
-            reorder: 'admin/content/reorder/'
-        };
-
-        this.setOrder = function (list, page_id) {
-
-            var order = [],
-                data = {};
-
-            angular.forEach(list, function (value) {
-                order.push(value.id);
-            });
-
-            data.order = JSON.stringify(order);
-
-
-            return Request.post(data, urls.reorder + page_id);
-
-        };
-
-    });
+    ;

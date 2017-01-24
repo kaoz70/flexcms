@@ -171,14 +171,11 @@ class BaseModel extends Model {
 
     }
 
-    protected static function reorder($inputs, $section)
+    protected static function reorder($items, $section)
     {
 
-        //Get the ids
-        $ids = json_decode($inputs, true);
-
         for($i = 0 ; $i < static::get()->count() ; $i++){
-            $row = static::find($ids[$i]);
+            $row = static::find($items[$i]['id']);
             $row->position = $i + 1;
             $row->save();
         }

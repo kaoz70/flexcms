@@ -23,6 +23,7 @@ return array(
     'App\\Error' => $baseDir . '/framework/application/libraries/App/Error.php',
     'App\\Field' => $baseDir . '/framework/application/models/Field.php',
     'App\\FieldData' => $baseDir . '/framework/application/models/FieldData.php',
+    'App\\File' => $baseDir . '/framework/application/models/File.php',
     'App\\Image' => $baseDir . '/framework/application/models/Image.php',
     'App\\ImageConfig' => $baseDir . '/framework/application/models/ImageConfig.php',
     'App\\Input' => $baseDir . '/framework/application/models/Input.php',

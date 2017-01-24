@@ -8,7 +8,7 @@
  * @requires $scope
  * */
 angular.module('app')
-    .controller('LanguageCtrl', function($scope, $rootScope, Language, LanguageService, $routeSegment, WindowFactory, Loading, Selection, languages){
+    .controller('LanguageCtrl', function($scope, $rootScope, Language, $routeSegment, WindowFactory, Loading, Selection, languages){
 
         //Close the sidebar on this controller
         $rootScope.isSidebarOpen = false;
@@ -51,7 +51,7 @@ angular.module('app')
 
         $scope.treeOptions = {
             dropped: function () {
-                LanguageService.reorder($scope.items);
+                Language.update({method: 'reorder'}, $scope.items);
             }
         };
 

@@ -20,9 +20,11 @@ framework/application/sessions/ci_**
 assets/public/audio/**
 assets/public/files/**
 assets/public/images/**
+assets/images/**
 
 .idea/
 framework/application/logs/
+framework/uploads/
 framework/node_modules/.bin/
 framework/packages/material-design-icons/**
 !framework/packages/material-design-icons/iconfont

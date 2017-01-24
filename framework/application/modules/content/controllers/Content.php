@@ -317,13 +317,13 @@ class Content extends \RESTController implements \AdminInterface
         return array_values(preg_grep("~^{$view}_.*\.(php)$~", scandir($path)));
     }
 
-    public function reorder_post($page_id)
+    public function reorder_put($page_id)
     {
         $response = new Response();
 
         try{
 
-            \App\Content::reorder($this->input->post('order'), $page_id);
+            \App\Content::reorder($this->put(), $page_id);
 
             $widget = Widget::getContentWidget($page_id);
             $contentOrder = $widget->getConfig()->order;
