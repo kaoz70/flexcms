@@ -91,7 +91,7 @@ class File extends BaseModel {
     }
 
     /**
-     * Creates a model form the upload file data
+     * Creates a model from the upload file data
      *
      * @param $uploadData
      * @return static
