@@ -30,13 +30,6 @@ class FactoryBuilder
     protected $name = 'default';
 
     /**
-     * The number of models to build.
-     *
-     * @var int
-     */
-    protected $amount = 1;
-
-    /**
      * The model states.
      *
      * @var array
@@ -56,6 +49,13 @@ class FactoryBuilder
      * @var \Faker\Generator
      */
     protected $faker;
+
+    /**
+     * The number of models to build.
+     *
+     * @var int|null
+     */
+    protected $amount = null;
 
     /**
      * Create an new builder instance.
@@ -112,12 +112,10 @@ class FactoryBuilder
     {
         $results = $this->make($attributes);
 
-        if ($this->amount === 1) {
+        if ($results instanceof Model) {
             $results->save();
         } else {
-            foreach ($results as $result) {
-                $result->save();
-            }
+            $results->each->save();
         }
 
         return $results;
@@ -131,15 +129,15 @@ class FactoryBuilder
      */
     public function make(array $attributes = [])
     {
-        if ($this->amount < 1) {
-            return new Collection;
-        }
-
-        if ($this->amount === 1) {
+        if ($this->amount === null) {
             return $this->makeInstance($attributes);
         }
 
-        return new Collection(array_map(function () use ($attributes) {
+        if ($this->amount < 1) {
+            return (new $this->class)->newCollection();
+        }
+
+        return (new $this->class)->newCollection(array_map(function () use ($attributes) {
             return $this->makeInstance($attributes);
         }, range(1, $this->amount)));
     }

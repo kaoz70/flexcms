@@ -1,10 +1,7 @@
-DROP TABLE `image_sections`;
-
 ALTER TABLE `images`
 RENAME TO  `images_config` ;
 
 ALTER TABLE `images`
-CHANGE COLUMN `image_section_id` `category_id` INT(11) NOT NULL ,
 ADD COLUMN `created_at` TIMESTAMP NULL AFTER `crop`,
 ADD COLUMN `updated_at` TIMESTAMP NULL AFTER `created_at`,
 ADD COLUMN `deleted_at` TIMESTAMP NULL AFTER `updated_at`, RENAME TO  `images_config` ;
@@ -45,3 +42,6 @@ CHANGE COLUMN `id` `id` INT(11) NOT NULL AUTO_INCREMENT ;
 
 ALTER TABLE `files`
 CHANGE COLUMN `type` `type` VARCHAR(10) NULL DEFAULT NULL ;
+
+ALTER TABLE `image_sections`
+CHANGE COLUMN `section_id` `section` VARCHAR(45) NOT NULL ;
