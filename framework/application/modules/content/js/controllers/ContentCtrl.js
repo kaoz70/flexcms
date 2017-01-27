@@ -9,7 +9,7 @@
  * */
 angular.module('app')
 
-    .controller('ContentEditCtrl', function($scope, $rootScope, content, ContentService, $routeSegment, WindowFactory, $routeParams, $filter, $mdConstant, Content){
+    .controller('ContentEditCtrl', function($scope, $rootScope, content, $routeSegment, WindowFactory, $routeParams, $filter, $mdConstant, Content){
 
         //Close the sidebar on this controller
         $rootScope.isSidebarOpen = true;
@@ -76,6 +76,7 @@ angular.module('app')
         $rootScope.isSidebarOpen = true;
 
         var isNew = true;
+        var $parenScope = $scope.$parent;
 
         WindowFactory.add($scope);
 
@@ -99,7 +100,7 @@ angular.module('app')
         var onSave = function (response) {
             //Set the new ID
             $scope.content.id = response.data.content.id;
-            $scope.$parent.items = response.data.items;
+            $parenScope.items = response.data.items;
         };
 
         $scope.save = function () {
