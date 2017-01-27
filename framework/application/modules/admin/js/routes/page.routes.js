@@ -14,7 +14,7 @@
                 .when('/page/:page_id/content/create', 'page.create')
                 .when('/page/:page_id/config/:widget_id', 'page.config')
                 .when('/page/:page_id/images', 'page.images')
-                .when('/page/:page_id/images/create', 'page.images.create')
+                .when('/page/:page_id/images/:section_id/create', 'page.images.create')
                 .when('/page/:page_id/images/edit/:image_id', 'page.images.edit')
                 .segment('page_index', {
                     'default': true,
@@ -122,7 +122,7 @@
                         }
                     })
                     .segment('images', {
-                        templateUrl: BASE_PATH + 'admin/List2',
+                        templateUrl: BASE_PATH + 'admin/ListGrouped2',
                         controller: 'ImageConfigCtrl',
                         resolve: {
                             images: function(ImageConfig, $q, $routeParams) {

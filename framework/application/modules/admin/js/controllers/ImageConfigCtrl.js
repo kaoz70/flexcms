@@ -25,13 +25,7 @@ angular.module('app')
         $scope.keepOne = '';
 
         $scope.items = images.data;
-        $scope.menu = [
-            {
-                title: 'nuevo',
-                icon: 'add',
-                url: 'page/' + $routeParams.page_id + '/images/create'
-            }
-        ];
+        $scope.menu = [];
 
         //Base url
         $scope.section = "page/" + $routeParams.page_id + "/images";
@@ -50,8 +44,9 @@ angular.module('app')
         });
 
         $scope.treeOptions = {
-            dropped: function () {
-                ImageConfig.update({page_id: $routeParams.page_id, method: 'reorder'}, $scope.items);
+            dropped: function (ev) {
+                var section_id = ev.source.nodeScope.$modelValue.image_section_id;
+                ImageConfig.update({page_id: section_id, method: 'reorder'}, $scope.items);
             }
         };
 
@@ -64,8 +59,9 @@ angular.module('app')
         $rootScope.isSidebarOpen = false;
 
         $scope.image = {
-            category_id: $routeParams.page_id,
+            image_section_id: $routeParams.section_id,
             force_jpg: true,
+            optimize_original: true,
             quality: 80,
             watermark_alpha: 50
         };

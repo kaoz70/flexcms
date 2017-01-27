@@ -33,6 +33,11 @@
                         Forzar JPG
                     </md-switch>
 
+                    <md-switch ng-model="image.optimize_original"
+                               aria-label="Optimizar imagen original">
+                        Optimizar imagen original
+                    </md-switch>
+
                     <div label="Color de fondo (solo PNG)"
                          md-color-picker
                          ng-model="image.background_color"></div>

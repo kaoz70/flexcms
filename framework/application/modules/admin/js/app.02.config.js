@@ -46,6 +46,9 @@
         $http.get(BASE_PATH + 'admin/List', { cache: $templateCache });
         $http.get(BASE_PATH + 'admin/List1', { cache: $templateCache });
         $http.get(BASE_PATH + 'admin/List2', { cache: $templateCache });
+        $http.get(BASE_PATH + 'admin/ListGrouped', { cache: $templateCache });
+        $http.get(BASE_PATH + 'admin/ListGrouped1', { cache: $templateCache });
+        $http.get(BASE_PATH + 'admin/ListGrouped2', { cache: $templateCache });
 
     });
 

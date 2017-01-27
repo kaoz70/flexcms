@@ -63,17 +63,36 @@
 
     <md-content class="panel-body">
 
-        <div ui-tree="treeOptions" ng-show="items.length" ng-class="keepOne">
+        <div ng-repeat="group in items">
 
-            <md-list ui-tree-nodes="" ng-model="items">
+            <md-subheader class="md-no-sticky">
+                <div flex="row">
+                    {{group.name}}
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-href="#/{{section}}/{{group.id}}/create" >
+                        <md-icon>add</md-icon>
+                        <md-tooltip md-direction="bottom">nuevo</md-tooltip>
+                    </md-button>
+                </div>
 
-                <li ng-repeat="node in items | filter:query"
-                    ui-tree-node
-                    ng-include="'nodes_list_renderer.html'"
-                ></li>
+            </md-subheader>
 
-            </md-list>
+            <div ui-tree="treeOptions" ng-show="group.items.length" ng-class="keepOne">
+
+                <md-list ui-tree-nodes="" ng-model="group.items">
+
+                    <li ng-repeat="node in group.items | filter:query"
+                        ui-tree-node
+                        ng-include="'nodes_list_renderer.html'"
+                    ></li>
+
+                </md-list>
+            </div>
+
+            <md-divider></md-divider>
+
         </div>
+
 
     </md-content>
 

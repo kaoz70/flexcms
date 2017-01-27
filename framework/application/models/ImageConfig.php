@@ -31,6 +31,17 @@ class ImageConfig extends BaseModel
      * @param $value
      * @return bool
      */
+    public function getOptimizeOriginalAttribute($value)
+    {
+        return (boolean)$value;
+    }
+
+    /**
+     * Return this column as boolean
+     *
+     * @param $value
+     * @return bool
+     */
     public function getWatermarkAttribute($value)
     {
         return (boolean)$value;
@@ -91,13 +102,14 @@ class ImageConfig extends BaseModel
     public static function store(ImageConfig $imageConfig, $imageData, $watermarkData)
     {
 
-        $imageConfig->category_id = $imageData['category_id'];
+        $imageConfig->image_section_id = $imageData['image_section_id'];
         $imageConfig->sufix = $imageData['sufix'];
         $imageConfig->width = isset($imageData['width']) ? $imageData['width'] : null;
         $imageConfig->height = isset($imageData['height']) ? $imageData['height'] : null;
         $imageConfig->name = $imageData['name'];
         $imageConfig->crop = isset($imageData['crop']) ? $imageData['crop'] : null;
         $imageConfig->force_jpg = isset($imageData['force_jpg']) ? $imageData['force_jpg'] : null;
+        $imageConfig->optimize_original = isset($imageData['optimize_original']) ? $imageData['optimize_original'] : null;
         $imageConfig->background_color = isset($imageData['background_color']) ? $imageData['background_color'] : null;
         $imageConfig->quality = isset($imageData['quality']) ? $imageData['quality'] : null;
         $imageConfig->restrict_proportions = isset($imageData['restrict_proportions']) ? $imageData['restrict_proportions'] : '';
@@ -188,10 +200,10 @@ class ImageConfig extends BaseModel
         }
     }
 
-    protected static function reorder($items, $page_id)
+    protected static function reorder($items, $section_id)
     {
 
-        for($i = 0 ; $i < static::where('category_id', $page_id)->get()->count() ; $i++){
+        for($i = 0 ; $i < static::where('image_section_id', $section_id)->get()->count() ; $i++){
             $row = static::find($items[$i]['id']);
             $row->position = $i + 1;
             $row->save();

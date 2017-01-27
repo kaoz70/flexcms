@@ -86,6 +86,14 @@ angular.module('app')
                 if(scope) {
                     angular.forEach(scope.$parent.items, function (item) {
                         item.selected = false;
+
+                        //Second level deselection
+                        if(item.items) {
+                            angular.forEach(item.items, function (item) {
+                                item.selected = false;
+                            });
+                        }
+
                     });
                 }
 

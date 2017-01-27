@@ -5,6 +5,18 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class ImageConfig extends RESTController {
 
+    private function getAll()
+    {
+        $sections = \App\ImageSection::where('section', 'content')->get();
+
+        foreach ($sections as $section) {
+            $section->items =  $section->imageConfigs();
+        }
+
+        return $sections;
+
+    }
+
     public function index_get($page_id, $image_id = null)
     {
 
@@ -28,7 +40,7 @@ class ImageConfig extends RESTController {
 
             //All image configs
             else {
-                $response->setData(\App\ImageConfig::where('category_id', $page_id)->orderBy('position', 'asc')->get());
+                $response->setData($this->getAll());
             }
 
         } catch (\Illuminate\Database\QueryException $e) {
@@ -55,7 +67,7 @@ class ImageConfig extends RESTController {
             $image->position = \App\ImageConfig::all()->count() + 1;
             $image->save();
 
-            $response->setData(\App\ImageConfig::where('category_id', $image->category_id)->orderBy('position', 'asc')->get());
+            $response->setData($this->getAll());
 
         } catch (\Illuminate\Database\QueryException $e) {
             $response->setError('Ocurri&oacute; un problema al obener las imagenes!', $e);
@@ -81,7 +93,7 @@ class ImageConfig extends RESTController {
             $image = \App\ImageConfig::store(\App\ImageConfig::find($id), $this->put('image'), $this->put('file'));
             $image->save();
 
-            $response->setData(\App\ImageConfig::where('category_id', $image->category_id)->orderBy('position', 'asc')->get());
+            $response->setData($this->getAll());
 
         } catch (\Illuminate\Database\QueryException $e) {
             $response->setError('Ocurri&oacute; un problema al obener las imagenes!', $e);
@@ -109,8 +121,8 @@ class ImageConfig extends RESTController {
             $image->deleteWatermark();
             $image->delete();
 
-            $response->setData(\App\ImageConfig::orderBy('position', 'asc')->get());
-            $response->setMessage('Idioma configuraci&oacute;n de imagen eliminada correctamente');
+            $response->setData($this->getAll());
+            $response->setMessage('Configuraci&oacute;n de imagen eliminada correctamente');
 
         } catch (Exception $e) {
             $response->setError('Ocurri&oacute; un problema al eliminar la configuraci&oacute;n de imagen!', $e);
@@ -120,16 +132,16 @@ class ImageConfig extends RESTController {
 
     }
 
-    public function reorder_put($page_id)
+    public function reorder_put($section_id)
     {
 
         $response = new Response();
 
         try{
-            \App\ImageConfig::reorder($this->put(), $page_id);
+            \App\ImageConfig::reorder($this->put(), $section_id);
             $response->setMessage('Se guard&oacute; el nuevo orden de elementos');
         } catch (Exception $e) {
-            $response->setError('Ocurri&oacute; un problema al reorganizar los idiomas!', $e);
+            $response->setError('Ocurri&oacute; un problema al reorganizar los elementos!', $e);
         }
 
         $this->response($response);
