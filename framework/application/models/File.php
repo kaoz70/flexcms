@@ -13,11 +13,24 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class File extends BaseModel {
 
+    //Filesystem path to file
     private $file_path = '';
+
+    //Web path to file
+    private $url_path = '';
 
     private $uploaded = false;
 
-    protected $appends = ['file_path', 'uploaded'];
+    protected $appends = ['file_path', 'url_path', 'uploaded'];
+
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'data' => 'object',
+    ];
 
     /**
      * @param bool $uploaded
@@ -36,11 +49,19 @@ class File extends BaseModel {
     }
 
     /**
-     * @param string $file_path
+     * @param string $path
      */
-    public function setFilePath($file_path)
+    public function setFilePath($path)
     {
-        $this->file_path = $file_path;
+        $this->file_path = $path;
+    }
+
+    /**
+     * @param string $path
+     */
+    public function setUrlPath($path)
+    {
+        $this->url_path = $path;
     }
 
     /**
@@ -50,23 +71,44 @@ class File extends BaseModel {
     {
         return $this->file_path;
     }
-
-    public function getFilePathAttribute()
+    /**
+     * @return string
+     */
+    public function getUrlPath()
     {
+        return $this->url_path;
+    }
 
+    /**
+     * Add a timestamp to the end of the file to remove the browsers cache when uploading files with the same name
+     *
+     * @param $method
+     * @return string
+     */
+    private function bustCache($method)
+    {
         //Add a cache busting timestamp
         $timestamp = strtotime($this->updated_at);
 
         $path = '';
 
         if($this->isUploaded()) {
-            $path = $this->getFilePath();
+            $path = $this->$method();
         } else {
-            $this->getFilePath() . '?' . $timestamp ?: time();
+            $this->$method() . '?' . $timestamp ?: time();
         }
 
         return $path;
+    }
 
+    public function getFilePathAttribute()
+    {
+        return $this->bustCache('getFilePath');
+    }
+
+    public function getUrlPathAttribute()
+    {
+        return $this->bustCache('getUrlPath');
     }
 
     public function getUploadedAttribute()
@@ -79,15 +121,29 @@ class File extends BaseModel {
      *
      * @param $from
      * @param $to
+     * @param bool $delete
      */
-    public static function move($from, $to)
+    public static function move($from, $to, $delete = true)
     {
         if (copy($from, $to)) {
-            //Delete the file
-            unlink($from);
+            if($delete){
+                //Delete the file
+                unlink($from);
+            }
         } else {
             throw new FileException("No se pudo mover el archivo");
         }
+    }
+
+    /**
+     * Created a copy of a file
+     *
+     * @param $from
+     * @param $to
+     */
+    public static function copy($from, $to)
+    {
+        static::move($from, $to, false);
     }
 
     /**
@@ -98,14 +154,34 @@ class File extends BaseModel {
      */
     public static function fromUpload($uploadData)
     {
-        $file = new static();
-        $file->type = $uploadData['is_image'] ? 'image' : 'file';
-        $file->mime_type = $uploadData['file_type'];
-        $file->file_ext = $uploadData['file_ext'];
-        $file->raw_name = $uploadData['raw_name'];
-        $file->setFilePath($uploadData['full_path']);
-        $file->setUploaded(true);
-        return $file;
+
+        $files = [];
+
+        foreach ($uploadData as $fileData) {
+
+            //Create a SEO friendly file name
+            $name = str_replace($fileData['file_ext'], '', $fileData['client_name']);
+            $name = trim($name);
+            $name = str_replace('_', '-', $name);
+            $fileName = str_replace('.', '-', $name);
+            $name = str_replace('-', ' ', $fileName);
+
+            $file = new static();
+            $file->type = $fileData['is_image'] ? 'image' : 'file';
+            $file->mime_type = $fileData['file_type'];
+            $file->file_ext = $fileData['file_ext'];
+            $file->file_name = $fileName;
+            $file->name = $fileData['raw_name'];
+            $file->image_alt = $name;
+            $file->name = $name;
+            $file->setUrlPath(base_url('framework/uploads/' . $fileData['file_name']));
+            $file->setFilePath($fileData['full_path']);
+            $file->setUploaded(true);
+            $files[] = $file;
+        }
+
+        return $files;
+
     }
 
     /**

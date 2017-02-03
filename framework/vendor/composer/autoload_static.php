@@ -17,6 +17,7 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'd9d39f82a605ebe5918f683dd402334c' => __DIR__ . '/..' . '/padraic/humbug_get_contents/src/function.php',
         '47dfa57bf49fa256e41e9439c8ac76ad' => __DIR__ . '/..' . '/kherge/json/src/lib/json_version.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         '6bc45d0537e6858fd179bdbc31d62c79' => __DIR__ . '/..' . '/raveren/kint/Kint.class.php',
     );
 
@@ -49,6 +50,7 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'P' => 
         array (
             'Psr\\Log\\' => 8,
+            'Psr\\Http\\Message\\' => 17,
         ),
         'M' => 
         array (
@@ -66,6 +68,7 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         ),
         'I' => 
         array (
+            'Intervention\\Image\\' => 19,
             'Illuminate\\View\\' => 16,
             'Illuminate\\Support\\' => 19,
             'Illuminate\\Pagination\\' => 22,
@@ -83,6 +86,7 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         ),
         'G' => 
         array (
+            'GuzzleHttp\\Psr7\\' => 16,
             'Gajus\\Dindent\\' => 14,
         ),
         'D' => 
@@ -190,6 +194,10 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
+        'Psr\\Http\\Message\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+        ),
         'M1\\Env\\' => 
         array (
             0 => __DIR__ . '/..' . '/m1/env/src',
@@ -209,6 +217,10 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'JsonSchema\\' => 
         array (
             0 => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema',
+        ),
+        'Intervention\\Image\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image',
         ),
         'Illuminate\\View\\' => 
         array (
@@ -253,6 +265,10 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'Humbug\\' => 
         array (
             0 => __DIR__ . '/..' . '/padraic/humbug_get_contents/src/Humbug',
+        ),
+        'GuzzleHttp\\Psr7\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
         'Gajus\\Dindent\\' => 
         array (
@@ -506,6 +522,7 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'Language' => __DIR__ . '/../../..' . '/framework/application/modules/admin/controllers/Language.php',
         'Layout' => __DIR__ . '/../../..' . '/framework/application/modules/admin/controllers/Layout.php',
         'Logo' => __DIR__ . '/../../..' . '/framework/application/modules/theme/controllers/Logo.php',
+        'MY_Upload' => __DIR__ . '/../../..' . '/framework/application/libraries/MY_Upload.php',
         'Map' => __DIR__ . '/../../..' . '/framework/application/modules/map/controllers/Map.php',
         'Mapas_model' => __DIR__ . '/../../..' . '/framework/application/modules/map/models/Mapas_model.php',
         'Minify' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify.php',

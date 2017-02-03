@@ -1,4 +1,5 @@
-<?php use App\Response;
+<?php use App\ImageSection;
+use App\Response;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
@@ -7,14 +8,7 @@ class ImageConfig extends RESTController {
 
     private function getAll()
     {
-        $sections = \App\ImageSection::where('section', 'content')->get();
-
-        foreach ($sections as $section) {
-            $section->items =  $section->imageConfigs();
-        }
-
-        return $sections;
-
+        return ImageSection::getBySection('content');
     }
 
     public function index_get($page_id, $image_id = null)

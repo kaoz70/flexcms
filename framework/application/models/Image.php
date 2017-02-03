@@ -8,22 +8,63 @@
 
 namespace App;
 
+use Intervention\Image\Image as Intervention;
 
 class Image extends File {
 
-    public static function getPlaceholderData()
+    /**
+     * Process the images, resice, crop, etc based on the config
+     *
+     * @param $newPath
+     * @param ImageConfig $config
+     * @param $crop
+     * @return Intervention
+     */
+    public static function process($newPath, ImageConfig $config, $crop)
     {
 
-        $fields = new \stdClass();
-        $fields->extension = '';
-        $fields->coords = new \stdClass();
-        $fields->coords->top = 0;
-        $fields->coords->left = 0;
-        $fields->coords->width = 0;
-        $fields->coords->height = 0;
-        $fields->coords->scale = 0;
+        // open the image file
+        $img = Intervention::make($newPath);
 
-        return $fields;
+        //If we are going to force the image to JPG, encode it as JPG
+        if($config->force_jpg) {
+            $img->encode('jpg', $config->quality);
+        }
+
+        //Crop the image
+        if($config->restrict_proportions && $config->crop) {
+            $img->crop($crop['cropWidth'], $crop['cropHeight'], $crop['cropImageTop'], $crop['cropLeft']);
+        }
+
+        //Resize the image
+        else if($config->restrict_proportions && !$config->crop) {
+
+            if($config->width > $config->height) {
+                $img->widen($config->width);
+            } else {
+                $img->heighten($config->height);
+            }
+
+        }
+
+        //Does it have a watermark
+        if($config->watermark) {
+
+            $watermark = $config->watermark();
+            $wImg = Intervention::make($watermark->getFilePath());
+            $wImg->opacity($config->watermark_alpha);
+
+            if($config->watermark_repeat) {
+                $img->fill($wImg);
+            } else {
+                $img->insert($wImg, $config->watermark_position);
+            }
+
+        }
+
+        $img->save($newPath, $config->quality);
+
+        return $img;
 
     }
 

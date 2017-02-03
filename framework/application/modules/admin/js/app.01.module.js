@@ -23,6 +23,7 @@
             'luegg.directives',
             'ngResource',
             'ngFileUpload',
-            'mdColorPicker'
+            'mdColorPicker',
+            'uiCropper'
         ]);
 }());

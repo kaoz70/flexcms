@@ -24,7 +24,8 @@
     "illuminate/pagination": "^5.3",
     "phpmailer/phpmailer": "^5.2",
     "josegonzalez/dotenv": "^2.0",
-    "filp/whoops": "^2.1"
+    "filp/whoops": "^2.1",
+    "intervention/image": "^2.3"
   },
   "require-dev": {
     "codeclimate/php-test-reporter": "dev-master",

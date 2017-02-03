@@ -105,6 +105,7 @@ return array(
     'Language' => $baseDir . '/framework/application/modules/admin/controllers/Language.php',
     'Layout' => $baseDir . '/framework/application/modules/admin/controllers/Layout.php',
     'Logo' => $baseDir . '/framework/application/modules/theme/controllers/Logo.php',
+    'MY_Upload' => $baseDir . '/framework/application/libraries/MY_Upload.php',
     'Map' => $baseDir . '/framework/application/modules/map/controllers/Map.php',
     'Mapas_model' => $baseDir . '/framework/application/modules/map/models/Mapas_model.php',
     'Minify' => $vendorDir . '/mrclay/minify/min/lib/Minify.php',

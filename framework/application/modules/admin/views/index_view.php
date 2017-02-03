@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="<?= admin_asset_path('css/pe-icon-7-stroke.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/animate.css/animate.min.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/md-color-picker/dist/mdColorPicker.min.css') ?>" type="text/css" />
+    <link rel="stylesheet" href="<?= admin_asset_path('../../packages/ui-cropper/compile/minified/ui-cropper.css') ?>" type="text/css" />
 
     <script type="text/ng-template" id="nodes_renderer.html">
         <div class="node">
@@ -259,6 +260,8 @@
     <script src="<?= admin_asset_path('../../packages/angular-ui-tree/dist/angular-ui-tree.min.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/tinycolor/dist/tinycolor-min.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/md-color-picker/dist/mdColorPicker.min.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/ui-cropper/compile/minified/ui-cropper.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/color-thief/dist/color-thief.min.js') ?>"></script>
 
     <script src="<?= admin_asset_path('js/lib/notifications/snap.svg-min.js') ?>"></script>
     <script src="<?= admin_asset_path('js/lib/notifications/notificationFx.js') ?>"></script>

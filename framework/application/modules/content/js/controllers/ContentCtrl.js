@@ -15,11 +15,12 @@ angular.module('app')
         $rootScope.isSidebarOpen = true;
 
         //We store the original data here in case the user closes the panel (cancel)
-        var origData = angular.copy(content.data);
+        var origData = angular.copy(content.data.content);
 
         WindowFactory.add($scope);
         
-        $scope.content = content.data;
+        $scope.content = content.data.content;
+        $scope.content.images = content.data.images;
 
         //Keyword creation keys
         $scope.keys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA];
@@ -84,7 +85,8 @@ angular.module('app')
             enabled: true,
             important: false,
             category_id: $routeParams.page_id,
-            translations: languages.data
+            translations: languages.data,
+            images: []
         };
         $scope.editorInit = false;
 

@@ -43,21 +43,15 @@
                 </md-card-title>
                 <md-card-content>
 
-                    <fieldset id="upload-image">
-                        <legend>Imagen Principal</legend>
-                        <div>
-                            <input class="fileselect" type="file" name="fileselect[]" />
-                            <div class="filedrag">o arrastre el archivo aquí</div>
-                        </div>
-                    </fieldset>
+                    <div ng-repeat="imageConfig in content.images">
 
-                    <fieldset id="upload-image">
-                        <legend>Galeria</legend>
-                        <div>
-                            <input class="fileselect" type="file" name="fileselect[]" />
-                            <div class="filedrag">o arrastre el archivo aquí</div>
-                        </div>
-                    </fieldset>
+                        <h3>{{imageConfig.name}}</h3>
+
+                        <upload-file model="imageConfig"
+                                     existing-files="imageConfig.files"
+                                     multiple="imageConfig.multiple_upload"></upload-file>
+
+                    </div>
 
                 </md-card-content>
             </md-card>

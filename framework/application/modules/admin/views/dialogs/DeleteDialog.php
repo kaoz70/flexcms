@@ -11,9 +11,7 @@
         </md-toolbar>
 
         <md-dialog-content>
-            <div class="md-dialog-content">
-                {{message}}
-            </div>
+            <div class="md-dialog-content" ng-bind-html="message"></div>
         </md-dialog-content>
 
         <md-dialog-actions layout="row">

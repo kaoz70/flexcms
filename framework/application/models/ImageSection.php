@@ -25,6 +25,29 @@ class ImageSection extends BaseModel
         return $this->items;
     }
 
+    public function getMultipleUploadAttribute($value)
+    {
+        return (boolean)$value;
+    }
+
+    /**
+     * Get all the image configs in a section
+     *
+     * @param $section
+     * @return mixed
+     */
+    public static function getBySection($section)
+    {
+
+        $sections = static::where('section', $section)->get();
+
+        foreach ($sections as $section) {
+            $section->items =  $section->imageConfigs();
+        }
+
+        return $sections;
+    }
+
     public function imageConfigs()
     {
         return $this->hasMany('App\ImageConfig')->orderBy('position', 'asc')->get();
