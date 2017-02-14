@@ -437,14 +437,12 @@
                                             </div>
 
                                             <md-card-content>
-                                                <div dnd-list="column" dnd-allowed-types="['widget']">
+                                                <div class="widget-list" dnd-list="column" dnd-allowed-types="['widget-type']">
                                                     <div ng-repeat="id in column.widgets"
-                                                         dnd-type="'widget'"
-                                                         dnd-draggable="widget"
+                                                         dnd-type="'widget-type'"
+                                                         dnd-draggable="id"
                                                          dnd-effect-allowed="move"
-                                                         dnd-moved="column.splice($index, 1)"
-                                                         dnd-selected="selected = item"
-                                                         ng-class="{selected: selected === widget}">
+                                                         dnd-moved="column.widgets.splice($index, 1)">
                                                         <widget widget-id="id"></widget>
                                                     </div>
                                                 </div>
@@ -462,24 +460,6 @@
 
                     </md-card-content>
                 </md-card>
-
-
-                <div view-source="nested"></div>
-
-                <div class="toolbox box box-grey box-padding">
-                    <h3>New Elements</h3>
-                    <ul>
-                        <!-- The toolbox only allows to copy objects, not move it. After a new
-                             element was created, dnd-copied is invoked and we generate the next id -->
-                        <li ng-repeat="item in models.templates"
-                            dnd-draggable="item"
-                            dnd-effect-allowed="copy"
-                            dnd-copied="item.id = item.id + 1"
-                        >
-                            <button type="button" class="btn btn-default btn-lg" disabled="disabled">{{item.type}}</button>
-                        </li>
-                    </ul>
-                </div>
 
                 <h2>Generated Model</h2>
                 <pre>{{modelAsJson}}</pre>
@@ -509,7 +489,12 @@
                 <input ng-model="query" type="text" placeholder="Buscar..." >
             </md-input-container>
 
-            <md-card ng-repeat="widget in widgets | filter:query" ng-include="'widget.html'"></md-card>
+            <md-card ng-repeat="widget in widgets | filter:query"
+                     dnd-draggable="widget"
+                     dnd-type="'widget-type'"
+                     dnd-effect-allowed="copy"
+                     dnd-copied="console.log(2)"
+                     ng-include="'widget.html'"></md-card>
 
         </md-content>
 
