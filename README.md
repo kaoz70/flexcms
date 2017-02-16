@@ -30,7 +30,7 @@ DB_NAME = "flexcms"
 DB_HOST = "localhost"
 ```
 
-If your sever doesen't have a way to setup environment variables, create a .env file 
+If your sever doesn't have a way to setup environment variables, create a .env file 
 with the contents of .env.example and set the credentials there.
 
 ## Admin access
