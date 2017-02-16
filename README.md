@@ -6,11 +6,12 @@
 
 # FlexCMS
 
-Simple content management system
+Simple content management system, in the current state of the project its not ready to 
+be used in production or even in development. Its still under heavy development.
 
 ## Current version
 
-0.0.1
+0.0.1a
 
 ## Installation
 Copy the source to the localhost / server
@@ -35,7 +36,7 @@ with the contents of .env.example and set the credentials there.
 
 ## Admin access
 
-http://domain.com/login/
+http://domain.com/admin/
 
 * User: miguel@dejabu.ec
 * Pass: pass
