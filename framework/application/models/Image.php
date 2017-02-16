@@ -13,21 +13,25 @@ use Intervention\Image\Image as Intervention;
 class Image extends File {
 
     /**
-     * Process the images, resice, crop, etc based on the config
+     * Process the images, resize, crop, etc based on the config
      *
-     * @param $newPath
+     * @param $file
+     * @param $path
      * @param ImageConfig $config
      * @param $crop
      * @return Intervention
      */
-    public static function process($newPath, ImageConfig $config, $crop)
+    public static function process($file, $path, ImageConfig $config, $crop)
     {
+
+        $newPath = $path . '/' . $file['file_name'] . '_orig' . $file['file_ext'];
 
         // open the image file
         $img = Intervention::make($newPath);
 
         //If we are going to force the image to JPG, encode it as JPG
         if($config->force_jpg) {
+            $newPath = $path . '/' . $file['file_name'] . $config->suffix . '.jpg';
             $img->encode('jpg', $config->quality);
         }
 

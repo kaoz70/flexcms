@@ -268,8 +268,7 @@ class Content extends \RESTController implements \AdminInterface
 
                     //Create the images
                     foreach ($configs as $config) {
-                        $newPath = $path . '/' . $file['file_name'] . '_orig' . $file['file_ext'];
-                        \App\Image::process($newPath, $config, $section['cropObject']);
+                        \App\Image::process($file, $path, $config, $section['cropObject']);
                     }
 
                 }

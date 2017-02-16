@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 24-12-2016 a las 18:54:37
+-- Tiempo de generación: 16-02-2017 a las 19:23:39
 -- Versión del servidor: 5.6.31
--- Versión de PHP: 7.0.10
+-- Versión de PHP: 5.6.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `flexcms`
+-- Base de datos: `flexcms2`
 --
 
 -- --------------------------------------------------------
@@ -145,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
 INSERT INTO `categories` (`id`, `tree`, `lft`, `rgt`, `css_class`, `enabled`, `private`, `image`, `url`, `data`, `temporary`, `popup`, `type`, `created_at`, `updated_at`, `deleted_at`, `group_visibility`) VALUES
 (1, 1, 1, 22, NULL, 1, 0, NULL, NULL, NULL, 0, NULL, 'root', NULL, '2016-08-01 16:02:21', NULL, NULL),
 (18, 1, 8, 21, '', 1, 0, '', '', '{"structure":[{"class":"","expanded":0,"columns":[{"class":"","span":{"large":"12","medium":"12","small":"12"},"offset":{"large":"0","medium":"0","small":"0"},"push":{"large":"0","medium":"0","small":"0"},"pull":{"large":"0","medium":"0","small":"0"},"widgets":[14],"modules":[]}]},{"class":"","expanded":0,"columns":[{"class":"","span":{"large":"12","medium":"12","small":"12"},"offset":{"large":"0","medium":"0","small":"0"},"push":{"large":"0","medium":"0","small":"0"},"pull":{"large":"0","medium":"0","small":"0"},"widgets":[],"modules":[]},{"class":"","span":{"large":"12","medium":"12","small":"12"},"offset":{"large":"0","medium":"0","small":"0"},"push":{"large":"0","medium":"0","small":"0"},"pull":{"large":"0","medium":"0","small":"0"},"widgets":[],"modules":[]},{"class":"","span":{"large":"12","medium":"12","small":"12"},"offset":{"large":"0","medium":"0","small":"0"},"push":{"large":"0","medium":"0","small":"0"},"pull":{"large":"0","medium":"0","small":"0"},"widgets":[],"modules":[]},{"class":"","span":{"large":"12","medium":"12","small":"12"},"offset":{"large":"0","medium":"0","small":"0"},"push":{"large":"0","medium":"0","small":"0"},"pull":{"large":"0","medium":"0","small":"0"},"widgets":[],"modules":[]}]},{"class":"","expanded":0,"columns":[{"class":"","span":{"large":"12","medium":"12","small":"12"},"offset":{"large":"0","medium":"0","small":"0"},"push":{"large":"0","medium":"0","small":"0"},"pull":{"large":"0","medium":"0","small":"0"},"widgets":[]}]}]}', 0, NULL, 'page', '2014-12-19 22:59:27', '2016-08-01 22:21:55', NULL, 0),
-(23, 1, 6, 7, 'index', 1, 0, NULL, NULL, '{"structure":[{"class":"","expanded":0,"columns":[{"class":"","span":{"large":12,"medium":12,"small":12},"offset":{"large":0,"medium":0,"small":0},"push":{"large":0,"medium":0,"small":0},"pull":{"large":0,"medium":0,"small":0},"widgets":[20]}]}]}', 0, 1, 'page', '2015-09-11 17:53:09', '2016-12-11 01:31:01', NULL, 2),
+(23, 1, 6, 7, 'index', 1, 0, NULL, NULL, '{"structure":[{"class":"","expanded":0,"columns":[{"class":"","span":{"large":"12","medium":"12","small":"12"},"offset":{"large":"0","medium":"0","small":"0"},"push":{"large":"0","medium":"0","small":"0"},"pull":{"large":"0","medium":"0","small":"0"},"widgets":[20]}]}]}', 0, 0, 'page', '2015-09-11 17:53:09', '2017-01-19 20:41:10', NULL, 0),
 (28, 1, 17, 20, NULL, 1, 0, NULL, NULL, NULL, 0, NULL, 'catalog', '2016-08-01 21:38:22', '2016-08-01 22:21:55', NULL, NULL),
 (30, 1, 18, 19, NULL, 1, 0, NULL, NULL, NULL, 0, NULL, 'catalog', '2016-08-01 22:21:39', '2016-09-15 02:08:59', NULL, 0);
 
@@ -184,49 +184,24 @@ CREATE TABLE IF NOT EXISTS `config` (
 
 INSERT INTO `config` (`id`, `key`, `value`, `group`, `updated_at`) VALUES
 (1, 'site_name', 'FlexCMS', 'general', '2016-07-27 21:44:56'),
-(2, 'index_page_id', '23', 'general', '2016-12-07 04:01:09'),
-(3, 'theme', 'destiny', 'general', '2016-12-07 07:36:46'),
-(4, 'production', 'false', 'general', '2016-12-07 04:02:01'),
-(5, 'debug_bar', 'true', 'general', '2016-12-08 21:50:29'),
-(9, 'indent_html', 'false', 'general', '2016-12-07 04:02:01'),
-(10, 'automatic_activation', 'true', 'auth', '2016-12-06 21:29:58'),
+(2, 'index_page_id', '23', 'general', '2016-12-27 21:31:04'),
+(3, 'theme', 'destiny', 'general', '2017-01-20 01:39:40'),
+(4, 'environment', 'development', 'general', '2017-01-19 23:35:51'),
+(5, 'debug_bar', 'false', 'general', '2017-01-19 23:31:36'),
+(9, 'indent_html', 'false', 'general', '2017-01-19 23:35:51'),
+(10, 'automatic_activation', '1', 'auth', '2016-07-28 02:45:30'),
 (11, 'login_identity', 'email', 'auth', '2016-07-27 21:44:56'),
 (12, 'password_min_length', '1', 'auth', '2016-07-28 02:45:37'),
 (13, 'password_max_length', '180', 'auth', '2016-07-28 02:45:37'),
 (14, 'registered_role', 'registered', 'auth', '2016-07-28 02:45:30'),
-(15, 'facebook_login', 'false', 'auth', '2016-12-06 21:29:58'),
+(15, 'facebook_login', '0', 'auth', '2016-07-29 03:55:44'),
 (16, 'facebook_app_id', '', 'auth', '2016-07-28 22:53:22'),
 (17, 'facebook_app_secret', '', 'auth', '2016-07-28 22:53:22'),
-(18, 'twitter_login', 'false', 'auth', '2016-12-06 21:29:58'),
+(18, 'twitter_login', '0', 'auth', '2016-07-29 03:55:44'),
 (19, 'twitter_consumer_key', '', 'auth', '2016-07-28 22:41:29'),
 (20, 'twitter_consumer_secret', '', 'auth', '2016-07-28 22:41:29'),
-(21, 'menu_show_categories', 'true', 'catalog', '2016-12-06 21:29:58'),
-(22, 'menu_show_products', 'true', 'catalog', '2016-12-06 21:29:58');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `contacts`
---
-
-CREATE TABLE IF NOT EXISTS `contacts` (
-  `id` int(11) unsigned NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
-  `email` varchar(255) NOT NULL,
-  `image` tinytext,
-  `temporary` tinyint(1) DEFAULT '1',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `contacts`
---
-
-INSERT INTO `contacts` (`id`, `name`, `email`, `image`, `temporary`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(3, 'Asd', 'asd@ass.com', NULL, 1, '2016-07-28 19:21:07', '2016-07-29 00:21:07', NULL),
-(4, 'Miguel', 'miguel@dejabu.ec', NULL, 1, '2016-09-18 08:52:25', '2016-09-18 08:52:25', NULL);
+(21, 'menu_show_categories', '1', 'catalog', '2016-09-15 07:36:17'),
+(22, 'menu_show_products', '1', 'catalog', '2016-09-15 07:36:17');
 
 -- --------------------------------------------------------
 
@@ -236,32 +211,36 @@ INSERT INTO `contacts` (`id`, `name`, `email`, `image`, `temporary`, `created_at
 
 CREATE TABLE IF NOT EXISTS `content` (
   `id` int(11) NOT NULL,
-  `image` tinytext,
   `css_class` varchar(255) DEFAULT NULL,
   `category_id` int(11) NOT NULL,
   `enabled` tinyint(1) DEFAULT '1',
   `temporary` tinyint(1) DEFAULT '1',
   `important` tinyint(1) DEFAULT '0',
+  `timezone` varchar(45) DEFAULT NULL,
   `publication_start` datetime DEFAULT NULL,
   `publication_end` datetime DEFAULT NULL,
-  `timezone` varchar(45) DEFAULT NULL,
   `module` varchar(45) DEFAULT NULL,
   `data` varchar(45) DEFAULT NULL,
   `position` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `content`
 --
 
-INSERT INTO `content` (`id`, `image`, `css_class`, `category_id`, `enabled`, `temporary`, `important`, `publication_start`, `publication_end`, `timezone`, `module`, `data`, `position`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(4, NULL, '', 23, 1, 1, 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 'America/Bogota', NULL, NULL, 4, '2016-12-09 04:16:07', '2016-12-23 06:01:38', NULL),
-(5, NULL, '', 23, 1, 1, 0, NULL, NULL, 'America/Bogota', NULL, NULL, 3, '2016-12-09 04:16:37', '2016-12-23 06:01:38', NULL),
-(6, NULL, '', 23, 1, 1, 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 'America/Bogota', NULL, NULL, 1, '2016-12-09 04:28:52', '2016-12-23 06:01:48', NULL),
-(7, NULL, '', 23, 1, 1, 0, NULL, NULL, 'America/Bogota', NULL, NULL, 2, '2016-12-11 06:07:50', '2016-12-23 06:01:38', NULL);
+INSERT INTO `content` (`id`, `css_class`, `category_id`, `enabled`, `temporary`, `important`, `timezone`, `publication_start`, `publication_end`, `module`, `data`, `position`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(60, '', 23, 1, 1, 0, 'America/Guayaquil', NULL, NULL, NULL, NULL, 6, '2017-01-19 22:18:27', '2017-01-19 22:18:27', NULL),
+(61, '', 23, 1, 1, 0, 'America/Guayaquil', NULL, NULL, NULL, NULL, 9, '2017-01-19 22:20:06', '2017-01-28 02:15:28', NULL),
+(62, '', 23, 1, 1, 0, 'America/Guayaquil', NULL, NULL, NULL, NULL, 8, '2017-01-19 22:35:44', '2017-01-28 02:15:28', NULL),
+(63, '', 23, 1, 1, 0, 'America/Guayaquil', NULL, NULL, NULL, NULL, 7, '2017-01-19 22:40:20', '2017-01-28 02:15:28', NULL),
+(64, '', 23, 1, 1, 0, 'America/Guayaquil', NULL, NULL, NULL, NULL, 5, '2017-01-19 22:41:39', '2017-01-28 02:15:28', NULL),
+(65, '', 23, 1, 1, 0, 'America/Guayaquil', '1970-01-01 00:00:00', '1970-01-01 00:00:00', NULL, NULL, 4, '2017-01-19 22:42:17', '2017-01-28 02:15:28', NULL),
+(66, '', 23, 1, 1, 0, 'America/Guayaquil', NULL, NULL, NULL, NULL, 3, '2017-01-28 01:24:54', '2017-01-28 02:15:28', NULL),
+(67, '', 23, 1, 1, 0, 'America/Guayaquil', NULL, NULL, NULL, NULL, 2, '2017-01-28 01:26:31', '2017-01-28 02:15:28', NULL),
+(68, '', 23, 1, 1, 0, 'America/Guayaquil', '1970-01-01 00:00:00', '1970-01-01 00:00:00', NULL, NULL, 1, '2017-01-28 02:10:52', '2017-02-04 03:05:47', NULL);
 
 -- --------------------------------------------------------
 
@@ -286,26 +265,24 @@ CREATE TABLE IF NOT EXISTS `fields` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `fields`
 --
 
 INSERT INTO `fields` (`id`, `input_id`, `parent_id`, `position`, `css_class`, `section`, `name`, `label_enabled`, `required`, `validation`, `data`, `view_in`, `enabled`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(2, 9, NULL, 2, '33', 'slider', '12', 1, NULL, NULL, NULL, NULL, 1, '2015-12-08 19:23:45', '2016-09-18 04:03:29', NULL),
-(3, 9, NULL, 1, '3d', 'slider', '32', NULL, NULL, NULL, NULL, NULL, 1, '2015-12-08 20:07:03', '2016-09-18 04:03:29', NULL),
-(15, 25, NULL, 2, '', 'user', 'Phone', 0, 0, '', '{"type":"profile","cart_order_col":"","two_checkout_name":""}', NULL, 0, '2016-07-27 17:58:46', '2016-09-18 14:49:19', NULL),
-(20, 8, NULL, 1, '', 'contact', 'asd', NULL, 0, '', NULL, NULL, 0, '2016-07-28 22:26:06', '2016-07-28 22:27:40', NULL),
-(21, 8, NULL, 2, '', 'contact', '2', NULL, 0, '', NULL, NULL, 0, '2016-07-28 22:26:19', '2016-07-28 22:27:40', NULL),
-(29, 12, NULL, 1, '', 'product', 'Description', 1, NULL, NULL, '{"view_in_widget":true,"view_in_list":true,"view_in_cart":true,"view_in_filters":true}', NULL, 1, '2016-08-01 20:27:18', '2016-09-18 04:56:03', NULL),
-(31, 14, NULL, 2, '', 'product', 'text', 0, NULL, NULL, '{"view_in_widget":false,"view_in_list":false,"view_in_cart":false,"view_in_filters":false}', NULL, 0, '2016-09-15 02:37:09', '2016-09-18 04:56:03', NULL),
-(34, 13, '1', 2, '4', 'contact', 'asddd', NULL, 1, '55', NULL, NULL, 1, '2016-09-18 03:51:46', '2016-09-18 14:52:54', NULL),
-(35, 8, '2', 2, '', 'contact', '3333', NULL, 0, '', NULL, NULL, 0, '2016-09-18 03:54:40', '2016-09-18 04:03:18', NULL),
-(36, 8, '2', 1, '', 'contact', '44', NULL, 0, '', NULL, NULL, 1, '2016-09-18 03:56:48', '2016-09-18 04:03:18', NULL),
-(37, 9, '12', 0, '', 'slider', 'asd', NULL, NULL, NULL, NULL, NULL, 1, '2016-09-18 04:33:13', '2016-09-18 04:33:13', NULL),
-(38, 25, NULL, 1, '', 'user', 'asd', 0, 0, '', '{"type":"profile","cart_order_col":"","two_checkout_name":""}', NULL, 0, '2016-09-18 14:04:45', '2016-09-18 14:49:19', NULL),
-(40, 8, NULL, 6, '4', 'contact', '1', NULL, 0, '', NULL, NULL, 1, '2016-09-18 14:49:31', '2016-09-18 14:49:31', NULL);
+(15, 13, '1', 1, NULL, 'form', NULL, 1, 1, 'integer', NULL, NULL, 1, '2017-01-13 21:18:42', '2017-01-18 20:36:41', NULL),
+(16, 13, '1', 3, NULL, 'form', NULL, 1, 1, 'email', NULL, NULL, 1, '2017-01-13 22:23:19', '2017-01-18 20:36:41', NULL),
+(17, 11, '1', 4, NULL, 'form', NULL, 0, 1, NULL, NULL, NULL, 1, '2017-01-16 19:04:42', '2017-01-18 20:36:41', NULL),
+(19, 13, '11', 2, NULL, 'form', NULL, 0, 0, NULL, NULL, NULL, 1, '2017-01-17 17:03:58', '2017-01-17 17:03:58', NULL),
+(21, 13, '13', 2, NULL, 'form', NULL, 0, 0, NULL, NULL, NULL, 1, '2017-01-17 17:09:27', '2017-01-17 17:09:27', NULL),
+(23, 13, '14', 2, NULL, 'form', NULL, 0, 0, NULL, NULL, NULL, 1, '2017-01-17 17:09:57', '2017-01-17 17:09:57', NULL),
+(24, 13, '14', 3, NULL, 'form', NULL, 0, 0, NULL, NULL, NULL, 1, '2017-01-17 17:09:58', '2017-01-17 17:09:58', NULL),
+(25, 13, '15', 1, NULL, 'form', NULL, 0, 0, NULL, NULL, NULL, 1, '2017-01-17 20:58:47', '2017-01-17 20:58:47', NULL),
+(26, 13, '15', 2, NULL, 'form', NULL, 0, 0, NULL, NULL, NULL, 1, '2017-01-17 20:58:47', '2017-01-17 20:58:47', NULL),
+(27, 13, '15', 3, NULL, 'form', NULL, 0, 0, NULL, NULL, NULL, 1, '2017-01-17 20:58:47', '2017-01-17 20:58:47', NULL),
+(37, 43, '1', 2, NULL, 'form', NULL, 0, 0, NULL, NULL, NULL, 1, '2017-01-18 16:34:22', '2017-01-18 20:36:41', NULL);
 
 -- --------------------------------------------------------
 
@@ -322,14 +299,7 @@ CREATE TABLE IF NOT EXISTS `field_data` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `field_data`
---
-
-INSERT INTO `field_data` (`id`, `parent_id`, `field_id`, `section`, `data`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(2, 1, 15, 'user', '33333aa', '2016-07-27 20:54:51', '2016-07-28 01:54:51', NULL);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -340,13 +310,19 @@ INSERT INTO `field_data` (`id`, `parent_id`, `field_id`, `section`, `data`, `cre
 CREATE TABLE IF NOT EXISTS `files` (
   `id` int(11) NOT NULL,
   `parent_id` int(11) NOT NULL,
+  `section_id` int(11) unsigned DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
   `position` int(11) DEFAULT '0',
   `data` varchar(255) DEFAULT NULL,
   `link` varchar(255) DEFAULT NULL,
   `date` date DEFAULT NULL,
   `enabled` tinyint(1) DEFAULT '1',
-  `temporary` tinyint(1) DEFAULT NULL,
-  `type` int(11) DEFAULT NULL
+  `type` varchar(10) DEFAULT NULL,
+  `mime_type` varchar(45) DEFAULT NULL,
+  `file_ext` varchar(45) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -357,37 +333,61 @@ CREATE TABLE IF NOT EXISTS `files` (
 
 CREATE TABLE IF NOT EXISTS `forms` (
   `id` int(10) unsigned NOT NULL,
-  `contact_id` int(10) unsigned DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `forms`
 --
 
-INSERT INTO `forms` (`id`, `contact_id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 3, 'Contacto', '2016-09-18 08:30:57', '2016-09-18 08:30:57', NULL),
-(2, 4, 'CV', '2016-09-18 08:52:36', '2016-09-18 08:52:36', NULL);
+INSERT INTO `forms` (`id`, `email`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'miguel@dejabu.ec', 'Contactos', '2016-09-18 08:30:57', '2017-01-13 23:26:46', NULL),
+(15, 'dsa', 'asd', '2017-01-18 01:57:16', '2017-01-18 01:57:16', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `images`
+-- Estructura de tabla para la tabla `images_config`
 --
 
-CREATE TABLE IF NOT EXISTS `images` (
+CREATE TABLE IF NOT EXISTS `images_config` (
   `id` int(11) NOT NULL,
-  `image_section_id` int(11) NOT NULL,
+  `image_section_id` int(11) unsigned NOT NULL,
   `sufix` varchar(45) DEFAULT '_huge',
   `width` smallint(6) DEFAULT '500',
   `height` smallint(6) DEFAULT '300',
   `name` varchar(45) DEFAULT NULL,
   `position` tinyint(3) DEFAULT NULL,
-  `crop` tinyint(1) DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `crop` tinyint(1) DEFAULT '0',
+  `force_jpg` tinyint(1) DEFAULT NULL,
+  `optimize_original` tinyint(1) DEFAULT NULL,
+  `background_color` varchar(45) DEFAULT NULL,
+  `quality` decimal(3,0) DEFAULT NULL,
+  `restrict_proportions` tinyint(1) DEFAULT NULL,
+  `watermark` tinyint(1) DEFAULT NULL,
+  `watermark_file_id` int(11) DEFAULT NULL,
+  `watermark_position` varchar(45) DEFAULT NULL,
+  `watermark_alpha` decimal(3,0) DEFAULT NULL,
+  `watermark_repeat` tinyint(1) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `images_config`
+--
+
+INSERT INTO `images_config` (`id`, `image_section_id`, `sufix`, `width`, `height`, `name`, `position`, `crop`, `force_jpg`, `optimize_original`, `background_color`, `quality`, `restrict_proportions`, `watermark`, `watermark_file_id`, `watermark_position`, `watermark_alpha`, `watermark_repeat`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, '_large', 400, 200, 'Large', 1, 1, 1, 1, NULL, '80', 1, NULL, NULL, NULL, NULL, NULL, '2017-01-27 22:53:20', '2017-02-03 22:13:20', NULL),
+(2, 1, '_medium', NULL, NULL, 'Medium', 2, 0, 0, 1, NULL, '80', 0, NULL, NULL, NULL, NULL, NULL, '2017-01-28 00:12:05', '2017-02-03 22:13:35', NULL),
+(3, 2, '3', 500, 300, '3', 4, 0, 1, 1, NULL, '80', 1, NULL, NULL, NULL, NULL, NULL, '2017-01-28 00:18:04', '2017-01-28 03:20:52', NULL),
+(4, 1, '_small', NULL, NULL, 'Small', 5, 0, 1, 1, NULL, '80', 0, NULL, NULL, NULL, NULL, NULL, '2017-01-28 00:19:01', '2017-02-03 22:13:47', NULL),
+(5, 2, '5', NULL, NULL, '5', 6, 0, 1, 1, NULL, '80', 0, NULL, NULL, NULL, NULL, NULL, '2017-01-28 00:20:00', '2017-01-28 00:53:35', NULL);
 
 -- --------------------------------------------------------
 
@@ -396,10 +396,19 @@ CREATE TABLE IF NOT EXISTS `images` (
 --
 
 CREATE TABLE IF NOT EXISTS `image_sections` (
-  `id` int(11) NOT NULL,
+  `id` int(11) unsigned NOT NULL,
   `name` varchar(45) NOT NULL,
-  `section_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `section` varchar(45) NOT NULL,
+  `multiple_upload` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `image_sections`
+--
+
+INSERT INTO `image_sections` (`id`, `name`, `section`, `multiple_upload`) VALUES
+(1, 'Main', 'content', 0),
+(2, 'Gallery', 'content', 1);
 
 -- --------------------------------------------------------
 
@@ -412,41 +421,43 @@ CREATE TABLE IF NOT EXISTS `inputs` (
   `content` text CHARACTER SET latin1 NOT NULL,
   `input_type_id` int(11) NOT NULL,
   `section` varchar(10) CHARACTER SET latin1 NOT NULL COMMENT 'donde se mostrara el input contacto , producto o ambos'
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `inputs`
 --
 
 INSERT INTO `inputs` (`id`, `content`, `input_type_id`, `section`) VALUES
-(8, 'numero', 1, 'contact'),
+(8, 'numero', 1, 'form'),
 (9, 'texto', 1, 'slider'),
 (10, 'texto multilinea', 3, 'slider'),
-(11, 'texto multilinea', 3, 'contact'),
+(11, 'texto multilinea', 3, 'form'),
 (12, 'texto multilinea', 3, 'product'),
-(13, 'texto', 1, 'contact'),
+(13, 'texto', 1, 'form'),
 (14, 'texto', 1, 'product'),
 (16, 'link', 1, 'product'),
-(17, 'link', 1, 'contact'),
+(17, 'link', 1, 'form'),
 (18, 'tabla', 5, 'product'),
 (20, 'archivos', 7, 'product'),
 (22, 'precio', 1, 'product'),
 (23, 'checkbox', 9, 'product'),
-(24, 'checkbox', 9, 'contact'),
+(24, 'checkbox', 9, 'form'),
 (25, 'texto', 1, 'user'),
 (26, 'texto multilinea', 3, 'user'),
 (27, 'texto', 1, 'mapas'),
 (28, 'texto multilinea', 3, 'mapas'),
 (29, 'listado', 12, 'product'),
 (30, 'listado predefinido', 12, 'product'),
-(31, 'fecha', 13, 'contact'),
+(31, 'fecha', 13, 'form'),
 (32, 'fecha', 13, 'user'),
 (33, 'país', 12, 'user'),
 (37, 'texto', 1, 'calendario'),
 (38, 'texto multilinea', 3, 'calendario'),
 (40, 'imágenes', 6, 'calendario'),
 (41, 'archivos', 7, 'calendario'),
-(42, 'tabla', 5, 'calendario');
+(42, 'tabla', 5, 'calendario'),
+(43, 'archivo', 7, 'form'),
+(44, 'nombre', 1, 'form');
 
 -- --------------------------------------------------------
 
@@ -488,20 +499,19 @@ CREATE TABLE IF NOT EXISTS `languages` (
   `id` int(11) NOT NULL,
   `name` varchar(25) CHARACTER SET latin1 NOT NULL,
   `slug` varchar(45) DEFAULT NULL,
-  `position` int(10) unsigned DEFAULT NULL,
+  `position` varchar(45) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `languages`
 --
 
 INSERT INTO `languages` (`id`, `name`, `slug`, `position`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Spanish', 'es', 2, '2016-12-11 01:25:50', '2016-12-11 06:25:50', NULL),
-(2, 'English', 'en', 1, '2016-12-11 01:25:50', '2016-12-11 06:25:50', NULL),
-(9, 'Italian', 'it', 3, '2016-12-09 02:24:07', '2016-12-09 07:24:07', NULL);
+(1, 'Spanish', 'es', '1', '2017-01-24 16:35:58', '2017-01-24 21:35:58', NULL),
+(2, 'English', 'en', '2', '2017-01-24 16:35:58', '2017-01-24 21:35:58', NULL);
 
 -- --------------------------------------------------------
 
@@ -566,7 +576,7 @@ CREATE TABLE IF NOT EXISTS `persistences` (
   `code` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `persistences`
@@ -593,12 +603,18 @@ INSERT INTO `persistences` (`id`, `user_id`, `code`, `created_at`, `updated_at`)
 (20, 1, 'qrcMLe8W6QTAdxzrH4tncb2DedSVgblf', '2016-07-27 22:18:56', '2016-07-27 22:18:56'),
 (21, 1, '20FGNyFPPGjHRWANeolaFTDxaNFKA5dX', '2016-07-27 22:19:54', '2016-07-27 22:19:54'),
 (22, 1, 'TdGu3NZqGVBAzMz7eAGbFC5OCUVFCAxK', '2016-09-04 00:17:14', '2016-09-04 00:17:14'),
-(23, 1, 'xB0w2j3V4WdxJJS43jZOFRQnJq8vX6ks', '2016-10-26 07:07:18', '2016-10-26 07:07:18'),
-(24, 1, 'onmB6SBQj1Byjyyy2dWrJCSnxDlT6Idn', '2016-10-28 06:58:42', '2016-10-28 06:58:42'),
-(25, 1, 'sj1OHGS3vTb2mABhTPsVlgu1h9bhX0Df', '2016-11-09 06:27:53', '2016-11-09 06:27:53'),
-(26, 1, 'qBqExA88ofQKBwV4zzb3jpezZFiyYAf7', '2016-11-16 06:15:42', '2016-11-16 06:15:42'),
-(27, 1, '1TgccaGD9z7RHBuY5qr0qmxUKlNSlQhZ', '2016-12-06 05:17:00', '2016-12-06 05:17:00'),
-(28, 1, '3pd7kf6wW2aeQP0Up7z4fexhUOj4R5hE', '2016-12-23 01:24:45', '2016-12-23 01:24:45');
+(23, 1, 'dubwgrGdDbrp1kIsyZiAinJaOHZk8YGd', '2016-11-12 03:10:40', '2016-11-12 03:10:40'),
+(24, 1, 'EUyhr12QKCqblkEx3PM2749KZb9z6Yb2', '2016-11-17 23:40:43', '2016-11-17 23:40:43'),
+(25, 1, 'qShPBvkYC7K5F7H22B6B50Z2MINeK0z2', '2016-11-22 21:59:43', '2016-11-22 21:59:43'),
+(26, 1, 'cWEocr5lsBIobcnVQY2snKrggSHEF29M', '2016-12-16 04:03:09', '2016-12-16 04:03:09'),
+(27, 1, 'uwAKRHpQskLEA1Boe4deuYBd9IdM9PYH', '2016-12-20 20:53:33', '2016-12-20 20:53:33'),
+(28, 1, 'KVbruOxXw2z49yyPTsrYkW1bwWRMKHdd', '2016-12-27 19:26:25', '2016-12-27 19:26:25'),
+(29, 1, 'upmeNImq5ZUCt5UfUU1OzgcO8xP2isdL', '2017-01-04 00:41:46', '2017-01-04 00:41:46'),
+(30, 1, 'ron3jhFVuXvYbtcNgSKUmAC2oFRtYItx', '2017-01-11 00:52:40', '2017-01-11 00:52:40'),
+(31, 1, '8TdTegOjH2AhnNVVc8EXWf96kvm1rYVv', '2017-01-21 02:18:00', '2017-01-21 02:18:00'),
+(32, 1, 'JZUtqng2RVFNerBgkOm4U4k9UsT4XINy', '2017-01-27 20:56:57', '2017-01-27 20:56:57'),
+(33, 1, '8Pa6WV7Dkw5sim1mb4AGqR4BomNczdob', '2017-01-27 20:56:59', '2017-01-27 20:56:59'),
+(34, 1, 'wJSySudVwJvciSgL9M8X8KPpaEjP0FLL', '2017-02-01 19:53:38', '2017-02-01 19:53:38');
 
 -- --------------------------------------------------------
 
@@ -806,7 +822,7 @@ CREATE TABLE IF NOT EXISTS `throttle` (
   `ip` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `throttle`
@@ -816,12 +832,8 @@ INSERT INTO `throttle` (`id`, `user_id`, `type`, `ip`, `created_at`, `updated_at
 (1, NULL, 'global', NULL, '2016-09-04 00:13:59', '2016-09-04 00:13:59'),
 (2, NULL, 'ip', '::1', '2016-09-04 00:13:59', '2016-09-04 00:13:59'),
 (3, 1, 'user', NULL, '2016-09-04 00:13:59', '2016-09-04 00:13:59'),
-(4, NULL, 'global', NULL, '2016-10-26 07:04:43', '2016-10-26 07:04:43'),
-(5, NULL, 'ip', '::1', '2016-10-26 07:04:43', '2016-10-26 07:04:43'),
-(6, NULL, 'global', NULL, '2016-10-26 07:05:27', '2016-10-26 07:05:27'),
-(7, NULL, 'ip', '::1', '2016-10-26 07:05:27', '2016-10-26 07:05:27'),
-(8, NULL, 'global', NULL, '2016-10-26 07:07:06', '2016-10-26 07:07:06'),
-(9, NULL, 'ip', '::1', '2016-10-26 07:07:06', '2016-10-26 07:07:06');
+(4, NULL, 'global', NULL, '2016-11-17 23:40:03', '2016-11-17 23:40:03'),
+(5, NULL, 'ip', '::1', '2016-11-17 23:40:03', '2016-11-17 23:40:03');
 
 -- --------------------------------------------------------
 
@@ -838,30 +850,57 @@ CREATE TABLE IF NOT EXISTS `translations` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=174 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `translations`
 --
 
 INSERT INTO `translations` (`id`, `parent_id`, `language_id`, `type`, `data`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(22, 23, 1, 'page', '{"name":"Pagina de Prueba","menu_name":"das","meta_keywords":["asdas","asdsa","asd"],"meta_description":"ASDSA","meta_title":"S"}', '2016-11-18 16:39:10', '2016-12-11 01:30:17', NULL),
-(26, 4, 1, 'content', '{"name":"1as","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2016-12-08 23:16:07', '2016-12-08 23:24:45', NULL),
-(27, 5, 1, 'content', '{"name":"2","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2016-12-08 23:16:37', '2016-12-08 23:16:37', NULL),
-(28, 6, 1, 'content', '{"name":"123a2","content":"<p>2<\\/p>","meta_keywords":[],"meta_description":"","meta_title":""}', '2016-12-08 23:28:52', '2016-12-11 00:10:14', NULL),
-(29, 23, 2, 'page', '{"name":"Test Page","menu_name":null,"meta_keywords":["asd","dsa"]}', '2016-12-10 19:12:55', '2016-12-11 01:30:17', NULL),
-(30, 23, 9, 'page', '{"name":"3","menu_name":null,"meta_keywords":["1","2","4"]}', '2016-12-10 19:12:55', '2016-12-11 01:04:52', NULL),
-(31, 6, 2, 'content', '{"name":"asd1","content":"<p>1<\\/p>","meta_keywords":[],"meta_description":"","meta_title":""}', '2016-12-10 20:06:11', '2016-12-11 00:10:14', NULL),
-(32, 6, 9, 'content', '{"name":"dsa3","content":"<p>3<\\/p>","meta_keywords":[],"meta_description":"","meta_title":""}', '2016-12-10 20:06:11', '2016-12-11 00:10:14', NULL),
-(33, 23, 1, NULL, '{"name":"P\\u00e1gina de Prueba2a","menu_name":"das","meta_keywords":["asdas","asdsa","asd"],"meta_description":"ASDSA","meta_title":"S"}', '2016-12-11 00:50:08', '2016-12-11 01:01:49', NULL),
-(34, 23, 2, NULL, '{"name":"qaa2","menu_name":null,"meta_keywords":[]}', '2016-12-11 00:50:08', '2016-12-11 01:01:49', NULL),
-(35, 23, 9, NULL, '{"name":"a","menu_name":null,"meta_keywords":[]}', '2016-12-11 01:00:45', '2016-12-11 01:01:49', NULL),
-(36, 7, 1, 'content', '{"name":"2","content":"<p>b<\\/p>","meta_keywords":[],"meta_description":"","meta_title":""}', '2016-12-11 01:07:50', '2016-12-11 01:07:50', NULL),
-(37, 7, 2, 'content', '{"name":"1","content":"<p>a<\\/p>","meta_keywords":[],"meta_description":"","meta_title":""}', '2016-12-11 01:07:50', '2016-12-11 01:07:50', NULL),
-(38, 7, 9, 'content', '{"name":"3","content":"<p>c<\\/p>","meta_keywords":[],"meta_description":"","meta_title":""}', '2016-12-11 01:07:50', '2016-12-11 01:07:50', NULL),
-(39, 6, 1, NULL, '{"name":"","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2016-12-23 01:01:48', '2016-12-23 01:01:48', NULL),
-(40, 6, 2, NULL, '{"name":"1","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2016-12-23 01:01:48', '2016-12-23 01:01:48', NULL),
-(41, 6, 9, NULL, '{"name":"","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2016-12-23 01:01:48', '2016-12-23 01:01:48', NULL);
+(79, 15, 1, 'content', '{"name":"1","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2016-11-17 22:04:04', '2017-01-19 17:33:23', NULL),
+(87, 23, 1, 'page', '{"name":"Pagina Inicial","menu_name":"Index","meta_keywords":["asd","dsa","asdsad"],"meta_description":""}', '2016-11-21 14:34:38', '2016-11-25 21:54:21', NULL),
+(111, 45, 1, 'content', '{"name":"2","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2016-12-02 00:06:41', '2016-12-02 00:06:41', NULL),
+(114, 48, 1, 'content', '{"name":"dsasss","content":"<ul>\\n<li>sadas<\\/li>\\n<li>dsa<\\/li>\\n<li>dsa<\\/li>\\n<li>dsad<\\/li>\\n<\\/ul>","meta_keywords":["asd","das"],"meta_description":"dsss","meta_title":"d"}', '2016-12-02 00:12:06', '2017-01-19 17:33:05', NULL),
+(115, 49, 1, 'content', '{"name":"Iure quasi quisquam velit id aut aut quaerat consequatur","content":"","meta_keywords":[],"meta_description":"Maiores sint consequatur consequatur? In provident, eius nisi accusamus pariatur? Amet, quaerat dolor nesciunt.","meta_title":"Nulla dolor excepteur iure ex nemo et sit porro sit aliquid aperiam nihil quidem commodo qui"}', '2016-12-02 18:16:05', '2016-12-02 18:16:05', NULL),
+(116, 50, 1, 'content', '{"name":"Iure quasi quisquam velit id aut aut quaerat consequatur","content":"","meta_keywords":[],"meta_description":"Maiores sint consequatur consequatur? In provident, eius nisi accusamus pariatur? Amet, quaerat dolor nesciunt.","meta_title":"Nulla dolor excepteur iure ex nemo et sit porro sit aliquid aperiam nihil quidem commodo qui"}', '2016-12-02 18:16:19', '2016-12-02 18:16:19', NULL),
+(119, 53, 1, 'content', '{"name":"123","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2016-12-02 18:16:52', '2016-12-02 18:16:52', NULL),
+(120, 54, 1, 'content', '{"name":"123","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2016-12-02 18:16:54', '2016-12-02 18:16:54', NULL),
+(121, 55, 1, 'content', '{"name":"123","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2016-12-02 18:16:55', '2016-12-02 18:16:55', NULL),
+(122, 56, 1, 'content', '{"name":"123","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2016-12-02 18:16:56', '2016-12-02 18:16:56', NULL),
+(123, 57, 1, 'content', '{"name":"123","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2016-12-02 18:16:57', '2016-12-02 18:16:57', NULL),
+(124, 58, 1, 'content', '{"name":"123","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2016-12-02 18:16:58', '2016-12-02 18:16:58', NULL),
+(125, 59, 1, 'content', '{"name":"asd","content":"<p>dsa<\\/p>","meta_keywords":[],"meta_description":"","meta_title":""}', '2016-12-02 18:16:58', '2017-01-19 17:15:04', NULL),
+(126, 60, 1, 'content', '{"name":"1","content":"<p>2<\\/p>","meta_keywords":[],"meta_description":"","meta_title":""}', '2016-12-02 18:16:59', '2017-01-19 17:18:27', NULL),
+(127, 61, 1, 'content', '{"name":"3","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2016-12-02 18:17:00', '2017-01-19 17:20:38', NULL),
+(133, 15, 1, 'form_field', '{"name":"Nombre","placeholder":"Nombre"}', '2017-01-13 21:18:42', '2017-01-13 22:24:08', NULL),
+(134, 16, 1, 'form_field', '{"name":"Email","placeholder":""}', '2017-01-13 22:23:19', '2017-01-13 22:23:19', NULL),
+(135, 17, 1, 'form_field', '{"name":"Mensaje","placeholder":""}', '2017-01-16 19:04:42', '2017-01-16 19:04:42', NULL),
+(137, 19, 1, 'form_field', '{"name":"campo 2","placeholder":""}', '2017-01-17 17:03:58', '2017-01-17 17:03:58', NULL),
+(139, 21, 1, 'form_field', '{"name":"campo 2","placeholder":""}', '2017-01-17 17:09:27', '2017-01-17 17:09:27', NULL),
+(141, 23, 1, 'form_field', '{"name":"campo 2","placeholder":""}', '2017-01-17 17:09:57', '2017-01-17 17:09:57', NULL),
+(142, 24, 1, 'form_field', '{"name":"campo 3","placeholder":""}', '2017-01-17 17:09:58', '2017-01-17 17:09:58', NULL),
+(143, 25, 1, 'form_field', '{"name":"campo 1","placeholder":""}', '2017-01-17 20:58:47', '2017-01-17 20:58:47', NULL),
+(144, 26, 1, 'form_field', '{"name":"campo 2","placeholder":""}', '2017-01-17 20:58:47', '2017-01-17 20:58:47', NULL),
+(145, 27, 1, 'form_field', '{"name":"campo 3","placeholder":""}', '2017-01-17 20:58:47', '2017-01-17 20:58:47', NULL),
+(155, 37, 1, 'form_field', '{"name":"Archivo","placeholder":""}', '2017-01-18 16:34:22', '2017-01-18 16:34:22', NULL),
+(156, 48, 1, NULL, '{"name":"dsasss","content":"<ul>\\n<li>sadas<\\/li>\\n<li>dsa<\\/li>\\n<li>dsa<\\/li>\\n<li>dsad<\\/li>\\n<\\/ul>","meta_keywords":["asd","das"],"meta_description":"dsss","meta_title":"d"}', '2017-01-18 17:50:15', '2017-01-18 21:39:41', NULL),
+(157, 62, 1, NULL, '{"name":"1","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2017-01-18 22:44:08', '2017-01-18 22:44:08', NULL),
+(158, 63, 1, NULL, '{"name":"2","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2017-01-18 22:45:28', '2017-01-18 22:45:28', NULL),
+(159, 23, 1, 'base', '{"name":null,"menu_name":null,"meta_keywords":[],"meta_description":""}', '2017-01-19 17:11:41', '2017-01-19 20:41:10', NULL),
+(160, 62, 1, 'content', '{"name":"2","content":"<p>3<\\/p>","meta_keywords":[],"meta_description":"","meta_title":""}', '2017-01-19 17:35:44', '2017-01-19 17:35:44', NULL),
+(161, 63, 1, 'content', '{"name":"6","content":"<p>6<\\/p>","meta_keywords":[],"meta_description":"","meta_title":""}', '2017-01-19 17:40:20', '2017-01-19 17:40:20', NULL),
+(162, 64, 1, 'content', '{"name":"7","content":"<p>7<\\/p>","meta_keywords":[],"meta_description":"","meta_title":""}', '2017-01-19 17:41:39', '2017-01-19 17:41:39', NULL),
+(163, 65, 1, 'content', '{"name":"8","content":"<p>8<\\/p>","meta_keywords":[],"meta_description":"","meta_title":""}', '2017-01-19 17:42:17', '2017-01-19 17:42:17', NULL),
+(164, 23, 2, 'base', '{"name":null,"menu_name":null,"meta_keywords":[]}', '2017-01-19 20:41:10', '2017-01-19 20:41:10', NULL),
+(165, 65, 2, 'content', '{"name":"Eight","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2017-01-27 20:24:29', '2017-01-27 20:24:29', NULL),
+(166, 66, 1, 'content', '{"name":"asd","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2017-01-27 20:24:54', '2017-01-27 20:24:54', NULL),
+(167, 66, 2, 'content', '{"name":"das","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2017-01-27 20:24:54', '2017-01-27 20:24:54', NULL),
+(168, 67, 1, 'content', '{"name":"fds","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2017-01-27 20:26:31', '2017-01-27 20:26:31', NULL),
+(169, 67, 2, 'content', '{"name":"ffff","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2017-01-27 20:26:31', '2017-01-27 20:26:31', NULL),
+(170, 68, 1, 'content', '{"name":"eee","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2017-01-27 21:10:52', '2017-01-27 21:10:52', NULL),
+(171, 68, 2, 'content', '{"name":"33","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2017-01-27 21:10:52', '2017-01-27 21:10:52', NULL),
+(172, 69, 1, 'content', '{"name":"1ewe","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2017-01-27 21:14:22', '2017-01-27 21:14:22', NULL),
+(173, 69, 2, 'content', '{"name":"eeee","content":"","meta_keywords":[],"meta_description":"","meta_title":""}', '2017-01-27 21:14:22', '2017-01-27 21:14:22', NULL);
 
 -- --------------------------------------------------------
 
@@ -889,7 +928,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `permissions`, `last_login`, `first_name`, `last_name`, `image_extension`, `image_coord`, `temporary`, `created_at`, `updated_at`) VALUES
-(1, 'miguel@dejabu.ec', '$2y$10$PWH1K0k81TJTa.INQpYBruRkcR71WuWyxW.h4sVrigadCgv240bKu', NULL, '2016-12-23 01:24:45', 'Miguel', 'Suarez', NULL, NULL, 0, '2015-11-25 22:41:58', '2016-12-23 01:24:45');
+(1, 'miguel@dejabu.ec', '$2y$10$PWH1K0k81TJTa.INQpYBruRkcR71WuWyxW.h4sVrigadCgv240bKu', NULL, '2017-02-01 19:53:38', 'Miguel', 'Suarez', NULL, NULL, 0, '2015-11-25 22:41:58', '2017-02-01 19:53:38');
 
 -- --------------------------------------------------------
 
@@ -920,7 +959,7 @@ INSERT INTO `widgets` (`id`, `category_id`, `view`, `class`, `enabled`, `type`, 
 (11, 22, 'default_view.php', NULL, 1, 'Content', NULL, '2015-12-02 00:36:31', '2015-12-02 00:36:31', NULL),
 (14, 18, 'default_view.php', NULL, 1, 'Content', '{"content_type":"catalog"}', '2015-12-03 23:33:07', '2015-12-03 23:33:17', NULL),
 (19, 22, 'default_view.php', NULL, 1, 'Content', 'null', '2015-12-04 00:30:16', '2015-12-04 00:30:16', NULL),
-(20, 23, 'default_view.php', NULL, 1, 'Content', '{"content_type":"content","settings":{"list_view":"list_index_view.php","detail_view":"list_index_view.php","order":"date_desc","pagination":false,"quantity":3}}', '2016-07-30 00:06:48', '2016-12-11 06:31:01', NULL);
+(20, 23, 'default_view.php', NULL, 1, 'Content', '{"content_type":"content","settings":{"list_view":"list_news_view.php","detail_view":"list_index_view.php","order":"date_desc","pagination":true,"quantity":6}}', '2016-07-30 00:06:48', '2017-01-20 01:41:10', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -974,12 +1013,6 @@ ALTER TABLE `config`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `contacts`
---
-ALTER TABLE `contacts`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indices de la tabla `content`
 --
 ALTER TABLE `content`
@@ -1016,23 +1049,20 @@ ALTER TABLE `files`
 --
 ALTER TABLE `forms`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_UNIQUE` (`id`),
-  ADD KEY `fk_contact_id_forms_idx` (`contact_id`);
+  ADD UNIQUE KEY `id_UNIQUE` (`id`);
 
 --
--- Indices de la tabla `images`
+-- Indices de la tabla `images_config`
 --
-ALTER TABLE `images`
+ALTER TABLE `images_config`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `seccionId_i` (`image_section_id`);
+  ADD KEY `fk_images_config_image_section_id_idx` (`image_section_id`);
 
 --
 -- Indices de la tabla `image_sections`
 --
 ALTER TABLE `image_sections`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `adminSeccionId_imgr` (`section_id`) USING BTREE,
-  ADD KEY `adminSeccionId_is` (`section_id`) USING BTREE;
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `inputs`
@@ -1211,25 +1241,20 @@ ALTER TABLE `categories`
 ALTER TABLE `config`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 --
--- AUTO_INCREMENT de la tabla `contacts`
---
-ALTER TABLE `contacts`
-  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
---
 -- AUTO_INCREMENT de la tabla `content`
 --
 ALTER TABLE `content`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=69;
 --
 -- AUTO_INCREMENT de la tabla `fields`
 --
 ALTER TABLE `fields`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT de la tabla `field_data`
 --
 ALTER TABLE `field_data`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `files`
 --
@@ -1239,22 +1264,22 @@ ALTER TABLE `files`
 -- AUTO_INCREMENT de la tabla `forms`
 --
 ALTER TABLE `forms`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
--- AUTO_INCREMENT de la tabla `images`
+-- AUTO_INCREMENT de la tabla `images_config`
 --
-ALTER TABLE `images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `images_config`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `image_sections`
 --
 ALTER TABLE `image_sections`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `inputs`
 --
 ALTER TABLE `inputs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=45;
 --
 -- AUTO_INCREMENT de la tabla `input_type`
 --
@@ -1264,7 +1289,7 @@ ALTER TABLE `input_type`
 -- AUTO_INCREMENT de la tabla `languages`
 --
 ALTER TABLE `languages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `login_attempts`
 --
@@ -1279,7 +1304,7 @@ ALTER TABLE `map_locations`
 -- AUTO_INCREMENT de la tabla `persistences`
 --
 ALTER TABLE `persistences`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT de la tabla `predefined_lists`
 --
@@ -1309,12 +1334,12 @@ ALTER TABLE `sliders`
 -- AUTO_INCREMENT de la tabla `throttle`
 --
 ALTER TABLE `throttle`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `translations`
 --
 ALTER TABLE `translations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=174;
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
@@ -1348,10 +1373,10 @@ ALTER TABLE `field_data`
   ADD CONSTRAINT `fk_field_data_field_id` FOREIGN KEY (`field_id`) REFERENCES `fields` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `forms`
+-- Filtros para la tabla `images_config`
 --
-ALTER TABLE `forms`
-  ADD CONSTRAINT `fk_contact_id_forms` FOREIGN KEY (`contact_id`) REFERENCES `contacts` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `images_config`
+  ADD CONSTRAINT `fk_images_config_image_section_id` FOREIGN KEY (`image_section_id`) REFERENCES `image_sections` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `translations`
