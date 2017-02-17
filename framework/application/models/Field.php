@@ -18,18 +18,9 @@ class Field extends BaseModel {
 
     protected static function reorder($inputs, $section)
     {
-
         //Get the ids
         $ids = json_decode($inputs, true);
-
-        for($i = 0 ; $i < count($ids) ; $i++){
-
-            $row = static::find($ids[$i]);
-            $row->position = $i + 1;
-            $row->save();
-
-        }
-
+        parent::reorder($ids, $section);
     }
 
     public function getRequiredAttribute($value)

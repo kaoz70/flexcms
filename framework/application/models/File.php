@@ -19,6 +19,8 @@ class File extends BaseModel {
     //Web path to file
     private $url_path = '';
 
+    protected $base_path = '';
+
     private $uploaded = false;
 
     protected $appends = ['file_path', 'url_path', 'uploaded'];
@@ -71,6 +73,7 @@ class File extends BaseModel {
     {
         return $this->file_path;
     }
+
     /**
      * @return string
      */
@@ -90,12 +93,12 @@ class File extends BaseModel {
         //Add a cache busting timestamp
         $timestamp = strtotime($this->updated_at);
 
-        $path = '';
-
         if($this->isUploaded()) {
             $path = $this->$method();
         } else {
-            $this->$method() . '?' . $timestamp ?: time();
+            if($path = $this->$method()) {
+                $path .= '?' . $timestamp ?: time();
+            }
         }
 
         return $path;
@@ -150,7 +153,7 @@ class File extends BaseModel {
      * Creates a model from the upload file data
      *
      * @param $uploadData
-     * @return static
+     * @return array
      */
     public static function fromUpload($uploadData)
     {

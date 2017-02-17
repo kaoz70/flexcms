@@ -15,12 +15,11 @@ angular.module('app')
         $rootScope.isSidebarOpen = true;
 
         //We store the original data here in case the user closes the panel (cancel)
-        var origData = angular.copy(content.data.content);
+        var origData = angular.copy(content.data);
 
         WindowFactory.add($scope);
         
-        $scope.content = content.data.content;
-        $scope.content.images = content.data.images;
+        $scope.content = content.data;
 
         //Keyword creation keys
         $scope.keys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA];
@@ -44,7 +43,11 @@ angular.module('app')
             $scope.form.$setSubmitted();
 
             if($scope.form.$valid) {
-                Content.update({id: $scope.content.id}, $scope.content);
+                Content.update({id: $scope.content.id}, $scope.content, function (response) {
+                    $scope.content = response.data.content;
+                    $scope.content.publication_start = new Date($scope.content.publication_start);
+                    $scope.content.publication_end = new Date($scope.content.publication_end);
+                });
             }
 
         };

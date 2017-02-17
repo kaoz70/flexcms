@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Model;
 class BaseModel extends Model {
 
     protected static $type = 'base';
+    protected static $image_folder = 'assets/images/';
+    protected static $section_id = null;
 
     protected $casts = [
         'enabled' => 'boolean',
@@ -36,7 +38,23 @@ class BaseModel extends Model {
      */
     public $translations;
 
-    protected $appends = ['translation', 'translations'];
+    protected $appends = ['translation', 'translations', 'images'];
+
+    /**
+     * @return array
+     */
+    public function getImagesAttribute()
+    {
+        return isset($this->images) ? $this->images : null;
+    }
+
+    /**
+     * @return array
+     */
+    public function setImagesAttribute($val)
+    {
+        return $this->images = $val;
+    }
 
     /**
      * @return object
@@ -79,38 +97,27 @@ class BaseModel extends Model {
     }
 
     /**
-     * Change the enabled attribute to boolean
-     *
-     * @param $value
-     * @return bool
-     */
-    public function getEnabledAttribute($value)
-    {
-        return (boolean)$value;
-    }
-
-    /**
      * Returns the content's translation as a json decoded object/array
      *
      * @param int $lang_id
      * @return mixed
-     * @throws \TranslationException
+     * @throws \CMSException
      */
     public function getTranslation($lang_id)
     {
 
         if(!$this->getType()) {
-            throw new \RuntimeException("Please set the model " . __CLASS__ . "'s protected type variable");
+            throw new \CMSException("Please set the model " . __CLASS__ . "'s protected type variable");
         }
 
-        $translation = $this->hasOne('App\Translation', 'parent_id')
+        $trans = $this->hasOne('App\Translation', 'parent_id')
             ->where('language_id', $lang_id)
             ->where('type', static::$type)
             ->first();
 
-        if($translation) {
-            $this->translation = $translation->data;
-            $this->createProperties($translation->data);
+        if($trans) {
+            $this->translation = $trans->data;
+            $this->createProperties($trans->data);
             return $this->translation;
         } else {
             return $this->translation = null;
@@ -151,6 +158,72 @@ class BaseModel extends Model {
     }
 
     /**
+     * Save the images
+     *
+     * @param array $sections
+     */
+    public function setImages(array $sections)
+    {
+
+        //Delete all the files
+        File::where('parent_id', $this->id)->delete();
+
+        if(!$sections) {
+            return;
+        }
+        
+        //Create the content folder if it does'nt exist yet
+        $path = static::$image_folder . $this->id;
+        if ( ! is_dir($path)) {
+            mkdir($path, 750, true);
+        }
+
+        foreach ($sections as $section) {
+
+            $configs = ImageConfig::where('image_section_id', $section['id'])->get();
+
+            //Create the file row in the database
+            foreach ($section['files'] as $key => $file) {
+
+                $image = File::where('parent_id', $this->id)->where('section_id', $section['id'])->first();
+                if (!$image) {
+                    $image = new File();
+                    $image->parent_id = $this->id;
+                    $image->section_id = $section['id'];
+                }
+
+                $image->position = $key + 1;
+                $image->name = isset($file['file_name']) ? $file['file_name'] : $file['name'];
+                $image->data = [
+                    'coords' => $section['cropObject'],
+                    'colors' => $section['colors'],
+                    'image_alt' => $file['type'],
+                ];
+                $image->type = $file['type'];
+                $image->mime_type = $file['mime_type'];
+                $image->file_ext = $file['file_ext'];
+                $image->save();
+
+                $origPath = $path . '/' . $image->name . '_orig' . $file['file_ext'];
+
+                //Move the uploaded file
+                if($file['file_path']) {
+                    File::move($file['file_path'], $origPath);
+                }
+
+                //Create the images
+                foreach ($configs as $config) {
+                    Image::process($file, $path, $config, $section['cropObject']);
+                }
+
+                //Set the new path
+                $file['file_path'] = $origPath;
+
+            }
+        }
+    }
+
+    /**
      * Get a model with all the available translations
      *
      * @param $content_id
@@ -160,6 +233,7 @@ class BaseModel extends Model {
     {
 
         $content = static::find($content_id);
+        $content->images = ImageSection::getImages(static::$type, $content_id, static::$image_folder . $content_id . '/');
         $contentTrans = new EditTranslations();
         $contentTrans->setContent($content);
 
@@ -171,10 +245,22 @@ class BaseModel extends Model {
 
     }
 
-    protected static function reorder($items, $section)
+    /**
+     * Reorders the passed items
+     *
+     * @param $items
+     * @param null $section
+     */
+    protected static function reorder($items, $section = null)
     {
 
-        for($i = 0 ; $i < static::get()->count() ; $i++){
+        if($section) {
+            $count = static::where(static::$section_id, $section)->get()->count();
+        } else {
+            $count = static::get()->count();
+        }
+
+        for($i = 0 ; $i < $count ; $i++){
             $row = static::find($items[$i]['id']);
             $row->position = $i + 1;
             $row->save();

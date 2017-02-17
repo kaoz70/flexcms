@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 16-02-2017 a las 19:23:39
+-- Tiempo de generación: 17-02-2017 a las 02:57:06
 -- Versión del servidor: 5.6.31
--- Versión de PHP: 5.6.17
+-- Versión de PHP: 7.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `flexcms2`
+-- Base de datos: `flexcms`
 --
 
 -- --------------------------------------------------------
@@ -232,15 +232,15 @@ CREATE TABLE IF NOT EXISTS `content` (
 --
 
 INSERT INTO `content` (`id`, `css_class`, `category_id`, `enabled`, `temporary`, `important`, `timezone`, `publication_start`, `publication_end`, `module`, `data`, `position`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(60, '', 23, 1, 1, 0, 'America/Guayaquil', NULL, NULL, NULL, NULL, 6, '2017-01-19 22:18:27', '2017-01-19 22:18:27', NULL),
-(61, '', 23, 1, 1, 0, 'America/Guayaquil', NULL, NULL, NULL, NULL, 9, '2017-01-19 22:20:06', '2017-01-28 02:15:28', NULL),
-(62, '', 23, 1, 1, 0, 'America/Guayaquil', NULL, NULL, NULL, NULL, 8, '2017-01-19 22:35:44', '2017-01-28 02:15:28', NULL),
-(63, '', 23, 1, 1, 0, 'America/Guayaquil', NULL, NULL, NULL, NULL, 7, '2017-01-19 22:40:20', '2017-01-28 02:15:28', NULL),
+(60, '', 23, 1, 1, 0, 'America/Guayaquil', NULL, NULL, NULL, NULL, 9, '2017-01-19 22:18:27', '2017-02-17 00:39:31', NULL),
+(61, '', 23, 1, 1, 0, 'America/Guayaquil', NULL, NULL, NULL, NULL, 8, '2017-01-19 22:20:06', '2017-02-17 00:39:31', NULL),
+(62, '', 23, 1, 1, 0, 'America/Guayaquil', NULL, NULL, NULL, NULL, 7, '2017-01-19 22:35:44', '2017-02-17 00:39:31', NULL),
+(63, '', 23, 1, 1, 0, 'America/Guayaquil', NULL, NULL, NULL, NULL, 6, '2017-01-19 22:40:20', '2017-02-17 00:39:31', NULL),
 (64, '', 23, 1, 1, 0, 'America/Guayaquil', NULL, NULL, NULL, NULL, 5, '2017-01-19 22:41:39', '2017-01-28 02:15:28', NULL),
-(65, '', 23, 1, 1, 0, 'America/Guayaquil', '1970-01-01 00:00:00', '1970-01-01 00:00:00', NULL, NULL, 4, '2017-01-19 22:42:17', '2017-01-28 02:15:28', NULL),
+(65, '', 23, 1, 1, 0, 'America/Guayaquil', '2017-01-19 17:18:27', '2017-01-19 17:18:27', NULL, NULL, 4, '2017-01-19 22:42:17', '2017-01-28 02:15:28', NULL),
 (66, '', 23, 1, 1, 0, 'America/Guayaquil', NULL, NULL, NULL, NULL, 3, '2017-01-28 01:24:54', '2017-01-28 02:15:28', NULL),
-(67, '', 23, 1, 1, 0, 'America/Guayaquil', NULL, NULL, NULL, NULL, 2, '2017-01-28 01:26:31', '2017-01-28 02:15:28', NULL),
-(68, '', 23, 1, 1, 0, 'America/Guayaquil', '1970-01-01 00:00:00', '1970-01-01 00:00:00', NULL, NULL, 1, '2017-01-28 02:10:52', '2017-02-04 03:05:47', NULL);
+(67, '', 23, 1, 1, 0, 'America/Guayaquil', '2017-01-19 17:18:27', '2017-01-19 17:18:27', NULL, NULL, 1, '2017-01-28 01:26:31', '2017-02-17 07:56:38', NULL),
+(68, '', 23, 1, 1, 0, 'America/Guayaquil', '2017-01-19 17:18:27', '2017-01-19 17:18:27', NULL, NULL, 2, '2017-01-28 02:10:52', '2017-02-17 02:57:56', NULL);
 
 -- --------------------------------------------------------
 
@@ -313,7 +313,7 @@ CREATE TABLE IF NOT EXISTS `files` (
   `section_id` int(11) unsigned DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL,
   `position` int(11) DEFAULT '0',
-  `data` varchar(255) DEFAULT NULL,
+  `data` text,
   `link` varchar(255) DEFAULT NULL,
   `date` date DEFAULT NULL,
   `enabled` tinyint(1) DEFAULT '1',
@@ -323,7 +323,14 @@ CREATE TABLE IF NOT EXISTS `files` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `files`
+--
+
+INSERT INTO `files` (`id`, `parent_id`, `section_id`, `name`, `position`, `data`, `link`, `date`, `enabled`, `type`, `mime_type`, `file_ext`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(20, 67, 1, 'rude-500', 1, '{"coords":{"canvasSize":{"w":450,"h":450},"areaCoords":{"x":0,"y":112.5,"w":450,"h":225},"cropWidth":450,"cropHeight":225,"cropTop":112.5,"cropLeft":0,"cropImageWidth":500,"cropImageHeight":250,"cropImageTop":125,"cropImageLeft":0},"colors":{"dominantColor":[49,40,59],"paletteColor":[[205,190,210],[39,31,47],[122,103,135],[93,77,113],[146,127,168],[81,65,91],[156,156,172],[94,92,90],[164,116,100]],"textColor":"light"},"image_alt":"image"}', NULL, NULL, 1, 'image', 'image/jpeg', '.jpg', '2017-02-17 07:56:38', '2017-02-17 07:56:38', NULL);
 
 -- --------------------------------------------------------
 
@@ -576,7 +583,7 @@ CREATE TABLE IF NOT EXISTS `persistences` (
   `code` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `persistences`
@@ -614,7 +621,8 @@ INSERT INTO `persistences` (`id`, `user_id`, `code`, `created_at`, `updated_at`)
 (31, 1, '8TdTegOjH2AhnNVVc8EXWf96kvm1rYVv', '2017-01-21 02:18:00', '2017-01-21 02:18:00'),
 (32, 1, 'JZUtqng2RVFNerBgkOm4U4k9UsT4XINy', '2017-01-27 20:56:57', '2017-01-27 20:56:57'),
 (33, 1, '8Pa6WV7Dkw5sim1mb4AGqR4BomNczdob', '2017-01-27 20:56:59', '2017-01-27 20:56:59'),
-(34, 1, 'wJSySudVwJvciSgL9M8X8KPpaEjP0FLL', '2017-02-01 19:53:38', '2017-02-01 19:53:38');
+(34, 1, 'wJSySudVwJvciSgL9M8X8KPpaEjP0FLL', '2017-02-01 19:53:38', '2017-02-01 19:53:38'),
+(35, 1, 'IRlv6chDxBE8LYprdoialXD5oQWiOUpm', '2017-02-17 00:33:01', '2017-02-17 00:33:01');
 
 -- --------------------------------------------------------
 
@@ -928,7 +936,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `permissions`, `last_login`, `first_name`, `last_name`, `image_extension`, `image_coord`, `temporary`, `created_at`, `updated_at`) VALUES
-(1, 'miguel@dejabu.ec', '$2y$10$PWH1K0k81TJTa.INQpYBruRkcR71WuWyxW.h4sVrigadCgv240bKu', NULL, '2017-02-01 19:53:38', 'Miguel', 'Suarez', NULL, NULL, 0, '2015-11-25 22:41:58', '2017-02-01 19:53:38');
+(1, 'miguel@dejabu.ec', '$2y$10$PWH1K0k81TJTa.INQpYBruRkcR71WuWyxW.h4sVrigadCgv240bKu', NULL, '2017-02-17 00:33:01', 'Miguel', 'Suarez', NULL, NULL, 0, '2015-11-25 22:41:58', '2017-02-17 00:33:01');
 
 -- --------------------------------------------------------
 
@@ -1259,7 +1267,7 @@ ALTER TABLE `field_data`
 -- AUTO_INCREMENT de la tabla `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT de la tabla `forms`
 --
@@ -1304,7 +1312,7 @@ ALTER TABLE `map_locations`
 -- AUTO_INCREMENT de la tabla `persistences`
 --
 ALTER TABLE `persistences`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
 --
 -- AUTO_INCREMENT de la tabla `predefined_lists`
 --

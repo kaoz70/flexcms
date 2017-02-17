@@ -15,8 +15,9 @@ use Illuminate\Support\Collection;
 class Content extends BaseModel {
 
     protected $table = 'content';
+    protected static $image_folder = 'assets/images/content/';
 
-    const PAGE_ID = 'category_id';
+    protected static $section_id = 'category_id';
     protected static $type = 'content';
 
     /**
@@ -83,7 +84,7 @@ class Content extends BaseModel {
                 break;
         }
 
-        $content = static::where(static::PAGE_ID, $page_id)
+        $content = static::where(static::$section_id, $page_id)
             ->orderBy($orderCol, $orderDirection)
             ->get();
 
@@ -123,7 +124,7 @@ class Content extends BaseModel {
 
         //Get any content widget
         $content = Widget::where('widgets.type', 'content')
-            ->join('categories', 'categories.id', '=', static::PAGE_ID)
+            ->join('categories', 'categories.id', '=', static::$section_id)
             ->get();
 
         //Do we want to return only page ids?
@@ -185,24 +186,9 @@ class Content extends BaseModel {
 
             }
 
-
-
         }
 
         return $translations;
-
-    }
-
-    protected static function reorder($items, $page_id)
-    {
-
-        for($i = 0 ; $i < static::where(static::PAGE_ID, $page_id)->get()->count() ; $i++){
-
-            $row = static::find($items[$i]['id']);
-            $row->position = $i + 1;
-            $row->save();
-
-        }
 
     }
 

@@ -12,8 +12,9 @@ class ImageSection extends BaseModel
 {
 
     private $items;
+    private $files;
 
-    protected $appends = ['items'];
+    protected $appends = ['items', 'files'];
 
     public function setItemsAttribute($value)
     {
@@ -25,9 +26,42 @@ class ImageSection extends BaseModel
         return $this->items;
     }
 
+    public function setFilesAttribute($value)
+    {
+        $this->files = $value;
+    }
+
+    public function getFilesAttribute()
+    {
+        return $this->files;
+    }
+
     public function getMultipleUploadAttribute($value)
     {
         return (boolean)$value;
+    }
+
+    public static function getImages($section, $content_id, $image_base_path)
+    {
+        $sections = static::getBySection($section);
+
+        foreach ($sections as $section) {
+            $section->files = static::getFiles($section->id, $content_id, $image_base_path);
+        }
+
+        return $sections;
+
+    }
+
+    public static function getFiles($section_id, $content_id, $image_base_path)
+    {
+        $images = Image::where('section_id', $section_id)->where('parent_id', $content_id)->get();
+
+        foreach ($images as $image) {
+            $image->setUrlPath(base_url($image_base_path . $image->name . '_orig' . $image->file_ext));
+        }
+
+        return $images;
     }
 
     /**

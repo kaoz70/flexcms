@@ -13,6 +13,7 @@ class ImageConfig extends BaseModel
 {
 
     protected $table = 'images_config';
+    protected static $section_id = 'image_section_id';
 
     /**
      * Return this column as boolean
@@ -147,6 +148,11 @@ class ImageConfig extends BaseModel
         return $imageConfig;
     }
 
+    public static function getForContent($content_id)
+    {
+        return static::where('section', $content_id)->get();
+    }
+
     /**
      * Stores the watermark data
      *
@@ -200,15 +206,9 @@ class ImageConfig extends BaseModel
         }
     }
 
-    protected static function reorder($items, $section_id)
+    public static function images($content_id)
     {
-
-        for($i = 0 ; $i < static::where('image_section_id', $section_id)->get()->count() ; $i++){
-            $row = static::find($items[$i]['id']);
-            $row->position = $i + 1;
-            $row->save();
-        }
-
+        return Image::where('parent_id', $content_id)->get();
     }
 
 }

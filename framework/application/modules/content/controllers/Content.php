@@ -23,6 +23,7 @@ use ErrorException;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
+use Intervention\Image\Exception\NotReadableException;
 use Intervention\Image\Image;
 use stdClass;
 
@@ -78,7 +79,7 @@ class Content extends \RESTController implements \AdminInterface
     }
 
     /**
-     * Gets one or all resources
+     * Gets one resource
      *
      * @param null $id
      * @return mixed
@@ -89,11 +90,7 @@ class Content extends \RESTController implements \AdminInterface
         $response = new Response();
 
         try{
-            $data = [
-                'content' => \App\Content::getForEdit($id),
-                'images' => ImageSection::getBySection('content')
-            ];
-            $response->setData($data);
+            $response->setData(\App\Content::getForEdit($id));
         } catch (Exception $e) {
             $response->setError('Ocurri&oacute; un problema al obtener el contenido!', $e);
         }
@@ -128,6 +125,8 @@ class Content extends \RESTController implements \AdminInterface
 
         } catch (ErrorException $e) {
             $response->setError('Ocurri&oacute; un problema al actualizar el contenido!', $e);
+        } catch (NotReadableException $e) {
+            $response->setError('Ocurri&oacute; un problema al crear el contenido!', $e);
         }
 
         $this->response($response);
@@ -165,6 +164,8 @@ class Content extends \RESTController implements \AdminInterface
         } catch (QueryException $e) {
             $response->setError('Ocurri&oacute; un problema al crear el contenido!', $e);
         } catch (ErrorException $e) {
+            $response->setError('Ocurri&oacute; un problema al crear el contenido!', $e);
+        } catch (NotReadableException $e) {
             $response->setError('Ocurri&oacute; un problema al crear el contenido!', $e);
         }
 
@@ -226,54 +227,7 @@ class Content extends \RESTController implements \AdminInterface
         $model->save();
 
         $model->setTranslations($data['translations']);
-
-        if($data['images']) {
-
-            //Create the content folder if it does'nt exist yet
-            $path = static::$image_folder . $model->id;
-            if ( ! is_dir($path)) {
-                mkdir($path, 750, true);
-            }
-
-            foreach ($data['images'] as $section) {
-
-                $configs = ImageConfig::where($section['id'])->get();
-
-                //Create the file row in the database
-                foreach ($section['files'] as $key => $file) {
-
-                    $image = File::where('parent_id', $model->id)->where('section_id', $section['id'])->first();
-                    if (!$image) {
-                        $image = new File();
-                        $image->parent_id = $model->id;
-                        $image->section_id = $section['id'];
-                    }
-
-                    $image->position = $key + 1;
-                    $image->name = $file['file_name'];
-                    $image->data = [
-                        'coords' => $section['cropObject'],
-                        'colors' => $section['colors'],
-                        'image_alt' => $file['type'],
-                    ];
-                    $image->type = $file['file_name'];
-                    $image->mime_type = $file['file_name'];
-                    $image->file_ext = $file['file_name'];
-                    $image->save();
-
-                    $origPath = $path . '/' . $file['file_name'] . '_orig' . $file['file_ext'];
-
-                    //Move the uploaded file
-                    File::move($file['file_path'], $origPath);
-
-                    //Create the images
-                    foreach ($configs as $config) {
-                        \App\Image::process($file, $path, $config, $section['cropObject']);
-                    }
-
-                }
-            }
-        }
+        $model->setImages($data['images']);
 
         return $model;
 

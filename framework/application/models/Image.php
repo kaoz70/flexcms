@@ -8,9 +8,11 @@
 
 namespace App;
 
-use Intervention\Image\Image as Intervention;
+use Intervention\Image\ImageManagerStatic as Intervention;
 
 class Image extends File {
+
+    protected $table = 'files';
 
     /**
      * Process the images, resize, crop, etc based on the config
@@ -19,19 +21,24 @@ class Image extends File {
      * @param $path
      * @param ImageConfig $config
      * @param $crop
-     * @return Intervention
+     * @return \Intervention\Image\Image
      */
     public static function process($file, $path, ImageConfig $config, $crop)
     {
 
-        $newPath = $path . '/' . $file['file_name'] . '_orig' . $file['file_ext'];
+        //Check if the filename is empty, this will happen if the file is not uploaded
+        isset($file['file_name']) ? $file_name = $file['file_name'] : $file_name = $file['name'];
 
-        // open the image file
-        $img = Intervention::make($newPath);
+        $origPath = $path . '/' . $file_name . '_orig' . $file['file_ext'];
+        $basePath = $path . '/' . $file_name . $config->sufix;
+        $newPath = $basePath . $file['file_ext'];
+
+        //Open the original image file
+        $img = Intervention::make($origPath);
 
         //If we are going to force the image to JPG, encode it as JPG
         if($config->force_jpg) {
-            $newPath = $path . '/' . $file['file_name'] . $config->suffix . '.jpg';
+            $newPath = $basePath . '.jpg';
             $img->encode('jpg', $config->quality);
         }
 
