@@ -124,8 +124,8 @@ angular.module('app')
                 scope.edit = function (file, evt) {
 
                     var template = scope.model.items[0].crop ?
-                        BASE_PATH + '/admin/ImageCrop' :
-                        BASE_PATH + '/admin/ImageEdit';
+                        BASE_PATH + '/admin/dialogs/ImageCrop' :
+                        BASE_PATH + '/admin/dialogs/ImageEdit';
 
                     $mdDialog.show({
                         controller: function ($scope) {
@@ -137,7 +137,7 @@ angular.module('app')
                             $scope.file = fileCopy;
                             $scope.model = copyModel;
 
-                            //Get the width and height form the first image configuration
+                            //Get the width and height from the first image configuration (should be the biggest one)
                             $scope.width = $scope.model.items[0].width;
                             $scope.height = $scope.model.items[0].height;
 

@@ -44,7 +44,7 @@ class Image extends File {
 
         //Crop the image
         if($config->restrict_proportions && $config->crop) {
-            $img->crop($crop['cropWidth'], $crop['cropHeight'], $crop['cropImageTop'], $crop['cropLeft']);
+            $img->crop($crop['cropImageWidth'], $crop['cropImageHeight'], $crop['cropImageTop'], $crop['cropImageLeft']);
         }
 
         //Resize the image

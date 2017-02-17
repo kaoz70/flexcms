@@ -29,8 +29,12 @@ angular.module('app')
             id: parseInt($routeParams.id, 10)
         }, true);
 
-        $scope.content.publication_start = new Date($scope.content.publication_start);
-        $scope.content.publication_end = new Date($scope.content.publication_end);
+        var createDates = function (content) {
+            $scope.content.publication_start = new Date(content.publication_start);
+            $scope.content.publication_end = new Date(content.publication_end);
+        };
+
+        createDates($scope.content);
 
         //Change the name in the item list
         $scope.$watch('content.translations[0].translation.name', function(v){
@@ -45,8 +49,7 @@ angular.module('app')
             if($scope.form.$valid) {
                 Content.update({id: $scope.content.id}, $scope.content, function (response) {
                     $scope.content = response.data.content;
-                    $scope.content.publication_start = new Date($scope.content.publication_start);
-                    $scope.content.publication_end = new Date($scope.content.publication_end);
+                    createDates($scope.content);
                 });
             }
 
