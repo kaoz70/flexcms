@@ -77,7 +77,7 @@
                     <input type="text" class="form-control" placeholder="Email" name="username" />
                 </div>
                 <div class="membership-input">
-                    <input type="text" class="form-control" placeholder="Password" name="password" autocomplete="off" />
+                    <input type="password" class="form-control" placeholder="Password" name="password" autocomplete="off" />
                 </div>
 
                 <div class="membership-forgot pull-right">

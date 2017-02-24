@@ -8,30 +8,7 @@
  * @restrict A
  * */
 angular.module('app')
-    .directive('uploadFile', function (BASE_PATH, Upload, $mdDialog, $filter) {
-
-        /**
-         * Check if the background is dark or light
-         *
-         * @link http://stackoverflow.com/questions/1855884/determine-font-color-based-on-background-color/1855903#1855903
-         * @param colorArray
-         * @returns {boolean}
-         */
-        var colourIsLight = function (colorArray) {
-
-            if(!colorArray || colorArray.length !== 3) {
-                return;
-            }
-
-            var r = colorArray[0],
-                g = colorArray[1],
-                b = colorArray[2];
-
-            // Counting the perceptive luminance
-            // human eye favors green color...
-            var a = 1 - (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-            return (a < 0.5);
-        };
+    .directive('uploadFile', function (BASE_PATH, Upload, $mdDialog, Color) {
 
         return {
             restrict: 'E',
@@ -62,7 +39,7 @@ angular.module('app')
                 var multiple = scope.multiple;
 
                 scope.$watch('model.colors.dominantColor', function(color) {
-                    scope.model.colors.textColor = colourIsLight(color) ? 'dark' : 'light';
+                    scope.model.colors.textColor = Color.isLight(color) ? 'dark' : 'light';
                 });
 
                 // upload on file select or drop
@@ -128,56 +105,15 @@ angular.module('app')
                         BASE_PATH + '/admin/dialogs/ImageEdit';
 
                     $mdDialog.show({
-                        controller: function ($scope) {
-
-                            //We create a copy to work with, in case the user cancels the dialog
-                            var copyModel = angular.copy(scope.model),
-                                fileCopy = angular.copy(file);
-
-                            $scope.file = fileCopy;
-                            $scope.model = copyModel;
-
-                            //Get the width and height from the first image configuration (should be the biggest one)
-                            $scope.width = $scope.model.items[0].width;
-                            $scope.height = $scope.model.items[0].height;
-
-                            $scope.resultImageSize = scope.resultImageSize;
-
-                            if($scope.model.areaCoords) {
-                                $scope.initialSize = {
-                                    w: $scope.model.areaCoords.w,
-                                    h: $scope.model.areaCoords.h
-                                };
-                                $scope.initialCoords = {
-                                    x: $scope.model.areaCoords.x,
-                                    y: $scope.model.areaCoords.y
-                                };
-                            }
-
-                            $scope.closeDialog = function () {
-                                $mdDialog.hide();
-                            };
-
-                            //If the dominant color changes update the light/dark text
-                            $scope.$watch('model.colors.dominantColor', function(color) {
-                                $scope.model.colors.textColor = colourIsLight(color) ? 'dark' : 'light';
-                            });
-
-                            $scope.generateRGB = function (colorArray) {
-                                return 'rgb(' + colorArray[0] + ',' + colorArray[1] + ',' + colorArray[2] + ')';
-                            };
-
-                            $scope.save = function () {
-                                angular.copy(copyModel, scope.model);
-                                angular.copy(fileCopy, file);
-                                file.file_name = $filter('slugify')($scope.file.name);
-                                $mdDialog.hide();
-                            };
-
-                        },
+                        controller: 'CropCtrl',
                         controllerAs: 'ctrl',
                         templateUrl: template,
                         hasBackdrop: true,
+                        scope: scope,
+                        preserveScope: true,
+                        locals : {
+                            file: file
+                        },
                         targetEvent: evt
                     });
 
@@ -186,4 +122,5 @@ angular.module('app')
             }
 
         };
-});
+    })
+;

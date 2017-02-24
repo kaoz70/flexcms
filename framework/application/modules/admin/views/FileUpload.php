@@ -37,6 +37,8 @@
                                     result-image="file.resultImage"></ui-cropper>
                     </div>
                     <img class="img-fluid" ng-src="{{file.resultImage}}" />
+
+                    {{model.areaCoords}}
                 </div>
             </md-card-title-media>
 

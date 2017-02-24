@@ -142,10 +142,12 @@
 
     </md-content>
 
-    <div layout="row">
-        <md-button md-autofocus flex class="md-primary" ng-click="save()">
-            <md-icon>save</md-icon> Guardar
-        </md-button>
+    <div>
+        <div layout="row">
+            <md-button md-autofocus flex class="md-primary" ng-click="save()">
+                <md-icon>save</md-icon> Guardar
+            </md-button>
+        </div>
     </div>
 
 </md-dialog>

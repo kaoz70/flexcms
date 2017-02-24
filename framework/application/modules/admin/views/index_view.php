@@ -225,7 +225,7 @@
     <script src="<?= admin_asset_path('../../node_modules/angular/angular.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/angular-aria/angular-aria.min.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/angular-material/angular-material.js') ?>"></script>
-    <script src="<?= admin_asset_path('../../packages/angular-scroll-glue/src/scrollglue.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../node_modules/angularjs-scroll-glue/src/scrollglue.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/ng-file-upload/ng-file-upload.js') ?>"></script>
 
     <script src="<?= admin_asset_path('../../packages/codemirror/lib/codemirror.js') ?>"></script>
@@ -242,13 +242,13 @@
     <script src="<?= admin_asset_path('../../packages/codemirror/mode/javascript/javascript.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/codemirror/mode/css/css.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/codemirror/mode/htmlmixed/htmlmixed.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../node_modules/angular-ui-codemirror/src/ui-codemirror.js') ?>"></script>
 
-    <script src="<?= admin_asset_path('../../packages/angular-ui-codemirror/ui-codemirror.min.js') ?>"></script>
     <script src="<?= admin_asset_path('../../node_modules/angular-i18n/angular-locale_es-ec.js') ?>"></script>
     <script src="<?= admin_asset_path('../../node_modules/angular-route/angular-route.js') ?>"></script>
     <script src="<?= admin_asset_path('../../node_modules/angular-route-segment/build/angular-route-segment.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/tinymce/tinymce.min.js') ?>"></script>
-    <script src="<?= admin_asset_path('../../packages/angular-ui-tinymce/dist/tinymce.min.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../node_modules/angular-ui-tinymce/dist/tinymce.min.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/angular-timezone-selector/dist/angular-timezone-selector.min.js') ?>"></script>
 
     <script src="<?= admin_asset_path('../../node_modules/angular-resource/angular-resource.js') ?>"></script>
