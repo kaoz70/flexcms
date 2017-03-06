@@ -214,8 +214,10 @@ class Admin extends AdminController {
         $mail->setFrom('flexcms@dejabu.ec', 'FlexCMS');
         $mail->addAddress('miguel@dejabu.ec', 'Miguel Suarez');     // Add a recipient
 
-        $mail->Subject = '[] Notificacion de error';
-        $mail->Body = json_encode($this->input->post());
+        $mail->Subject = '[' . base_url() . '] Notificacion de error';
+        $mail->Body = $this->load->view('admin/email/notify_error_view', [
+            'data' => $this->input->post()
+        ], true);
 
         if($mail->send()) {
             $response->setMessage('Notificacion enviada correctamente');

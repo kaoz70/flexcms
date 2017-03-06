@@ -49,7 +49,7 @@ $hook['pre_system'] = function() {
     }
 
     //Initialize error handlers
-    \App\Error::initHandlers();
+    //\App\Error::initHandlers();
 
     //Check if the server meets the App's requirements
     \App\Requirements::check();
