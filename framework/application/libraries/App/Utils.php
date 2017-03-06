@@ -28,6 +28,10 @@ class Utils
             }
         }
 
+        //Sort the folders alphabetically (me need admin first)
+        // TODO: Make admin always first independently of folder name
+        sort($folders);
+
         return $folders;
     }
 

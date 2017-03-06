@@ -49,6 +49,8 @@ class Admin {
         foreach (Utils::getFolders(APPPATH . static::PATH) as $folder) {
 
             $path = APPPATH . static::PATH . $folder . DIRECTORY_SEPARATOR . 'js';
+            $files = [];
+            $folders = [];
 
             //If the JS does'nt exist continue over the next module folder
             if(!file_exists($path)) {
@@ -66,23 +68,35 @@ class Admin {
                 //Get any files in this dir
                 if ($file->isDir() ) {
 
-                    $assetFolder = $path . DIRECTORY_SEPARATOR . $file;
 
-                    //Iterate over every file
-                    foreach (new \DirectoryIterator($assetFolder) as $f) {
-                        if($f->isFile()) {
-                            $assets[] = $assetFolder . DIRECTORY_SEPARATOR . $f->getFilename();
-                        }
-                    }
+                    $assetFolder = $path . DIRECTORY_SEPARATOR . $file;
+                    $folders[] = $assetFolder;
+
+
                 }
 
                 if($file->isFile()) {
-                    $assets[] = $path . DIRECTORY_SEPARATOR . $file->getFilename();
+                    $files[] = $path . DIRECTORY_SEPARATOR . $file->getFilename();
                 }
 
             }
 
+            sort($folders);
+
+            foreach ($folders as $folder) {
+                //Iterate over every file
+                foreach (new \DirectoryIterator($folder) as $f) {
+                    if($f->isFile()) {
+                        $files[] = $folder . DIRECTORY_SEPARATOR . $f->getFilename();
+                    }
+                }
+            }
+
+            $assets = array_merge($assets, $files);
+
         }
+
+        sort($assets);
 
         return $assets;
 
