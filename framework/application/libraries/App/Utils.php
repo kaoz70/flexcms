@@ -35,4 +35,21 @@ class Utils
         return $folders;
     }
 
+    /**
+     * Recursively create folders if they don't exist
+     *
+     * @param $path
+     * @param int $permissions
+     */
+    public static function createFolder($path, $permissions = 0755)
+    {
+
+        if ( ! is_dir($path)) {
+            $oldmask = umask(0);
+            mkdir($path, $permissions, true);
+            umask($oldmask);
+        }
+
+    }
+
 }

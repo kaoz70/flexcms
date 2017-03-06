@@ -173,10 +173,8 @@ class BaseModel extends Model {
         }
         
         //Create the content folder if it does'nt exist yet
-        $path = static::$image_folder . $this->id;
-        if ( ! is_dir($path)) {
-            mkdir($path, 750, true);
-        }
+        $path = static::$image_folder . $this->id . '/';
+        Utils::createFolder($path);
 
         foreach ($sections as $section) {
 
