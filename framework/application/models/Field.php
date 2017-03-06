@@ -16,7 +16,7 @@ class Field extends BaseModel {
     protected $section;
     protected static $type = null;
 
-    protected static function reorder($inputs, $section)
+    protected static function reorder($inputs, $section = null)
     {
         //Get the ids
         $ids = json_decode($inputs, true);
