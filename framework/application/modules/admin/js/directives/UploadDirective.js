@@ -8,7 +8,7 @@
  * @restrict A
  * */
 angular.module('app')
-    .directive('uploadFile', function (BASE_PATH, Upload, $mdDialog, Color) {
+    .directive('uploadFile', function (BASE_PATH, Upload, $mdDialog, Color, $filter) {
 
         return {
             restrict: 'E',
@@ -109,9 +109,8 @@ angular.module('app')
                         controllerAs: 'ctrl',
                         templateUrl: template,
                         hasBackdrop: true,
-                        scope: scope,
-                        preserveScope: true,
                         locals : {
+                            model: scope.model,
                             file: file
                         },
                         targetEvent: evt

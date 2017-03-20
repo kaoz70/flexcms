@@ -8,18 +8,19 @@
  * @requires $scope
  * */
 angular.module('app')
-    .controller('CropCtrl', function($scope, file, $filter, $mdDialog, Color){
-
-        $scope.file = file;
+    .controller('CropCtrl', function($scope, model, file, $mdDialog, $filter){
 
         //We create a copy to work with, in case the user cancels the dialog
-        var fileCopy = angular.copy($scope.file);
-        var modelCopy = angular.copy($scope.model);
+        var modelCopy = angular.copy(model);
+        var fileCopy = angular.copy(file);
+
+        $scope.model = modelCopy;
+        $scope.file = fileCopy;
 
         //Get the width and height from the first image configuration (should be the biggest one)
         $scope.width = $scope.model.items[0].width;
         $scope.height = $scope.model.items[0].height;
-
+        
         if($scope.model.areaCoords) {
             $scope.initialSize = {
                 w: $scope.model.areaCoords.w,
@@ -35,27 +36,22 @@ angular.module('app')
             $mdDialog.hide();
         };
 
-        //If the dominant color changes update the light/dark text
-        $scope.$watch('model.colors.dominantColor', function(color) {
-            $scope.model.colors.textColor = Color.isLight(color) ? 'dark' : 'light';
-        });
-
         $scope.generateRGB = function (colorArray) {
+            if(typeof colorArray === 'undefined' || colorArray.length < 3 ) {
+                return;
+            }
             return 'rgb(' + colorArray[0] + ',' + colorArray[1] + ',' + colorArray[2] + ')';
         };
 
         $scope.save = function () {
 
-            //Change the file name
-            file.file_name = $filter('slugify')($scope.file.name);
-
-            //Copy the models
-            angular.copy(modelCopy, $scope.model);
+            angular.copy(modelCopy, model);
             angular.copy(fileCopy, file);
 
-            //Close the dialog
-            $mdDialog.hide();
+            //Change the file name
+            file.name = $filter('slugify')(file.name);
 
+            $mdDialog.hide(true);
         };
 
 });

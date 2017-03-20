@@ -33,8 +33,7 @@ angular.module('app')
         $scope.selected = [];
         $scope.device = "large";
 
-        WindowFactory.add();
-        var panel = Loading.show();
+        WindowFactory.add($scope);
 
         var addColumn = function (columns) {
             return {
@@ -71,8 +70,6 @@ angular.module('app')
             $scope.roles = response.data.data.roles;
             $scope.rows = response.data.data.rows;
             $scope.widgets = response.data.data.widgets;
-
-            Loading.hide(panel);
 
             $scope.$watch('rows', function(rows) {
                 $scope.modelAsJson = angular.toJson(rows, true);

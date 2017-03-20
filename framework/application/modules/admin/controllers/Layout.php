@@ -99,8 +99,7 @@ class Layout extends AdminController implements AdminInterface {
 
             $data['roles'] =  \App\Role::all();
 
-            $page_data = json_decode($page['content']->data);
-            $data['rows'] = $page_data ? $page_data->structure : array();
+            $data['rows'] = $page->data ? $page->data->structure : [];
 
             $response->setData($data);
 
@@ -231,8 +230,51 @@ class Layout extends AdminController implements AdminInterface {
      * @param Model $model
      * @return mixed
      */
-    public function _store(Model $model)
+    public function _store(Model $model, $data)
     {
         // TODO: Implement _store() method.
+    }
+
+    /**
+     * Gets one or all resources
+     *
+     * @param null $id
+     * @return mixed
+     */
+    public function index_get($id = null)
+    {
+        // TODO: Implement index_get() method.
+    }
+
+    /**
+     * Update a resource
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function index_put($id)
+    {
+        // TODO: Implement index_put() method.
+    }
+
+    /**
+     * Insert a new resource
+     *
+     * @return mixed
+     */
+    public function index_post()
+    {
+        // TODO: Implement index_post() method.
+    }
+
+    /**
+     * Delete a resource
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function index_delete($id)
+    {
+        // TODO: Implement index_delete() method.
     }
 }

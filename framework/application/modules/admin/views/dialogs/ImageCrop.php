@@ -1,7 +1,7 @@
 <md-dialog class="fullscreen-dialog" role="dialog" aria-label="Editar imagen">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>Editar imagen</h2>
+            <h2>Editar imagen "{{model.name}}"</h2>
             <span flex></span>
             <md-button class="md-icon-button tools-action" aria-label="Close" ng-click="closeDialog()">
                 <md-icon>close</md-icon>
