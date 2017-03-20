@@ -37,7 +37,8 @@
     "ng-file-upload": "^12.2.13",
     "color-thief": "^2.0.1",
     "ui-cropper": "^1.0.4",
-    "angular-timezone-selector": "^1.6.0"
+    "angular-timezone-selector": "^1.6.0",
+    "angular-spinner": "^1.0.1"
   },
   "resolutions": {
     "magnific-popup": "^1.1.0",

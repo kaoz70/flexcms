@@ -154,7 +154,7 @@ class Admin extends AdminController {
 
             //Did not pass form validation
             if (!$this->form_validation->run()) {
-                throw new InvalidArgumentException(validation_errors());
+                throw new InvalidArgumentException('invalid fields');
             }
 
             $credentials = [
@@ -190,13 +190,11 @@ class Admin extends AdminController {
             $errors = $e->getMessage();
         }
 
-        if($this->input->is_ajax_request()) {
-            $data['return'] = $errors;
-            $this->load->view( 'admin/request/json', $data );
-        } else {
-            $this->session->set_flashdata('error', $errors);
-            redirect( 'admin' );
-        }
+        $data['return'] = [
+            'error' => true,
+            'message' => $errors
+        ];
+        $this->load->view( 'admin/request/json', $data );
 
     }
 

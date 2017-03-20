@@ -1,0 +1,66 @@
+@import "colors";
+
+body {
+  background-color: $background;
+  color: #0D1E2B;
+}
+
+.flip-container {
+
+  .dark {
+    background: #0D1E2B;
+    padding: 40px 46px;
+  }
+
+  .light {
+    background: #fff;
+    padding: 10px;
+  }
+
+  .card {
+    box-shadow: 0 0 25px #000;
+  }
+
+  .card {
+    width: 480px;
+
+    @media (max-width: 500px) {
+      width: 100%;
+    }
+
+  }
+
+}
+
+.green-bg {
+  background-color: $green !important;
+  color: #fff !important;
+}
+.red-bg {
+  background-color: $red !important;
+  color: #fff !important;
+
+  md-icon {
+    color: #fff !important;
+  }
+
+}
+
+button {
+  text-transform: none !important;
+
+  md-icon {
+    font-size: 22px !important;
+  }
+
+}
+
+md-input-container:not(.md-input-focused) {
+  md-icon,
+  label {
+    color: #0D1E2B !important;
+  }
+  .md-input {
+    border-color: rgba(0, 0, 0, 0.48) !important;
+  }
+}

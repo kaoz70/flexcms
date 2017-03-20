@@ -1,0 +1,40 @@
+body {
+  background-color: #1F2F39;
+  color: #0D1E2B; }
+
+.flip-container .dark {
+  background: #0D1E2B;
+  padding: 40px 46px; }
+.flip-container .light {
+  background: #fff;
+  padding: 10px; }
+.flip-container .card {
+  box-shadow: 0 0 25px #000; }
+.flip-container .card {
+  width: 480px; }
+  @media (max-width: 500px) {
+    .flip-container .card {
+      width: 100%; } }
+
+.green-bg {
+  background-color: #21C200 !important;
+  color: #fff !important; }
+
+.red-bg {
+  background-color: #CD4237 !important;
+  color: #fff !important; }
+  .red-bg md-icon {
+    color: #fff !important; }
+
+button {
+  text-transform: none !important; }
+  button md-icon {
+    font-size: 22px !important; }
+
+md-input-container:not(.md-input-focused) md-icon,
+md-input-container:not(.md-input-focused) label {
+  color: #0D1E2B !important; }
+md-input-container:not(.md-input-focused) .md-input {
+  border-color: rgba(0, 0, 0, 0.48) !important; }
+
+/*# sourceMappingURL=admin.css.map */

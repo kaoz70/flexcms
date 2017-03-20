@@ -1,102 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
 <head>
     <meta charset="utf-8" />
-    <title>Yima | </title>
+    <title>FlexCMS | Login</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <link rel="shortcut icon" href="<?= admin_asset_path('img/favicon.png')?>" type="image/x-icon">
 
-    <!--Css Files-->
-    <link rel="stylesheet" href="<?= admin_asset_path('css/bootstrap.min.css')?>" type="text/css" />
+    <link rel="stylesheet" href="<?= admin_asset_path('../../packages/material-design-icons/iconfont/material-icons.css') ?>" type="text/css" />
+    <link rel="stylesheet" href="<?= admin_asset_path('../../packages/angular-material/angular-material.min.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('css/animate.min.css')?>" type="text/css" />
-    <link rel="stylesheet" href="<?= admin_asset_path('css/app.css')?>" type="text/css" />
-    <link href="<?= admin_asset_path('css/font-awesome.min.css')?>" rel="stylesheet" />
-    <link href="<?= admin_asset_path('css/pe-icon-7-stroke.css')?>" rel="stylesheet" />
+    <link rel="stylesheet" href="<?= admin_asset_path('css/admin.css')?>" type="text/css" />
+
+    <script>
+        var system = {
+            base_url: "<?= base_url() ?>"
+        }
+    </script>
+
+    <script src="<?= admin_asset_path('js/modernizr.custom.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../node_modules/angular/angular.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/angular-aria/angular-aria.min.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/angular-material/angular-material.js') ?>"></script>
+    <script src="<?= admin_asset_path('js/lib/angular/angular-animate.min.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/angular-spinner/dist/angular-spinner.min.js') ?>"></script>
+    <script src="<?= admin_asset_path('js/login.js') ?>"></script>
 
 </head>
-<body>
+<body ng-controller="login" layout="column" >
 
-<div class="row membership">
-    <div class="col-lg-8 col-md-6 hidden-sm hidden-xs membership-brand">
-        <div class="brand-wrapper">
-            <div class="brand-container">
-                <a href="">
-                    <img class="brand-logo" src="<?= admin_asset_path('img/logo.png')?>" alt="Yima - Admin Web App" />
-                </a>
-                <div class="brand-title">
-                    Welcome to Yima
-                </div>
-                <div class="brand-subtitle">
-                    Login or Register for a Yima account for free.
-                </div>
-                <div class="brand-description">
-                    Logging in is usually used to enter a specific page, which trespassers cannot see. Once the user is logged in,
-                    the login token may be used to track what actions the user has taken while connected to the site.
-                    Logging out may be performed explicitly by the user taking some actions, such as entering the appropriate command,
-                    or clicking a website link labelled as such.
-                </div>
-                <div class="brand-action">
-                    <input type="button" class="btn btn-primary" value="Create a Support Ticket">
-                </div>
-                <ul class="brand-links">
-                    <li>
-                        <a href="">Terms & Conditions</a>
-                    </li>
-                    <li>
-                        <a href="">License Agreement</a>
-                    </li>
-                    <li>
-                        <a href="">Contact</a>
-                    </li>
-                    <li>
-                        <a href="">Support</a>
-                    </li>
-                </ul>
+<div class="flip-container" layout="column" layout-align="center center" layout-fill="layout-fill">
+    <div class="flipper">
+        <div class="front">
+
+            <div class="card" layout="row" layout-xs="column">
+
+                <md-content class="dark" layout="row" layout-align="center center">
+                    <img height="108"
+                         src="<?= admin_asset_path('img/logo.svg')?>"
+                         alt="FlexCMS - Content Management System" />
+                </md-content>
+
+                <md-content class="light" flex>
+
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Email</label>
+                        <md-icon>mail_outline</md-icon>
+                        <input ng-model="user.username">
+                    </md-input-container>
+
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Password</label>
+                        <md-icon>lock_outline</md-icon>
+                        <input type="password" ng-model="user.password">
+                    </md-input-container>
+
+                    <div layout="column" layout-align="stretch">
+                        <md-button ng-click="login()" class="md-raised md-primary" ng-class="buttonClass" ng-disabled="buttonDissabled">
+                            <md-icon ng-show="showIcon">{{icon}}</md-icon>
+                            <span ng-show="showSpinner" us-spinner="spinnerOpts"></span>
+                            {{message}}
+                        </md-button>
+                    </div>
+
+                </md-content>
+
             </div>
 
         </div>
     </div>
-    <div class="col-lg-4 col-md-6 col-sm-12 membership-container">
-        <a class="hidden" id="toregister"></a>
-        <a class="hidden" id="tologin"></a>
-        <a href="" class="hidden-lg hidden-md">
-            <img class="brand-logo" src="<?= admin_asset_path('img/logo.png')?>" alt="Yima - Admin Web App" />
-        </a>
-        <div class="login animated">
-
-            <form action="<?= base_url('admin/validate') ?>" method="post">
-
-                <? if($error): ?>
-                    <div class="alert alert-danger" role="alert"><?= $error ?></div>
-                <? endif; ?>
-
-                <div class="membership-title">Already have an account?</div>
-                <div class="membership-input">
-                    <input type="text" class="form-control" placeholder="Email" name="username" />
-                </div>
-                <div class="membership-input">
-                    <input type="password" class="form-control" placeholder="Password" name="password" autocomplete="off" />
-                </div>
-
-                <div class="membership-forgot pull-right">
-                    <a href="">Forgot Password?</a>
-                </div>
-
-                <div class="membership-submit">
-                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Sign In">
-                </div>
-
-            </form>
-
-        </div>
-    </div>
 </div>
-<!--Js Files-->
-<script src="<?= admin_asset_path('js/jquery.min.js')?>"></script>
-<script src="<?= admin_asset_path('js/bootstrap.min.js')?>"></script>
-<script src="<?= admin_asset_path('js/modernizr.custom.js')?>"></script>
 
 </body>
 </html>

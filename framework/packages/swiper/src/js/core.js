@@ -197,6 +197,8 @@ var defaults = {
     Callbacks:
     onInit: function (swiper)
     onDestroy: function (swiper)
+    onBeforeResize: function (swiper)
+    onAfterResize: function (swiper)
     onClick: function (swiper, e)
     onTap: function (swiper, e)
     onDoubleTap: function (swiper, e)
@@ -219,6 +221,7 @@ var defaults = {
     onAutoplayStop: function (swiper),
     onLazyImageLoad: function (swiper, slide, image)
     onLazyImageReady: function (swiper, slide, image)
+    onKeyPress: function (swiper, keyCode)
     */
 
 };
@@ -381,7 +384,6 @@ if (s.params.effect === 'cube') {
     s.params.centeredSlides = false;
     s.params.spaceBetween = 0;
     s.params.virtualTranslate = true;
-    s.params.setWrapperSize = false;
 }
 if (s.params.effect === 'fade' || s.params.effect === 'flip') {
     s.params.slidesPerView = 1;
@@ -389,7 +391,6 @@ if (s.params.effect === 'fade' || s.params.effect === 'flip') {
     s.params.slidesPerGroup = 1;
     s.params.watchSlidesProgress = true;
     s.params.spaceBetween = 0;
-    s.params.setWrapperSize = false;
     if (typeof initialVirtualTranslate === 'undefined') {
         s.params.virtualTranslate = true;
     }
@@ -816,6 +817,7 @@ s.updateSlidesSize = function () {
 
         if (s.params.centeredSlides) {
             slidePosition = slidePosition + slideSize / 2 + prevSlideSize / 2 + spaceBetween;
+            if(prevSlideSize === 0 && i !== 0) slidePosition = slidePosition - s.size / 2 - spaceBetween;
             if (i === 0) slidePosition = slidePosition - s.size / 2 - spaceBetween;
             if (Math.abs(slidePosition) < 1 / 1000) slidePosition = 0;
             if ((index) % s.params.slidesPerGroup === 0) s.snapGrid.push(slidePosition);
@@ -1205,6 +1207,7 @@ s.update = function (updateTranslate) {
     if (s.params.scrollbar && s.scrollbar) {
         s.scrollbar.set();
     }
+    var newTranslate;
     function forceSetTranslate() {
         var translate = s.rtl ? -s.translate : s.translate;
         newTranslate = Math.min(Math.max(s.translate, s.maxTranslate()), s.minTranslate());
@@ -1213,7 +1216,7 @@ s.update = function (updateTranslate) {
         s.updateClasses();
     }
     if (updateTranslate) {
-        var translated, newTranslate;
+        var translated;
         if (s.controller && s.controller.spline) {
             s.controller.spline = undefined;
         }
@@ -1244,6 +1247,7 @@ s.update = function (updateTranslate) {
   Resize Handler
   ===========================*/
 s.onResize = function (forceUpdatePagination) {
+    if (s.params.onBeforeResize) s.params.onBeforeResize(s);
     //Breakpoints
     if (s.params.breakpoints) {
         s.setBreakpoint();
@@ -1289,6 +1293,7 @@ s.onResize = function (forceUpdatePagination) {
     // Return locks after resize
     s.params.allowSwipeToPrev = allowSwipeToPrev;
     s.params.allowSwipeToNext = allowSwipeToNext;
+    if (s.params.onAfterResize) s.params.onAfterResize(s);
 };
 
 /*=========================
@@ -1617,7 +1622,7 @@ s.onTouchMove = function (e) {
     if (isScrolling) {
         s.emit('onTouchMoveOpposite', s, e);
     }
-    if (typeof startMoving === 'undefined' && s.browser.ieTouch) {
+    if (typeof startMoving === 'undefined') {
         if (s.touches.currentX !== s.touches.startX || s.touches.currentY !== s.touches.startY) {
             startMoving = true;
         }
@@ -1627,7 +1632,7 @@ s.onTouchMove = function (e) {
         isTouched = false;
         return;
     }
-    if (!startMoving && s.browser.ieTouch) {
+    if (!startMoving) {
         return;
     }
     s.allowClick = false;
