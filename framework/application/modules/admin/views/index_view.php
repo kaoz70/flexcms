@@ -16,14 +16,13 @@
     [2. Css References]
     -->
     <link rel="stylesheet" href="<?= admin_asset_path('css/animate.min.css') ?>" type="text/css" />
+    <link rel="stylesheet" href="<?= admin_asset_path('../../packages/animsition/dist/css/animsition.min.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/material-design-icons/iconfont/material-icons.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/codemirror/lib/codemirror.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/codemirror/addon/hint/show-hint.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/codemirror/addon/fold/foldgutter.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/codemirror/theme/rubyblue.css') ?>" type="text/css" />
-    <link rel="stylesheet" href="<?= admin_asset_path('css/app.css') ?>" type="text/css" id="link-app" />
-    <link rel="stylesheet" href="<?= admin_asset_path('css/less/admin.css') ?>" type="text/css" />
-    <link rel="stylesheet" href="<?= admin_asset_path('css/less/skins/dark.css') ?>" type="text/css" />
+    <link rel="stylesheet" href="<?= admin_asset_path('css/admin.css') ?>" type="text/css" id="link-app" />
     <link rel="stylesheet" href="<?= admin_asset_path('css/font-awesome.min.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/chosen/chosen.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../node_modules/angular-bootstrap-datetimepicker/src/css/datetimepicker.css') ?>" type="text/css" />
@@ -64,29 +63,27 @@
     </script>
 
 </head>
-<body style="overflow:hidden;" ng-class="isSidebarOpen ? '' : 'minimized'">
-<div class="animsition">
-    <!--
-    [3. Sidebar Menu]
-    -->
-    <div class="sidebar menu">
-        <div class="sidebar-header">
-            <div class="header-brand">
-                <div class="brand-logo">
-                    <img src="<?= admin_asset_path('img/logo.png') ?>" alt="FlexCMS" />
-                </div>
-                <div class="brand-slogan">
-                    <div class="slogan-title">FlexCMS</div>
-                </div>
-            </div>
+<body style="overflow:hidden;" ng-class="isSidebarOpen ? 'open' : ''" layout="row">
 
+<div class='loading'>
+    <img class="logo" src='<?= admin_asset_path("img/logo.svg") ?>'>
+    <div class='loader-circle'>
+        <img class="rotating" src='<?= admin_asset_path("img/spinner.svg") ?>'>
+    </div>
+</div>
+
+<div class="animsition" layout="row" layout-align="stretch">
+
+    <div class="sidebar menu" layout="column" layout-align="stretch">
+        <div class="sidebar-header" layout="row" layout-align="center center">
+            <img src="<?= admin_asset_path('img/isotype.svg') ?>" alt="FlexCMS" />
         </div>
-        <div class="sidebar-menu">
+        <div class="sidebar-menu" layout="column"  layout-align="stretch">
             <ul class="menu">
 
                 <li ng-class="{'active open': $routeSegment.startsWith('layout')}">
 
-                    <a ng-href="#/layout">
+                    <a ng-href="#/layout" layout="row" layout-align="center center">
                         <md-tooltip md-direction="right">Estructura</md-tooltip>
                         <md-icon>view_quilt</md-icon>
                         <span>Estructura</span>
@@ -109,7 +106,7 @@
                 </li>
 
                 <li ng-class="{'active open': $routeSegment.startsWith('page')}">
-                    <a ng-href="#/page">
+                    <a ng-href="#/page" layout="row" layout-align="center center">
                         <md-tooltip md-direction="right">P&aacute;ginas</md-tooltip>
                         <md-icon>view_list</md-icon>
                         <span>P&aacute;ginas</span>
@@ -134,6 +131,8 @@
                 <? foreach ($menu as $item): ?>
                     <li ng-class="{'active open': $routeSegment.startsWith('<?=$item->controller?>')}">
                         <a title="<?=$item->name->es?>"
+                           layout="row"
+                           layout-align="center center"
                            rel="<?=$item->tooltip->es?>"
                            ng-href="#/<?=$item->controller ?>">
                             <md-tooltip md-direction="right"><?=$item->tooltip->es?></md-tooltip>
@@ -145,6 +144,7 @@
 
                 <li ng-class="{'active': $routeSegment.startsWith('language')}">
                     <a title="Idiomas"
+                       layout="row" layout-align="center center"
                        ng-click="closePanel()"
                        rel="Editar idiomas para sitios multi-idiomas"
                        ng-href="#/language" >
@@ -155,6 +155,7 @@
                 </li>
                 <li ng-class="{'active': $routeSegment.startsWith('config')}">
                     <a title="Configuración"
+                       layout="row" layout-align="center center"
                        rel="Tamaños de imagenes, configuracion general"
                        ng-href="#/config">
                         <md-tooltip md-direction="right">Config</md-tooltip>
@@ -164,27 +165,13 @@
                 </li>
 
             </ul>
-        </div>
-        <div class="sidebar-footer">
-            <div class="footer-user">
-                <a ui-sref="profile"><?= $user->first_name ?> <?= $user->last_name ?></a>
-            </div>
-            <div class="footer-links">
-                <a ui-sref="pages.login" class="links-logout">
-                    <i class="pe-7s-power"></i>
-                    <span>Cerrar Sesi&oacute;n</span>
-                </a>
-            </div>
+            <a class="logout" href="<?= base_url('admin/logout') ?>">
+                <md-tooltip md-direction="right">Cerrar sessi&oacute;n</md-tooltip>
+                <i class="pe-7s-power"></i>
+            </a>
         </div>
     </div>
-    <!--
-    [4. Sidebar Form]
-    -->
-    <div class="sidebar form collapsed">
-    </div>
-    <!--
-    [5. Main Page Content]
-    -->
+
     <div class="main-content">
         <!--
         [5.1. Page Header]
@@ -266,13 +253,13 @@
 
     <script src="<?= admin_asset_path('js/lib/notifications/snap.svg-min.js') ?>"></script>
     <script src="<?= admin_asset_path('js/lib/notifications/notificationFx.js') ?>"></script>
-    <script src="<?= admin_asset_path('js/pages/notifications.js') ?>"></script>
+    <!--<script src="<?/*= admin_asset_path('js/pages/notifications.js') */?>"></script>-->
     <script src="<?= admin_asset_path('js/lib/angular/angular-animate.min.js') ?>"></script>
     <script src="<?= admin_asset_path('js/lib/angular/angular-touch.min.js') ?>"></script>
     <script src="<?= admin_asset_path('js/lib/angular/ui-bootstrap-tpls.min.js') ?>"></script>
     <script src="<?= admin_asset_path('js/lib/angular/ocLazyLoad.min.js') ?>"></script>
     <script src="<?= admin_asset_path('js/lib/angular/angular-breadcrumb.min.js') ?>"></script>
-    <script src="<?= admin_asset_path('js/main.js') ?>"></script>
+    <!--<script src="<?/*= admin_asset_path('js/main.js') */?>"></script>-->
 
     <?php
     //Load the all the modules JS

@@ -41,7 +41,7 @@
 //    Remove Cookies
 //-------------------------------------------------------------------
 
-var yima = function() {
+var FlexCMS = function() {
 
     var isAngular = true;
     var isAspMvc = false;
@@ -56,20 +56,14 @@ var yima = function() {
     var touchScrollSpeed = 80;
 
     var loadingMarkUp =
-        "<div class='loading'>\
-            <div class='loader-circle'>\
-            </div>\
-            <div class='loader-line-mask'>\
-                <div class='loader-line'>\
-                </div>\
-            </div>\
-            <div class='glow'>\
-            </div>\
-            <div class='logo' style='background-image:url(\"" + getAssetPath("assets/img/logo.png") + "\")'>\
-            </div>\
-        </div>"
+        "<div class='loading'>" +
+        "<div class='logo' style='background-image:url(" + getAssetPath("assets/img/logo.png") + ")'></div>" +
+        "<div class='loader-circle'>" +
+        "<img class='rotating' src='" + getAssetPath("assets/img/spinner.svg") + "'>" +
+        "</div>" +
+        "</div>";
 
-    function hextoRgba(hex, opacity) {
+    /*function hextoRgba(hex, opacity) {
         hex = hex.replace('#', '');
         var r = parseInt(hex.substring(0, 2), 16);
         var g = parseInt(hex.substring(2, 4), 16);
@@ -145,7 +139,7 @@ var yima = function() {
 
     function removeCookie(name) {
         addCookie(name, "", -1);
-    }
+    }*/
 
     function getAssetPath(assetPath) {
         if (isAspMvc) {
@@ -224,7 +218,7 @@ var yima = function() {
             //------------------------------------------------------------------
             //[Skin Initialization]
             //--
-            var skin = this.getCookie("yima-skin");
+           /* var skin = this.getCookie("yima-skin");
             if (skin != 'undefined' && skin != null && skin != "") {
                 $("<link/>", {
                     rel: "stylesheet",
@@ -233,14 +227,14 @@ var yima = function() {
                     href: "/assets/css/less/skins/" + this.getCookie("yima-skin") + ".css"
                 }).appendTo("head");
                 primary = this.skinColors[skin];
-            }
+            }*/
 
             //------------------------------------------------------------------
             //[Page Transition Init]
             //--
             $(".animsition").animsition({
-                inClass: 'fade-in',
-                outClass: 'fade-out',
+                inClass: 'fade-in-left-sm',
+                outClass: 'fade-out-left-sm',
                 inDuration: 1500,
                 outDuration: 800,
                 linkElement: '.sidebar-menu .menu a[href]:not([target="_blank"]):not([href^=#]):not([href=""])',

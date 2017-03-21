@@ -1,0 +1,109 @@
+/* Creates a linear gradient between two colors */
+@mixin gradient($first, $last, $background: false, $rotation: false) {
+
+  $angle: 0deg;
+
+  @if ($rotation) {
+    $angle: $rotation;
+  }
+
+  background: $first; /* Old browsers */
+
+  @if ($background) {
+    background: url($background), -moz-linear-gradient($angle, $first 0%, $last 100%); /* FF3.6+ */
+    background: url($background), -webkit-linear-gradient($angle, $first 0%,$last 100%); /* Chrome10+,Safari5.1+ */
+    background: url($background), -o-linear-gradient($angle, $first 0%,$last 100%); /* Opera 11.10+ */
+    background: url($background), -ms-linear-gradient($angle, $first 0%,$last 100%); /* IE10+ */
+    background: url($background), linear-gradient($angle, $last 0%,$first 100%); /* W3C */
+  } @else {
+    background: -moz-linear-gradient($angle, $first 0%, $last 100%); /* FF3.6+ */
+    background: -webkit-linear-gradient($angle, $first 0%,$last 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient($angle, $first 0%,$last 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient($angle, $first 0%,$last 100%); /* IE10+ */
+    background: linear-gradient($angle, $last 0%,$first 100%); /* W3C */
+  }
+
+}
+
+@mixin transition($property: all, $time: 400ms) {
+  transition-timing-function: ease-in-out;
+  -webkit-transition: $property $time;
+  -moz-transition: $property $time;
+  -ms-transition: $property $time;
+  -o-transition: $property $time;
+  transition: $property $time;
+}
+
+@mixin translate($x: 0, $y: 0) {
+  -webkit-transform: translate($x, $y);
+  -moz-transform: translate($x, $y);
+  -o-transform: translate($x, $y);
+  transform: translate($x, $y);
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  -o-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin box-shadow($params) {
+  -webkit-box-shadow: $params;
+  -moz-box-shadow: $params;
+  box-shadow: $params;
+}
+
+/* Devuelve un color (claro u oscuro) dependiendo del fondo */
+@function calculateTextColor($bg, $dark, $light){
+
+  $color: $light;
+
+  @if lightness($bg) > 70% {
+    $color: $dark;
+  }
+
+  @return $color;
+
+}
+
+@-webkit-keyframes rotating /* Safari and Chrome */ {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotating {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.rotating {
+  -webkit-animation: rotating 2s linear infinite;
+  -moz-animation: rotating 2s linear infinite;
+  -ms-animation: rotating 2s linear infinite;
+  -o-animation: rotating 2s linear infinite;
+  animation: rotating 2s linear infinite;
+}

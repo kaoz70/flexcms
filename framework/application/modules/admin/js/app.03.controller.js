@@ -5,11 +5,11 @@
         .module('app')
         .controller('MainController', MainController);
 
-    MainController.$inject = ['$scope', '$rootScope', 'Page', '$routeSegment'];
+    MainController.$inject = ['$scope', '$rootScope', 'Page', '$routeSegment', 'CMS'];
 
-    function MainController($scope, $rootScope, Page, $routeSegment) {
+    function MainController($scope, $rootScope, Page, $routeSegment, CMS) {
 
-        yima.init();
+        CMS.init();
         $rootScope.isSidebarOpen = true;
 
         $scope.$routeSegment = $routeSegment;

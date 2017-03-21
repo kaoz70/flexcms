@@ -57,18 +57,43 @@
         $mdThemingProvider.theme('default')
             .primaryPalette('blue')
             //.secondaryPalette('teal')
-            .accentPalette('teal')
+            //.accentPalette('blue-grey')
+            .accentPalette('pink')
             .warnPalette('red')
             .dark();
+
+        var background = $mdThemingProvider.extendPalette('grey', {
+            '50': '243541',
+            '100': '0A1117',
+            '200': '0D151D',
+            '300': '0F1821',
+            '400': '121D27',
+            '500': '14212D',
+            '600': '172532',
+            '700': '1A2937',
+            '800': '1D2D3C',
+            '900': '243541',
+            'A100': '31424e',
+            'A200': 'ff5252',
+            'A400': 'ff1744',
+            'A700': 'd50000',
+            'contrastDefaultColor': 'light'
+        });
+        $mdThemingProvider.definePalette('background', background);
+        $mdThemingProvider.theme('default')
+            .backgroundPalette('background');
+
+
+        /*
 
         //console.log($mdThemingProvider);
 
         $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
-        $mdThemingProvider.theme('dark-green').backgroundPalette('green');
+        $mdThemingProvider.theme('dark-green').backgroundPalette('green');*/
 
-        $mdThemingProvider.theme('docs-dark', 'default')
+        /*$mdThemingProvider.theme('docs-dark', 'default')
             .primaryPalette('yellow')
-            .dark();
+            .dark();*/
 
         $locationProvider.hashPrefix('');
 

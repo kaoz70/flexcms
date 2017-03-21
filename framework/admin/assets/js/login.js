@@ -20,7 +20,25 @@ app.controller('login', function($scope, $http, $httpParamSerializer, $timeout) 
         , shadow: false // Whether to render a shadow
         , hwaccel: false // Whether to use hardware acceleration
         , position: 'absolute' // Element positioning
-    }
+    };
+
+    $(".animsition").animsition({
+        inClass: 'fade-in-up-sm',
+        outClass: 'fade-out-up-sm',
+        inDuration: 1500,
+        outDuration: 800,
+        loading: false,
+        loadingParentElement: 'body',
+        loadingClass: 'animsition-loading',
+        timeout: false,
+        timeoutCountdown: 5000,
+        onLoadEvent: true,
+        browser: ['animation-duration', '-webkit-animation-duration'],
+        overlay: false,
+        overlayClass: 'animsition-overlay-slide',
+        overlayParentElement: 'body',
+        transition: function(url) { window.location.href = url; }
+    });
 
     $scope.user = {};
     $scope.flip = false;
@@ -71,7 +89,9 @@ app.controller('login', function($scope, $http, $httpParamSerializer, $timeout) 
                 $scope.buttonClass = "";
                 $scope.message = "SUCCESS: redirecting";
                 $scope.icon = "check";
-                window.location.reload(true);
+
+                $('.animsition').animsition('out', $('button'), window.location);
+
             }
 
         });

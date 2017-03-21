@@ -1,5 +1,5 @@
 <script type="text/ng-template" id="nodes_list_renderer.html">
-    <div class="node" md-colors="{backgroundColor: '{{node.selected ? 'default-accent-500' : 'default-background-A400'}}'}">
+    <div class="node" md-colors="{backgroundColor: '{{node.selected ? 'default-accent-500' : 'default-background-50'}}'}">
 
         <div ui-tree-handle ng-show="showReorder"><md-icon>reorder</md-icon></div>
 
@@ -28,13 +28,16 @@
 
 <div class="panel panel-primary small-width">
 
-    <md-toolbar md-colors="{borderBottomColor: '{{primaryColor300}}'}">
-        <div class="md-toolbar-tools">
-            <h2 ng-bind-html="title"></h2>
-            <span flex></span>
-            <panel-dispose></panel-dispose>
-        </div>
-    </md-toolbar>
+    <div class="panel-header">
+        <md-toolbar md-colors="{borderBottomColor: '{{primaryColor300}}'}">
+            <div class="md-toolbar-tools">
+                <h2 ng-bind-html="title"></h2>
+                <span flex></span>
+                <panel-dispose></panel-dispose>
+            </div>
+        </md-toolbar>
+    </div>
+
 
     <div class="search">
 

@@ -1,12 +1,14 @@
 <div class="panel panel-primary small-width">
 
-    <md-toolbar md-colors="{borderBottomColor: '{{primaryColor300}}'}">
-        <div class="md-toolbar-tools">
-            <h2>{{language.name}}</h2>
-            <span flex></span>
-            <panel-dispose close-callback="closeHandler"></panel-dispose>
-        </div>
-    </md-toolbar>
+    <div class="panel-header">
+        <md-toolbar md-colors="{borderBottomColor: '{{primaryColor300}}'}">
+            <div class="md-toolbar-tools">
+                <h2>{{language.name}}</h2>
+                <span flex></span>
+                <panel-dispose close-callback="closeHandler"></panel-dispose>
+            </div>
+        </md-toolbar>
+    </div>
 
     <md-content class="panel-body">
 
@@ -33,7 +35,7 @@
     </md-content>
 
     <div class="panel-footer panel-controls">
-        <md-toolbar class="md-secondary">
+        <md-toolbar class="md-secondary md-menu-toolbar">
             <div class="md-toolbar-tools" layout-align="end center">
 
                 <md-button class="md-icon-button" ng-click="save()" >

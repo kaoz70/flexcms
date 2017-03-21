@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/material-design-icons/iconfont/material-icons.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/angular-material/angular-material.min.css') ?>" type="text/css" />
+    <link rel="stylesheet" href="<?= admin_asset_path('../../packages/animsition/dist/css/animsition.min.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('css/animate.min.css')?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('css/admin.css')?>" type="text/css" />
 
@@ -20,6 +21,8 @@
     </script>
 
     <script src="<?= admin_asset_path('js/modernizr.custom.js') ?>"></script>
+    <script src="<?= admin_asset_path('js/jquery.min.js') ?>"></script>
+    <script src="<?= admin_asset_path('../../packages/animsition/dist/js/animsition.min.js') ?>"></script>
     <script src="<?= admin_asset_path('../../node_modules/angular/angular.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/angular-aria/angular-aria.min.js') ?>"></script>
     <script src="<?= admin_asset_path('../../packages/angular-material/angular-material.js') ?>"></script>
@@ -30,7 +33,7 @@
 </head>
 <body ng-controller="login" layout="column" >
 
-<div class="flip-container" layout="column" layout-align="center center" layout-fill="layout-fill">
+<div class="flip-container animsition" layout="column" layout-align="center center" layout-fill="layout-fill">
     <div class="flipper">
         <div class="front">
 

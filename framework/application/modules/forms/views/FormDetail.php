@@ -1,12 +1,14 @@
 <div class="panel panel-primary small-width">
 
-    <md-toolbar md-colors="{borderBottomColor: '{{primaryColor300}}'}">
-        <div class="md-toolbar-tools">
-            <h2>Formulario</h2>
-            <span flex></span>
-            <panel-dispose close-callback="closeHandler"></panel-dispose>
-        </div>
-    </md-toolbar>
+    <div class="panel-header">
+        <md-toolbar md-colors="{borderBottomColor: '{{primaryColor300}}'}">
+            <div class="md-toolbar-tools">
+                <h2>Formulario</h2>
+                <span flex></span>
+                <panel-dispose close-callback="closeHandler"></panel-dispose>
+            </div>
+        </md-toolbar>
+    </div>
 
     <md-content class="panel-body">
 
@@ -66,7 +68,7 @@
                                  ui-tree-node
                             >
 
-                                <div class="node" md-colors="{backgroundColor: '{{node.selected ? 'default-accent-500' : 'default-background-800'}}'}">
+                                <div class="node" md-colors="{backgroundColor: '{{node.selected ? 'default-accent-500' : 'default-background-900'}}'}">
 
                                     <div ui-tree-handle><md-icon>reorder</md-icon></div>
 
@@ -94,7 +96,7 @@
     </md-content>
 
     <div class="panel-footer panel-controls">
-        <md-toolbar class="md-secondary">
+        <md-toolbar class="md-secondary md-menu-toolbar">
             <div class="md-toolbar-tools" layout-align="end center">
 
                 <md-button class="md-icon-button" ng-click="save()" >
