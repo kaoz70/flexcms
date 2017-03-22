@@ -14,9 +14,6 @@
 angular.module('app')
     .controller('ImageConfigCtrl', function($scope, $rootScope, Config, WindowFactory, images, ImageConfig, $routeParams, Selection){
 
-        //Close the sidebar on this controller
-        $rootScope.isSidebarOpen = false;
-
         //Window title
         $scope.title = "Im&aacute;genes";
 
@@ -55,9 +52,6 @@ angular.module('app')
     })
     .controller('ImageConfigCreateCtrl', function($scope, $rootScope, Config, $routeParams, WindowFactory, ImageConfig){
 
-        //Close the sidebar on this controller
-        $rootScope.isSidebarOpen = false;
-
         $scope.image = {
             image_section_id: $routeParams.section_id,
             force_jpg: true,
@@ -91,9 +85,6 @@ angular.module('app')
 
     })
     .controller('ImageConfigEditCtrl', function($scope, $rootScope, Config, $routeParams, WindowFactory, ImageConfig, image){
-
-        //Close the sidebar on this controller
-        $rootScope.isSidebarOpen = false;
 
         $scope.image = image.data.image;
         $scope.watermark_data = image.data.watermark;
