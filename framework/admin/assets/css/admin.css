@@ -721,4 +721,35 @@ md-dialog.fullscreen-dialog {
   height: 100%;
   border-radius: 0; }
 
+md-tooltip.main-menu {
+  padding-left: 8px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px; }
+  md-tooltip.main-menu .md-content {
+    background: #000;
+    padding: 6px 16px;
+    font-size: 12px;
+    overflow: visible;
+    position: relative;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px; }
+  md-tooltip.main-menu .md-content:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #000;
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    margin-top: -8px; }
+
 /*# sourceMappingURL=admin.css.map */

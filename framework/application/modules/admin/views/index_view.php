@@ -84,7 +84,7 @@
                 <li ng-class="{'active open': $routeSegment.startsWith('layout')}">
 
                     <a ng-href="#/layout" layout="row" layout-align="center center">
-                        <md-tooltip md-direction="right">Estructura</md-tooltip>
+                        <md-tooltip class="main-menu" md-direction="right">Estructura</md-tooltip>
                         <md-icon>view_quilt</md-icon>
                         <span>Estructura</span>
                     </a>
@@ -109,7 +109,7 @@
 
                 <li ng-class="{'active open': $routeSegment.startsWith('page')}">
                     <a ng-href="#/page" layout="row" layout-align="center center">
-                        <md-tooltip md-direction="right">P&aacute;ginas</md-tooltip>
+                        <md-tooltip class="main-menu" md-direction="right">P&aacute;ginas</md-tooltip>
                         <md-icon>view_list</md-icon>
                         <span>P&aacute;ginas</span>
                     </a>
@@ -140,7 +140,7 @@
                            layout-align="center center"
                            rel="<?=$item->tooltip->es?>"
                            ng-href="#/<?=$item->controller ?>">
-                            <md-tooltip md-direction="right"><?=$item->tooltip->es?></md-tooltip>
+                            <md-tooltip class="main-menu" md-direction="right"><?=$item->tooltip->es?></md-tooltip>
                             <md-icon><?=$item->icon?></md-icon>
                             <span><?=$item->name->es?></span>
                         </a>
@@ -153,7 +153,7 @@
                        ng-click="closePanel()"
                        rel="Editar idiomas para sitios multi-idiomas"
                        ng-href="#/language" >
-                        <md-tooltip md-direction="right">Idiomas</md-tooltip>
+                        <md-tooltip class="main-menu" md-direction="right">Idiomas</md-tooltip>
                         <md-icon>language</md-icon>
                         <span>Idiomas</span>
                     </a>
@@ -163,7 +163,7 @@
                        layout="row" layout-align="center center"
                        rel="Tamaños de imagenes, configuracion general"
                        ng-href="#/config">
-                        <md-tooltip md-direction="right">Config</md-tooltip>
+                        <md-tooltip class="main-menu" md-direction="right">Config</md-tooltip>
                         <md-icon>settings</md-icon>
                         <span>Configuraci&oacute;n</span>
                     </a>
