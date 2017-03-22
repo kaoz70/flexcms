@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/codemirror/addon/hint/show-hint.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/codemirror/addon/fold/foldgutter.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/codemirror/theme/rubyblue.css') ?>" type="text/css" />
+    <link rel="stylesheet" href="<?= admin_asset_path('../../packages/appverse.notifications/dist/notification-bar.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('css/admin.css') ?>" type="text/css" id="link-app" />
     <link rel="stylesheet" href="<?= admin_asset_path('css/font-awesome.min.css') ?>" type="text/css" />
     <link rel="stylesheet" href="<?= admin_asset_path('../../packages/chosen/chosen.css') ?>" type="text/css" />
