@@ -58,7 +58,7 @@
             .primaryPalette('blue')
             //.secondaryPalette('teal')
             //.accentPalette('blue-grey')
-            .accentPalette('pink')
+            .accentPalette('cyan')
             .warnPalette('red')
             .dark();
 
