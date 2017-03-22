@@ -72,9 +72,9 @@
     </div>
 </div>
 
-<div class="animsition" layout="row" layout-align="stretch">
+<div class="animsition" layout="row">
 
-    <div class="sidebar menu" layout="column" layout-align="stretch">
+    <div class="sidebar menu" layout="column" >
         <div class="sidebar-header" layout="row" layout-align="center center">
             <img src="<?= admin_asset_path('img/isotype.svg') ?>" alt="FlexCMS" />
         </div>
@@ -88,21 +88,23 @@
                         <md-icon>view_quilt</md-icon>
                         <span>Estructura</span>
                     </a>
-                    <ul>
-                        <li class="submenu-title">
-                            <span>Estructura</span>
-                        </li>
-                        <li class="col-xs-12" ui-sref-active="active">
+                    <div class="submenu-panel">
+                        <ul>
+                            <li class="submenu-title">
+                                <span>Estructura</span>
+                            </li>
+                            <li class="submenu-menu" ui-sref-active="active">
 
-                            <div ui-tree>
-                                <ol ui-tree-nodes="" ng-model="pages" id="tree-root">
-                                    <li ng-repeat="node in pages" ui-tree-node ng-include="'nodes_layout_renderer.html'"></li>
-                                </ol>
-                            </div>
+                                <div ui-tree>
+                                    <ol class="tree" ui-tree-nodes="" ng-model="pages" id="tree-root">
+                                        <li ng-repeat="node in pages" ui-tree-node ng-include="'nodes_layout_renderer.html'"></li>
+                                    </ol>
+                                </div>
 
-                        </li>
+                            </li>
 
-                    </ul>
+                        </ul>
+                    </div>
                 </li>
 
                 <li ng-class="{'active open': $routeSegment.startsWith('page')}">
@@ -111,21 +113,24 @@
                         <md-icon>view_list</md-icon>
                         <span>P&aacute;ginas</span>
                     </a>
-                    <ul>
-                        <li class="submenu-title">
-                            <span>P&aacute;ginas</span>
-                        </li>
-                        <li class="col-xs-12" ui-sref-active="active">
+                    <div class="submenu-panel">
+                        <ul>
+                            <li class="submenu-title">
+                                <span>P&aacute;ginas</span>
+                            </li>
+                            <li class="submenu-menu" ui-sref-active="active">
 
-                            <div id="pages" ui-tree data-drag-enabled="false">
-                                <ol ui-tree-nodes="" ng-model="pages" id="tree-root">
-                                    <li ng-repeat="node in pages" ui-tree-node ng-include="'nodes_renderer.html'"></li>
-                                </ol>
-                            </div>
+                                <div id="pages" ui-tree data-drag-enabled="false">
+                                    <ol class="tree" ui-tree-nodes="" ng-model="pages" id="tree-root">
+                                        <li ng-repeat="node in pages" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+                                    </ol>
+                                </div>
 
-                        </li>
+                            </li>
 
-                    </ul>
+                        </ul>
+                    </div>
+
                 </li>
 
                 <? foreach ($menu as $item): ?>
@@ -172,27 +177,10 @@
         </div>
     </div>
 
-    <div class="main-content">
-        <!--
-        [5.1. Page Header]
-        -->
-        <div class="content-header">
-            <!--
-            [5.1.1. BreadCrumb]
-            -->
-            <div ncy-breadcrumb></div>
-
-        </div>
-
-        <!--
-        [5.3. Page Body]
-        -->
-        <div ng-class="{'content-body': true, 'body-full': hasFullContainer}" ui-view></div>
-
-        <div id="windows">
+    <div class="main-content" flex>
+        <div id="windows" flex>
             <div app-view-segment="0"></div>
         </div>
-
     </div>
     <!--
     [6. JavaScript References]

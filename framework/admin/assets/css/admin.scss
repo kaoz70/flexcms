@@ -1,12 +1,19 @@
 @import "colors";
 @import "utils";
 
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
 $footer-toolbar-height: 48px;
 $header-toolbar-height: 48px;
+$sidebar-width: 71px;
+$sidebar-open-width: 352px;
+$sidebar-background: #243541;
+$tree-lines-color: rgba(255, 255, 255, 0.28);
 
 body {
   background-color: $background;
   color: #0D1E2B;
+  font-family: 'Raleway', sans-serif;
 }
 
 a {
@@ -95,12 +102,12 @@ button {
 
   @include box-shadow(0 0 10px #000);
   @include transition(width);
-  width: 71px;
-  background: #243541;
+  width: $sidebar-width;
+  background: $sidebar-background;
 
   .sidebar-header,
   .sidebar-menu {
-    width: 71px;
+    width: $sidebar-width;
   }
 
   .sidebar-header {
@@ -120,6 +127,7 @@ button {
     padding: 0;
     width: 100%;
     height: 100%;
+    color: #fff;
 
     > li {
 
@@ -128,20 +136,12 @@ button {
         @include transition(background-color);
         @include transition(border-right, 200ms);
         height: 63px;
+        position: relative;
+        z-index: 2;
 
         > span {
           display: none;
         }
-      }
-
-      > ul {
-        display: none;
-        position: absolute;
-        top: 0;
-        left: 71px;
-        margin: 0;
-        padding: 0;
-        height: 100%;
       }
     }
 
@@ -150,15 +150,97 @@ button {
       background-color: rgba(0, 0, 0, 0.25);
     }
 
+    .submenu-panel > ul,
+    .submenu-panel {
+      position: absolute;
+      width: 280px;
+      top: 0;
+      left: 0;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      right: 0;
+      z-index: 1;
+
+      > ol {
+        width: $sidebar-open-width;
+      }
+
+    }
+
+    .submenu-panel {
+      @include transition();
+      opacity: 0;
+      left: $sidebar-width;
+      overflow: hidden;
+
+      > ul {
+        @include transition(left);
+        list-style: none;
+        left: - $sidebar-width;
+      }
+
+    }
+
     > li.active {
       > a {
         border-right: 5px solid rgba(255, 255, 255, 0.39);
       }
 
-      > ul {
-        display: block;
+      .submenu-panel {
+        opacity: 1;
+        width: 280px;
+
+        > ul {
+          left: 0;
+        }
+
       }
 
+    }
+
+    .submenu-title,
+    .submenu-menu {
+      margin: 20px;
+    }
+
+    .submenu-title {
+      text-transform: uppercase;
+      padding: 8px 0;
+      border-bottom: 3px solid $tree-lines-color;
+      margin-top: 35px;
+      margin-bottom: 0;
+    }
+
+    .submenu-menu {
+
+      margin-top: 0;
+      margin-left: 25px;
+      margin-right: 0;
+      height: calc(100% - 73px);
+
+      > div {
+        overflow: auto;
+        height: 100%;
+        padding-right: 31px;
+        padding-left: 5px;
+
+        > ol {
+          margin-bottom: 20px;
+        }
+
+      }
+
+      a {
+        color: inherit;
+        background-color: rgba(0, 0, 0, 0.25);
+        padding: 10px 12px;
+        @include border-radius(3px);
+        font-weight: 100;
+        font-size: 12px;
+        margin-left: 10px;
+        margin-top: 8px;
+      }
     }
 
   }
@@ -175,8 +257,70 @@ button {
 
 body.open {
   .sidebar {
-    width: 500px;
+    width: $sidebar-open-width;
   }
+}
+
+.tree,
+.tree ol {
+  margin:0 0 0 1em; /* indentation */
+  padding:0 !important;
+  list-style:none;
+  position:relative;
+}
+
+.tree ol {margin-left: 20px;} /* (indentation/2) */
+
+.tree:before,
+.tree ol:before {
+  content:"";
+  display:block;
+  width:0;
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  border-left:1px solid $tree-lines-color;
+}
+
+.tree li {
+  margin:0;
+  font-weight:bold;
+  position:relative;
+}
+
+.tree li:before,
+.tree li:after {
+  content:"";
+  display:block;
+  position:absolute;
+}
+
+.tree li:before {
+  width:10px; /* same with indentation */
+  height:0;
+  border-top:1px solid $tree-lines-color;
+  margin-top:-1px; /* border top width */
+  top: 28px; /* (line-height/2) */
+  left:0;
+}
+
+.tree li:after {
+  width:3px;
+  height:3px;
+  border:1px solid $tree-lines-color;
+  @include border-radius(100%);
+  margin-top:-1px; /* border top width */
+  top: 26px;
+  left: -2px;
+  background: $sidebar-background;
+}
+
+.tree li:last-child:before {
+  background: $sidebar-background; /* same with body background */
+  height:auto;
+  top: 28px; /* (line-height/2) */
+  bottom:0;
 }
 
 md-input-container {
@@ -281,18 +425,18 @@ md-input-container {
   }
 }
 
+.main-content {
+  padding: 15px;
+  position: relative;
+  z-index: 3;
+}
+
 #windows {
-  position: absolute;
-  top: 0;
-  left: 15px;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
-  padding: 42px 0;
 
   -webkit-perspective: 2000px;
   -moz-perspective: 2000px;
   perspective: 2000px;
+  height: 100%;
 
   .panel {
     box-shadow: 0 4px 50px rgba(0, 0, 0, 0.76);
@@ -305,8 +449,8 @@ md-input-container {
     position: absolute;
     @include transition();
     opacity: 0;
-    top: 15px;
-    bottom: 15px;
+    top: 0;
+    bottom: 0;
     left: 100%;
 
     > md-toolbar {
@@ -341,11 +485,6 @@ md-input-container {
 
 .angular-ui-tree-placeholder {
   background-color: #212121;
-}
-
-.main-content {
-  position: relative;
-  width: 100%;
 }
 
 .panel {
