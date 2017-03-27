@@ -1,7 +1,7 @@
 <script type="text/ng-template" id="nodes_list_renderer.html">
     <div class="node" md-colors="{backgroundColor: '{{node.selected ? 'default-accent-500' : 'default-background-50'}}'}">
 
-        <div ui-tree-handle ng-show="showReorder"><md-icon>reorder</md-icon></div>
+        <div ui-tree-handle ng-show="showReorder"><i class="pe-7s-menu"></i></div>
 
         <md-list-item ng-click="selection.onItemClick(node, items, '#/' + section + '/edit/' + node.id, $event)" ng-class="{'selected': selected === row}" >
             <p class="item-name">

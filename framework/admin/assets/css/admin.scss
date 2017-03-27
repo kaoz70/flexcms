@@ -1,15 +1,10 @@
 @import "colors";
 @import "utils";
 @import "notifications";
+@import "overrides";
+@import "vars";
 
 @import url('https://fonts.googleapis.com/css?family=Raleway');
-
-$footer-toolbar-height: 48px;
-$header-toolbar-height: 48px;
-$sidebar-width: 71px;
-$sidebar-open-width: 352px;
-$sidebar-background: #243541;
-$tree-lines-color: rgba(255, 255, 255, 0.28);
 
 body {
   background-color: $background;
@@ -532,17 +527,8 @@ panel-dispose {
     min-height: $footer-toolbar-height;
   }
 
-}
-
-.panel-header {
-  md-toolbar,
-  .md-toolbar-tools {
-    height: $header-toolbar-height;
-    min-height: $header-toolbar-height;
-  }
-
-  h2 {
-    font-size: 15px !important;
+  md-toolbar {
+    background-color: $panel-footer;
   }
 
 }
