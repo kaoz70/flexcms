@@ -4,7 +4,7 @@
 @import "overrides";
 @import "vars";
 
-@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Julius+Sans+One|Raleway');
 
 body {
   background-color: $background;
@@ -745,4 +745,25 @@ md-tooltip.main-menu {
     margin-top: -8px;
   }
 
+}
+
+md-dialog.md-default-theme, md-dialog {
+  md-toolbar {
+    i {
+      font-size: 35px;
+    }
+  }
+  .md-dialog-content {
+
+    font-size: 14px;
+
+    h1 {
+      text-transform: uppercase;
+      font-weight: normal;
+      font-family: 'Julius Sans One', sans-serif;
+      text-align: center;
+      margin: 0 0 6px;
+      font-size: 20px;
+    }
+  }
 }

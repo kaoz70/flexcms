@@ -1,6 +1,6 @@
 /* Creates a linear gradient between two colors */
 /* Devuelve un color (claro u oscuro) dependiendo del fondo */
-@import url("https://fonts.googleapis.com/css?family=Raleway");
+@import url("https://fonts.googleapis.com/css?family=Julius+Sans+One|Raleway");
 @-webkit-keyframes rotating /* Safari and Chrome */ {
   from {
     -ms-transform: rotate(0deg);
@@ -422,6 +422,12 @@ md-checkbox .md-button.md-icon-button {
   min-height: 48px; }
 .panel-header h2 {
   font-size: 15px !important; }
+
+md-dialog.md-default-theme, md-dialog {
+  background-color: #fff;
+  color: #686868; }
+  md-dialog.md-default-theme .md-dialog-content, md-dialog .md-dialog-content {
+    padding: 20px; }
 
 body {
   background-color: #152027;
@@ -1135,5 +1141,17 @@ md-tooltip.main-menu {
     left: -8px;
     top: 50%;
     margin-top: -8px; }
+
+md-dialog.md-default-theme md-toolbar i, md-dialog md-toolbar i {
+  font-size: 35px; }
+md-dialog.md-default-theme .md-dialog-content, md-dialog .md-dialog-content {
+  font-size: 14px; }
+  md-dialog.md-default-theme .md-dialog-content h1, md-dialog .md-dialog-content h1 {
+    text-transform: uppercase;
+    font-weight: normal;
+    font-family: 'Julius Sans One', sans-serif;
+    text-align: center;
+    margin: 0 0 6px;
+    font-size: 20px; }
 
 /*# sourceMappingURL=admin.css.map */

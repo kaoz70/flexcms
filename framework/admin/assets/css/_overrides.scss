@@ -95,3 +95,11 @@ md-checkbox .md-button.md-icon-button {
   }
 
 }
+
+md-dialog.md-default-theme, md-dialog {
+  background-color: #fff;
+  color: #686868;
+  .md-dialog-content {
+    padding: 20px;
+  }
+}
