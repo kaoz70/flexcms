@@ -52,7 +52,7 @@
 
     });
 
-    app.config(function($mdThemingProvider, $locationProvider, $httpProvider) {
+    app.config(function($mdThemingProvider) {
 
         var background = $mdThemingProvider.extendPalette('grey', {
             '50': '243541',
@@ -85,6 +85,10 @@
             .backgroundPalette('background')
             .warnPalette('warnRed')
             .dark();
+
+    });
+
+    app.config(function($locationProvider, $httpProvider) {
 
         $locationProvider.hashPrefix('');
 
