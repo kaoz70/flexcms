@@ -80,98 +80,101 @@
         <div class="sidebar-header" layout="row" layout-align="center center">
             <img src="<?= admin_asset_path('img/isotype.svg') ?>" alt="FlexCMS" />
         </div>
-        <div class="sidebar-menu" layout="column"  layout-align="stretch">
+        <div class="sidebar-menu" layout="column" layout-align="stretch">
+
             <ul class="menu">
 
-                <li ng-class="{'active open': $routeSegment.startsWith('layout')}">
+                    <li ng-class="{'active open': $routeSegment.startsWith('layout')}">
 
-                    <a ng-href="#/layout" layout="row" layout-align="center center">
-                        <md-tooltip class="main-menu" md-direction="right">Estructura</md-tooltip>
-                        <md-icon>view_quilt</md-icon>
-                        <span>Estructura</span>
-                    </a>
-                    <div class="submenu-panel">
-                        <ul>
-                            <li class="submenu-title">
-                                <span>Estructura</span>
-                            </li>
-                            <li class="submenu-menu" ui-sref-active="active">
+                        <a ng-href="#/layout" layout="row" layout-align="center center">
+                            <md-tooltip class="main-menu" md-direction="right">Estructura</md-tooltip>
+                            <md-icon>view_quilt</md-icon>
+                            <span>Estructura</span>
+                        </a>
+                        <div class="submenu-panel">
+                            <ul>
+                                <li class="submenu-title">
+                                    <span>Estructura</span>
+                                </li>
+                                <li class="submenu-menu" ui-sref-active="active">
 
-                                <div ui-tree>
-                                    <ol class="tree" ui-tree-nodes="" ng-model="pages" id="tree-root">
-                                        <li ng-repeat="node in pages" ui-tree-node ng-include="'nodes_layout_renderer.html'"></li>
-                                    </ol>
-                                </div>
+                                    <div perfect-scrollbar ui-tree>
+                                        <ol class="tree" ui-tree-nodes="" ng-model="pages" id="tree-root">
+                                            <li ng-repeat="node in pages" ui-tree-node ng-include="'nodes_layout_renderer.html'"></li>
+                                        </ol>
+                                    </div>
 
-                            </li>
+                                </li>
 
-                        </ul>
-                    </div>
-                </li>
+                            </ul>
+                        </div>
+                    </li>
 
-                <li ng-class="{'active open': $routeSegment.startsWith('page')}">
-                    <a ng-href="#/page" layout="row" layout-align="center center">
-                        <md-tooltip class="main-menu" md-direction="right">P&aacute;ginas</md-tooltip>
-                        <md-icon>view_list</md-icon>
-                        <span>P&aacute;ginas</span>
-                    </a>
-                    <div class="submenu-panel">
-                        <ul>
-                            <li class="submenu-title">
-                                <span>P&aacute;ginas</span>
-                            </li>
-                            <li class="submenu-menu" ui-sref-active="active">
+                    <li ng-class="{'active open': $routeSegment.startsWith('page')}">
+                        <a ng-href="#/page" layout="row" layout-align="center center">
+                            <md-tooltip class="main-menu" md-direction="right">P&aacute;ginas</md-tooltip>
+                            <md-icon>view_list</md-icon>
+                            <span>P&aacute;ginas</span>
+                        </a>
+                        <div class="submenu-panel">
+                            <ul>
+                                <li class="submenu-title">
+                                    <span>P&aacute;ginas</span>
+                                </li>
+                                <li class="submenu-menu" ui-sref-active="active">
 
-                                <div id="pages" ui-tree data-drag-enabled="false">
-                                    <ol class="tree" ui-tree-nodes="" ng-model="pages" id="tree-root">
-                                        <li ng-repeat="node in pages" ui-tree-node ng-include="'nodes_renderer.html'"></li>
-                                    </ol>
-                                </div>
+                                    <div perfect-scrollbar id="pages" ui-tree data-drag-enabled="false">
+                                        <ol class="tree" ui-tree-nodes="" ng-model="pages" id="tree-root">
+                                            <li ng-repeat="node in pages" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+                                        </ol>
+                                    </div>
 
-                            </li>
+                                </li>
 
-                        </ul>
-                    </div>
+                            </ul>
+                        </div>
 
-                </li>
+                    </li>
 
-                <? foreach ($menu as $item): ?>
-                    <li ng-class="{'active open': $routeSegment.startsWith('<?=$item->controller?>')}">
-                        <a title="<?=$item->name->es?>"
-                           layout="row"
-                           layout-align="center center"
-                           rel="<?=$item->tooltip->es?>"
-                           ng-href="#/<?=$item->controller ?>">
-                            <md-tooltip class="main-menu" md-direction="right"><?=$item->tooltip->es?></md-tooltip>
-                            <md-icon><?=$item->icon?></md-icon>
-                            <span><?=$item->name->es?></span>
+                    <? foreach ($menu as $item): ?>
+                        <li ng-class="{'active open': $routeSegment.startsWith('<?=$item->controller?>')}">
+                            <a title="<?=$item->name->es?>"
+                               layout="row"
+                               layout-align="center center"
+                               rel="<?=$item->tooltip->es?>"
+                               ng-href="#/<?=$item->controller ?>">
+                                <md-tooltip class="main-menu" md-direction="right"><?=$item->tooltip->es?></md-tooltip>
+                                <md-icon><?=$item->icon?></md-icon>
+                                <span><?=$item->name->es?></span>
+                            </a>
+                        </li>
+                    <? endforeach ?>
+
+                    <li ng-class="{'active': $routeSegment.startsWith('language')}">
+                        <a title="Idiomas"
+                           layout="row" layout-align="center center"
+                           ng-click="closePanel()"
+                           rel="Editar idiomas para sitios multi-idiomas"
+                           ng-href="#/language" >
+                            <md-tooltip class="main-menu" md-direction="right">Idiomas</md-tooltip>
+                            <md-icon>language</md-icon>
+                            <span>Idiomas</span>
                         </a>
                     </li>
-                <? endforeach ?>
 
-                <li ng-class="{'active': $routeSegment.startsWith('language')}">
-                    <a title="Idiomas"
-                       layout="row" layout-align="center center"
-                       ng-click="closePanel()"
-                       rel="Editar idiomas para sitios multi-idiomas"
-                       ng-href="#/language" >
-                        <md-tooltip class="main-menu" md-direction="right">Idiomas</md-tooltip>
-                        <md-icon>language</md-icon>
-                        <span>Idiomas</span>
-                    </a>
-                </li>
-                <li ng-class="{'active': $routeSegment.startsWith('config')}">
-                    <a title="Configuración"
-                       layout="row" layout-align="center center"
-                       rel="Tamaños de imagenes, configuracion general"
-                       ng-href="#/config">
-                        <md-tooltip class="main-menu" md-direction="right">Config</md-tooltip>
-                        <md-icon>settings</md-icon>
-                        <span>Configuraci&oacute;n</span>
-                    </a>
-                </li>
+                    <li ng-class="{'active': $routeSegment.startsWith('config')}">
+                        <a title="Configuración"
+                           layout="row" layout-align="center center"
+                           rel="Tamaños de imagenes, configuracion general"
+                           ng-href="#/config">
+                            <md-tooltip class="main-menu" md-direction="right">Config</md-tooltip>
+                            <md-icon>settings</md-icon>
+                            <span>Configuraci&oacute;n</span>
+                        </a>
+                    </li>
 
-            </ul>
+                </ul>
+
             <a class="logout" href="<?= base_url('admin/logout') ?>">
                 <md-tooltip md-direction="right">Cerrar sessi&oacute;n</md-tooltip>
                 <i class="pe-7s-power"></i>
