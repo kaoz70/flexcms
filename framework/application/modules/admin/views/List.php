@@ -63,8 +63,7 @@
         </md-content>
     </div>
 
-    <md-content class="panel-body">
-
+    <md-content perfect-scrollbar class="panel-body">
         <div ui-tree="treeOptions" ng-show="items.length" ng-class="keepOne">
 
             <md-list ui-tree-nodes="" ng-model="items">
@@ -76,7 +75,6 @@
 
             </md-list>
         </div>
-
     </md-content>
 
     <div class="panel-footer panel-controls list" ng-show="menu.length">

@@ -11,7 +11,7 @@
         </md-toolbar>
     </div>
 
-    <md-content class="panel-body">
+    <md-content perfect-scrollbar wheelPropagation="true" class="panel-body">
 
         <form name="form">
 

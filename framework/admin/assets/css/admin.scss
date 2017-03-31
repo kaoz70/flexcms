@@ -767,3 +767,8 @@ md-dialog.md-default-theme, md-dialog {
     }
   }
 }
+
+[perfect-scrollbar] {
+  overflow-y: hidden;
+  position: relative;
+}

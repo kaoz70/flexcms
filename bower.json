@@ -39,7 +39,8 @@
     "ui-cropper": "^1.0.4",
     "angular-timezone-selector": "^1.6.0",
     "angular-spinner": "^1.0.1",
-    "appverse.notifications": "^0.2.9"
+    "appverse.notifications": "^0.2.9",
+    "perfect-scrollbar": "^0.6.16"
   },
   "resolutions": {
     "magnific-popup": "^1.1.0",

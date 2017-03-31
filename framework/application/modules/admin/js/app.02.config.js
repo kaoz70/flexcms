@@ -9,6 +9,9 @@
 
     app.run(function($rootScope, $timeout, $route, $routeSegment, $templateCache, $http, BASE_PATH) {
 
+        /*window.Ps = require('perfectScrollbar');
+        require('perfectScrollbarJQuery');*/
+
         $rootScope.isSidebarOpen = false;
         $rootScope.$routeSegment = $routeSegment;
 

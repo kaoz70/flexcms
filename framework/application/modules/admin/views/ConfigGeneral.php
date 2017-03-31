@@ -10,7 +10,7 @@
         </md-toolbar>
     </div>
 
-    <md-content class="panel-body">
+    <md-content perfect-scrollbar class="panel-body">
 
         <md-card>
             <md-card-title>

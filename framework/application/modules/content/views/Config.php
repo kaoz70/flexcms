@@ -10,7 +10,7 @@
         </md-toolbar>
     </div>
 
-    <md-content class="panel-body" scroll-glue="!!config.pagination">
+    <md-content perfect-scrollbar class="panel-body" scroll-glue="!!config.pagination">
 
         <md-card>
             <md-card-title>

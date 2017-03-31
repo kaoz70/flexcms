@@ -64,7 +64,7 @@
         </md-content>
     </div>
 
-    <md-content class="panel-body">
+    <md-content perfect-scrollbar class="panel-body">
 
         <div ng-repeat="group in items">
 
