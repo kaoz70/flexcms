@@ -479,6 +479,10 @@ md-dialog.md-default-theme, md-dialog {
 .md-calendar {
   background: #fff !important; }
 
+.md-calendar.md-default-theme tr:last-child td,
+.md-calendar tr:last-child td {
+  border-bottom-color: #b3b3b3; }
+
 body {
   background-color: #152027;
   color: #0D1E2B;
