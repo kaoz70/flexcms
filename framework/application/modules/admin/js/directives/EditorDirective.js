@@ -17,7 +17,7 @@ angular.module('app')
                 editorInit: '='
             },
             link: {
-                pre: function prelink(scope){
+                pre: function(scope){
 
                     //Code editor options
                     scope.editorOptions = {
@@ -39,9 +39,7 @@ angular.module('app')
                     scope.tinymceOptions = {
                         toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
                         init_instance_callback: function (ed) {
-                            ed.on('init', function() {
-                                scope.editorInit = true;
-                            });
+                            scope.editorInit = true;
                         }
                     };
 
