@@ -718,33 +718,26 @@ md-dialog.fullscreen-dialog {
 }
 
 md-tooltip.main-menu {
+  background-color: #000 !important;
+  padding: 11px 24px;
+  font-size: 12px;
+  overflow: visible;
+  position: relative;
+  @include border-radius(4px);
+}
 
-  padding-left: 8px;
-  @include border-radius(0);
-
-  .md-content {
-    background: #000;
-    padding: 6px 16px;
-    font-size: 12px;
-    overflow: visible;
-    position: relative;
-    @include border-radius(4px);
-  }
-
-  .md-content:before {
-    content: "";
-    display: block;
-    width: 0;
-    height: 0;
-    border-top: 8px solid transparent;
-    border-bottom: 8px solid transparent;
-    border-right: 8px solid #000;
-    position: absolute;
-    left: -8px;
-    top: 50%;
-    margin-top: -8px;
-  }
-
+md-tooltip:before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid #000;
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  margin-top: -8px;
 }
 
 md-dialog.md-default-theme, md-dialog {
