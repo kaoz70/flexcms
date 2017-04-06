@@ -40,7 +40,7 @@
 date_default_timezone_set('UTC');
 
 //Load automatically composer packages
-include_once 'framework/vendor/autoload.php';
+include_once 'flexcms/vendor/autoload.php';
 
 /*
  *---------------------------------------------------------------
@@ -103,7 +103,7 @@ switch (ENVIRONMENT)
  * This variable must contain the name of your "system" directory.
  * Set the path if it is not in the same directory as this file.
  */
-$system_path = 'framework/system';
+$system_path = 'flexcms/system';
 
 /*
  *---------------------------------------------------------------
@@ -120,7 +120,7 @@ $system_path = 'framework/system';
  *
  * NO TRAILING SLASH!
  */
-$application_folder = 'framework/application';
+$application_folder = 'flexcms';
 
 /*
  *---------------------------------------------------------------

@@ -2,6 +2,7 @@
 
 .git
 .env
+composer.lock
 
 assets/cache/*.js
 assets/cache/*.css
@@ -12,20 +13,21 @@ themes/*/cache/**
 *.jar
 *.orig
 
-framework/application/cache/pages/http**
-framework/application/cache/database/**
-framework/application/cache/assetic/**
-framework/application/cache/views/**
-framework/application/sessions/ci_**
+node_modules/
+flexcms/cache/pages/http**
+flexcms/cache/database/**
+flexcms/cache/assetic/**
+flexcms/cache/views/**
+flexcms/sessions/ci_**
 assets/public/audio/**
 assets/public/files/**
 assets/public/images/**
 assets/images/**
 
 .idea/
-framework/application/logs/
-framework/uploads/
-framework/node_modules/.bin/
-framework/packages/material-design-icons/**
-!framework/packages/material-design-icons/iconfont
+flexcms/logs/
+flexcms/uploads/
+flexcms/node_modules/.bin/
+flexcms/packages/material-design-icons/**
+!flexcms/packages/material-design-icons/iconfont
 !index.html

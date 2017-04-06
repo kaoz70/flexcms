@@ -12,10 +12,10 @@
     "cartalyst/sentinel": "^2.0",
     "cartalyst/sentinel-social": "^2.0",
     "cartalyst/interpret": "^1.1",
+    "cartalyst/themes": "^3.0",
     "leafo/scssphp": "^0.5",
     "leafo/lessphp": "^0.5",
-    "cartalyst/nested-sets": "^3.0",
-    "cartalyst/themes": "^3.0",
+    "baum/baum": "~1.1",
     "symfony/http-foundation": "^2.7",
     "symfony/var-dumper": "^3.1",
     "doctrine/dbal": "^2.5",
@@ -42,23 +42,23 @@
     }
   ],
   "extra": {
-    "codeigniter-application-dir": "framework/application",
-    "codeigniter-sparks-dir": "framework/sparks"
+    "codeigniter-application-dir": "flexcms",
+    "codeigniter-sparks-dir": "flexcms/sparks"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
   "autoload": {
     "classmap": [
-      "framework/application/controllers",
-      "framework/application/libraries",
-      "framework/application/interfaces",
-      "framework/application/modules",
-      "framework/application/models",
-      "framework/application/widgets",
-      "framework/application/workers"
+      "flexcms/controllers",
+      "flexcms/libraries",
+      "flexcms/interfaces",
+      "flexcms/modules",
+      "flexcms/models",
+      "flexcms/widgets",
+      "flexcms/workers"
     ]
   },
   "config": {
-    "vendor-dir": "framework/vendor"
+    "vendor-dir": "flexcms/vendor"
   }
 }

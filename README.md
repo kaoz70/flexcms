@@ -39,3 +39,9 @@ http://domain.com/admin/
 
 * User: miguel@dejabu.ec
 * Pass: pass
+
+## Development
+From the console in the root folder do:
+```
+npm install
+```
