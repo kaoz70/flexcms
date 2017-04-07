@@ -1,7 +1,0 @@
-{
-	"name" : "Dependencies",
-	"branch" : "master",
-	"github" : "cartalyst/dependencies",
-	"travis" : false,
-	"demo" : null
-}

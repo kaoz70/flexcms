@@ -1,8 +1,0 @@
-Skipped data-uri embedding of ../hi.less because file not found
-Skipped data-uri embedding of ../../../lessc.inc.php because file not found
-.small {
-  background: url("../hi.less");
-}
-.large {
-  background: url('../../../lessc.inc.php');
-}

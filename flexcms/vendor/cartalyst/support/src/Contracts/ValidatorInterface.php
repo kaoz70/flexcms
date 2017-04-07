@@ -11,10 +11,10 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Support
- * @version    1.2.0
+ * @version    2.0.1
  * @author     Cartalyst LLC
  * @license    BSD License (3-clause)
- * @copyright  (c) 2011-2015, Cartalyst LLC
+ * @copyright  (c) 2011-2017, Cartalyst LLC
  * @link       http://cartalyst.com
  */
 
@@ -89,7 +89,7 @@ interface ValidatorInterface
      * Register bindings to the scenario.
      *
      * @param  array  $bindings
-     * @return \Illuminate\Validation\Validator
+     * @return \Illuminate\Contracts\Validation\Validator
      */
     public function bind(array $bindings);
 
@@ -105,7 +105,7 @@ interface ValidatorInterface
      * Execute validation service.
      *
      * @param  array  $data
-     * @return \Illuminate\Validation\Validator
+     * @return \Illuminate\Contracts\Validation\Validator
      */
     public function validate(array $data);
 

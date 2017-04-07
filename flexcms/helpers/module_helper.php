@@ -13,6 +13,12 @@ if ( ! function_exists('admin_asset_path')) {
     }
 }
 
+if ( ! function_exists('scripts')) {
+    function scripts($prefix, $assets) {
+        \theme\Assets::js_group($prefix, $assets);
+    }
+}
+
 
 
 

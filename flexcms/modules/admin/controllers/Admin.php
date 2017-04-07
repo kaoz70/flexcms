@@ -9,6 +9,7 @@
 use App\Config;
 use App\Category;
 use App\Content;
+use App\Utils;
 use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
 use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
 use Cartalyst\Sentinel\Native\Facades\Sentinel;
@@ -17,29 +18,9 @@ class Admin extends AdminController {
 
     private $site_config;
 
-    private $assets_css = array(
-        'assets/admin/css/admin.scss',
-        'assets/admin/css/datepicker_dashboard.css',
-        'assets/admin/css/MooEditable.css',
-        'assets/admin/css/MooEditable.Extras.css',
-        'assets/admin/css/MooEditable.UploadImage.css',
-        'assets/admin/css/MooEditable.Forecolor.css',
-        'assets/admin/css/MooEditable.SilkTheme.css',
-        'assets/admin/css/Tree.css',
-        'assets/admin/css/ImageManipulation.css',
-        'assets/admin/css/Scrollable.css',
-        'assets/admin/css/Uploader.css'
-    );
-
     function __construct(){
         parent::__construct();
-
-        //$this->load->module('auth/main');
         $this->load->library('form_validation');
-        //$this->config->load('auth/config', TRUE);
-        $this->lang->load('auth', 'spanish');
-        $this->load->set_admin_theme();
-
     }
 
     /**
@@ -48,19 +29,12 @@ class Admin extends AdminController {
     public function index()
     {
 
-       /* $reset = Sentinel::findById(1);
-
-        Sentinel::update($reset, [
-            'password' => 'admin'
-        ]);*/
-
        try {
 
            $user = Sentinel::getUser();
            $this->site_config = Config::get();
            $data['title'] = $this->site_config['site_name'];
            $data['error'] = $this->session->flashdata('error');
-           $data['assets_css'] = $this->assets_css;
 
            //User is loged in and is administrator
            if ($user && Sentinel::hasAccess(['admin'])) {
@@ -70,12 +44,12 @@ class Admin extends AdminController {
            //User is logged in but not admin
            else if ($user && !Sentinel::hasAccess(['admin'])) {
                $data['error'] = 'Usted no tiene los permisos necesarios para poder entrar a esta secci&oacute;n. <a href="'. base_url() .'">regresar el inicio</a>';
-               $this->load->view('admin/login_view', $data);
+               \App\View::blade(APPPATH . 'modules/admin/views/login', $data);
            }
 
            //Not loged in
            else {
-               $this->load->view('admin/login_view', $data);
+               \App\View::blade(APPPATH . 'modules/admin/views/login', $data);
            }
 
        } catch (Exception $e) {
@@ -85,7 +59,7 @@ class Admin extends AdminController {
                "message" => $e->getMessage(),
            ];
 
-           echo \App\View::blade(APPPATH . 'views/errors/html/general.blade.php', $data)->render();
+           \App\View::blade(APPPATH . 'views/errors/html/general', $data);
 
        }
 
@@ -107,10 +81,10 @@ class Admin extends AdminController {
         $data['visible'] = Content::getEditable(TRUE);
         $data['menu'] = \App\Admin::getModules();
 
-        $data['assets_css'] = $this->assets_css;
         $data['assets_js'] = \App\Admin::getModuleAssets();
 
-        $this->load->view('admin/index_view', $data);
+        \App\View::blade(APPPATH . 'modules/admin/views/index', $data);
+
     }
 
     /**
@@ -147,8 +121,6 @@ class Admin extends AdminController {
 
         $this->form_validation->set_rules('username', 'Email', 'required');
         $this->form_validation->set_rules('password', 'Contraseña', 'required');
-
-        $data['assets_css'] = $this->assets_css;
 
         try {
 

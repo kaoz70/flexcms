@@ -11,30 +11,30 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Support
- * @version    1.2.0
+ * @version    2.0.1
  * @author     Cartalyst LLC
  * @license    BSD License (3-clause)
- * @copyright  (c) 2011-2015, Cartalyst LLC
+ * @copyright  (c) 2011-2017, Cartalyst LLC
  * @link       http://cartalyst.com
  */
 
 namespace Cartalyst\Support\Traits;
 
-use Illuminate\Container\Container;
+use Illuminate\Contracts\Container\Container;
 
 trait ContainerTrait
 {
     /**
      * The IoC container instance.
      *
-     * @var \Illuminate\Container\Container
+     * @var \Illuminate\Contracts\Container\Container
      */
     protected $container;
 
     /**
      * Returns the IoC container.
      *
-     * @return \Illuminate\Container\Container
+     * @return \Illuminate\Contracts\Container\Container
      */
     public function getContainer()
     {
@@ -44,7 +44,7 @@ trait ContainerTrait
     /**
      * Sets the IoC container instance.
      *
-     * @param  \Illuminate\Container\Container  $container
+     * @param  \Illuminate\Contracts\Container\Container  $container
      * @return $this
      */
     public function setContainer(Container $container)

@@ -10,15 +10,10 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
-        'e40631d46120a9c38ea139981f8dab26' => __DIR__ . '/..' . '/ircmaxell/password-compat/lib/password.php',
-        'ce89ac35a6c330c55f4710717db9ff78' => __DIR__ . '/..' . '/kriswallsmith/assetic/src/functions.php',
-        '3e2471375464aac821502deb0ac64275' => __DIR__ . '/..' . '/symfony/polyfill-php54/bootstrap.php',
-        'edc6464955a37aa4d5fbf39d40fb6ee7' => __DIR__ . '/..' . '/symfony/polyfill-php55/bootstrap.php',
         'd9d39f82a605ebe5918f683dd402334c' => __DIR__ . '/..' . '/padraic/humbug_get_contents/src/function.php',
-        '47dfa57bf49fa256e41e9439c8ac76ad' => __DIR__ . '/..' . '/kherge/json/src/lib/json_version.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
-        '6bc45d0537e6858fd179bdbc31d62c79' => __DIR__ . '/..' . '/raveren/kint/Kint.class.php',
+        'ce89ac35a6c330c55f4710717db9ff78' => __DIR__ . '/..' . '/kriswallsmith/assetic/src/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -28,8 +23,6 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         ),
         'S' => 
         array (
-            'Symfony\\Polyfill\\Php55\\' => 23,
-            'Symfony\\Polyfill\\Php54\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Component\\Yaml\\' => 23,
             'Symfony\\Component\\VarDumper\\' => 28,
@@ -44,7 +37,6 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Component\\Config\\' => 25,
             'Symfony\\Component\\ClassLoader\\' => 30,
-            'Seld\\JsonLint\\' => 14,
             'Satooshi\\' => 9,
         ),
         'P' => 
@@ -55,16 +47,6 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'M' => 
         array (
             'M1\\Env\\' => 7,
-        ),
-        'L' => 
-        array (
-            'League\\OAuth2\\Client\\' => 21,
-            'League\\OAuth1\\' => 14,
-            'Leafo\\ScssPhp\\' => 14,
-        ),
-        'J' => 
-        array (
-            'JsonSchema\\' => 11,
         ),
         'I' => 
         array (
@@ -98,12 +80,8 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'C' => 
         array (
             'CodeClimate\\PhpTestReporter\\' => 28,
-            'Cartalyst\\Themes\\' => 17,
             'Cartalyst\\Support\\' => 18,
-            'Cartalyst\\Sentinel\\Addons\\Social\\' => 33,
             'Cartalyst\\Sentinel\\' => 19,
-            'Cartalyst\\Interpret\\' => 20,
-            'Cartalyst\\AsseticFilters\\' => 25,
             'Carbon\\' => 7,
         ),
         'B' => 
@@ -116,14 +94,6 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'Whoops\\' => 
         array (
             0 => __DIR__ . '/..' . '/filp/whoops/src/Whoops',
-        ),
-        'Symfony\\Polyfill\\Php55\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php55',
-        ),
-        'Symfony\\Polyfill\\Php54\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php54',
         ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
@@ -181,10 +151,6 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         array (
             0 => __DIR__ . '/..' . '/symfony/class-loader',
         ),
-        'Seld\\JsonLint\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/seld/jsonlint/src/Seld/JsonLint',
-        ),
         'Satooshi\\' => 
         array (
             0 => __DIR__ . '/..' . '/satooshi/php-coveralls/src/Satooshi',
@@ -200,22 +166,6 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'M1\\Env\\' => 
         array (
             0 => __DIR__ . '/..' . '/m1/env/src',
-        ),
-        'League\\OAuth2\\Client\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/league/oauth2-client/src',
-        ),
-        'League\\OAuth1\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/league/oauth1-client/src',
-        ),
-        'Leafo\\ScssPhp\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/leafo/scssphp/src',
-        ),
-        'JsonSchema\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema',
         ),
         'Intervention\\Image\\' => 
         array (
@@ -289,29 +239,13 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         array (
             0 => __DIR__ . '/..' . '/codeclimate/php-test-reporter/src',
         ),
-        'Cartalyst\\Themes\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/cartalyst/themes/src',
-        ),
         'Cartalyst\\Support\\' => 
         array (
             0 => __DIR__ . '/..' . '/cartalyst/support/src',
         ),
-        'Cartalyst\\Sentinel\\Addons\\Social\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/cartalyst/sentinel-social/src',
-        ),
         'Cartalyst\\Sentinel\\' => 
         array (
             0 => __DIR__ . '/..' . '/cartalyst/sentinel/src',
-        ),
-        'Cartalyst\\Interpret\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/cartalyst/interpret/src',
-        ),
-        'Cartalyst\\AsseticFilters\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/cartalyst/assetic-filters/src',
         ),
         'Carbon\\' => 
         array (
@@ -330,34 +264,6 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
             array (
                 0 => __DIR__ . '/..' . '/josegonzalez/dotenv/src',
                 1 => __DIR__ . '/..' . '/josegonzalez/dotenv/tests',
-            ),
-        ),
-        'T' => 
-        array (
-            'Twig_' => 
-            array (
-                0 => __DIR__ . '/..' . '/twig/twig/lib',
-            ),
-        ),
-        'M' => 
-        array (
-            'Michelf' => 
-            array (
-                0 => __DIR__ . '/..' . '/michelf/php-markdown',
-            ),
-        ),
-        'J' => 
-        array (
-            'JasonLewis\\ResourceWatcher' => 
-            array (
-                0 => __DIR__ . '/..' . '/cartalyst/resource-watcher/src',
-            ),
-        ),
-        'H' => 
-        array (
-            'Herrera\\Json' => 
-            array (
-                0 => __DIR__ . '/..' . '/kherge/json/src/lib',
             ),
         ),
         'G' => 
@@ -388,17 +294,6 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
             'Doctrine\\Common\\Collections\\' => 
             array (
                 0 => __DIR__ . '/..' . '/doctrine/collections/lib',
-            ),
-        ),
-        'C' => 
-        array (
-            'CoffeeScript' => 
-            array (
-                0 => __DIR__ . '/..' . '/coffeescript/coffeescript/src',
-            ),
-            'Cartalyst\\Dependencies' => 
-            array (
-                0 => __DIR__ . '/..' . '/cartalyst/dependencies/src',
             ),
         ),
         'B' => 
@@ -461,6 +356,17 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'App\\Widget' => __DIR__ . '/../../..' . '/flexcms/models/Widget.php',
         'App\\Widget\\Content' => __DIR__ . '/../../..' . '/flexcms/widgets/content/controllers/Content.php',
         'Archivo' => __DIR__ . '/../../..' . '/flexcms/modules/admin/controllers/Archivo.php',
+        'Attire' => __DIR__ . '/../../..' . '/flexcms/libraries/attire/Attire.php',
+        'Attire\\Driver\\Environment' => __DIR__ . '/../../..' . '/flexcms/libraries/attire/Driver/Environment.php',
+        'Attire\\Driver\\Lexer' => __DIR__ . '/../../..' . '/flexcms/libraries/attire/Driver/Lexer.php',
+        'Attire\\Driver\\Loader' => __DIR__ . '/../../..' . '/flexcms/libraries/attire/Driver/Loader.php',
+        'Attire\\Driver\\Theme' => __DIR__ . '/../../..' . '/flexcms/libraries/attire/Driver/Theme.php',
+        'Attire\\Driver\\Views' => __DIR__ . '/../../..' . '/flexcms/libraries/attire/Driver/Views.php',
+        'Attire\\Exceptions\\Manager' => __DIR__ . '/../../..' . '/flexcms/libraries/attire/Exceptions/Manager.php',
+        'Attire\\Exceptions\\Theme' => __DIR__ . '/../../..' . '/flexcms/libraries/attire/Exceptions/Theme.php',
+        'Attire\\Libraries\\AssetManager' => __DIR__ . '/../../..' . '/flexcms/libraries/attire/Libraries/AssetManager.php',
+        'Attire\\Libraries\\ExtensionManager' => __DIR__ . '/../../..' . '/flexcms/libraries/attire/Libraries/ExtensionManager.php',
+        'Attire\\Traits\\FileKit' => __DIR__ . '/../../..' . '/flexcms/libraries/attire/Traits/FileKit.php',
         'Auth' => __DIR__ . '/../../..' . '/flexcms/modules/auth/controllers/Auth.php',
         'Auth\\Models\\Field' => __DIR__ . '/../../..' . '/flexcms/modules/auth/models/Field.php',
         'Background' => __DIR__ . '/../../..' . '/flexcms/modules/theme/controllers/Background.php',
@@ -476,10 +382,7 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'CMS_Modules' => __DIR__ . '/../../..' . '/flexcms/libraries/CMS_Modules.php',
         'CMS_Publications' => __DIR__ . '/../../..' . '/flexcms/modules/content/controllers/_CMS_Publications.php',
         'CMS_Services' => __DIR__ . '/../../..' . '/flexcms/modules/content/controllers/_CMS_Services.php',
-        'CSSmin' => __DIR__ . '/..' . '/mrclay/minify/min/lib/CSSmin.php',
         'Calendar_model' => __DIR__ . '/../../..' . '/flexcms/modules/calendar/models/Calendar_model.php',
-        'CallbackFilterIterator' => __DIR__ . '/..' . '/symfony/polyfill-php54/Resources/stubs/CallbackFilterIterator.php',
-        'Cartalyst\\Sentinel\\Addons\\Social\\AccessMissingException' => __DIR__ . '/..' . '/cartalyst/sentinel-social/src/Exceptions.php',
         'Catalog' => __DIR__ . '/../../..' . '/flexcms/modules/catalog/controllers/Catalog.php',
         'Catalog\\Models\\Field' => __DIR__ . '/../../..' . '/flexcms/modules/catalog/models/Field.php',
         'CatalogoAdmin_model' => __DIR__ . '/../../..' . '/flexcms/modules/catalog/models/_CatalogoAdmin_model.php',
@@ -494,30 +397,16 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'Content\\Main' => __DIR__ . '/../../..' . '/flexcms/modules/content/controllers/Main.php',
         'Day' => __DIR__ . '/../../..' . '/flexcms/modules/calendar/controllers/Day.php',
         'Descargas_model' => __DIR__ . '/../../..' . '/flexcms/modules/file/models/Descargas_model.php',
-        'DooDigestAuth' => __DIR__ . '/..' . '/mrclay/minify/min/lib/DooDigestAuth.php',
         'EasyPeasyICS' => __DIR__ . '/..' . '/phpmailer/phpmailer/extras/EasyPeasyICS.php',
         'Errors' => __DIR__ . '/../../..' . '/flexcms/controllers/Errors.php',
         'Faq' => __DIR__ . '/../../..' . '/flexcms/modules/faq/controllers/Faq.php',
         'Faq_model' => __DIR__ . '/../../..' . '/flexcms/modules/faq/models/Faq_model.php',
         'Field' => __DIR__ . '/../../..' . '/flexcms/controllers/Field.php',
-        'FirePHP' => __DIR__ . '/..' . '/mrclay/minify/min/lib/FirePHP.php',
         'Format' => __DIR__ . '/../../..' . '/flexcms/libraries/Format.php',
         'Galeria_model' => __DIR__ . '/../../..' . '/flexcms/modules/file/models/Galeria_model.php',
-        'HTTP_ConditionalGet' => __DIR__ . '/..' . '/mrclay/minify/min/lib/HTTP/ConditionalGet.php',
-        'HTTP_Encoder' => __DIR__ . '/..' . '/mrclay/minify/min/lib/HTTP/Encoder.php',
         'Html' => __DIR__ . '/../../..' . '/flexcms/controllers/Html.php',
         'ImageConfig' => __DIR__ . '/../../..' . '/flexcms/modules/admin/controllers/ImageConfig.php',
         'Imagen' => __DIR__ . '/../../..' . '/flexcms/modules/admin/controllers/Imagen.php',
-        'JSCompilerContext' => __DIR__ . '/..' . '/mrclay/minify/min/lib/JSMinPlus.php',
-        'JSMin' => __DIR__ . '/..' . '/mrclay/minify/min/lib/JSMin.php',
-        'JSMinPlus' => __DIR__ . '/..' . '/mrclay/minify/min/lib/JSMinPlus.php',
-        'JSMin_UnterminatedCommentException' => __DIR__ . '/..' . '/mrclay/minify/min/lib/JSMin.php',
-        'JSMin_UnterminatedRegExpException' => __DIR__ . '/..' . '/mrclay/minify/min/lib/JSMin.php',
-        'JSMin_UnterminatedStringException' => __DIR__ . '/..' . '/mrclay/minify/min/lib/JSMin.php',
-        'JSNode' => __DIR__ . '/..' . '/mrclay/minify/min/lib/JSMinPlus.php',
-        'JSParser' => __DIR__ . '/..' . '/mrclay/minify/min/lib/JSMinPlus.php',
-        'JSToken' => __DIR__ . '/..' . '/mrclay/minify/min/lib/JSMinPlus.php',
-        'JSTokenizer' => __DIR__ . '/..' . '/mrclay/minify/min/lib/JSMinPlus.php',
         'LangWorker' => __DIR__ . '/../../..' . '/flexcms/workers/LangWorker.php',
         'Language' => __DIR__ . '/../../..' . '/flexcms/modules/admin/controllers/Language.php',
         'Layout' => __DIR__ . '/../../..' . '/flexcms/modules/admin/controllers/Layout.php',
@@ -525,44 +414,8 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'MY_Upload' => __DIR__ . '/../../..' . '/flexcms/libraries/MY_Upload.php',
         'Map' => __DIR__ . '/../../..' . '/flexcms/modules/map/controllers/Map.php',
         'Mapas_model' => __DIR__ . '/../../..' . '/flexcms/modules/map/models/Mapas_model.php',
-        'Minify' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify.php',
-        'Minify_Build' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/Build.php',
-        'Minify_CSS' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/CSS.php',
-        'Minify_CSS_Compressor' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/CSS/Compressor.php',
-        'Minify_CSS_UriRewriter' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/CSS/UriRewriter.php',
-        'Minify_CSSmin' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/CSSmin.php',
-        'Minify_Cache_APC' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/Cache/APC.php',
-        'Minify_Cache_File' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/Cache/File.php',
-        'Minify_Cache_Memcache' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/Cache/Memcache.php',
-        'Minify_Cache_WinCache' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/Cache/WinCache.php',
-        'Minify_Cache_XCache' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/Cache/XCache.php',
-        'Minify_Cache_ZendPlatform' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/Cache/ZendPlatform.php',
-        'Minify_ClosureCompiler' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/ClosureCompiler.php',
-        'Minify_ClosureCompiler_Exception' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/ClosureCompiler.php',
-        'Minify_CommentPreserver' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/CommentPreserver.php',
-        'Minify_Controller_Base' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/Controller/Base.php',
-        'Minify_Controller_Files' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/Controller/Files.php',
-        'Minify_Controller_Groups' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/Controller/Groups.php',
-        'Minify_Controller_MinApp' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/Controller/MinApp.php',
-        'Minify_Controller_Page' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/Controller/Page.php',
-        'Minify_Controller_Version1' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/Controller/Version1.php',
-        'Minify_DebugDetector' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/DebugDetector.php',
-        'Minify_HTML' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/HTML.php',
-        'Minify_HTML_Helper' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/HTML/Helper.php',
-        'Minify_ImportProcessor' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/ImportProcessor.php',
-        'Minify_JS_ClosureCompiler' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/JS/ClosureCompiler.php',
-        'Minify_JS_ClosureCompiler_Exception' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/JS/ClosureCompiler.php',
-        'Minify_Lines' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/Lines.php',
-        'Minify_Loader' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/Loader.php',
-        'Minify_Logger' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/Logger.php',
-        'Minify_Packer' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/Packer.php',
-        'Minify_Source' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/Source.php',
-        'Minify_YUICompressor' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/YUICompressor.php',
-        'Minify_YUI_CssCompressor' => __DIR__ . '/..' . '/mrclay/minify/min/lib/Minify/YUI/CssCompressor.php',
         'ModuleAdmin_model' => __DIR__ . '/../../..' . '/flexcms/modules/admin/models/Module_model.php',
         'Module_model' => __DIR__ . '/../../..' . '/flexcms/models/_Module_model.php',
-        'MrClay\\Cli' => __DIR__ . '/..' . '/mrclay/minify/min/lib/MrClay/Cli.php',
-        'MrClay\\Cli\\Arg' => __DIR__ . '/..' . '/mrclay/minify/min/lib/MrClay/Cli/Arg.php',
         'MyConsole' => __DIR__ . '/../../..' . '/flexcms/libraries/MyConsole.php',
         'PHPMailer' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmailer.php',
         'PHPMailerOAuth' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmaileroauth.php',
@@ -572,84 +425,11 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'Publicidad_model' => __DIR__ . '/../../..' . '/flexcms/modules/advert/models/Publicidad_model.php',
         'RESTController' => __DIR__ . '/../../..' . '/flexcms/controllers/RESTController.php',
         'REST_Controller' => __DIR__ . '/../../..' . '/flexcms/libraries/REST_Controller.php',
-        'RecursiveCallbackFilterIterator' => __DIR__ . '/..' . '/symfony/polyfill-php54/Resources/stubs/RecursiveCallbackFilterIterator.php',
         'SMTP' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.smtp.php',
-        'SassBoolean' => __DIR__ . '/..' . '/richthegeek/phpsass/script/literals/SassBoolean.php',
-        'SassBooleanException' => __DIR__ . '/..' . '/richthegeek/phpsass/script/literals/SassLiteralExceptions.php',
-        'SassColour' => __DIR__ . '/..' . '/richthegeek/phpsass/script/literals/SassColour.php',
-        'SassColourException' => __DIR__ . '/..' . '/richthegeek/phpsass/script/literals/SassLiteralExceptions.php',
-        'SassCommentNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassCommentNode.php',
-        'SassCommentNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
-        'SassCompactRenderer' => __DIR__ . '/..' . '/richthegeek/phpsass/renderers/SassCompactRenderer.php',
-        'SassCompressedRenderer' => __DIR__ . '/..' . '/richthegeek/phpsass/renderers/SassCompressedRenderer.php',
-        'SassContentNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassContentNode.php',
-        'SassContext' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassContext.php',
-        'SassContextException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
-        'SassDebugNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassDebugNode.php',
-        'SassDebugNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
-        'SassDirectiveNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassDirectiveNode.php',
-        'SassDirectiveNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
-        'SassEachNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassEachNode.php',
-        'SassEachNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
-        'SassElseNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassElseNode.php',
-        'SassException' => __DIR__ . '/..' . '/richthegeek/phpsass/SassException.php',
-        'SassExpandedRenderer' => __DIR__ . '/..' . '/richthegeek/phpsass/renderers/SassExpandedRenderer.php',
-        'SassExtendNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassExtendNode.php',
-        'SassExtendNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
-        'SassFile' => __DIR__ . '/..' . '/richthegeek/phpsass/SassFile.php',
-        'SassForNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassForNode.php',
-        'SassForNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
-        'SassFunctionDefinitionNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassFunctionDefinitionNode.php',
-        'SassFunctionDefinitionNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
-        'SassIfNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassIfNode.php',
-        'SassIfNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
-        'SassImportNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassImportNode.php',
-        'SassImportNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
-        'SassList' => __DIR__ . '/..' . '/richthegeek/phpsass/script/literals/SassList.php',
-        'SassListException' => __DIR__ . '/..' . '/richthegeek/phpsass/script/literals/SassLiteralExceptions.php',
-        'SassLiteral' => __DIR__ . '/..' . '/richthegeek/phpsass/script/literals/SassLiteral.php',
-        'SassLiteralException' => __DIR__ . '/..' . '/richthegeek/phpsass/script/literals/SassLiteralExceptions.php',
-        'SassMediaNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassMediaNode.php',
-        'SassMixinDefinitionNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassMixinDefinitionNode.php',
-        'SassMixinDefinitionNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
-        'SassMixinNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassMixinNode.php',
-        'SassMixinNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
-        'SassNestedRenderer' => __DIR__ . '/..' . '/richthegeek/phpsass/renderers/SassNestedRenderer.php',
-        'SassNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNode.php',
-        'SassNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
-        'SassNumber' => __DIR__ . '/..' . '/richthegeek/phpsass/script/literals/SassNumber.php',
-        'SassNumberException' => __DIR__ . '/..' . '/richthegeek/phpsass/script/literals/SassLiteralExceptions.php',
-        'SassParser' => __DIR__ . '/..' . '/richthegeek/phpsass/SassParser.php',
-        'SassPropertyNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassPropertyNode.php',
-        'SassPropertyNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
-        'SassRenderer' => __DIR__ . '/..' . '/richthegeek/phpsass/renderers/SassRenderer.php',
-        'SassReturn' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassReturnNode.php',
-        'SassReturnNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassReturnNode.php',
-        'SassRootNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassRootNode.php',
-        'SassRuleNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassRuleNode.php',
-        'SassRuleNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
-        'SassScriptFunction' => __DIR__ . '/..' . '/richthegeek/phpsass/script/SassScriptFunction.php',
-        'SassScriptFunctionException' => __DIR__ . '/..' . '/richthegeek/phpsass/script/SassScriptParserExceptions.php',
-        'SassScriptFunctions' => __DIR__ . '/..' . '/richthegeek/phpsass/script/SassScriptFunctions.php',
-        'SassScriptLexer' => __DIR__ . '/..' . '/richthegeek/phpsass/script/SassScriptLexer.php',
-        'SassScriptLexerException' => __DIR__ . '/..' . '/richthegeek/phpsass/script/SassScriptParserExceptions.php',
-        'SassScriptOperation' => __DIR__ . '/..' . '/richthegeek/phpsass/script/SassScriptOperation.php',
-        'SassScriptOperationException' => __DIR__ . '/..' . '/richthegeek/phpsass/script/SassScriptParserExceptions.php',
-        'SassScriptParser' => __DIR__ . '/..' . '/richthegeek/phpsass/script/SassScriptParser.php',
-        'SassScriptParserException' => __DIR__ . '/..' . '/richthegeek/phpsass/script/SassScriptParserExceptions.php',
-        'SassScriptVariable' => __DIR__ . '/..' . '/richthegeek/phpsass/script/SassScriptVariable.php',
-        'SassString' => __DIR__ . '/..' . '/richthegeek/phpsass/script/literals/SassString.php',
-        'SassStringException' => __DIR__ . '/..' . '/richthegeek/phpsass/script/literals/SassLiteralExceptions.php',
-        'SassVariableNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassVariableNode.php',
-        'SassVariableNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
-        'SassWarnNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassWarnNode.php',
-        'SassWhileNode' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassWhileNode.php',
-        'SassWhileNodeException' => __DIR__ . '/..' . '/richthegeek/phpsass/tree/SassNodeExceptions.php',
         'Search' => __DIR__ . '/../../..' . '/flexcms/controllers/Search.php',
         'SearchAdmin' => __DIR__ . '/../../..' . '/flexcms/modules/admin/controllers/SearchAdmin.php',
         'Search_model' => __DIR__ . '/../../..' . '/flexcms/models/_Search_model.php',
         'Seguridad' => __DIR__ . '/../../..' . '/flexcms/libraries/Seguridad.php',
-        'SessionHandlerInterface' => __DIR__ . '/..' . '/symfony/polyfill-php54/Resources/stubs/SessionHandlerInterface.php',
         'Slider' => __DIR__ . '/../../..' . '/flexcms/modules/slider/controllers/Slider.php',
         'Slider\\Models\\Field' => __DIR__ . '/../../..' . '/flexcms/modules/slider/models/Field.php',
         'Stats' => __DIR__ . '/../../..' . '/flexcms/modules/admin/controllers/Stats.php',
@@ -657,6 +437,7 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'Test' => __DIR__ . '/../../..' . '/flexcms/controllers/Test.php',
         'Theme' => __DIR__ . '/../../..' . '/flexcms/modules/theme/controllers/Theme.php',
         'TranslationException' => __DIR__ . '/../../..' . '/flexcms/models/TranslationException.php',
+        'Twig' => __DIR__ . '/../../..' . '/flexcms/libraries/Twig.php',
         'Upload' => __DIR__ . '/../../..' . '/flexcms/modules/admin/controllers/Upload.php',
         'View' => __DIR__ . '/../../..' . '/flexcms/modules/admin/controllers/View.php',
         'Widget' => __DIR__ . '/../../..' . '/flexcms/modules/admin/controllers/Widget.php',
@@ -683,11 +464,6 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'gallery\\Category' => __DIR__ . '/../../..' . '/flexcms/modules/file/controllers/Category.php',
         'gallery\\File' => __DIR__ . '/../../..' . '/flexcms/modules/file/controllers/File.php',
         'gallery\\Youtube' => __DIR__ . '/../../..' . '/flexcms/modules/file/controllers/Youtube.php',
-        'lessc' => __DIR__ . '/..' . '/leafo/lessphp/lessc.inc.php',
-        'lessc_formatter_classic' => __DIR__ . '/..' . '/leafo/lessphp/lessc.inc.php',
-        'lessc_formatter_compressed' => __DIR__ . '/..' . '/leafo/lessphp/lessc.inc.php',
-        'lessc_formatter_lessjs' => __DIR__ . '/..' . '/leafo/lessphp/lessc.inc.php',
-        'lessc_parser' => __DIR__ . '/..' . '/leafo/lessphp/lessc.inc.php',
         'mailchimp\\Campaign' => __DIR__ . '/../../..' . '/flexcms/modules/mailchimp/controllers/Campaign.php',
         'mailchimp\\Lists' => __DIR__ . '/../../..' . '/flexcms/modules/mailchimp/controllers/Lists.php',
         'mailchimp\\Main' => __DIR__ . '/../../..' . '/flexcms/modules/mailchimp/controllers/Main.php',

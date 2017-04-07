@@ -52,4 +52,19 @@ class Utils
 
     }
 
+    /**
+     * Checks if the request is an ajax request
+     *
+     * @return bool
+     */
+    public static function isAjaxRequest()
+    {
+
+        $isAngular = isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest');
+        $acceptsJsonResponse = (strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false);
+
+        return $isAngular || $acceptsJsonResponse;
+
+    }
+
 }

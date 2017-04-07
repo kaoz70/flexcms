@@ -103,6 +103,25 @@ class Admin {
     }
 
     /**
+     * Get all the JS provided for each module
+     *
+     * @return array
+     */
+    static function getModuleViewPaths()
+    {
+
+        $folders = [];
+
+        //Iterate over each module folder
+        foreach (Utils::getFolders(APPPATH . static::PATH) as $folder) {
+            $folders[] = APPPATH . static::PATH . $folder . DIRECTORY_SEPARATOR . 'views';
+        }
+
+        return $folders;
+
+    }
+
+    /**
      * Get any content modules
      *
      * @return array

@@ -1,33 +1,16 @@
-.idea/*
-
+.idea/
 .git
 .env
 composer.lock
 
-assets/cache/*.js
-assets/cache/*.css
-assets/cache/*.cache
-assets/cache/dev/*.css
-themes/*/cache/**
-
-*.jar
-*.orig
-
 node_modules/
-flexcms/cache/pages/http**
-flexcms/cache/database/**
-flexcms/cache/assetic/**
-flexcms/cache/views/**
 flexcms/sessions/ci_**
 assets/public/audio/**
 assets/public/files/**
 assets/public/images/**
-assets/images/**
 
-.idea/
 flexcms/logs/
+flexcms/cache/
 flexcms/uploads/
-flexcms/node_modules/.bin/
-flexcms/packages/material-design-icons/**
-!flexcms/packages/material-design-icons/iconfont
+assets/cache/
 !index.html

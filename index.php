@@ -39,9 +39,6 @@
 //Fix default timezone errors
 date_default_timezone_set('UTC');
 
-//Load automatically composer packages
-include_once 'flexcms/vendor/autoload.php';
-
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT

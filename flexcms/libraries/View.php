@@ -18,42 +18,47 @@ use Illuminate\View\Factory;
 use Illuminate\View\Engines\EngineResolver;
 use Illuminate\View\View as LaravelView;
 
-class View {
+class View
+{
 
-	static function blade($viewPath = false, $data = array() ) {
+    static function blade($viewPath = false, $data = array())
+    {
 
-		// this path needs to be array
-		$FileViewFinder = new FileViewFinder(
-			new Filesystem,
-			array($viewPath)
-		);
+        // this path needs to be array
+        $FileViewFinder = new FileViewFinder(
+            new Filesystem,
+            array($viewPath)
+        );
 
-		// use blade instead of phpengine
-		// pass in filesystem object and cache path
-		$compiler = new BladeCompiler(new Filesystem(), APPPATH . 'cache/views');
-		$BladeEngine = new CompilerEngine($compiler);
+        // use blade instead of phpengine
+        // pass in filesystem object and cache path
+        $compiler = new BladeCompiler(new Filesystem(), APPPATH . 'cache/views');
+        $BladeEngine = new CompilerEngine($compiler);
 
-		// create a dispatcher
-		$dispatcher = new Dispatcher(new Container);
+        // create a dispatcher
+        $dispatcher = new Dispatcher(new Container);
 
-		// build the factory
-		$factory = new Factory(
-			new EngineResolver,
-			$FileViewFinder,
-			$dispatcher
-		);
+        // build the factory
+        $factory = new Factory(
+            new EngineResolver,
+            $FileViewFinder,
+            $dispatcher
+        );
 
-		// this path needs to be string
-		$viewObj = new LaravelView(
-			$factory,
-			$BladeEngine,
-			"",
-			$viewPath,
-			$data
-		);
+        // this path needs to be string
+        $viewObj = new LaravelView(
+            $factory,
+            $BladeEngine,
+            "",
+            $viewPath . '.blade.php',
+            $data
+        );
 
-		return $viewObj;
+        $CI =& get_instance();
+        $CI->output->set_output($viewObj->render());
 
-	}
+        //return $viewObj;
+
+    }
 
 }

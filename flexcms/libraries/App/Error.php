@@ -51,9 +51,9 @@ class Error
         log_message('Error', $message);
 
         if (self::isAjaxRequest()) {
-            echo View::blade(APPPATH . 'views/errors/json/general.blade.php', $data)->render();
+            View::blade(APPPATH . 'views/errors/json/general', $data);
         } else {
-            echo View::blade(APPPATH . 'views/errors/html/error_general.php', $data)->render();
+            View::blade(APPPATH . 'views/errors/html/general', $data);
         }
 
         exit;
