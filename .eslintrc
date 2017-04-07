@@ -1,13 +1,3 @@
 {
-  "globals": {
-    "window": false,
-    "jQuery": false,
-    "clearInterval": false,
-    "setTimeout": false,
-    "clearTimeout": false,
-    "$": false
-  },
-  "rules": {
-    "no-extra-semi": 0
-  }
+  "extends": ["eslint:recommended", "angular"]
 }

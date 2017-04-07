@@ -9,143 +9,71 @@
  * */
 angular.module('app')
 
-    .controller('LayoutIndexCtrl', function($rootScope){
+    .controller('LayoutIndexController', function($rootScope) {
 
         //Open the sidebar on this controller
         $rootScope.isSidebarOpen = true;
 
     })
 
-    .controller('LayoutCtrl', function($scope, $rootScope, Layout, $routeSegment, $mdSidenav, WindowFactory, $routeParams, Content, $window, Loading, $mdDialog){
+    .controller('LayoutController', function($rootScope, LayoutService, $routeSegment, WindowFactory, $routeParams, layout) {
 
         //Open the sidebar on this controller
         $rootScope.isSidebarOpen = true;
 
+        var vm = this;
+
         //Base url
-        $scope.section = "layout/" + $routeParams.page_id;
-        $scope.query = "";
-        $scope.languages = [];
-        $scope.page = {};
-        $scope.pages = [];
-        $scope.roles = [];
-        $scope.rows = [];
-        $scope.widgets = [];
-        $scope.selected = [];
-        $scope.device = "large";
+        vm.section = 'layout/' + $routeParams.page_id;
+        vm.query = '';
+        vm.selected = [];
+        vm.device = 'large';
 
-        WindowFactory.add($scope);
+        vm.languages = layout.page.translations;
+        vm.page = layout.page.content;
+        vm.pages = layout.pages;
+        vm.roles = layout.roles;
+        vm.rows = layout.rows;
+        vm.widgets = layout.widgets;
 
-        var addColumn = function (columns) {
-            return {
-                class: '',
-                span: {
-                    large: 12 / columns,
-                    medium: 12 / columns,
-                    small: 12 / columns
-                },
-                offset: {
-                    large: 0,
-                    medium: 0,
-                    small: 0
-                },
-                push: {
-                    large: 0,
-                    medium: 0,
-                    small: 0
-                },
-                pull: {
-                    large: 0,
-                    medium: 0,
-                    small: 0
-                }
-            }
-        };
+        vm.layoutService = LayoutService;
 
-        //Load the content
-        Layout.get($routeParams.page_id, $scope).then(function (response) {
+        vm.$watch('rows', function(rows) {
+            vm.modelAsJson = angular.toJson(rows, true);
+        }, true);
 
-            $scope.languages = response.data.data.page.translations;
-            $scope.page = response.data.data.page.content;
-            $scope.pages = response.data.data.pages;
-            $scope.roles = response.data.data.roles;
-            $scope.rows = response.data.data.rows;
-            $scope.widgets = response.data.data.widgets;
+        WindowFactory.add(vm);
 
-            $scope.$watch('rows', function(rows) {
-                $scope.modelAsJson = angular.toJson(rows, true);
-            }, true);
+    })
 
-        });
+    .controller('LayoutCreateController', function($rootScope, LayoutService, $routeSegment, WindowFactory, layout) {
 
-        $scope.toggleRight = buildToggler('right');
+        //Open the sidebar on this controller
+        $rootScope.isSidebarOpen = true;
+        console.log(3);
 
-        function buildToggler(componentId) {
-            return function() {
-                $mdSidenav(componentId).toggle();
-            }
-        }
+        var vm = this;
 
-        $scope.addRow = function (columns) {
+        //Base url
+        vm.section = 'layout/create';
+        vm.query = '';
+        vm.selected = [];
+        vm.device = 'large';
 
-            var cols = [];
-            for(var i = 0; i < columns; i++) {
-                cols.push(addColumn(columns));
-            }
+        vm.languages = layout.page.translations;
+        vm.page = {};
+        vm.pages = layout.pages;
+        vm.roles = layout.roles;
+        vm.rows = layout.rows;
+        vm.widgets = layout.widgets;
 
-            $scope.rows.push({
-                class: '',
-                columns: cols,
-                expanded: false
-            })
-        };
+        vm.layoutService = LayoutService;
 
-        $scope.deleteRow = function (ev, index) {
+        vm.$watch('rows', function(rows) {
+            vm.modelAsJson = angular.toJson(rows, true);
+        }, true);
 
-            var confirm = $mdDialog.confirm()
-                .title('Quiere eliminar esta fila?')
-                .textContent('Se eliminaran todas las columnas y widgets.')
-                .ariaLabel('Eliminar fila')
-                .targetEvent(ev)
-                .ok('Eliminar')
-                .cancel('Cancelar');
-
-            $mdDialog.show(confirm).then(function() {
-                $scope.rows.splice(index, 1)
-            });
-
-        };
-
-        $scope.deleteColumn = function (ev, index, columns) {
-
-            var confirm = $mdDialog.confirm()
-                .title('Quiere eliminar esta columna?')
-                .textContent('Se eliminaran todos los widgets.')
-                .ariaLabel('Eliminar columna')
-                .targetEvent(ev)
-                .ok('Eliminar')
-                .cancel('Cancelar');
-
-            $mdDialog.show(confirm).then(function() {
-                columns.splice(index, 1)
-            });
-
-        };
-
-        $scope.addColumn = function (ev, row) {
-
-            var confirm = $mdDialog.confirm()
-                .title('Añadir nueva columna')
-                .textContent('Desea añadir una nueva columna?')
-                .ariaLabel('Añadir columna')
-                .targetEvent(ev)
-                .ok('Añadir')
-                .cancel('Cancelar');
-
-            $mdDialog.show(confirm).then(function() {
-                row.columns.push(addColumn(1));
-            });
-
-        }
+        WindowFactory.add(vm);
 
     })
 

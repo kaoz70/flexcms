@@ -16,17 +16,8 @@
                     templateUrl: BASE_PATH + 'admin/List1',
                     controller: 'LanguageCtrl',
                     resolve: {
-                        languages: function(Language, $q) {
-
-                            var deferred = $q.defer();
-                            Language.query(
-                                function(successData) {
-                                    deferred.resolve(successData);
-                                }, function(errorData) {
-                                    deferred.reject(errorData);
-                                });
-                            return deferred.promise;
-
+                        languages: function(Language, ResourceResponse) {
+                            return ResourceResponse.query(Language);
                         }
                     },
                     untilResolved: {
@@ -42,17 +33,8 @@
                         controller: 'LanguageEditCtrl',
                         dependencies: ['id'],
                         resolve: {
-                            language: function(Language, $q, $routeParams) {
-
-                                var deferred = $q.defer();
-                                Language.get({id: $routeParams.id},
-                                    function(successData) {
-                                        deferred.resolve(successData);
-                                    }, function(errorData) {
-                                        deferred.reject(errorData);
-                                    });
-                                return deferred.promise;
-
+                            language: function(Language, ResourceResponse, $routeParams) {
+                                return ResourceResponse.get(Language, {id: $routeParams.id});
                             }
                         },
                         untilResolved: {

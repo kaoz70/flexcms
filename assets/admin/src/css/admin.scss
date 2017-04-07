@@ -169,6 +169,7 @@ button {
       opacity: 0;
       left: $sidebar-width;
       overflow: hidden;
+      z-index: -1;
 
       > ul {
         @include transition(left);
@@ -186,6 +187,7 @@ button {
       .submenu-panel {
         opacity: 1;
         width: 280px;
+        z-index:100;
 
         > ul {
           left: 0;

@@ -8,11 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <link rel="shortcut icon" href="<?= admin_asset_path('img/favicon.png')?>" type="image/x-icon">
 
-    <link rel="stylesheet" href="<?= admin_asset_path('../../packages/material-design-icons/iconfont/material-icons.css') ?>" type="text/css" />
-    <link rel="stylesheet" href="<?= admin_asset_path('../../packages/angular-material/angular-material.min.css') ?>" type="text/css" />
-    <link rel="stylesheet" href="<?= admin_asset_path('../../packages/animsition/dist/css/animsition.min.css') ?>" type="text/css" />
-    <link rel="stylesheet" href="<?= admin_asset_path('css/animate.min.css')?>" type="text/css" />
-    <link rel="stylesheet" href="<?= admin_asset_path('css/admin.css')?>" type="text/css" />
+    <link rel="stylesheet" href="<?= base_url('assets/admin/build/app.css') ?>">
 
     <script>
         var system = {
@@ -20,15 +16,7 @@
         }
     </script>
 
-    <script src="<?= admin_asset_path('js/modernizr.custom.js') ?>"></script>
-    <script src="<?= admin_asset_path('js/jquery.min.js') ?>"></script>
-    <script src="<?= admin_asset_path('../../packages/animsition/dist/js/animsition.min.js') ?>"></script>
-    <script src="<?= admin_asset_path('../../node_modules/angular/angular.js') ?>"></script>
-    <script src="<?= admin_asset_path('../../packages/angular-aria/angular-aria.min.js') ?>"></script>
-    <script src="<?= admin_asset_path('../../packages/angular-material/angular-material.js') ?>"></script>
-    <script src="<?= admin_asset_path('js/lib/angular/angular-animate.min.js') ?>"></script>
-    <script src="<?= admin_asset_path('../../packages/angular-spinner/dist/angular-spinner.min.js') ?>"></script>
-    <script src="<?= admin_asset_path('js/login.js') ?>"></script>
+    <script src="<?= base_url('assets/admin/build/login.js') ?>"></script>
 
 </head>
 <body ng-controller="login" layout="column" >

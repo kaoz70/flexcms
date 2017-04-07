@@ -1,5 +1,4 @@
 <?php use App\Response;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 

@@ -8,17 +8,45 @@
             $routeSegmentProvider.options.autoLoadTemplates = true;
 
             $routeSegmentProvider
-                .when('/layout', 'layout_index')
-                .when('/layout/:page_id', 'layout')
-                .segment('layout_index', {
-                    'default': true,
-                    controller: 'LayoutIndexCtrl'
-                })
+                .when('/layout', 'layout')
+                .when('/layout/edit/:id', 'layout.edit')
+                .when('/layout/create', 'layout.create')
                 .segment('layout', {
-                    templateUrl: BASE_PATH + 'admin/Layout',
-                    controller: 'LayoutCtrl',
-                    dependencies: ['page_id']
-                });
+                    'default': true,
+                    controller: 'LayoutIndexController'
+                })
+                .within()
+                    .segment('edit', {
+                        templateUrl: BASE_PATH + 'admin/Layout',
+                        controller: 'LayoutController',
+                        dependencies: ['id'],
+                        resolve: {
+                            layout: function(Layout, ResourceResponse, $routeParams) {
+                                return ResourceResponse.get(Layout, {id: $routeParams.id});
+                            }
+                        },
+                        untilResolved: {
+                            templateUrl: BASE_PATH + 'admin/Loading'
+                        },
+                        resolveFailed: {
+                            controller: 'ErrorCtrl'
+                        }
+                    })
+                    .segment('create', {
+                        templateUrl: BASE_PATH + 'admin/Layout',
+                        controller: 'LayoutCreateController',
+                        resolve: {
+                            layout: function(Layout, ResourceResponse) {
+                                return ResourceResponse.query(Layout);
+                            }
+                        },
+                        untilResolved: {
+                            templateUrl: BASE_PATH + 'admin/Loading'
+                        },
+                        resolveFailed: {
+                            controller: 'ErrorCtrl'
+                        }
+                    });
 
         });
 

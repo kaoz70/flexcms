@@ -71,9 +71,13 @@
                         </a>
                         <div class="submenu-panel">
                             <ul>
-                                <li class="submenu-title">
-                                    <span>Estructura</span>
-
+                                <li class="submenu-title" layout="row">
+                                    <div layout="row" flex layout-align="start center">
+                                        <span>Estructura</span>
+                                    </div>
+                                    <md-button ng-href="#/layout/create" class="md-icon-button" aria-label="Crear">
+                                        <md-icon>add</md-icon>
+                                    </md-button>
                                 </li>
                                 <li class="submenu-menu" ui-sref-active="active">
 

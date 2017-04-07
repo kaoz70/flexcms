@@ -8,6 +8,9 @@
   },
   "devDependencies": {
     "axios": "^0.16.0",
+    "eslint": "^3.19.0",
+    "eslint-config-angular": "^0.5.0",
+    "eslint-plugin-angular": "^2.2.1",
     "gulp": "^3.9.1",
     "gulp-util": "^3.0.7",
     "jstz": "^1.0.7",

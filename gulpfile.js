@@ -3,6 +3,9 @@ var elixir = require('laravel-elixir'),
 
 var Task = elixir.Task;
 
+/**
+ * Copies the fonts so that their paths are the ones from the CSS
+ */
 elixir.extend('copyfonts', function() {
 
     new Task('copyfonts', function() {
@@ -26,7 +29,7 @@ elixir.extend('copyfonts', function() {
 elixir(function(mix){
 
     mix.sass([
-        './assets/admin/src/css/animate.min.css',
+        './node_modules/animate.css/animate.min.css',
         './node_modules/animsition/dist/css/animsition.min.css',
         './node_modules/material-design-icons/iconfont/material-icons.css',
         './node_modules/codemirror/lib/codemirror.css',
@@ -47,8 +50,9 @@ elixir(function(mix){
         './assets/admin/src/css/scrollbars.scss'
     ], './assets/admin/build/app.css');
 
+    //Admin scripts
     mix.scripts([
-        './assets/admin/src/js/jquery.min.js',
+        './assets/admin/src/js/jquery.min.js', //Required for animsition
         './assets/admin/src/js/modernizr.custom.js',
         './node_modules/animsition/dist/js/animsition.min.js',
 
@@ -84,7 +88,6 @@ elixir(function(mix){
         './node_modules/codemirror/mode/htmlmixed/htmlmixed.js',
         './flexcms/packages/angular-ui-codemirror/ui-codemirror.js',
 
-
         './flexcms/packages/tinymce/tinymce.min.js',
         './node_modules/angular-i18n/angular-locale_es-ec.js',
         './node_modules/angular-route/angular-route.js',
@@ -104,8 +107,23 @@ elixir(function(mix){
         './node_modules/md-color-picker/dist/mdColorPicker.min.js',
         './node_modules/ui-cropper/compile/minified/ui-cropper.js',
         './flexcms/packages/color-thief/dist/color-thief.min.js',
+        './assets/admin/src/js/login.js'
     ], './assets/admin/build/app.js');
 
+    //Login scripts
+    mix.scripts([
+        './assets/admin/src/js/modernizr.custom.js',
+        './assets/admin/src/js/jquery.min.js', //Required for animsition
+        './node_modules/animsition/dist/js/animsition.min.js',
+        './node_modules/angular/angular.js',
+        './node_modules/angular-aria/angular-aria.min.js',
+        './node_modules/angular-material/angular-material.js',
+        './node_modules/angular-animate/angular-animate.min.js',
+        './node_modules/angular-spinner/dist/angular-spinner.min.js',
+        './assets/admin/src/js/login.js'
+    ], './assets/admin/build/login.js');
+
+    //Copy the fonts
     mix.copyfonts();
 
 });

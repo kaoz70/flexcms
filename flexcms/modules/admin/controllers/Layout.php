@@ -4,74 +4,16 @@ use App\Config;
 use App\Category;
 use App\Language;
 use App\Content;
+use App\Response;
 use App\Row;
 use Illuminate\Database\Eloquent\Model;
 
-class Layout extends AdminController implements AdminInterface {
-
-    var $theme;
-
-    const URL_CREATE = 'admin/layout/create';
-    const URL_UPDATE = 'admin/layout/update/';
-    const URL_DELETE = 'admin/layout/delete/';
-    const URL_INSERT = 'admin/layout/insert';
-    const URL_REORDER = 'admin/layout/reorder';
-    const URL_EDIT = 'admin/layout/edit/';
+class Layout extends RESTController {
 
     function __construct(){
         parent::__construct();
-
-        $this->load->library('Seguridad');
-
         $config = Config::get();
         $this->theme = $config['theme'];
-
-        $this->seguridad->init();
-
-    }
-
-    /**
-     * Show a formatted list of pages
-     */
-    public function index()
-    {
-
-        $root = Category::allRoot()->first();
-        $root->findChildren(999);
-
-        $depth = 0;
-        foreach (Category::allLeaf() as $leaf) {
-            if($depth < $leaf->getDepth()) {
-                $depth = $leaf->getDepth();
-            }
-        }
-
-        $data['root_node'] = $root;
-        $data['tree_size'] = $depth;
-
-        $data['titulo'] = 'Estructura';
-        $data['id'] = 'pagina_tree';
-
-        $data['url_edit'] = base_url(static::URL_EDIT);
-        $data['url_delete'] = base_url(static::URL_DELETE);
-        $data['url_sort'] = base_url(static::URL_REORDER);
-        $data['name'] = 'paginaNombre';
-        $data['section'] = 'page';
-
-        $data['nivel'] = 'nivel2';
-
-        /*
-         * MENU
-         */
-        $data['menu'][] = anchor(base_url(static::URL_CREATE), 'crear nueva página', [
-            'id' => 'crear',
-            'class' => $data['nivel'] . ' ajax boton importante n1'
-        ]);
-
-        $data['bottomMargin'] = count($data['menu']) * 34;
-
-        $this->load->view('admin/listadoArbol_view', $data);
-
     }
 
     /**
@@ -138,7 +80,7 @@ class Layout extends AdminController implements AdminInterface {
 
     }
 
-    public function delete()
+    /*public function delete()
     {
 
         $response = new stdClass();
@@ -153,7 +95,7 @@ class Layout extends AdminController implements AdminInterface {
 
         $this->load->view($this->responseView, [ $this->responseVarName => $response ] );
 
-    }
+    }*/
 
     //TODO check for unique names in nodes only at the same depth
     public function reorder()
@@ -199,14 +141,14 @@ class Layout extends AdminController implements AdminInterface {
      *
      * @param string $type
      */
-    public function get($type = 'html')
+    /*public function get($type = 'html')
     {
         $root = Category::allRoot()->first();
         $root->findChildren(999);
         $this->load->view('admin/request/' . $type, [
             'return' => admin_structure_tree($root->getChildren(), Content::getEditable(TRUE))
         ] );
-    }
+    }*/
 
     public function addRow($page_id, $col_quantity)
     {
@@ -243,7 +185,32 @@ class Layout extends AdminController implements AdminInterface {
      */
     public function index_get($id = null)
     {
-        // TODO: Implement index_get() method.
+
+        $response = new Response();
+
+        try{
+
+           /* if($page = \App\Page::getForEdit($id)) {
+                $data['page'] = $page;
+                $data['rows'] = $page->data ? $page->data->structure : [];
+            }*/
+
+            $data['widgets'] = \App\Widget::getInstalled();
+            $data['theme'] = $this->theme;
+
+            $root = Category::find(1);
+            $data['pages'] = $root->descendants();
+
+            $data['roles'] =  \App\Role::all();
+
+            $response->setData($data);
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            $response->setError('Ocurri&oacute; un problema!', $e);
+        }
+
+        $this->response($response);
+
     }
 
     /**
