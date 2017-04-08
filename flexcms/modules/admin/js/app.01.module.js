@@ -8,8 +8,6 @@
             'ngAnimate',
             'view-segment',
             'route-segment',
-            'ui.router',
-            'view-segment',
             'ui.tinymce',
             'angular-timezone-selector',
             'ngSanitize',

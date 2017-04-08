@@ -93,6 +93,7 @@ elixir(function(mix){
         './node_modules/angular-route/angular-route.js',
         './node_modules/angular-route-segment/build/angular-route-segment.js',
         './node_modules/angular-ui-tinymce/dist/tinymce.min.js',
+        './node_modules/lodash/lodash.min.js',
         './node_modules/angular-timezone-selector/dist/angular-timezone-selector.min.js',
 
         './node_modules/angular-resource/angular-resource.js',

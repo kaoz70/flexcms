@@ -42,6 +42,7 @@
     "animsition": "^4.0.2",
     "chosen-js": "^1.7.0",
     "codemirror": "^5.25.0",
+    "lodash": "^4.17.4",
     "material-design-icons": "^3.0.1",
     "md-color-picker": "^0.2.6",
     "moment-timezone": "^0.5.9",

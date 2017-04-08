@@ -190,4 +190,52 @@ class Category extends Node {
 
     }
 
+    /**
+     * @return string
+     */
+    public static function getType()
+    {
+        return static::$type;
+    }
+
+    /**
+     * Returns the content's translation as a json decoded object/array
+     *
+     * @param int $lang_id
+     * @return mixed
+     * @throws \CMSException
+     */
+    public function getTranslation($lang_id)
+    {
+
+        if(!$this->getType()) {
+            throw new \CMSException("Please set the model " . __CLASS__ . "'s protected type variable");
+        }
+
+        $trans = $this->hasOne('App\Translation', 'parent_id')
+            ->where('language_id', $lang_id)
+            ->where('type', static::$type)
+            ->first();
+
+        if($trans) {
+            $this->translation = $trans->data;
+            $this->createProperties($trans->data);
+            return $this->translation;
+        } else {
+            return $this->translation = null;
+        }
+
+    }
+
+    /**
+     * Add translation properties directly to the model
+     *
+     * @param $data
+     */
+    public function createProperties($data){
+        foreach ($data as $name => $value) {
+            $this->{$name} = $value;
+        }
+    }
+
 }
