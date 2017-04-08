@@ -14,8 +14,8 @@ angular.module('app')
         var modelCopy = angular.copy(model);
         var fileCopy = angular.copy(file);
 
-        $scope.model = modelCopy;
-        $scope.file = fileCopy;
+        $scope.model = model;
+        $scope.file = file;
 
         //Get the width and height from the first image configuration (should be the biggest one)
         $scope.width = $scope.model.items[0].width;
@@ -33,6 +33,8 @@ angular.module('app')
         }
 
         $scope.closeDialog = function () {
+            angular.copy(modelCopy, model);
+            angular.copy(fileCopy, file);
             $mdDialog.hide();
         };
 
@@ -45,13 +47,18 @@ angular.module('app')
 
         $scope.save = function () {
 
-            angular.copy(modelCopy, model);
-            angular.copy(fileCopy, file);
+            /*angular.copy(modelCopy, model);
+            angular.copy(fileCopy, file);*/
 
             //Change the file name
             file.name = $filter('slugify')(file.name);
 
-            $mdDialog.hide(true);
+            var obj = {
+                modelCopy: modelCopy.cropObject,
+                fileCopy: fileCopy
+            };
+
+            $mdDialog.hide(obj);
         };
 
 });

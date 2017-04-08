@@ -38,7 +38,7 @@
                     </div>
                     <img class="img-fluid" ng-src="{{file.resultImage}}" />
 
-                    {{model.areaCoords}}
+                    {{model.colors.dominantColor}}
                 </div>
             </md-card-title-media>
 

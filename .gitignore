@@ -5,9 +5,9 @@ composer.lock
 
 node_modules/
 flexcms/sessions/ci_**
-assets/public/audio/**
-assets/public/files/**
-assets/public/images/**
+assets/audio/**
+assets/files/**
+assets/images/**
 
 flexcms/logs/
 flexcms/cache/

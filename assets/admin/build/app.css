@@ -6861,7 +6861,8 @@ md-dialog.md-default-theme .md-dialog-content, md-dialog .md-dialog-content {
 .md-calendar-date.md-focus .md-calendar-date-selection-indicator,
 .md-default-theme .md-calendar-date-selection-indicator:hover,
 .md-calendar-date-selection-indicator:hover {
-  background: #bddeff !important;
+  background: #34B5DC !important;
+  color: #fff;
 }
 
 .md-default-theme .md-datepicker-calendar,

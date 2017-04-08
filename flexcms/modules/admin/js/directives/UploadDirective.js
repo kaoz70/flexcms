@@ -8,7 +8,7 @@
  * @restrict A
  * */
 angular.module('app')
-    .directive('uploadFile', function (BASE_PATH, Upload, $mdDialog, Color, $filter) {
+    .directive('uploadFile', function (BASE_PATH, Upload, $mdDialog, Color, Dialog) {
 
         return {
             restrict: 'E',
@@ -74,28 +74,7 @@ angular.module('app')
 
                 //TODO: delete the file server side
                 scope.delete = function (file) {
-
-                    $mdDialog.show({
-                        templateUrl: BASE_PATH + 'admin/dialogs/DeleteDialog',
-                        parent: angular.element(document.body),
-                        controller: function ($scope) {
-
-                            $scope.message = 'Est&aacute; seguro de que quiere eliminar &eacute;sta imagen?';
-
-                            $scope.cancel = function () {
-                                $mdDialog.hide();
-                            };
-
-                            $scope.delete = function () {
-                                var index = scope.model.files.indexOf(file);
-                                scope.model.files.splice(index, 1);
-                                $mdDialog.hide();
-                            };
-
-                        },
-                        clickOutsideToClose:true
-                    });
-
+                    Dialog.delete('Est&aacute; seguro de que quiere eliminar &eacute;sta imagen?', scope.model.files, file);
                 };
 
                 scope.edit = function (file, evt) {
@@ -114,6 +93,8 @@ angular.module('app')
                             file: file
                         },
                         targetEvent: evt
+                    }).then(function (model) {
+                        console.log(model.cropObject.cropTop);
                     });
 
                 };
