@@ -18,6 +18,6 @@ pipelines:
             - git config --global user.email "$GITHUB_EMAIL"
             - git config --global user.name "Miguel Suarez"
             - git remote set-url origin https://kaoz70:$GITHUB_PASSWORD@github.com/kaoz70/flexcms.git
-            - git push origin master
+            - git push origin master --force
             - echo "Initiating Push site:Source."
             - git ftp push --user $FTP_USER --passwd $FTP_PASSWORD $FTP_SERVER
