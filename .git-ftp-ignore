@@ -1,5 +1,5 @@
 /sql
-framework/tests
+flexcms/tests
 .bowerrc
 .eslintrc
 .gitignore
