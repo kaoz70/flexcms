@@ -8,7 +8,16 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <link rel="shortcut icon" href="{{ admin_asset_path('img/favicon.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="" type="image/x-icon">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ admin_asset_path('favicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" href="{{ admin_asset_path('favicon/favicon-32x32.png') }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ admin_asset_path('favicon/favicon-16x16.png') }}" sizes="16x16">
+    <link rel="manifest" href="{{ admin_asset_path('favicon/manifest.json') }}">
+    <link rel="mask-icon" href="{{ admin_asset_path('favicon/safari-pinned-tab.svg') }}" color="#5bbad5">
+    <link rel="shortcut icon" href="{{ admin_asset_path('favicon/favicon.ico') }}">
+    <meta name="msapplication-config" content="{{ admin_asset_path('favicon/browserconfig.xml') }}">
+    <meta name="theme-color" content="#ffffff">
 
     <link rel="stylesheet" href="{{ base_url('assets/admin/build/app.css') }}">
 
