@@ -7,9 +7,8 @@
  *
  * */
 angular.module('app')
-    .factory('WindowFactory', function($routeSegment, $filter, $routeParams, $window){
-
-        var Service = {
+    .factory('WindowFactory', ($routeSegment, $filter, $routeParams, $window, $timeout) => {
+        return {
 
             /**
              * Adds a window
@@ -17,26 +16,28 @@ angular.module('app')
              * @param $scope
              * @returns {*}
              */
-            add: function ($scope) {
+            add($scope) {
+                const Service = this;
 
-                setTimeout(function () {
-                    var panels = $(".panel");
+                // Find the form by id in the parent list array
+                const selected = $filter('filter')($scope.$parent.items, {
+                    id: parseInt($routeParams.id, 10),
+                }, true);
 
-                    $.each($routeSegment.chain, function (index) {
+                $timeout(() => {
+                    const panels = $('.panel');
+
+                    angular.forEach($routeSegment.chain, (elem, index) => {
                         Service.stack(index, $(panels[index]), $routeSegment.chain.length);
                     });
                 }, 50);
 
-                //Find the form by id in the parent list array
-                var selected = $filter('filter')($scope.$parent.items, {
-                    id: parseInt($routeParams.id, 10)
-                }, true);
-
-                if(selected !== undefined && selected[0] !== undefined) {
+                if (selected !== undefined && selected[0] !== undefined) {
                     selected[0].selected = true;
                     return selected[0];
                 }
 
+                return null;
             },
 
             /**
@@ -45,58 +46,42 @@ angular.module('app')
              * @param amount
              * @param scope
              */
-            remove: function (amount, scope) {
+            remove(amount, scope) {
+                const Service = this;
+                const windowsToKeep = $routeSegment.chain.length - amount;
+                let timeout = 0;
+                // Get the last panels
+                const panels = $('.panel').slice(-amount).get().reverse();
 
-                var windowsToKeep = $routeSegment.chain.length - amount,
-                    timeout = 0;
-
-                $.each($routeSegment.chain, function (index) {
-                    Service.stack(index, $($(".panel")[index]), windowsToKeep);
+                angular.forEach($routeSegment.chain, (elem, index) => {
+                    Service.stack(index, $($('.panel')[index]), windowsToKeep);
                 });
 
-                //Get the last panels
-                var panels = $(".panel").slice(-amount).get().reverse();
+                angular.forEach(panels, (panel) => {
+                    Service.apply3D($(panel));
 
-                angular.forEach(panels, function (panel) {
-
-                    $(panel)
-                        .css('opacity', 1)
-                        .css('-webkit-transform', 'translateZ(0) rotateY(0)')
-                        .css('-moz-transform', 'translateZ(0) rotateY(0)')
-                        .css('-o-transform', 'translateZ(0) rotateY(0)')
-                        .css('transform', 'translateZ(0) rotateY(0)')
-                        .css('-webkit-filter', 'brightness(1)')
-                        .css('-moz-filter', 'brightness(1)')
-                        .css('-o-filter', 'brightness(1)')
-                        .css('filter', 'brightness(1)');
-
-                    setTimeout(function () {
-
+                    $timeout(() => {
                         $(panel)
                             .css('left', '100%')
                             .css('opacity', 0);
-
                     }, timeout);
 
                     timeout += 200;
-
                 });
 
-                //Deselect the selected item
-                if(scope) {
-                    angular.forEach(scope.$parent.items, function (item) {
+                // Deselect the selected item
+                if (scope) {
+                    angular.forEach(scope.$parent.items, (item) => {
                         item.selected = false;
 
-                        //Second level deselection
-                        if(item.items) {
-                            angular.forEach(item.items, function (item) {
-                                item.selected = false;
+                        // Second level deselection
+                        if (item.items) {
+                            angular.forEach(item.items, (i) => {
+                                i.selected = false;
                             });
                         }
-
                     });
                 }
-
             },
 
             /**
@@ -105,28 +90,24 @@ angular.module('app')
              * @param index
              * @param url
              */
-            removeFromIndex: function (index, url) {
+            removeFromIndex(index, url) {
+                let timeout = 0;
 
-                var timeout = 0;
+                // Prevent Circular Dependency Injector error
+                const delta = $routeSegment.chain.length - index;
 
-                //Prevent Circular Dependency Injector error
-                var delta = $routeSegment.chain.length - index;
-
-                //Remove any child windows
-                if(delta > 1) {
-
-                    for (var i = 0; i < delta - 1; i++) {
+                // Remove any child windows
+                if (delta > 1) {
+                    for (let i = 0; i < delta - 1; i++) {
                         this.remove(delta - 1);
                         timeout += 400;
                     }
-
                 }
 
-                //Go to the new URL
-                setTimeout(function () {
+                // Go to the new URL
+                $timeout(() => {
                     $window.location.assign(url);
                 }, timeout);
-
             },
 
             /**
@@ -134,71 +115,72 @@ angular.module('app')
              *
              * @param scope
              */
-            back: function (scope) {
-
+            back(scope) {
                 this.remove(1, scope);
 
-                setTimeout(function () {
+                $timeout(() => {
+                    let url = '#/';
+                    const segments = angular.copy($routeSegment.chain);
 
-                    var url = "#/",
-                        segments = angular.copy($routeSegment.chain);
+                    // Remove the last segment
+                    segments.splice(segments.length - 1, 1);
 
-                    //Remove the last segment
-                    segments.splice(segments.length -1, 1);
+                    // Create the segment url
+                    angular.forEach(segments, (item) => {
+                        url += `${item.name}/`;
 
-                    //Create the segment url
-                    angular.forEach(segments, function (item) {
-
-                        url += item.name + "/";
-
-                        if(item.params.dependencies !== undefined) {
-                            angular.forEach(item.params.dependencies, function (value) {
-                                url += $routeParams[value] + "/";
+                        if (item.params.dependencies !== undefined) {
+                            angular.forEach(item.params.dependencies, (value) => {
+                                url += `${$routeParams[value]}/`;
                             });
                         }
-
                     });
 
-                    //Change the route once we have hidden the window
+                    // Change the route once we have hidden the window
                     $window.location.assign(url);
-
                 }, 400);
-
             },
 
             /**
              * Creates the 3d "stack" effect for the windows
              * @param index
              * @param item
-             * @param num_items
+             * @param numItems
              */
-            stack: function (index, item, num_items) {
+            stack(index, item, numItems) {
+                const amount = 30;
+                const multiplier = amount - ((amount / numItems) * (index + 1));
+                const left = index * 15;
+                const opacity = 1 - ((multiplier / 100) * 3);
+                const z = multiplier * 8;
+                const r = multiplier * 2;
 
-                var amount = 30,
-                    multiplier = amount - ((amount / num_items) * (index + 1)),
-                    left = index * 15,
-                    opacity = 1 - ((multiplier / 100) * 3),
-                    z = multiplier * 8,
-                    r = multiplier * 2;
+                // 3d effect
+                this.apply3D(item, opacity, z, r);
+                item.css('left', `${left}%`);
+            },
 
-                //3d effect
+            /**
+             * Applies the CSS for the 3d effect
+             *
+             * @param item
+             * @param opacity
+             * @param translate
+             * @param rotate
+             */
+            apply3D(item, opacity = 1, translate = 0, rotate = 0) {
+                // 3d effect
                 item
-                    .css('opacity', 1)
-                    .css('-webkit-transform', 'translateZ(-' + z + 'px) rotateY(' + r + 'deg)')
-                    .css('-moz-transform', 'translateZ(-' + z + 'px) rotateY(' + r + 'deg)')
-                    .css('-o-transform', 'translateZ(-' + z + 'px) rotateY(' + r + 'deg)')
-                    .css('transform', 'translateZ(-' + z + 'px) rotateY(' + r + 'deg)')
-                    .css('-webkit-filter', 'brightness(' + opacity + ')')
-                    .css('-moz-filter', 'brightness(' + opacity + ')')
-                    .css('-o-filter', 'brightness(' + opacity + ')')
-                    .css('filter', 'brightness(' + opacity + ')')
-                    .css('left', left + '%');
-
-            }
-
-
+                    .css('opacity', opacity)
+                    .css('-webkit-transform', `translateZ(-${translate}px) rotateY(${rotate}deg)`)
+                    .css('-moz-transform', `translateZ(-${translate}px) rotateY(${rotate}deg)`)
+                    .css('-o-transform', `translateZ(-${translate}px) rotateY(${rotate}deg)`)
+                    .css('transform', `translateZ(-${translate}px) rotateY(${rotate}deg)`)
+                    .css('-webkit-filter', `brightness(${opacity})`)
+                    .css('-webkit-filter', `brightness(${opacity})`)
+                    .css('-moz-filter', `brightness(${opacity})`)
+                    .css('-o-filter', `brightness(${opacity})`)
+                    .css('filter', `brightness(${opacity})`);
+            },
         };
-
-        return Service;
-
     });

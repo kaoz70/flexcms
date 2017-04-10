@@ -8,6 +8,8 @@
   },
   "rules": {
     // indentation
-    "indent": [ 2, 4 ]
+    "indent": [ 2, 4 ],
+    "no-param-reassign": "warn",
+    "no-plusplus": [2, { "allowForLoopAfterthoughts": true }]
   }
 }
