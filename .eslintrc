@@ -1,3 +1,13 @@
 {
-  "extends": ["eslint:recommended", "angular"]
+  "extends": [
+    "airbnb",
+    "plugin:angular/johnpapa"
+  ],
+  "globals": {
+    "angular": true
+  },
+  "rules": {
+    // indentation
+    "indent": [ 2, 4 ]
+  }
 }
