@@ -1,6 +1,4 @@
-﻿(function() {
-    'use strict';
-
+﻿(function () {
     angular
         .module('app', [
             'ngRoute',
@@ -13,11 +11,10 @@
             'ngSanitize',
             'dndLists',
             'ui.tree',
-            'ui.codemirror',
             'luegg.directives',
             'ngResource',
             'ngFileUpload',
             'mdColorPicker',
-            'uiCropper'
+            'uiCropper',
         ]);
 }());
