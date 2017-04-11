@@ -151,12 +151,12 @@ angular.module('app')
                 const amount = 30;
                 const multiplier = amount - ((amount / numItems) * (index + 1));
                 const left = index * 15;
-                const opacity = 1 - ((multiplier / 100) * 3);
+                const brightness = 1 - ((multiplier / 100) * 3);
                 const z = multiplier * 8;
                 const r = multiplier * 2;
 
                 // 3d effect
-                this.apply3D(item, opacity, z, r);
+                this.apply3D(item, brightness, z, r);
                 item.css('left', `${left}%`);
             },
 
@@ -164,23 +164,23 @@ angular.module('app')
              * Applies the CSS for the 3d effect
              *
              * @param item
-             * @param opacity
+             * @param brightness
              * @param translate
              * @param rotate
              */
-            apply3D(item, opacity = 1, translate = 0, rotate = 0) {
+            apply3D(item, brightness = 1, translate = 0, rotate = 0) {
                 // 3d effect
                 item
-                    .css('opacity', opacity)
+                    .css('opacity', 1)
                     .css('-webkit-transform', `translateZ(-${translate}px) rotateY(${rotate}deg)`)
                     .css('-moz-transform', `translateZ(-${translate}px) rotateY(${rotate}deg)`)
                     .css('-o-transform', `translateZ(-${translate}px) rotateY(${rotate}deg)`)
                     .css('transform', `translateZ(-${translate}px) rotateY(${rotate}deg)`)
-                    .css('-webkit-filter', `brightness(${opacity})`)
-                    .css('-webkit-filter', `brightness(${opacity})`)
-                    .css('-moz-filter', `brightness(${opacity})`)
-                    .css('-o-filter', `brightness(${opacity})`)
-                    .css('filter', `brightness(${opacity})`);
+                    .css('-webkit-filter', `brightness(${brightness})`)
+                    .css('-webkit-filter', `brightness(${brightness})`)
+                    .css('-moz-filter', `brightness(${brightness})`)
+                    .css('-o-filter', `brightness(${brightness})`)
+                    .css('filter', `brightness(${brightness})`);
             },
         };
     });
