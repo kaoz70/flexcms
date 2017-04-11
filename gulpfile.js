@@ -6,13 +6,11 @@ var Task = elixir.Task;
 /**
  * Copies the fonts so that their paths are the ones from the CSS
  */
-elixir.extend('copyfonts', function() {
-
-    new Task('copyfonts', function() {
+elixir.extend('copyfonts', () => {
+    new Task('copyfonts', () => {
         return gulp.src(['./node_modules/material-design-icons/iconfont/*.{ttf,woff,woff2,eof,svg}'])
             .pipe(gulp.dest('./assets/admin/build/'));
     });
-
 });
 
 /*
@@ -26,8 +24,7 @@ elixir.extend('copyfonts', function() {
  |
  */
 
-elixir(function(mix){
-
+elixir((mix) => {
     mix.sass([
         './node_modules/animate.css/animate.min.css',
         './node_modules/animsition/dist/css/animsition.min.css',
@@ -86,13 +83,12 @@ elixir(function(mix){
         './node_modules/codemirror/mode/javascript/javascript.js',
         './node_modules/codemirror/mode/css/css.js',
         './node_modules/codemirror/mode/htmlmixed/htmlmixed.js',
-        './flexcms/packages/angular-ui-codemirror/ui-codemirror.js',
 
-        './node_modules/desandro-classie/classie.js', //FIXME Deprecated class
+        './node_modules/desandro-classie/classie.js', // FIXME Deprecated class
         './flexcms/packages/appverse.notifications/dist/notification-fx.js',
         './flexcms/packages/appverse.notifications/dist/appverse.notifications.min.js',
 
-        './flexcms/packages/tinymce/tinymce.min.js',
+        './node_modules/tinymce/tinymce.min.js',
         './node_modules/angular-i18n/angular-locale_es-ec.js',
         './node_modules/angular-route/angular-route.js',
         './node_modules/angular-route-segment/build/angular-route-segment.js',
@@ -111,7 +107,7 @@ elixir(function(mix){
         './node_modules/md-color-picker/dist/mdColorPicker.min.js',
         './node_modules/ui-cropper/compile/minified/ui-cropper.js',
         './flexcms/packages/color-thief/dist/color-thief.min.js',
-        './assets/admin/src/js/login.js'
+        './assets/admin/src/js/login.js',
     ], './assets/admin/build/app.js');
 
     // Login scripts
@@ -129,5 +125,4 @@ elixir(function(mix){
 
     // Copy the fonts
     mix.copyfonts();
-
 });

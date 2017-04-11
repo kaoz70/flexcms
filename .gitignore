@@ -2,6 +2,7 @@
 .git
 .env
 composer.lock
+npm-debug.log
 
 node_modules/
 flexcms/sessions/ci_**
