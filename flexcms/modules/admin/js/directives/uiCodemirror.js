@@ -18,7 +18,6 @@ angular.module('app')
                 }
                 codemirrorDefaultsKeys.forEach((key) => {
                     if (newValues.hasOwnProperty(key)) {
-
                         if (oldValue && newValues[key] === oldValue[key]) {
                             return;
                         }
@@ -39,8 +38,8 @@ angular.module('app')
                 codemirrot = window.CodeMirror.fromTextArea(iElement[0], codemirrorOptions);
             } else {
                 iElement.html('');
-                codemirrot = new window.CodeMirror((cm_el) => {
-                    iElement.append(cm_el);
+                codemirrot = new window.CodeMirror((cmEl) => {
+                    iElement.append(cmEl);
                 }, codemirrorOptions);
             }
 
