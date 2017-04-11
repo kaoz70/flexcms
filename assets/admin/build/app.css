@@ -6158,6 +6158,10 @@ li.CodeMirror-hint-active {
   animation: rotating 2s linear infinite;
 }
 
+.ns-box {
+  right: 0;
+}
+
 .ns-box .ns-thumb {
   height: 50px;
   width: 50px;
@@ -6174,15 +6178,15 @@ li.CodeMirror-hint-active {
   display: block;
 }
 
-.ns-box.success .ns-thumb {
+.ns-type-success .ns-thumb {
   background-color: #34B5DC;
 }
 
-.ns-box.warning .ns-thumb {
+.ns-type-warning .ns-thumb {
   background-color: #FFC107;
 }
 
-.ns-box.error .ns-thumb {
+.ns-type-error .ns-thumb {
   background-color: #CD4237;
 }
 

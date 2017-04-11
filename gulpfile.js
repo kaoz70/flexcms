@@ -50,9 +50,9 @@ elixir(function(mix){
         './assets/admin/src/css/scrollbars.scss'
     ], './assets/admin/build/app.css');
 
-    //Admin scripts
+    // Admin scripts
     mix.scripts([
-        './assets/admin/src/js/jquery.min.js', //Required for animsition
+        './assets/admin/src/js/jquery.min.js', // Required for animsition
         './assets/admin/src/js/modernizr.custom.js',
         './node_modules/animsition/dist/js/animsition.min.js',
 
@@ -60,7 +60,7 @@ elixir(function(mix){
         './node_modules/moment/min/moment.min.js',
         './node_modules/moment-timezone/builds/moment-timezone-with-data.min.js',
         './node_modules/chosen-js/chosen.jquery.js',
-        './node_modules/lodash/dist/lodash.min.js',
+        './node_modules/lodash/lodash.min.js',
 
         './node_modules/angular/angular.js',
         './node_modules/angular-animate/angular-animate.min.js',
@@ -88,12 +88,15 @@ elixir(function(mix){
         './node_modules/codemirror/mode/htmlmixed/htmlmixed.js',
         './flexcms/packages/angular-ui-codemirror/ui-codemirror.js',
 
+        './node_modules/desandro-classie/classie.js', //FIXME Deprecated class
+        './flexcms/packages/appverse.notifications/dist/notification-fx.js',
+        './flexcms/packages/appverse.notifications/dist/appverse.notifications.min.js',
+
         './flexcms/packages/tinymce/tinymce.min.js',
         './node_modules/angular-i18n/angular-locale_es-ec.js',
         './node_modules/angular-route/angular-route.js',
         './node_modules/angular-route-segment/build/angular-route-segment.js',
         './node_modules/angular-ui-tinymce/dist/tinymce.min.js',
-        './node_modules/lodash/lodash.min.js',
         './node_modules/angular-timezone-selector/dist/angular-timezone-selector.min.js',
 
         './node_modules/angular-resource/angular-resource.js',
@@ -111,10 +114,10 @@ elixir(function(mix){
         './assets/admin/src/js/login.js'
     ], './assets/admin/build/app.js');
 
-    //Login scripts
+    // Login scripts
     mix.scripts([
         './assets/admin/src/js/modernizr.custom.js',
-        './assets/admin/src/js/jquery.min.js', //Required for animsition
+        './assets/admin/src/js/jquery.min.js', // Required for animsition
         './node_modules/animsition/dist/js/animsition.min.js',
         './node_modules/angular/angular.js',
         './node_modules/angular-aria/angular-aria.min.js',
@@ -124,7 +127,7 @@ elixir(function(mix){
         './assets/admin/src/js/login.js'
     ], './assets/admin/build/login.js');
 
-    //Copy the fonts
+    // Copy the fonts
     mix.copyfonts();
 
 });

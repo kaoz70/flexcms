@@ -30,12 +30,13 @@ angular.module('app')
         // Base url
         vm.section = 'language';
 
-        vm.selection = new Selection((node) => {
+        vm.selection = new Selection();
+        vm.selection.setDeleteCallback((node) => {
             Language.delete({ id: node.id }, (response) => {
                 $scope.items = response.data;
 
                 // Remove from the selected array
-                $scope.selection.remove(node.id);
+                vm.selection.remove(node.id);
             });
         });
 

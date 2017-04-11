@@ -64,7 +64,7 @@
     </div>
 
     <md-content perfect-scrollbar class="panel-body">
-        <div ui-tree="treeOptions" ng-show="items.length" ng-class="vm.keepOne">
+        <div ui-tree="vm.treeOptions" ng-show="items.length" ng-class="vm.keepOne">
 
             <md-list ui-tree-nodes="" ng-model="items">
 

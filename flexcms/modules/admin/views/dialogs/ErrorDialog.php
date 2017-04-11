@@ -8,7 +8,7 @@
 
         <md-dialog-content>
             <div class="md-dialog-content">
-                <h1>{{message}} [{{status}}]</h1>
+                <h1><span ng-bind-html="message"></span> <span ng-show="status">[{{status}}]</span></h1>
                 <div ng-show="detail">Detalle: <span ng-bind-html="detail"></span></div>
                 <div ng-show="file">Archivo: {{file}}</div>
                 <div ng-show="line">Linea: {{line}}</span></div>

@@ -3,7 +3,7 @@
  */
 angular.module('app')
 
-    .controller('LayoutCreateController', ($rootScope, LayoutService, $routeSegment, WindowFactory, layout) => {
+    .controller('LayoutCreateController', function($rootScope, LayoutService, $routeSegment, WindowFactory, layout) {
         const vm = this;
 
         // Open the sidebar on this controller

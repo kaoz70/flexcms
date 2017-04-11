@@ -12,7 +12,7 @@
 
     <md-content perfect-scrollbar class="panel-body">
 
-        <form name="form">
+        <form name="vm.form">
 
             <md-card>
                 <md-card-title>
@@ -23,7 +23,7 @@
                 <md-card-content>
 
                     <md-tabs class="md-hue-1" md-dynamic-height="" md-border-bottom="">
-                        <md-tab ng-repeat="lang in field.translations" label="{{lang.name}}">
+                        <md-tab ng-repeat="lang in vm.field.translations" label="{{lang.name}}">
 
                             <md-input-container class="md-block md-hue-1">
                                 <input ng-model="lang.data.name" type="text" placeholder="Etiqueta" ng-required="true">
@@ -39,8 +39,8 @@
                     <div>
                         <md-input-container>
                             <label>Tipo</label>
-                            <md-select ng-model="field.input_id" ng-required="true">
-                                <md-option ng-value="type.id" ng-repeat="type in types">{{type.content}}</md-option>
+                            <md-select ng-model="vm.field.input_id" ng-required="true">
+                                <md-option ng-value="type.id" ng-repeat="type in vm.types">{{type.content}}</md-option>
                             </md-select>
                         </md-input-container>
                     </div>
@@ -57,27 +57,27 @@
                 <md-card-content>
 
                     <md-input-container class="md-block md-hue-1">
-                        <input ng-model="field.css_class"
+                        <input ng-model="vm.field.css_class"
                                type="text"
                                placeholder="Clase CSS">
                     </md-input-container>
 
-                    <md-switch ng-model="field.required" aria-label="Obligatorio">
+                    <md-switch ng-model="vm.field.required" aria-label="Obligatorio">
                         Obligatorio
                     </md-switch>
 
-                    <md-switch ng-model="field.label_enabled" aria-label="Mostrar etiqueta">
+                    <md-switch ng-model="vm.field.label_enabled" aria-label="Mostrar etiqueta">
                         Mostrar etiqueta
                     </md-switch>
 
-                    <md-switch ng-model="field.enabled" aria-label="Publicado">
+                    <md-switch ng-model="vm.field.enabled" aria-label="Publicado">
                         Publicado
                     </md-switch>
 
                     <div>
                         <md-input-container>
                             <label>Validaci&oacute;n</label>
-                            <md-select ng-model="field.validation">
+                            <md-select ng-model="vm.field.validation">
                                 <md-option value="alpha">Alfabético</md-option>
                                 <md-option value="alpha_numeric">Alfanumérico</md-option>
                                 <md-option value="integer">Entero</md-option>
@@ -107,7 +107,7 @@
         <md-toolbar class="md-secondary md-menu-toolbar">
             <div class="md-toolbar-tools" layout-align="end center">
 
-                <md-button class="md-icon-button" ng-click="save()" >
+                <md-button class="md-icon-button" ng-click="vm.save()" >
                     <md-icon>check</md-icon>
                     <md-tooltip md-direction="bottom">Guardar y Cerrar</md-tooltip>
                 </md-button>

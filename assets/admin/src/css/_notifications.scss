@@ -5,6 +5,8 @@ $height: 50px;
 
 .ns-box {
 
+  right: 0;
+
   .ns-thumb {
     height: $height;
     width: $height;
@@ -23,24 +25,23 @@ $height: 50px;
 
 }
 
-.ns-box.success {
+.ns-type-success {
   .ns-thumb {
     background-color: $blue;
   }
 }
 
-.ns-box.warning {
+.ns-type-warning {
   .ns-thumb {
     background-color: $yellow;
   }
 }
 
-.ns-box.error {
+.ns-type-error {
   .ns-thumb {
     background-color: $red;
   }
 }
-
 
 .ns-box.topright {
   top: 0;

@@ -10,6 +10,7 @@ namespace Contact;
 use App\Response;
 use Contact\Models\Field;
 use Contact\Models\Form;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 
@@ -41,7 +42,7 @@ class Forms extends \RESTController implements \AdminInterface {
 
             $response->setData($data);
 
-        } catch (QueryException $e) {
+        } catch (Exception $e) {
             $response->setError('Ocurri&oacute; un problema al obtener los formularios!', $e);
         }
 
@@ -64,7 +65,7 @@ class Forms extends \RESTController implements \AdminInterface {
             $response->setMessage('Formulario creado correctamente');
             $response->setData($form);
 
-        } catch (QueryException $e) {
+        } catch (Exception $e) {
             $response->setError('Ocurri&oacute; un error al crear el formulario!', $e);
         }
 
@@ -87,8 +88,8 @@ class Forms extends \RESTController implements \AdminInterface {
             $form = $this->_store(Models\Form::find($id), $this->put());
             $response->setData($form);
             $response->setMessage('Formulario actualizado correctamente');
-        } catch (QueryException $e) {
-            $response = $this->error('Ocurri&oacute; un problema al actualizar el formulario!', $e);
+        } catch (Exception $e) {
+            $response->setError('Ocurri&oacute; un problema al actualizar el formulario!', $e);
         }
 
         $this->response($response);
@@ -112,7 +113,7 @@ class Forms extends \RESTController implements \AdminInterface {
             $response->setMessage("Formulario {$form->name} eliminado satisfactoriamente");
             $response->setData(Models\Form::all());
 
-        } catch (QueryException $e) {
+        } catch (Exception $e) {
             $response->setError('Ocurri&oacute; un problema al eliminar el formulario!', $e);
         }
 

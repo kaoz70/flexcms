@@ -3,6 +3,8 @@
  */
 angular.module('app')
     .controller('LanguageEditController', function ($scope, $rootScope, Language, $routeSegment, WindowFactory, $filter, language) {
+        const vm = this;
+
         // We store the original data here in case the user closes the panel (cancel)
         const origData = angular.copy(language.data);
 
@@ -16,23 +18,23 @@ angular.module('app')
 
         WindowFactory.add($scope);
 
-        $scope.language = language.data;
-        $scope.title = language.data.name;
+        vm.language = language.data;
+        vm.title = language.data.name;
 
         // Change the name in the item list
-        $scope.$watch('language.name', (v) => {
+        $scope.$watch('vm.language.name', (v) => {
             ct[0].name = v;
         });
 
-        $scope.save = () => {
-            Language.update({ id: $scope.language.id }, $scope.language);
+        vm.save = () => {
+            Language.update({ id: vm.language.id }, vm.language);
             WindowFactory.back($scope);
         };
 
         /**
          * Handler used when the user clicks on the close panel button
          */
-        $scope.closeHandler = () => {
+        vm.closeHandler = () => {
             // Reset the data
             angular.copy(origData, ct[0]);
         };

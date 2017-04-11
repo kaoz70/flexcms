@@ -1,6 +1,6 @@
 angular.module('app')
 
-    .controller('LayoutEditController', ($rootScope, LayoutService, $routeSegment, WindowFactory, $routeParams, layout) => {
+    .controller('LayoutEditController', function ($rootScope, LayoutService, $routeSegment, WindowFactory, $routeParams, layout) {
         const vm = this;
 
         // Open the sidebar on this controller

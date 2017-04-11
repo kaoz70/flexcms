@@ -13,7 +13,7 @@ angular
             })
             .within()
             .segment('edit', {
-                templateUrl: `${BASE_PATH} admin/Layout`,
+                templateUrl: `${BASE_PATH}admin/Layout`,
                 controller: 'LayoutController',
                 dependencies: ['id'],
                 resolve: {
@@ -22,14 +22,14 @@ angular
                     },
                 },
                 untilResolved: {
-                    templateUrl: `${BASE_PATH} admin/Loading`,
+                    templateUrl: `${BASE_PATH}admin/Loading`,
                 },
                 resolveFailed: {
                     controller: 'ErrorCtrl',
                 },
             })
             .segment('create', {
-                templateUrl: `${BASE_PATH} admin/Layout`,
+                templateUrl: `${BASE_PATH}admin/Layout`,
                 controller: 'LayoutCreateController',
                 resolve: {
                     layout(Layout, ResourceResponse) {
@@ -37,7 +37,7 @@ angular
                     },
                 },
                 untilResolved: {
-                    templateUrl: `${BASE_PATH} admin/Loading`,
+                    templateUrl: `${BASE_PATH}admin/Loading`,
                 },
                 resolveFailed: {
                     controller: 'ErrorCtrl',

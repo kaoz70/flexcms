@@ -3,9 +3,9 @@
     <div class="panel-header">
         <md-toolbar md-colors="{borderBottomColor: '{{primaryColor300}}'}">
             <div class="md-toolbar-tools">
-                <h2>{{language.name}}</h2>
+                <h2>{{vm.language.name}}</h2>
                 <span flex></span>
-                <panel-dispose close-callback="closeHandler"></panel-dispose>
+                <panel-dispose close-callback="vm.closeHandler"></panel-dispose>
             </div>
         </md-toolbar>
     </div>
@@ -21,11 +21,11 @@
             <md-card-content>
 
                 <md-input-container class="md-block md-hue-1">
-                    <input ng-model="language.name" type="text" placeholder="Nombre" ng-required="true">
+                    <input ng-model="vm.language.name" type="text" placeholder="Nombre" ng-required="true">
                 </md-input-container>
 
                 <md-input-container class="md-block md-hue-1">
-                    <input ng-model="language.slug" type="text" placeholder="URL" ng-required="true">
+                    <input ng-model="vm.language.slug" type="text" placeholder="URL" ng-required="true">
                 </md-input-container>
 
             </md-card-content>
@@ -38,7 +38,7 @@
         <md-toolbar class="md-secondary md-menu-toolbar">
             <div class="md-toolbar-tools" layout-align="end center">
 
-                <md-button class="md-icon-button" ng-click="save()" >
+                <md-button class="md-icon-button" ng-click="vm.save()" >
                     <md-icon>save</md-icon>
                     <md-tooltip md-direction="bottom">Guardar</md-tooltip>
                 </md-button>

@@ -74,7 +74,7 @@ angular.module('app')
 
                 //TODO: delete the file server side
                 scope.delete = function (file) {
-                    Dialog.delete('Est&aacute; seguro de que quiere eliminar &eacute;sta imagen?', scope.model.files, file);
+                    Dialog.delete('Est&aacute; seguro de que quiere eliminar &eacute;sta imagen?', scope.model.files, [file]);
                 };
 
                 scope.edit = function (file, evt) {

@@ -1,10 +1,7 @@
 (function() {
-    'use strict';
-
     angular
-        .module("app")
-        .config(function($routeSegmentProvider, BASE_PATH) {
-
+        .module('app')
+        .config(($routeSegmentProvider, BASE_PATH) => {
             $routeSegmentProvider.options.autoLoadTemplates = true;
 
             $routeSegmentProvider
@@ -14,149 +11,96 @@
                 .when('/forms/create', 'forms.create')
                 .when('/forms/create/field/edit/:field_id', 'forms.create.edit')
                 .segment('forms', {
-                    'default': true,
-                    templateUrl: BASE_PATH + 'admin/List1',
-                    controller: 'FormCtrl',
+                    default: true,
+                    templateUrl: `${BASE_PATH}admin/List1`,
+                    controller: 'FormController',
+                    controllerAs: 'vm',
                     resolve: {
-                        response: function(Form, $q) {
-
-                            var deferred = $q.defer();
-                            Form.query(
-                                function(successData) {
-                                    deferred.resolve(successData);
-                                }, function(errorData) {
-                                    deferred.reject(errorData);
-                                });
-                            return deferred.promise;
-
-                        }
+                        forms(Form, ResourceResponse) {
+                            return ResourceResponse.query(Form);
+                        },
                     },
                     untilResolved: {
-                        templateUrl: BASE_PATH + 'admin/Loading'
+                        templateUrl: `${BASE_PATH}admin/Loading`,
                     },
                     resolveFailed: {
-                        controller: 'ErrorCtrl'
-                    }
+                        controller: 'ErrorCtrl',
+                    },
                 })
                 .within()
                     .segment('edit', {
-                        templateUrl: BASE_PATH + 'forms/FormDetail',
-                        controller: 'FormEditCtrl',
+                        templateUrl: `${BASE_PATH}forms/FormDetail`,
+                        controller: 'FormEditController',
+                        controllerAs: 'vm',
                         dependencies: ['id'],
                         resolve: {
-                            languages: function(Language, $routeParams, $q) {
-
-                                var deferred = $q.defer();
-                                Language.query(
-                                    function(successData) {
-                                        deferred.resolve(successData);
-                                    }, function(errorData) {
-                                        deferred.reject(errorData);
-                                    });
-                                return deferred.promise;
-
+                            languages(Language, ResourceResponse) {
+                                return ResourceResponse.query(Language);
                             },
-                            form: function(Form, $routeParams, $q) {
-
-                                var deferred = $q.defer();
-                                Form.get({
-                                        id: $routeParams.id
-                                    },
-                                    function(successData) {
-                                        deferred.resolve(successData);
-                                    }, function(errorData) {
-                                        deferred.reject(errorData);
-                                    });
-                                return deferred.promise;
-
-                            }
+                            form(Form, $routeParams, ResourceResponse) {
+                                return ResourceResponse.get(Form, { id: $routeParams.id });
+                            },
                         },
                         untilResolved: {
-                            templateUrl: BASE_PATH + 'admin/Loading'
+                            templateUrl: `${BASE_PATH}admin/Loading`,
                         },
                         resolveFailed: {
-                            controller: 'ErrorCtrl'
-                        }
+                            controller: 'ErrorCtrl',
+                        },
                     })
                     .within()
                         .segment('edit', {
-                            templateUrl: BASE_PATH + 'forms/FieldDetail',
-                            controller: 'FieldEditCtrl',
+                            templateUrl: `${BASE_PATH}forms/FieldDetail`,
+                            controller: 'FieldEditController',
+                            controllerAs: 'vm',
                             dependencies: ['id', 'field_id'],
                             resolve: {
-                                types: function(Field, $q) {
-
-                                    var deferred = $q.defer();
-                                    Field.query(
-                                        function(successData) {
-                                            deferred.resolve(successData);
-                                        }, function(errorData) {
-                                            deferred.reject(errorData);
-                                        });
-                                    return deferred.promise;
-
-                                }
+                                types(Field, ResourceResponse) {
+                                    return ResourceResponse.query(Field);
+                                },
                             },
                             untilResolved: {
-                                templateUrl: BASE_PATH + 'admin/Loading'
+                                templateUrl: `${BASE_PATH}admin/Loading`,
                             },
                             resolveFailed: {
-                                controller: 'ErrorCtrl'
-                            }
+                                controller: 'ErrorCtrl',
+                            },
                         })
                         .up()
                     .segment('create', {
-                        templateUrl: BASE_PATH + 'forms/FormDetail',
-                        controller: 'FormCreateCtrl',
+                        templateUrl: `${BASE_PATH}forms/FormDetail`,
+                        controller: 'FormCreateController',
+                        controllerAs: 'vm',
                         resolve: {
-                            languages: function(Language, $routeParams, $q) {
-
-                                var deferred = $q.defer();
-                                Language.query(
-                                    function(successData) {
-                                        deferred.resolve(successData);
-                                    }, function(errorData) {
-                                        deferred.reject(errorData);
-                                    });
-                                return deferred.promise;
-
-                            }
+                            languages(Language, ResourceResponse) {
+                                return ResourceResponse.query(Language);
+                            },
                         },
                         untilResolved: {
-                            templateUrl: BASE_PATH + 'admin/Loading'
+                            templateUrl: `${BASE_PATH}admin/Loading`,
                         },
                         resolveFailed: {
-                            controller: 'ErrorCtrl'
-                        }
+                            controller: 'ErrorCtrl',
+                        },
                     })
                     .within()
                         .segment('edit', {
-                            templateUrl: BASE_PATH + 'forms/FieldDetail',
-                            controller: 'FieldEditCtrl',
+                            templateUrl: `${BASE_PATH}forms/FieldDetail`,
+                            controller: 'FieldEditController',
+                            controllerAs: 'vm',
                             dependencies: ['field_id'],
                             resolve: {
-                                types: function(Field, $q) {
-
-                                    var deferred = $q.defer();
-                                    Field.query(
-                                        function(successData) {
-                                            deferred.resolve(successData);
-                                        }, function(errorData) {
-                                            deferred.reject(errorData);
-                                        });
-                                    return deferred.promise;
-
-                                }
+                                types(Field, ResourceResponse) {
+                                    return ResourceResponse.query(Field);
+                                },
                             },
                             untilResolved: {
-                                templateUrl: BASE_PATH + 'admin/Loading'
+                                templateUrl: `${BASE_PATH}admin/Loading`,
                             },
                             resolveFailed: {
-                                controller: 'ErrorCtrl'
-                            }
+                                controller: 'ErrorCtrl',
+                            },
                         })
             ;
-
         });
-
 }());

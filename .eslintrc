@@ -6,6 +6,9 @@
   "globals": {
     "angular": true
   },
+  "env": {
+    "browser": true
+  },
   "rules": {
     // indentation
     "indent": [ 2, 4 ],

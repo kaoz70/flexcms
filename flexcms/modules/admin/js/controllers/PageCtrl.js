@@ -31,7 +31,8 @@ angular.module('app')
         $scope.showDelete = true;
         $scope.showReorder = true;
 
-        $scope.selection = new Selection(function (node) {
+        $scope.selection = new Selection();
+        $scope.selection.setDeleteCallback(function (node) {
 
             Content.delete({id: node.id}, function (response) {
 
@@ -42,7 +43,7 @@ angular.module('app')
 
             });
 
-        });
+        })
 
         $scope.treeOptions = {
             dropped: function () {

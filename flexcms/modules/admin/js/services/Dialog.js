@@ -1,58 +1,53 @@
 /**
  * @ngdoc service
- * @name app:Color
+ * @name app:Dialog
  *
  * @description
  *
  *
  * */
 angular.module('app')
-    .service('Dialog', function($mdDialog, BASE_PATH, Response){
-        
+    .service('Dialog', function ($mdDialog, BASE_PATH, Response, $document) {
         function closeDialog() {
             $mdDialog.hide();
         }
 
-        this.responseError = function(rejection) {
-
+        this.responseError = (rejection) => {
             $mdDialog.show({
-                templateUrl: BASE_PATH + 'admin/dialogs/ErrorDialog',
-                parent: angular.element(document.body),
-                controller: function ($scope) {
+                templateUrl: `${BASE_PATH}admin/dialogs/ErrorDialog`,
+                parent: angular.element($document[0].body),
+                controller($scope) {
                     $scope.message = rejection.statusText;
                     $scope.status = rejection.status;
                     $scope.showNotificationButton = true;
                     $scope.notified = false;
                     $scope.close = closeDialog;
-                    $scope.notify = function () {
+                    $scope.notify = () => {
                         $scope.notified = true;
                         Response.notify(rejection);
                     };
                 },
-                clickOutsideToClose:true
+                clickOutsideToClose: true,
             });
-
         };
 
-        this.invalidResponseError = function(err, response) {
-
+        this.invalidResponseError = (err, response) => {
             $mdDialog.show({
-                templateUrl: BASE_PATH + 'admin/dialogs/ErrorDialog',
-                parent: angular.element(document.body),
-                controller: function ($scope) {
+                templateUrl: `${BASE_PATH}admin/dialogs/ErrorDialog`,
+                parent: angular.element($document[0].body),
+                controller($scope) {
                     $scope.message = err;
                     $scope.detail = response.data.data.message;
                     $scope.showNotificationButton = response.data.notify;
                     $scope.notified = false;
                     $scope.close = closeDialog;
-                    $scope.notify = function () {
+                    $scope.notify = () => {
                         $scope.notified = true;
                         Response.notify(response.data);
                     };
                 },
-                clickOutsideToClose:true
+                clickOutsideToClose: true,
             });
-
         };
 
         /**
@@ -60,33 +55,30 @@ angular.module('app')
          *
          * @param message
          * @param list
-         * @param item
+         * @param items
          * @param callback
          */
-        this.delete = function (message, list, item, callback) {
-
+        this.delete = (message, list, items, callback) => {
             $mdDialog.show({
-                templateUrl: BASE_PATH + 'admin/dialogs/DeleteDialog',
-                parent: angular.element(document.body),
-                controller: function ($scope) {
-
+                templateUrl: `${BASE_PATH}admin/dialogs/DeleteDialog`,
+                parent: angular.element($document[0].body),
+                controller($scope) {
                     $scope.message = message;
 
-                    $scope.cancel = function () {
+                    $scope.cancel = () => {
                         $mdDialog.hide();
                     };
 
-                    $scope.delete = function () {
-                        var index = list.indexOf(item);
-                        list.splice(index, 1);
+                    $scope.delete = () => {
+                        angular.forEach(items, (item) => {
+                            const index = list.indexOf(item);
+                            list.splice(index, 1);
+                        });
+
                         $mdDialog.hide();
                     };
-
                 },
-                clickOutsideToClose:true
+                clickOutsideToClose: true,
             }).then(callback);
-
-        }
-
-});
-
+        };
+    });

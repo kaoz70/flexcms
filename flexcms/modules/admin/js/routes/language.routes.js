@@ -28,6 +28,7 @@ angular
             .segment('edit', {
                 templateUrl: `${BASE_PATH}admin/LanguageDetail`,
                 controller: 'LanguageEditController',
+                controllerAs: 'vm',
                 dependencies: ['id'],
                 resolve: {
                     language(Language, ResourceResponse, $routeParams) {
@@ -44,5 +45,6 @@ angular
             .segment('create', {
                 templateUrl: `${BASE_PATH}admin/LanguageDetail`,
                 controller: 'LanguageCreateController',
+                controllerAs: 'vm',
             });
     });

@@ -27,7 +27,8 @@ angular.module('app')
         //Base url
         $scope.section = "page/" + $routeParams.page_id + "/images";
 
-        $scope.selection = new Selection(function (node) {
+        $scope.selection = new Selection();
+        $scope.selection.setDeleteCallback(function (node) {
 
             ImageConfig.delete({image_id: node.id}, function (response) {
 
