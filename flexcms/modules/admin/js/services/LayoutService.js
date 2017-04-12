@@ -7,87 +7,64 @@
  *
  * */
 angular.module('app')
-    .service('LayoutService', function(/*$q, $http, $httpParamSerializer, Notification, Response,*/ $mdDialog, $mdSidenav){
+    .service('LayoutService', function ($mdDialog, $mdSidenav) {
+        this.rows = [];
 
-        /*var urls = {
-            update: 'admin/layout/update/',
-            delete: 'admin/layout/delete/',
-            insert: 'admin/layout/insert',
-            edit: 'admin/layout/edit/'
+        this.init = (rows) => {
+            this.rows = rows;
+            return this;
         };
 
-        this.get = function(id) {
-            return $http.get(urls.edit + id)
-                .success(Response.validate)
-                .error(Response.error);
-        };
-        
-        this.save = function(language) {
-            return $http({
-                method: 'POST',
-                url: urls.update + language.id,
-                data: $httpParamSerializer(language),
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-                .success(function (response) {
-                    if(Response.validate(response)) {
-                        Notification.show('success', response.message);
-                    }
-                })
-                .error(Response.error);
-        };*/
-
-        this.addColumn = function(columns) {
+        const addColumn = (columns) => {
             return {
                 class: '',
                 span: {
                     large: 12 / columns,
                     medium: 12 / columns,
-                    small: 12 / columns
+                    small: 12 / columns,
                 },
                 offset: {
                     large: 0,
                     medium: 0,
-                    small: 0
+                    small: 0,
                 },
                 push: {
                     large: 0,
                     medium: 0,
-                    small: 0
+                    small: 0,
                 },
                 pull: {
                     large: 0,
                     medium: 0,
-                    small: 0
-                }
+                    small: 0,
+                },
             };
         };
 
-        this.toggleRight = buildToggler('right');
-
         function buildToggler(componentId) {
-            return function() {
+            return () => {
                 $mdSidenav(componentId).toggle();
             };
         }
 
-        this.addRow = function(rows, columns) {
+        this.toggleRight = buildToggler('right');
 
-            var cols = [];
-            for (var i = 0; i < columns; i++) {
-                cols.push(this.addColumn(columns));
+        this.addRow = (columnAmount) => {
+            const cols = [];
+            for (let i = 0; i < columnAmount; i++) {
+                cols.push(addColumn(columnAmount));
             }
 
-            rows.push({
+            this.rows.push({
                 class: '',
                 columns: cols,
-                expanded: false
+                expanded: false,
             });
         };
 
-        this.deleteRow = function(ev, index) {
+        this.deleteRow = (ev, index) => {
 
-            var confirm = $mdDialog.confirm()
+            const confirm = $mdDialog.confirm()
                 .title('Quiere eliminar esta fila?')
                 .textContent('Se eliminaran todas las columnas y widgets.')
                 .ariaLabel('Eliminar fila')
@@ -95,15 +72,14 @@ angular.module('app')
                 .ok('Eliminar')
                 .cancel('Cancelar');
 
-            $mdDialog.show(confirm).then(function() {
-                $scope.rows.splice(index, 1);
+            $mdDialog.show(confirm).then(() => {
+                this.rows.splice(index, 1);
             });
 
         };
 
-        this.deleteColumn = function(ev, index, columns) {
-
-            var confirm = $mdDialog.confirm()
+        this.deleteColumn = (ev, index, columns) => {
+            const confirm = $mdDialog.confirm()
                 .title('Quiere eliminar esta columna?')
                 .textContent('Se eliminaran todos los widgets.')
                 .ariaLabel('Eliminar columna')
@@ -111,15 +87,13 @@ angular.module('app')
                 .ok('Eliminar')
                 .cancel('Cancelar');
 
-            $mdDialog.show(confirm).then(function() {
+            $mdDialog.show(confirm).then(() => {
                 columns.splice(index, 1);
             });
-
         };
 
-        this.addColumn = function(ev, row) {
-
-            var confirm = $mdDialog.confirm()
+        this.addColumn = (ev, row) => {
+            const confirm = $mdDialog.confirm()
                 .title('Añadir nueva columna')
                 .textContent('Desea añadir una nueva columna?')
                 .ariaLabel('Añadir columna')
@@ -127,11 +101,8 @@ angular.module('app')
                 .ok('Añadir')
                 .cancel('Cancelar');
 
-            $mdDialog.show(confirm).then(function() {
-                row.columns.push(this.addColumn(1));
+            $mdDialog.show(confirm).then(() => {
+                row.columns.push(addColumn(1));
             });
-
         };
-
-});
-
+    });

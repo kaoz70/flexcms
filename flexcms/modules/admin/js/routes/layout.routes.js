@@ -4,21 +4,21 @@ angular
         $routeSegmentProvider.options.autoLoadTemplates = true;
 
         $routeSegmentProvider
-            .when('/layout', 'layout')
-            .when('/layout/edit/:id', 'layout.edit')
-            .when('/layout/create', 'layout.create')
-            .segment('layout', {
+            .when('/layout', 'layout_index')
+            .when('/layout/edit/:id', 'layout_edit')
+            .when('/layout/create', 'layout_create')
+            .segment('layout_index', {
                 default: true,
                 controller: 'LayoutIndexController',
             })
-            .within()
-            .segment('edit', {
+            .segment('layout_edit', {
                 templateUrl: `${BASE_PATH}admin/Layout`,
-                controller: 'LayoutController',
+                controller: 'LayoutEditController',
+                controllerAs: 'vm',
                 dependencies: ['id'],
                 resolve: {
-                    layout(Layout, ResourceResponse, $routeParams) {
-                        return ResourceResponse.get(Layout, { id: $routeParams.id });
+                    layout(LayoutResource, ResourceResponse, $routeParams) {
+                        return ResourceResponse.get(LayoutResource, { id: $routeParams.id });
                     },
                 },
                 untilResolved: {
@@ -28,12 +28,13 @@ angular
                     controller: 'ErrorCtrl',
                 },
             })
-            .segment('create', {
+            .segment('layout_create', {
                 templateUrl: `${BASE_PATH}admin/Layout`,
                 controller: 'LayoutCreateController',
+                controllerAs: 'vm',
                 resolve: {
-                    layout(Layout, ResourceResponse) {
-                        return ResourceResponse.query(Layout);
+                    layout(LayoutResource, ResourceResponse) {
+                        return ResourceResponse.get(LayoutResource, { id: 'new' });
                     },
                 },
                 untilResolved: {

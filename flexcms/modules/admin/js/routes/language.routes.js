@@ -25,26 +25,26 @@ angular
                 },
             })
             .within()
-            .segment('edit', {
-                templateUrl: `${BASE_PATH}admin/LanguageDetail`,
-                controller: 'LanguageEditController',
-                controllerAs: 'vm',
-                dependencies: ['id'],
-                resolve: {
-                    language(Language, ResourceResponse, $routeParams) {
-                        return ResourceResponse.get(Language, { id: $routeParams.id });
+                .segment('edit', {
+                    templateUrl: `${BASE_PATH}admin/LanguageDetail`,
+                    controller: 'LanguageEditController',
+                    controllerAs: 'vm',
+                    dependencies: ['id'],
+                    resolve: {
+                        language(Language, ResourceResponse, $routeParams) {
+                            return ResourceResponse.get(Language, { id: $routeParams.id });
+                        },
                     },
-                },
-                untilResolved: {
-                    templateUrl: `${BASE_PATH}admin/Loading`,
-                },
-                resolveFailed: {
-                    controller: 'ErrorCtrl',
-                },
-            })
-            .segment('create', {
-                templateUrl: `${BASE_PATH}admin/LanguageDetail`,
-                controller: 'LanguageCreateController',
-                controllerAs: 'vm',
-            });
+                    untilResolved: {
+                        templateUrl: `${BASE_PATH}admin/Loading`,
+                    },
+                    resolveFailed: {
+                        controller: 'ErrorCtrl',
+                    },
+                })
+                .segment('create', {
+                    templateUrl: `${BASE_PATH}admin/LanguageDetail`,
+                    controller: 'LanguageCreateController',
+                    controllerAs: 'vm',
+                });
     });

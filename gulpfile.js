@@ -1,14 +1,26 @@
-var elixir = require('laravel-elixir'),
-    gulp = require('gulp');
+const elixir = require('laravel-elixir');
 
-var Task = elixir.Task;
+const gulp = require('gulp');
+
+const Task = elixir.Task;
 
 /**
  * Copies the fonts so that their paths are the ones from the CSS
  */
 elixir.extend('copyfonts', () => {
-    new Task('copyfonts', () => {
-        return gulp.src(['./node_modules/material-design-icons/iconfont/*.{ttf,woff,woff2,eof,svg}'])
+    new Task('copyfonts-fontawesome', () => {
+        return gulp
+            .src([
+                './node_modules/font-awesome/fonts/*.{ttf,woff,woff2,eof,svg}',
+            ])
+            .pipe(gulp.dest('./assets/admin/fonts'));
+    });
+
+    new Task('copyfonts-material', () => {
+        return gulp
+            .src([
+                './node_modules/material-design-icons/iconfont/*.{ttf,woff,woff2,eof,svg}',
+            ])
             .pipe(gulp.dest('./assets/admin/build/'));
     });
 });
@@ -35,7 +47,7 @@ elixir((mix) => {
         './node_modules/codemirror/theme/rubyblue.css',
         './flexcms/packages/appverse.notifications/dist/notification-bar.css',
         './assets/admin/src/css/admin.scss',
-        './assets/admin/src/css/font-awesome.min.css',
+        './node_modules/font-awesome/css/font-awesome.min.css',
         './node_modules/chosen-js/chosen.css',
         './node_modules/angular-ui-tree/dist/angular-ui-tree.css',
         './node_modules/angular-material/angular-material.min.css',

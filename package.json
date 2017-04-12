@@ -51,6 +51,7 @@
     "chosen-js": "^1.7.0",
     "codemirror": "^5.25.0",
     "desandro-classie": "^1.0.1",
+    "font-awesome": "^4.7.0",
     "lodash": "^4.17.4",
     "material-design-icons": "^3.0.1",
     "md-color-picker": "^0.2.6",

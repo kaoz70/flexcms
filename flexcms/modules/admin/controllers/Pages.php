@@ -28,9 +28,13 @@ class Pages extends RESTController {
                 $data = $this->tree();
             }
 
+            $parent = \App\Category::find(3);
+            $child = \App\Category::find(6);
+            $child->makeChildOf($parent);
+
             $response->setData($data);
 
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (CMSException $e) {
             $response->setError('Ocurri&oacute; un problema!', $e);
         }
 
@@ -38,42 +42,14 @@ class Pages extends RESTController {
 
     }
 
+    /**
+     * @return \Baum\Extensions\Eloquent\Collection
+     */
     private function tree()
     {
-
-        //$lang_id = \App\Language::getDefault()->id;
-
         //Get the root page
         $root = \App\Page::find(1);
-        /*$root->setLang($lang_id);
-
-        $depth = 99999;
-        $tree = $this->getNodes($root, $depth);*/
-
-        return $root->descendants();
-
-    }
-
-    private function getNodes($root, $depth)
-    {
-
-        $nodes = [];
-
-        $root->findChildren($depth);
-
-        // We can now loop through our children
-        foreach ($root->getChildren() as $node) {
-
-            $nodes[] = $node;
-
-            /*if (count($node->getChildren())) {
-                $node->nodes = $this->getNodes($node, $depth);
-            }*/
-
-        }
-
-        return $nodes;
-
+        return $root->getDescendantsLang(\App\Language::getDefault())->toHierarchy();
     }
 
     private function edit($id)

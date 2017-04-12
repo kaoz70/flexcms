@@ -16,6 +16,19 @@ class Page extends Category
     protected $table = 'categories';
 
     /**
+     * Return enabled attribute as boolean instead of int
+     *
+     * @param $value
+     * @return bool
+     */
+    public function getDataAttribute($value)
+    {
+        $data = new \stdClass();
+        $data->structure = [];
+        return json_decode($value) ?: $data;
+    }
+
+    /**
      * Get the flat list of pages
      *
      * @param $lang_id

@@ -12,9 +12,38 @@ namespace App;
 use Baum\Node;
 use Closure;
 
-class Category extends Node {
+class Category extends TranslationNode {
 
     protected static $type;
+    protected $language;
+
+    protected $appends = ['translations'];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'translation' => 'json',
+        'data' => 'json',
+    ];
+
+    /**
+     * All the available translations
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getTranslationsAttribute()
+    {
+        $contentTrans = new EditTranslations();
+
+        foreach (Language::orderBy('position', 'asc')->get() as $lang) {
+            $contentTrans->add($lang, $this->getTranslation($lang->id));
+        }
+
+        return $this->attributes['translations'] = $contentTrans->getTranslations();
+    }
 
     /**
      * Return popup attribute as boolean instead of int
@@ -28,14 +57,14 @@ class Category extends Node {
     }
 
     /**
-     * Return popup attribute as boolean instead of int
+     * Return enabled attribute as boolean instead of int
      *
      * @param $value
      * @return bool
      */
-    public function getDataAttribute($value)
+    public function getEnabledAttribute($value)
     {
-        return json_decode($value);
+        return (boolean)$value;
     }
 
     /**
@@ -59,23 +88,12 @@ class Category extends Node {
 
     }
 
-    protected function loadTree($depth = 0, Closure $callback = null)
+    /**
+     * @param mixed $language
+     */
+    public function setLanguage(Language $language)
     {
-
-        $this->setWorker('LangWorker');
-        $tree = $this->createWorker()->tree($this, $depth, $callback);
-
-        // The tree method from the worker is none-the-wiser
-        // to whether we are retrieving a root node or not. If
-        // we only have one child, it will therefore return a
-        // singular object. We'll ensure we're actually returning
-        // an array.
-        if (! is_array($tree)) {
-            $tree = [$tree];
-        }
-
-        return $tree;
-
+        $this->language = $language;
     }
 
     /**
@@ -197,7 +215,7 @@ class Category extends Node {
     {
         return static::$type;
     }
-
+    
     /**
      * Returns the content's translation as a json decoded object/array
      *
@@ -205,7 +223,7 @@ class Category extends Node {
      * @return mixed
      * @throws \CMSException
      */
-    public function getTranslation($lang_id)
+    protected function getTranslation($lang_id)
     {
 
         if(!$this->getType()) {
@@ -218,24 +236,30 @@ class Category extends Node {
             ->first();
 
         if($trans) {
-            $this->translation = $trans->data;
-            $this->createProperties($trans->data);
-            return $this->translation;
-        } else {
-            return $this->translation = null;
+            return $trans->data;
         }
 
     }
 
     /**
-     * Add translation properties directly to the model
+     * Get all the translations available for the content
      *
-     * @param $data
+     * @return array
+     * @throws RuntimeException
      */
-    public function createProperties($data){
-        foreach ($data as $name => $value) {
-            $this->{$name} = $value;
+    protected function getTranslations()
+    {
+
+        $arr = [];
+
+        foreach(Language::orderBy('position', 'asc')->get() as $lang) {
+            $arr[] = $this->getTranslation($lang->id);
         }
+
+        $this->translations = $arr;
+
+        return $arr;
+
     }
 
 }

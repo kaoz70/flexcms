@@ -8,9 +8,6 @@
  * @requires $scope
  * */
 angular.module('app')
-    .controller('IndexCtrl', function($rootScope){
-
-
-    })
-
-;
+    .controller('IndexController', function ($location) {
+        $location.path('/page').replace();
+    });

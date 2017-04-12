@@ -542,7 +542,8 @@ panel-dispose {
   width: 650px;
 }
 .panel.large-width {
-  width: 1350px;
+  width: 100%;
+  max-width: 1350px;
 }
 
 md-grid-list {

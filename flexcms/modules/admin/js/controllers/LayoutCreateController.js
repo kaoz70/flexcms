@@ -3,12 +3,11 @@
  */
 angular.module('app')
 
-    .controller('LayoutCreateController', function($rootScope, LayoutService, $routeSegment, WindowFactory, layout) {
+    .controller('LayoutCreateController', function ($scope, $rootScope, LayoutService, LayoutResource, $routeSegment, WindowFactory, layout) {
         const vm = this;
 
         // Open the sidebar on this controller
         $rootScope.isSidebarOpen = true;
-        console.log(3);
 
         // Base url
         vm.section = 'layout/create';
@@ -16,18 +15,34 @@ angular.module('app')
         vm.selected = [];
         vm.device = 'large';
 
-        vm.languages = layout.page.translations;
-        vm.page = {};
-        vm.pages = layout.pages;
-        vm.roles = layout.roles;
-        vm.rows = layout.rows;
-        vm.widgets = layout.widgets;
+        vm.page = layout.data.page;
+        vm.page.data = {
+            structure: [],
+        };
+        vm.page.enabled = true;
+        vm.page.group_visibility = null;
+        vm.pages = layout.data.pages;
+        vm.roles = layout.data.roles;
+        vm.widgets = layout.data.widgets;
 
-        vm.layoutService = LayoutService;
+        vm.layoutService = LayoutService.init(vm.page.data.structure);
 
-        vm.$watch('rows', (rows) => {
+        $scope.$watch('vm.page.data.structure', (rows) => {
             vm.modelAsJson = angular.toJson(rows, true);
         }, true);
 
-        WindowFactory.add(vm);
+        WindowFactory.add($scope);
+
+        vm.save = () => {
+            LayoutResource.save(vm.page, (response) => {
+                $scope.$parent.pages = response.data.pages;
+            });
+        };
+
+        vm.saveAndClose = () => {
+            LayoutResource.save(vm.page, (response) => {
+                $scope.$parent.pages = response.data.pages;
+                WindowFactory.back($scope);
+            });
+        };
     });

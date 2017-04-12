@@ -17,167 +17,6 @@ class Layout extends RESTController {
     }
 
     /**
-     * Show the edit view
-     *
-     * @param $id
-     * @return string
-     */
-    public function edit($id)
-    {
-
-        $response = new \App\Response();
-
-        try {
-
-            $page = \App\Page::getForEdit($id);
-
-            $data['page'] = $page;
-            $data['widgets'] = \App\Widget::getInstalled();
-            $data['theme'] = $this->theme;
-
-            $root = Category::allRoot()->first();
-            $root->findChildren(999);
-            $data['pages'] = $root->getChildren();
-
-            $data['roles'] =  \App\Role::all();
-
-            $data['rows'] = $page->data ? $page->data->structure : [];
-
-            $response->setData($data);
-
-        } catch (Exception $e) {
-            $response->setError('Hubo un problema para obtener la estructura', $e);
-        }
-
-        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
-
-    }
-
-    /**
-     * Inserts a new temporary page
-     *
-     * @return Category
-     */
-    public function insert()
-    {
-        //
-    }
-
-    public function update($id)
-    {
-
-        $response = new stdClass();
-        $response->error_code = 0;
-
-        try{
-            \App\Page::updatePage($id, $this->input->post());
-            $response->new_id = $id;
-        } catch (Exception $e) {
-            $response = $this->error('Ocurri&oacute; un problema al actualizar la p&aacute;gina!', $e);
-        }
-
-        $this->load->view($this->responseView, [ $this->responseVarName => $response ]);
-
-    }
-
-    /*public function delete()
-    {
-
-        $response = new stdClass();
-        $response->error_code = 0;
-
-        try{
-            $ids = $this->input->post('ids');
-            Category::remove($ids);
-        } catch (Exception $e) {
-            $response = $this->error('Ocurri&oacute; un problema al eliminar la p&aacute;ina!', $e);
-        }
-
-        $this->load->view($this->responseView, [ $this->responseVarName => $response ] );
-
-    }*/
-
-    //TODO check for unique names in nodes only at the same depth
-    public function reorder()
-    {
-
-        $response = new stdClass();
-        $response->error_code = 0;
-
-        try{
-            $pages = Category::find(1);
-            $pages->mapTree(json_decode($this->input->post('posiciones'), true));
-        } catch (Exception $e) {
-            $response = $this->error('Ocurri&oacute; un problema al reorganizar las p&aacute;inas!', $e);
-        }
-
-        $this->load->view($this->responseView, [ $this->responseVarName => $response ] );
-
-    }
-
-    /**
-     * Copies the structure from one page to another
-     */
-    public function copy()
-    {
-
-        $response = new stdClass();
-
-        try {
-            Row::copyStructure($this->input->post());
-            $response->code = 1;
-        } catch (Exception $e) {
-            $response = $this->error('Hubo un error al copiar la estructura', $e);
-        }
-
-        $data[$this->responseVarName] = $response;
-        $this->load->view($this->responseView, $data);
-
-    }
-
-    /**
-     * Show the website's structure
-     * TODO: json version, only html is available
-     *
-     * @param string $type
-     */
-    /*public function get($type = 'html')
-    {
-        $root = Category::allRoot()->first();
-        $root->findChildren(999);
-        $this->load->view('admin/request/' . $type, [
-            'return' => admin_structure_tree($root->getChildren(), Content::getEditable(TRUE))
-        ] );
-    }*/
-
-    public function addRow($page_id, $col_quantity)
-    {
-        $data = Row::add($page_id, $col_quantity);
-        $this->load->view('widgets/row_view', $data);
-    }
-
-    public function removeRow($page_id, $row_id)
-    {
-        Row::remove($page_id, $row_id);
-    }
-
-    public function sortRows($page_id)
-    {
-        Row::sort($page_id, $this->input->post());
-    }
-
-    /**
-     * Inserts or updates the current model with the provided post data
-     *
-     * @param Model $model
-     * @return mixed
-     */
-    public function _store(Model $model, $data)
-    {
-        // TODO: Implement _store() method.
-    }
-
-    /**
      * Gets one or all resources
      *
      * @param null $id
@@ -190,10 +29,9 @@ class Layout extends RESTController {
 
         try{
 
-           /* if($page = \App\Page::getForEdit($id)) {
-                $data['page'] = $page;
-                $data['rows'] = $page->data ? $page->data->structure : [];
-            }*/
+            $page = \App\Page::findOrNew($id);
+            $page->setLanguage(Language::orderBy('position', 'asc')->first());
+            $data['page'] = $page;
 
             $data['widgets'] = \App\Widget::getInstalled();
             $data['theme'] = $this->theme;
@@ -221,7 +59,31 @@ class Layout extends RESTController {
      */
     public function index_put($id)
     {
-        // TODO: Implement index_put() method.
+        $response = new Response();
+
+        try{
+
+            $page = \App\Page::findOrFail($id);
+            $page->popup = $this->put('popup');
+            $page->enabled = $this->put('enabled');
+            $page->group_visibility = $this->put('group_visibility');
+            $page->data = $this->put('data');
+            $page->save();
+
+            $page->setTranslations($this->put('translations'));
+
+            $data = [
+                'page' => $page,
+                'pages' => $this->tree(),
+            ];
+
+            $response->setData($data);
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            $response->setError('Ocurri&oacute; un problema!', $e);
+        }
+
+        $this->response($response);
     }
 
     /**
@@ -231,7 +93,33 @@ class Layout extends RESTController {
      */
     public function index_post()
     {
-        // TODO: Implement index_post() method.
+
+        $response = new Response();
+
+        try{
+
+            $root = \App\Page::find(1);
+            $page = $root->children()->create([
+                'popup' => $this->post('popup'),
+                'enabled' => $this->post('enabled'),
+                'group_visibility' => $this->post('group_visibility'),
+                'data' => $this->post('data'),
+            ]);
+
+            $page->setTranslations($this->post('translations'));
+
+            $data = [
+                'page' => $page,
+                'pages' => $this->tree(),
+            ];
+
+            $response->setData($data);
+        } catch (Exception $e) {
+            $response->setError('Ocurri&oacute; un problema al actualizar la p&aacute;gina!', $e);
+        }
+
+        $this->response($response);
+
     }
 
     /**
@@ -242,6 +130,36 @@ class Layout extends RESTController {
      */
     public function index_delete($id)
     {
-        // TODO: Implement index_delete() method.
+        $response = new Response();
+
+        try{
+
+            $page = \App\Page::findOrFail($id);
+
+            //Delete translations
+            $translations = \App\Translation::where('type', \App\Page::getType())
+                ->where('parent_id', $page->id);
+            $translations->delete();
+
+            //Delete the page
+            $page->delete();
+
+            $response->setData($this->tree());
+        } catch (Exception $e) {
+            $response->setError('Ocurri&oacute; un problema al eliminar la p&aacute;gina!', $e);
+        }
+
+        $this->response($response);
     }
+
+    /**
+     * @return \Baum\Extensions\Eloquent\Collection
+     */
+    private function tree()
+    {
+        //Get the root page
+        $root = \App\Page::find(1);
+        return $root->getDescendantsLang(\App\Language::getDefault())->toHierarchy();
+    }
+
 }

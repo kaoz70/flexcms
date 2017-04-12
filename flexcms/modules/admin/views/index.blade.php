@@ -35,7 +35,8 @@
     <script type="text/ng-template" id="nodes_layout_renderer.html">
         <div class="node">
             <div ui-tree-handle><i class="fa fa-bars" aria-hidden="true"></i></div>
-            <a ng-href='#/layout/@{{node.id}}'>@{{node.translation.name ? node.translation.name : '{missing translation}'}}</a>
+            <a ng-href='#/layout/edit/@{{node.id}}'>@{{node.translation.name ? node.translation.name : '{missing translation}'}}</a>
+            <a href="" ng-click="deleteNode(node.id)"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
         </div>
         <ol class="node-children" ui-tree-nodes="" ng-model="node.children">
             <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_layout_renderer.html'">

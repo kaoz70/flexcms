@@ -1,17 +1,12 @@
-(function() {
-    'use strict';
-
+(function () {
     angular
-        .module("app")
-        .config(function($routeSegmentProvider) {
-
+        .module('app')
+        .config(($routeSegmentProvider) => {
             $routeSegmentProvider
                 .when('/', 'index')
                 .segment('index', {
-                    'default': true,
-                    controller: 'IndexCtrl'
+                    default: true,
+                    controller: 'IndexController',
                 });
-
         });
-
 }());

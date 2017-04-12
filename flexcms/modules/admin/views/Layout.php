@@ -20,18 +20,20 @@
 
 <div class="panel panel-primary large-width">
 
-    <md-toolbar md-colors="{borderBottomColor: '{{primaryColor300}}'}">
-        <div class="md-toolbar-tools">
-            <h2>{{page.translation.name}}</h2>
-            <span flex></span>
-            <md-button ng-click="toggleRight()" class="md-icon-button" aria-label="Settings">
-                <md-icon>view_module</md-icon>
-            </md-button>
-            <panel-dispose></panel-dispose>
-        </div>
-    </md-toolbar>
+    <div class="panel-header">
+        <md-toolbar md-colors="{borderBottomColor: '{{primaryColor300}}'}">
+            <div class="md-toolbar-tools">
+                <h2>{{vm.page.translation.name}}</h2>
+                <span flex></span>
+                <md-button ng-click="vm.layoutService.toggleRight()" class="md-icon-button" aria-label="Settings">
+                    <md-icon>view_module</md-icon>
+                </md-button>
+                <panel-dispose></panel-dispose>
+            </div>
+        </md-toolbar>
+    </div>
 
-    <md-content class="panel-body">
+    <md-content perfect-scrollbar class="panel-body">
 
         <div layout="row">
 
@@ -46,7 +48,7 @@
                     <md-card-content>
 
                         <md-tabs class="md-hue-1" md-dynamic-height="" md-border-bottom="">
-                            <md-tab ng-repeat="lang in languages" label="{{lang.name}}">
+                            <md-tab ng-repeat="lang in vm.page.translations" label="{{lang.name}}">
 
                                 <md-input-container class="md-block md-hue-1">
                                     <input ng-model="lang.translation.name" type="text" placeholder="T&iacute;tulo" ng-required="true">
@@ -70,20 +72,19 @@
                     </md-card-title>
                     <md-card-content>
 
-                        <md-switch ng-model="page.enabled" aria-label="Publicado">
+                        <md-switch ng-model="vm.page.enabled" aria-label="Publicado">
                             Publicado
                         </md-switch>
 
-                        <md-switch ng-model="page.popup" aria-label="Mostrar en popup">
+                        <md-switch ng-model="vm.page.popup" aria-label="Mostrar en popup">
                             Mostrar en popup
                         </md-switch>
 
                         <md-input-container>
                             <label>Visible para</label>
-                            <md-select class="md-hue-1" ng-model="page.group_visibility">
-                                <md-option><em>None</em></md-option>
-                                <md-option ng-repeat="role in roles"
-                                           ng-selected="{{role.id == page.group_visibility}}"
+                            <md-select class="md-hue-1" ng-model="vm.page.group_visibility">
+                                <md-option ng-value="null" >Public</md-option>
+                                <md-option ng-repeat="role in vm.roles"
                                            ng-value="role.id">
                                     {{role.name}}
                                 </md-option>
@@ -102,7 +103,7 @@
                     <md-card-content>
 
                         <md-input-container class="md-block md-hue-1">
-                            <input type="text" placeholder="Clase CSS" ng-model="page.css_class" />
+                            <input type="text" placeholder="Clase CSS" ng-model="vm.page.css_class" />
                         </md-input-container>
 
                     </md-card-content>
@@ -124,28 +125,28 @@
 
                         <div layout="row" layout-padding layout-align="center center">
 
-                            <md-button class="md-icon-button" ng-click="device = 'none'">
+                            <md-button class="md-icon-button" ng-click="vm.device = 'none'">
                                 <md-tooltip md-direction="bottom">No preview</md-tooltip>
-                                <md-icon ng-class="device == 'none' ? 'md-accent' : ''">phonelink_off</md-icon>
+                                <md-icon ng-class="vm.device == 'none' ? 'md-accent' : ''">phonelink_off</md-icon>
                             </md-button>
 
-                            <md-button class="md-icon-button" ng-click="device = 'large'">
+                            <md-button class="md-icon-button" ng-click="vm.device = 'large'">
                                 <md-tooltip md-direction="bottom">Desktop</md-tooltip>
-                                <md-icon ng-class="device == 'large' ? 'md-accent' : ''">desktop_windows</md-icon>
+                                <md-icon ng-class="vm.device == 'large' ? 'md-accent' : ''">desktop_windows</md-icon>
                             </md-button>
 
-                            <md-button class="md-icon-button" ng-click="device = 'medium'">
+                            <md-button class="md-icon-button" ng-click="vm.device = 'medium'">
                                 <md-tooltip md-direction="bottom">Tablet</md-tooltip>
-                                <md-icon ng-class="device == 'medium' ? 'md-accent' : ''">tablet</md-icon>
+                                <md-icon ng-class="vm.device == 'medium' ? 'md-accent' : ''">tablet</md-icon>
                             </md-button>
-                            <md-button class="md-icon-button" ng-click="device = 'small'">
+                            <md-button class="md-icon-button" ng-click="vm.device = 'small'">
                                 <md-tooltip md-direction="bottom">Phone</md-tooltip>
-                                <md-icon ng-class="device == 'small' ? 'md-accent' : ''">phone</md-icon>
+                                <md-icon ng-class="vm.device == 'small' ? 'md-accent' : ''">phone</md-icon>
                             </md-button>
 
                             <div flex></div>
 
-                            <md-button ng-repeat="item in [1,2,3,4]" class="md-icon-button" ng-click="addRow(item)">
+                            <md-button ng-repeat="item in [1,2,3,4]" class="md-icon-button" ng-click="vm.layoutService.addRow(item)">
                                 <md-tooltip md-direction="bottom">A&ntilde;adir {{item}} columna{{item > 1 ? 's' : ''}}</md-tooltip>
                                 <md-icon>filter_{{item}}</md-icon>
                             </md-button>
@@ -154,13 +155,13 @@
 
                         <div dnd-list="rows" dnd-allowed-types="['row-type']">
 
-                            <md-card ng-repeat="row in rows"
+                            <md-card ng-repeat="row in vm.page.data.structure"
                                      md-theme="dark-blue"
                                      dnd-draggable="row"
                                      dnd-type="'row-type'"
                                      dnd-effect-allowed="move"
                                      ng-init="hideRowConfig = true"
-                                     dnd-moved="rows.splice($index, 1)"
+                                     dnd-moved="vm.page.data.structure.splice($index, 1)"
                             >
 
                                 <md-toolbar class="md-hue-1">
@@ -174,11 +175,11 @@
                                             <md-tooltip md-direction="bottom">Configuraci&oacute;n</md-tooltip>
                                             <md-icon>settings</md-icon>
                                         </md-button>
-                                        <md-button ng-click="addColumn($event, row)" class="md-icon-button" aria-label="A&ntilde;adir columna">
+                                        <md-button ng-click="vm.layoutService.addColumn($event, row)" class="md-icon-button" aria-label="A&ntilde;adir columna">
                                             <md-tooltip md-direction="bottom">A&ntilde;adir columna</md-tooltip>
                                             <md-icon>add</md-icon>
                                         </md-button>
-                                        <md-button ng-click="deleteRow($event, $index)" class="md-icon-button" aria-label="Eliminar fila">
+                                        <md-button ng-click="vm.layoutService.deleteRow($event, $index)" class="md-icon-button" aria-label="Eliminar fila">
                                             <md-tooltip md-direction="bottom">Eliminar fila</md-tooltip>
                                             <md-icon>delete</md-icon>
                                         </md-button>
@@ -205,7 +206,7 @@
                                                  dnd-allowed-types="['col-type']"
                                                  dnd-horizontal-list="true">
 
-                                    <div class="col-{{column.span[device]}} offset-{{column.offset[device]}} push-{{column.push[device]}} pull-{{column.pull[device]}}"
+                                    <div class="col-{{column.span[vm.device]}} offset-{{column.offset[vm.device]}} push-{{column.push[vm.device]}} pull-{{column.pull[vm.device]}}"
                                          ng-repeat="column in row.columns"
                                          dnd-effect-allowed="move"
                                          dnd-type="'col-type'"
@@ -228,7 +229,7 @@
                                                         <md-tooltip md-direction="bottom">Configuraci&oacute;n</md-tooltip>
                                                         <md-icon>settings</md-icon>
                                                     </md-button>
-                                                    <md-button ng-click="deleteColumn($event, $index, row.columns)" class="md-icon-button" aria-label="Eliminar columna">
+                                                    <md-button ng-click="vm.layoutService.deleteColumn($event, $index, row.columns)" class="md-icon-button" aria-label="Eliminar columna">
                                                         <md-tooltip md-direction="bottom">Eliminar columna</md-tooltip>
                                                         <md-icon>delete</md-icon>
                                                     </md-button>
@@ -462,7 +463,7 @@
                 </md-card>
 
                 <h2>Generated Model</h2>
-                <pre>{{modelAsJson}}</pre>
+                <pre>{{vm.modelAsJson}}</pre>
 
             </div>
         </div>
@@ -475,7 +476,7 @@
 
         <md-toolbar class="md-theme-indigo">
             <div class="md-toolbar-tools">
-                <md-button ng-click="toggleRight()" class="md-icon-button" aria-label="Settings">
+                <md-button ng-click="vm.toggleRight()" class="md-icon-button" aria-label="Settings">
                     <md-icon>close</md-icon>
                 </md-button>
                 <h1 class="md-toolbar-tools"> Widgets</h1>
@@ -489,7 +490,7 @@
                 <input ng-model="query" type="text" placeholder="Buscar..." >
             </md-input-container>
 
-            <md-card ng-repeat="widget in widgets | filter:query"
+            <md-card ng-repeat="widget in vm.widgets | filter:query"
                      dnd-draggable="widget"
                      dnd-type="'widget-type'"
                      dnd-effect-allowed="copy"
@@ -504,12 +505,12 @@
         <md-toolbar class="md-secondary">
             <div class="md-toolbar-tools" layout-align="end center">
 
-                <md-button class="md-icon-button" ng-click="save()" >
+                <md-button class="md-icon-button" ng-click="vm.save()" >
                     <md-icon>save</md-icon>
                     <md-tooltip md-direction="bottom">Guardar</md-tooltip>
                 </md-button>
 
-                <md-button class="md-icon-button" ng-click="saveAndClose()" >
+                <md-button class="md-icon-button" ng-click="vm.saveAndClose()" >
                     <md-icon>check</md-icon>
                     <md-tooltip md-direction="bottom">Guardar y Cerrar</md-tooltip>
                 </md-button>

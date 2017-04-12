@@ -4,7 +4,8 @@
     "plugin:angular/johnpapa"
   ],
   "globals": {
-    "angular": true
+    "angular": true,
+    "Ps": true
   },
   "env": {
     "browser": true
