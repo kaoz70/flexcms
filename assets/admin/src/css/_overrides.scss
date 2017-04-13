@@ -128,3 +128,31 @@ md-dialog.md-default-theme, md-dialog {
 .md-calendar tr:last-child td {
   border-bottom-color: #b3b3b3;
 }
+
+md-toolbar.md-default-theme:not(.md-menu-toolbar).md-warn,
+md-toolbar:not(.md-menu-toolbar).md-warn {
+  background: $yellow;
+}
+
+md-dialog-actions.md-warn {
+  .md-button.md-default-theme.md-warn.md-fab,
+  .md-button.md-warn.md-fab,
+  .md-button.md-default-theme.md-warn.md-raised,
+  .md-button.md-warn.md-raised {
+    background-color: $yellow;
+  }
+}
+
+md-toolbar.md-default-theme:not(.md-menu-toolbar).md-error,
+md-toolbar:not(.md-menu-toolbar).md-error {
+  background: $red;
+}
+
+md-dialog-actions.md-error {
+  .md-button.md-default-theme.md-warn.md-fab,
+  .md-button.md-warn.md-fab,
+  .md-button.md-default-theme.md-warn.md-raised,
+  .md-button.md-warn.md-raised {
+    background-color: $red;
+  }
+}

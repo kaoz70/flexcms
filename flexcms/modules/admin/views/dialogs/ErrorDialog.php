@@ -1,6 +1,6 @@
 <md-dialog aria-label="Alerta">
     <form ng-cloak>
-        <md-toolbar class="md-warn">
+        <md-toolbar class="md-error">
             <div class="md-toolbar-tools" layout-align="center center">
                 <i class="pe-7s-shield"></i>
             </div>
@@ -15,7 +15,7 @@
             </div>
         </md-dialog-content>
 
-        <md-dialog-actions layout="row" layout-align="center">
+        <md-dialog-actions class="md-error" layout="row" layout-align="center">
             <md-button ng-hide="notified"
                        ng-show="showNotificationButton"
                        ng-disabled="notified"

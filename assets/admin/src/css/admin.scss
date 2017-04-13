@@ -423,6 +423,28 @@ md-input-container {
   }
 }
 
+#layout {
+  .node {
+    [ui-tree-handle] {
+      margin-left: 10px;
+      margin-top: 8px;
+      background: #000;
+      @include border-radius(3px 0 0 3px);
+    }
+
+    > a {
+      margin-left: 0;
+      @include border-radius(0);
+    }
+
+    .delete {
+      background: $red;
+      @include border-radius(0 3px 3px 0);
+    }
+
+  }
+}
+
 .main-content {
   padding: 15px;
   position: relative;

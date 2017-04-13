@@ -36,7 +36,7 @@
         <div class="node">
             <div ui-tree-handle><i class="fa fa-bars" aria-hidden="true"></i></div>
             <a ng-href='#/layout/edit/@{{node.id}}'>@{{node.translation.name ? node.translation.name : '{missing translation}'}}</a>
-            <a href="" ng-click="deleteNode(node.id)"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
+            <a class="delete" href="" ng-click="deleteNode(node.id)"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
         </div>
         <ol class="node-children" ui-tree-nodes="" ng-model="node.children">
             <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_layout_renderer.html'">
@@ -90,7 +90,7 @@
                                 </li>
                                 <li class="submenu-menu" ui-sref-active="active">
 
-                                    <div perfect-scrollbar ui-tree>
+                                    <div perfect-scrollbar id="layout" ui-tree>
                                         <ol class="tree" ui-tree-nodes="" ng-model="pages" id="tree-root">
                                             <li ng-repeat="node in pages" ui-tree-node ng-include="'nodes_layout_renderer.html'"></li>
                                         </ol>

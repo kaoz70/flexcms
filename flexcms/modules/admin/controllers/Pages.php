@@ -28,10 +28,6 @@ class Pages extends RESTController {
                 $data = $this->tree();
             }
 
-            $parent = \App\Category::find(3);
-            $child = \App\Category::find(6);
-            $child->makeChildOf($parent);
-
             $response->setData($data);
 
         } catch (CMSException $e) {

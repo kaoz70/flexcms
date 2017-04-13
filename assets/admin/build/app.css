@@ -6881,6 +6881,30 @@ md-dialog.md-default-theme .md-dialog-content, md-dialog .md-dialog-content {
   border-bottom-color: #b3b3b3;
 }
 
+md-toolbar.md-default-theme:not(.md-menu-toolbar).md-warn,
+md-toolbar:not(.md-menu-toolbar).md-warn {
+  background: #FFC107;
+}
+
+md-dialog-actions.md-warn .md-button.md-default-theme.md-warn.md-fab,
+md-dialog-actions.md-warn .md-button.md-warn.md-fab,
+md-dialog-actions.md-warn .md-button.md-default-theme.md-warn.md-raised,
+md-dialog-actions.md-warn .md-button.md-warn.md-raised {
+  background-color: #FFC107;
+}
+
+md-toolbar.md-default-theme:not(.md-menu-toolbar).md-error,
+md-toolbar:not(.md-menu-toolbar).md-error {
+  background: #CD4237;
+}
+
+md-dialog-actions.md-error .md-button.md-default-theme.md-warn.md-fab,
+md-dialog-actions.md-error .md-button.md-warn.md-fab,
+md-dialog-actions.md-error .md-button.md-default-theme.md-warn.md-raised,
+md-dialog-actions.md-error .md-button.md-warn.md-raised {
+  background-color: #CD4237;
+}
+
 body {
   background-color: #152027;
   color: #0D1E2B;
@@ -7311,6 +7335,23 @@ md-input-container input {
 
 #pages .node [ui-tree-handle] {
   display: none;
+}
+
+#layout .node [ui-tree-handle] {
+  margin-left: 10px;
+  margin-top: 8px;
+  background: #000;
+  border-radius: 3px 0 0 3px;
+}
+
+#layout .node > a {
+  margin-left: 0;
+  border-radius: 0;
+}
+
+#layout .node .delete {
+  background: #CD4237;
+  border-radius: 0 3px 3px 0;
 }
 
 .main-content {
