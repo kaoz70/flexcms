@@ -24,7 +24,7 @@
     <script type="text/ng-template" id="nodes_renderer.html">
         <div class="node">
             <div ui-tree-handle><i class="fa fa-bars" aria-hidden="true"></i></div>
-            <a ng-href='#/page/@{{node.id}}'>@{{node.translation.name ? node.translation.name : '{missing translation}'}}</a>
+            <a ng-href='#/page/@{{node.id}}'>@{{node.translation.menu_name ? node.translation.menu_name : '{missing translation}'}}</a>
         </div>
         <ol class="node-children" ui-tree-nodes="" ng-model="node.children">
             <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_renderer.html'">
@@ -35,8 +35,8 @@
     <script type="text/ng-template" id="nodes_layout_renderer.html">
         <div class="node">
             <div ui-tree-handle><i class="fa fa-bars" aria-hidden="true"></i></div>
-            <a ng-href='#/layout/edit/@{{node.id}}'>@{{node.translation.name ? node.translation.name : '{missing translation}'}}</a>
-            <a class="delete" href="" ng-click="deleteNode(node.id)"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
+            <a ng-href='#/layout/edit/@{{node.id}}'>@{{node.translation.menu_name ? node.translation.menu_name : '{missing translation}'}}</a>
+            <a class="delete" href="" ng-click="deleteNode(node.id)" layout="row" layout-align="center center"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
         </div>
         <ol class="node-children" ui-tree-nodes="" ng-model="node.children">
             <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_layout_renderer.html'">
