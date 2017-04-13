@@ -7,7 +7,7 @@
  *
  * */
 angular.module('app')
-    .factory('WindowFactory', ($routeSegment, $filter, $routeParams, $window, $timeout) => {
+    .factory('WindowFactory', ($routeSegment, $filter, $routeParams, $window, $timeout, $location) => {
         return {
 
             /**
@@ -120,6 +120,7 @@ angular.module('app')
 
                 $timeout(() => {
                     let url = '#/';
+                    const nativeSegments = $location.$$path.split('/');
                     const segments = angular.copy($routeSegment.chain);
 
                     // Remove the last segment
@@ -135,6 +136,12 @@ angular.module('app')
                             });
                         }
                     });
+
+                    // In the case of "layout" there is no parent segment,
+                    // we have to "simulate" this
+                    if (url === '#/' && nativeSegments.length > 2) {
+                        url += nativeSegments[1];
+                    }
 
                     // Change the route once we have hidden the window
                     $window.location.assign(url);
