@@ -421,6 +421,9 @@ md-input-container {
       display: none;
     }
   }
+  .node.no-content {
+    color: #b1b1b1;
+  }
 }
 
 #layout {

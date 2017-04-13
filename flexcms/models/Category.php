@@ -57,6 +57,17 @@ class Category extends TranslationNode {
     }
 
     /**
+     * Return popup attribute as boolean instead of int
+     *
+     * @param $value
+     * @return bool
+     */
+    public function getIsContentAttribute($value)
+    {
+        return (boolean)$value;
+    }
+
+    /**
      * Return enabled attribute as boolean instead of int
      *
      * @param $value

@@ -50,8 +50,21 @@ class TranslationNode extends Node
      * @return \Illuminate\Database\Query\Builder
      */
     public function descendantsAndSelfLang(Language $lang) {
+
+        //Get the translations
+        $transSelect = '(SELECT data FROM translations WHERE parent_id = `categories`.`id` AND language_id = ' . $lang->id . ') as translation';
+
+        //Check if its a content page
+        $contentSelect = '(SELECT CASE WHEN EXISTS (
+            SELECT *
+            FROM widgets
+            WHERE category_id = `categories`.`id`
+        )
+        THEN 1
+        ELSE 0 END) as is_content';
+
         return $this->newNestedSetQuery()
-            ->selectRaw('*, (SELECT data FROM translations WHERE parent_id = `categories`.`id` AND language_id = ' . $lang->id . ') as translation')
+            ->selectRaw("*, $transSelect, $contentSelect")
             ->where($this->getLeftColumnName(), '>=', $this->getLeft())
             ->where($this->getLeftColumnName(), '<', $this->getRight());
     }

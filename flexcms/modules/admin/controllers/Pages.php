@@ -53,6 +53,11 @@ class Pages extends RESTController {
 
         //Get the content module
         $contentWidget = \App\Widget::getContentWidget($id);
+
+        if(!$contentWidget) {
+            throw new CMSException('No content module for page: ' . $id);
+        }
+
         $contentType = $contentWidget->getData();
         $class = '\\' . $contentType->content_type . '\Content';
 

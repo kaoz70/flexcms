@@ -7337,6 +7337,10 @@ md-input-container input {
   display: none;
 }
 
+#pages .node.no-content {
+  color: #b1b1b1;
+}
+
 #layout .node [ui-tree-handle] {
   margin-left: 10px;
   margin-top: 8px;
