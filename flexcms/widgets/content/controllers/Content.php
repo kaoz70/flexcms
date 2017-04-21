@@ -39,17 +39,12 @@ class Content implements \WidgetInterface {
      * @return mixed
      */
     static function admin($id){
-
-        try {
-            $widget = Widget::getForEdit($id);
-            $widget['types'] = Admin::getContentModules();
-            $widget['config'] =  json_decode(file_get_contents(APPPATH . 'widgets/content/config.json'));
-            $widget['content']->data = json_decode($widget['content']->data);
-            return $widget;
-        } catch (Exception $e) {
-            Error::exception($e->getMessage());
-        }
-
+        $widget = Widget::getForEdit($id);
+        $widget['types'] = Admin::getContentModules();
+        $widget['config'] =  json_decode(file_get_contents(APPPATH . 'widgets/content/config.json'));
+        //TODO: what is this??
+        //$widget['content']->data = json_decode($widget['content']->data);
+        return $widget;
     }
 
     static function run($method){

@@ -7,13 +7,13 @@
             <md-icon>{{widget.icon}}</md-icon>
         </md-card-avatar>
         <md-card-header-text>
-            <span class="md-title">{{widget.name}}</span>
+            <span class="md-title">{{widget.name[vm.languages[0].slug]}}</span>
             <span class="md-subhead">{{widget.groups.join(", ")}}</span>
         </md-card-header-text>
     </md-card-header>
 
     <md-card-content>
-        <p>{{widget.description[languages[0].slug]}}</p>
+        <p>{{widget.description[vm.languages[0].slug]}}</p>
     </md-card-content>
 </script>
 
@@ -153,7 +153,7 @@
 
                         </div>
 
-                        <div dnd-list="rows" dnd-allowed-types="['row-type']">
+                        <div dnd-list="vm.page.data.structure" dnd-allowed-types="['row-type']">
 
                             <md-card ng-repeat="row in vm.page.data.structure"
                                      md-theme="dark-blue"
@@ -187,7 +187,7 @@
                                 </md-toolbar>
 
                                 <div class="config" collapse="hideRowConfig">
-                                    <md-card-content md-theme="docs-dark">
+                                    <md-card-content md-theme="layout-widgets">
                                         <div class="tools">
                                             <md-switch ng-model="row.expanded" aria-label="Expandida">
                                                 Expandida
@@ -214,240 +214,251 @@
                                          dnd-moved="row.columns.splice($index, 1)"
                                          md-theme="dark-green"
                                          ng-init="hideColConfig = true"
-                                         >
+                                    >
 
                                         <md-card layout-fill>
 
-                                            <md-toolbar class="md-hue-1">
-                                                <div class="md-toolbar-tools">
-                                                    <md-icon>open_with</md-icon>
-                                                    <h2>
-                                                        <span>Columna</span>
-                                                    </h2>
-                                                    <span flex></span>
-                                                    <md-button ng-click="hideColConfig = !hideColConfig" class="md-icon-button" aria-label="Configuraci&oacute;n">
-                                                        <md-tooltip md-direction="bottom">Configuraci&oacute;n</md-tooltip>
-                                                        <md-icon>settings</md-icon>
-                                                    </md-button>
-                                                    <md-button ng-click="vm.layoutService.deleteColumn($event, $index, row.columns)" class="md-icon-button" aria-label="Eliminar columna">
-                                                        <md-tooltip md-direction="bottom">Eliminar columna</md-tooltip>
-                                                        <md-icon>delete</md-icon>
-                                                    </md-button>
-                                                </div>
-                                            </md-toolbar>
+                                            <dnd-nodrag>
 
-                                            <div class="config" collapse="hideColConfig">
-                                                <md-card-content md-theme="docs-dark">
-
-                                                    <div class="tools">
-
-                                                        <md-input-container class="md-block md-hue-1">
-                                                            <input ng-model="column.class" type="text" placeholder="Clase CSS">
-                                                        </md-input-container>
-
-                                                        <h3>Spans</h3>
-
-                                                        <md-slider-container>
-                                                            <span class="md-body-1">L</span>
-                                                            <md-slider flex md-discrete
-                                                                       id="large-span"
-                                                                       ng-model="column.span.large"
-                                                                       step="1"
-                                                                       min="1"
-                                                                       max="12"
-                                                                       aria-label="Large">
-                                                            </md-slider>
-                                                            <md-input-container>
-                                                                <input flex type="number" ng-model="column.span.large" aria-label="Large" aria-controls="large-span">
-                                                            </md-input-container>
-                                                        </md-slider-container>
-
-                                                        <md-slider-container>
-                                                            <span class="md-body-1">M</span>
-                                                            <md-slider flex md-discrete
-                                                                       id="medium-span"
-                                                                       ng-model="column.span.medium"
-                                                                       step="1"
-                                                                       min="1"
-                                                                       max="12"
-                                                                       aria-label="Medium">
-                                                            </md-slider>
-                                                            <md-input-container>
-                                                                <input flex type="number" ng-model="column.span.medium" aria-label="Medium" aria-controls="medium-span">
-                                                            </md-input-container>
-                                                        </md-slider-container>
-
-                                                        <md-slider-container>
-                                                            <span class="md-body-1">S</span>
-                                                            <md-slider flex md-discrete
-                                                                       id="small-span"
-                                                                       ng-model="column.span.small"
-                                                                       step="1"
-                                                                       min="1"
-                                                                       max="12"
-                                                                       aria-label="Small">
-                                                            </md-slider>
-                                                            <md-input-container>
-                                                                <input flex type="number" ng-model="column.span.small" aria-label="Small" aria-controls="small-span">
-                                                            </md-input-container>
-                                                        </md-slider-container>
-
-
-                                                        <h4>Offset</h4>
-
-                                                        <md-slider-container>
-                                                            <span class="md-body-1">L</span>
-                                                            <md-slider flex md-discrete
-                                                                       id="large-offset"
-                                                                       ng-model="column.offset.large"
-                                                                       step="1"
-                                                                       min="0"
-                                                                       max="11"
-                                                                       aria-label="Large">
-                                                            </md-slider>
-                                                            <md-input-container>
-                                                                <input flex type="number" ng-model="column.offset.large" aria-label="Large" aria-controls="large-offset">
-                                                            </md-input-container>
-                                                        </md-slider-container>
-
-                                                        <md-slider-container>
-                                                            <span class="md-body-1">M</span>
-                                                            <md-slider flex md-discrete
-                                                                       id="medium-offset"
-                                                                       ng-model="column.offset.medium"
-                                                                       step="1"
-                                                                       min="0"
-                                                                       max="11"
-                                                                       aria-label="Medium">
-                                                            </md-slider>
-                                                            <md-input-container>
-                                                                <input flex type="number" ng-model="column.offset.medium" aria-label="Medium" aria-controls="medium-offset">
-                                                            </md-input-container>
-                                                        </md-slider-container>
-
-                                                        <md-slider-container>
-                                                            <span class="md-body-1">S</span>
-                                                            <md-slider flex md-discrete
-                                                                       id="small-offset"
-                                                                       ng-model="column.offset.small"
-                                                                       step="1"
-                                                                       min="0"
-                                                                       max="11"
-                                                                       aria-label="Small">
-                                                            </md-slider>
-                                                            <md-input-container>
-                                                                <input flex type="number" ng-model="column.offset.small" aria-label="Small" aria-controls="small-offset">
-                                                            </md-input-container>
-                                                        </md-slider-container>
-
-                                                        <h4>Push</h4>
-                                                        <md-slider-container>
-                                                            <span class="md-body-1">L</span>
-                                                            <md-slider flex md-discrete
-                                                                       id="large-push"
-                                                                       ng-model="column.push.large"
-                                                                       step="1"
-                                                                       min="0"
-                                                                       max="11"
-                                                                       aria-label="Large">
-                                                            </md-slider>
-                                                            <md-input-container>
-                                                                <input flex type="number" ng-model="column.push.large" aria-label="Large" aria-controls="large-push">
-                                                            </md-input-container>
-                                                        </md-slider-container>
-
-                                                        <md-slider-container>
-                                                            <span class="md-body-1">M</span>
-                                                            <md-slider flex md-discrete
-                                                                       id="medium-push"
-                                                                       ng-model="column.push.medium"
-                                                                       step="1"
-                                                                       min="0"
-                                                                       max="11"
-                                                                       aria-label="Medium">
-                                                            </md-slider>
-                                                            <md-input-container>
-                                                                <input flex type="number" ng-model="column.push.medium" aria-label="Medium" aria-controls="medium-push">
-                                                            </md-input-container>
-                                                        </md-slider-container>
-
-                                                        <md-slider-container>
-                                                            <span class="md-body-1">S</span>
-                                                            <md-slider flex md-discrete
-                                                                       id="small-push"
-                                                                       ng-model="column.push.small"
-                                                                       step="1"
-                                                                       min="0"
-                                                                       max="11"
-                                                                       aria-label="Small">
-                                                            </md-slider>
-                                                            <md-input-container>
-                                                                <input flex type="number" ng-model="column.push.small" aria-label="Small" aria-controls="small-push">
-                                                            </md-input-container>
-                                                        </md-slider-container>
-
-                                                        <h4>Pull</h4>
-                                                        <md-slider-container>
-                                                            <span class="md-body-1">L</span>
-                                                            <md-slider flex md-discrete
-                                                                       id="large-pull"
-                                                                       ng-model="column.pull.large"
-                                                                       step="1"
-                                                                       min="0"
-                                                                       max="11"
-                                                                       aria-label="Large">
-                                                            </md-slider>
-                                                            <md-input-container>
-                                                                <input flex type="number" ng-model="column.pull.large" aria-label="Large" aria-controls="large-pull">
-                                                            </md-input-container>
-                                                        </md-slider-container>
-
-                                                        <md-slider-container>
-                                                            <span class="md-body-1">M</span>
-                                                            <md-slider flex md-discrete
-                                                                       id="medium-pull"
-                                                                       ng-model="column.pull.medium"
-                                                                       step="1"
-                                                                       min="0"
-                                                                       max="11"
-                                                                       aria-label="Medium">
-                                                            </md-slider>
-                                                            <md-input-container>
-                                                                <input flex type="number" ng-model="column.pull.medium" aria-label="Medium" aria-controls="medium-pull">
-                                                            </md-input-container>
-                                                        </md-slider-container>
-
-                                                        <md-slider-container>
-                                                            <span class="md-body-1">S</span>
-                                                            <md-slider flex md-discrete
-                                                                       id="small-pull"
-                                                                       ng-model="column.pull.small"
-                                                                       step="1"
-                                                                       min="0"
-                                                                       max="11"
-                                                                       aria-label="Small">
-                                                            </md-slider>
-                                                            <md-input-container>
-                                                                <input flex type="number" ng-model="column.pull.small" aria-label="Small" aria-controls="small-pull">
-                                                            </md-input-container>
-                                                        </md-slider-container>
-
+                                                <md-toolbar dnd-handle class="md-hue-1">
+                                                    <div class="md-toolbar-tools">
+                                                        <md-icon>open_with</md-icon>
+                                                        <h2>
+                                                            <span>Columna</span>
+                                                        </h2>
+                                                        <span flex></span>
+                                                        <md-button ng-click="hideColConfig = !hideColConfig" class="md-icon-button" aria-label="Configuraci&oacute;n">
+                                                            <md-tooltip md-direction="bottom">Configuraci&oacute;n</md-tooltip>
+                                                            <md-icon>settings</md-icon>
+                                                        </md-button>
+                                                        <md-button ng-click="vm.layoutService.deleteColumn($event, $index, row.columns)" class="md-icon-button" aria-label="Eliminar columna">
+                                                            <md-tooltip md-direction="bottom">Eliminar columna</md-tooltip>
+                                                            <md-icon>delete</md-icon>
+                                                        </md-button>
                                                     </div>
+                                                </md-toolbar>
 
+                                                <div class="config" collapse="hideColConfig">
+
+                                                    <md-card-content md-theme="layout-widgets">
+
+                                                        <div class="tools">
+
+                                                            <md-input-container class="md-block md-hue-1">
+                                                                <input ng-model="column.class" type="text" placeholder="Clase CSS">
+                                                            </md-input-container>
+
+                                                            <h3>Spans</h3>
+
+                                                            <md-slider-container>
+                                                                <span class="md-body-1">L</span>
+                                                                <md-slider flex md-discrete
+                                                                           id="large-span"
+                                                                           ng-model="column.span.large"
+                                                                           step="1"
+                                                                           min="1"
+                                                                           max="12"
+                                                                           aria-label="Large">
+                                                                </md-slider>
+                                                                <md-input-container>
+                                                                    <input flex type="number" ng-model="column.span.large" aria-label="Large" aria-controls="large-span">
+                                                                </md-input-container>
+                                                            </md-slider-container>
+
+                                                            <md-slider-container>
+                                                                <span class="md-body-1">M</span>
+                                                                <md-slider flex md-discrete
+                                                                           id="medium-span"
+                                                                           ng-model="column.span.medium"
+                                                                           step="1"
+                                                                           min="1"
+                                                                           max="12"
+                                                                           aria-label="Medium">
+                                                                </md-slider>
+                                                                <md-input-container>
+                                                                    <input flex type="number" ng-model="column.span.medium" aria-label="Medium" aria-controls="medium-span">
+                                                                </md-input-container>
+                                                            </md-slider-container>
+
+                                                            <md-slider-container>
+                                                                <span class="md-body-1">S</span>
+                                                                <md-slider flex md-discrete
+                                                                           id="small-span"
+                                                                           ng-model="column.span.small"
+                                                                           step="1"
+                                                                           min="1"
+                                                                           max="12"
+                                                                           aria-label="Small">
+                                                                </md-slider>
+                                                                <md-input-container>
+                                                                    <input flex type="number" ng-model="column.span.small" aria-label="Small" aria-controls="small-span">
+                                                                </md-input-container>
+                                                            </md-slider-container>
+
+
+                                                            <h4>Offset</h4>
+
+                                                            <md-slider-container>
+                                                                <span class="md-body-1">L</span>
+                                                                <md-slider flex md-discrete
+                                                                           id="large-offset"
+                                                                           ng-model="column.offset.large"
+                                                                           step="1"
+                                                                           min="0"
+                                                                           max="11"
+                                                                           aria-label="Large">
+                                                                </md-slider>
+                                                                <md-input-container>
+                                                                    <input flex type="number" ng-model="column.offset.large" aria-label="Large" aria-controls="large-offset">
+                                                                </md-input-container>
+                                                            </md-slider-container>
+
+                                                            <md-slider-container>
+                                                                <span class="md-body-1">M</span>
+                                                                <md-slider flex md-discrete
+                                                                           id="medium-offset"
+                                                                           ng-model="column.offset.medium"
+                                                                           step="1"
+                                                                           min="0"
+                                                                           max="11"
+                                                                           aria-label="Medium">
+                                                                </md-slider>
+                                                                <md-input-container>
+                                                                    <input flex type="number" ng-model="column.offset.medium" aria-label="Medium" aria-controls="medium-offset">
+                                                                </md-input-container>
+                                                            </md-slider-container>
+
+                                                            <md-slider-container>
+                                                                <span class="md-body-1">S</span>
+                                                                <md-slider flex md-discrete
+                                                                           id="small-offset"
+                                                                           ng-model="column.offset.small"
+                                                                           step="1"
+                                                                           min="0"
+                                                                           max="11"
+                                                                           aria-label="Small">
+                                                                </md-slider>
+                                                                <md-input-container>
+                                                                    <input flex type="number" ng-model="column.offset.small" aria-label="Small" aria-controls="small-offset">
+                                                                </md-input-container>
+                                                            </md-slider-container>
+
+                                                            <h4>Push</h4>
+                                                            <md-slider-container>
+                                                                <span class="md-body-1">L</span>
+                                                                <md-slider flex md-discrete
+                                                                           id="large-push"
+                                                                           ng-model="column.push.large"
+                                                                           step="1"
+                                                                           min="0"
+                                                                           max="11"
+                                                                           aria-label="Large">
+                                                                </md-slider>
+                                                                <md-input-container>
+                                                                    <input flex type="number" ng-model="column.push.large" aria-label="Large" aria-controls="large-push">
+                                                                </md-input-container>
+                                                            </md-slider-container>
+
+                                                            <md-slider-container>
+                                                                <span class="md-body-1">M</span>
+                                                                <md-slider flex md-discrete
+                                                                           id="medium-push"
+                                                                           ng-model="column.push.medium"
+                                                                           step="1"
+                                                                           min="0"
+                                                                           max="11"
+                                                                           aria-label="Medium">
+                                                                </md-slider>
+                                                                <md-input-container>
+                                                                    <input flex type="number" ng-model="column.push.medium" aria-label="Medium" aria-controls="medium-push">
+                                                                </md-input-container>
+                                                            </md-slider-container>
+
+                                                            <md-slider-container>
+                                                                <span class="md-body-1">S</span>
+                                                                <md-slider flex md-discrete
+                                                                           id="small-push"
+                                                                           ng-model="column.push.small"
+                                                                           step="1"
+                                                                           min="0"
+                                                                           max="11"
+                                                                           aria-label="Small">
+                                                                </md-slider>
+                                                                <md-input-container>
+                                                                    <input flex type="number" ng-model="column.push.small" aria-label="Small" aria-controls="small-push">
+                                                                </md-input-container>
+                                                            </md-slider-container>
+
+                                                            <h4>Pull</h4>
+                                                            <md-slider-container>
+                                                                <span class="md-body-1">L</span>
+                                                                <md-slider flex md-discrete
+                                                                           id="large-pull"
+                                                                           ng-model="column.pull.large"
+                                                                           step="1"
+                                                                           min="0"
+                                                                           max="11"
+                                                                           aria-label="Large">
+                                                                </md-slider>
+                                                                <md-input-container>
+                                                                    <input flex type="number" ng-model="column.pull.large" aria-label="Large" aria-controls="large-pull">
+                                                                </md-input-container>
+                                                            </md-slider-container>
+
+                                                            <md-slider-container>
+                                                                <span class="md-body-1">M</span>
+                                                                <md-slider flex md-discrete
+                                                                           id="medium-pull"
+                                                                           ng-model="column.pull.medium"
+                                                                           step="1"
+                                                                           min="0"
+                                                                           max="11"
+                                                                           aria-label="Medium">
+                                                                </md-slider>
+                                                                <md-input-container>
+                                                                    <input flex type="number" ng-model="column.pull.medium" aria-label="Medium" aria-controls="medium-pull">
+                                                                </md-input-container>
+                                                            </md-slider-container>
+
+                                                            <md-slider-container>
+                                                                <span class="md-body-1">S</span>
+                                                                <md-slider flex md-discrete
+                                                                           id="small-pull"
+                                                                           ng-model="column.pull.small"
+                                                                           step="1"
+                                                                           min="0"
+                                                                           max="11"
+                                                                           aria-label="Small">
+                                                                </md-slider>
+                                                                <md-input-container>
+                                                                    <input flex type="number" ng-model="column.pull.small" aria-label="Small" aria-controls="small-pull">
+                                                                </md-input-container>
+                                                            </md-slider-container>
+
+                                                        </div>
+
+                                                    </md-card-content>
+
+                                                </div>
+
+                                                <md-card-content>
+                                                    <div class="widget-list"
+                                                         dnd-list="column.widgets"
+                                                         dnd-drop="vm.dropCallback(item)"
+                                                         dnd-allowed-types="['widget-type']">
+                                                        <div ng-repeat="id in column.widgets"
+                                                             dnd-type="'widget-type'"
+                                                             dnd-draggable="id"
+                                                             dnd-effect-allowed="move"
+                                                             dnd-moved="column.widgets.splice($index, 1)">
+                                                            <widget widget-id="id" list="column.widgets" list-index="$index"></widget>
+                                                        </div>
+                                                    </div>
                                                 </md-card-content>
-                                            </div>
 
-                                            <md-card-content>
-                                                <div class="widget-list" dnd-list="column" dnd-allowed-types="['widget-type']">
-                                                    <div ng-repeat="id in column.widgets"
-                                                         dnd-type="'widget-type'"
-                                                         dnd-draggable="id"
-                                                         dnd-effect-allowed="move"
-                                                         dnd-moved="column.widgets.splice($index, 1)">
-                                                        <widget widget-id="id"></widget>
-                                                    </div>
-                                                </div>
-                                            </md-card-content>
+                                            </dnd-nodrag>
+
+
 
                                         </md-card>
 
@@ -455,15 +466,13 @@
 
                                 </md-card-content>
 
+
                             </md-card>
 
                         </div>
 
                     </md-card-content>
                 </md-card>
-
-                <h2>Generated Model</h2>
-                <pre>{{vm.modelAsJson}}</pre>
 
             </div>
         </div>
@@ -476,7 +485,7 @@
 
         <md-toolbar class="md-theme-indigo">
             <div class="md-toolbar-tools">
-                <md-button ng-click="vm.toggleRight()" class="md-icon-button" aria-label="Settings">
+                <md-button ng-click="vm.closeRight()" class="md-icon-button" aria-label="Settings">
                     <md-icon>close</md-icon>
                 </md-button>
                 <h1 class="md-toolbar-tools"> Widgets</h1>

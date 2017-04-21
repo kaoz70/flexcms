@@ -3,41 +3,18 @@ use App\Translation;
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Widget extends AdminController implements AdminInterface {
+class Widget extends RESTController implements AdminInterface {
 
     var $theme = 'default';
 
-    function __construct(){
-        parent::__construct();
-
-        $config = \App\Config::get();
-        $this->theme = $config['theme'];
-
-        $this->load->library('Seguridad');
-        $this->seguridad->init();
-
-    }
-
     /**
-     * Shows the widget list
-     */
-    public function index()
-    {
-        $data['widgets'] = \App\Widget::getInstalled();
-        $data['groups'] = \App\Widget::getGroups($data['widgets']);
-        $this->load->view('admin/widgets_list', $data);
-    }
-
-    /**
-     * Edit form interface
+     * Gets one or all resources
      *
-     * @param $id
-     *
+     * @param null $id
      * @return mixed
      */
-    public function edit($id)
+    public function index_get($id = null)
     {
-
         $response = new Response();
 
         try{
@@ -45,7 +22,7 @@ class Widget extends AdminController implements AdminInterface {
             $widget = \App\Widget::find($id);
 
             //Get the widgets's class
-            $class = "\\App\\Widget\\{$widget->type}";
+            $class = $widget->type;
 
             $data = [
                 'widget' => $class::admin($widget->id),
@@ -59,27 +36,81 @@ class Widget extends AdminController implements AdminInterface {
             $response->setError('Ocurri&oacute; un problema al eliminar el widget!', $e);
         }
 
-        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
-
-
+        $this->response($response, $response->getStatusHeader());
     }
 
     /**
-     * Insert the item into database
+     * Update a resource
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function index_put($id)
+    {
+        $response = new Response();
+
+        try{
+
+            $widget = \App\Widget::find($id);
+
+            //Get the widgets's class
+            $class = $widget->type;
+
+            $data = [
+                'widget' => $class::admin($widget->id),
+                'view_url' => $class::getAdminView(),
+                'languages' => \App\Language::all(),
+            ];
+
+            $response->setData($data);
+
+        } catch (Exception $e) {
+            $response->setError('Ocurri&oacute; un problema al eliminar el widget!', $e);
+        }
+
+        $this->response($response, $response->getStatusHeader());
+    }
+
+    /**
+     * Insert a new resource
      *
      * @return mixed
      */
-    public function insert()
+    public function index_post()
     {
-        // TODO: Implement insert() method.
+        $response = new Response();
+
+        try{
+
+            $class = $this->post('namespace');
+
+            $widget = new \App\Widget();
+            $widget->type = $this->post('namespace');
+            $widget->save();
+
+            $data = [
+                'widget' => $class::admin($widget->id),
+                'view_url' => $class::getAdminView(),
+                'languages' => \App\Language::all(),
+            ];
+
+            $response->setData($data);
+
+        } catch (Exception $e) {
+            $response->setError('Ocurri&oacute; un problema al crear el widget!', $e);
+        }
+
+        $this->response($response, $response->getStatusHeader());
     }
 
     /**
-     * Deletes a widget
+     * Delete a resource
+     *
+     * @param $id
+     * @return mixed
      */
-    public function delete()
+    public function index_delete($id)
     {
-
         $response = new Response();
 
         try{
@@ -99,10 +130,43 @@ class Widget extends AdminController implements AdminInterface {
             $response->setError('Ocurri&oacute; un problema al eliminar el widget!', $e);
         }
 
-        $this->load->view(static::RESPONSE_VIEW, [static::RESPONSE_VAR => $response]);
-
+        $this->response($response, $response->getStatusHeader());
     }
 
+    /**
+     * Inserts or updates the current model with the provided post data
+     *
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param $data
+     * @return mixed
+     */
+    public function _store(\Illuminate\Database\Eloquent\Model $model, $data)
+    {
+        $widget->type = $this->post('namespace');
+        $widget->save();
+
+        return [
+            'widget' => $class::admin($widget->id),
+            'view_url' => $class::getAdminView(),
+            'languages' => \App\Language::all(),
+        ];
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
     public function update($id)
     {
 
@@ -113,21 +177,7 @@ class Widget extends AdminController implements AdminInterface {
         $widget->data = json_encode($moduleData);
         $widget->save();
 
-    }
-
-    /**
-     * Inserts or updates the current model with the provided post data
-     *
-     * @param \Illuminate\Database\Eloquent\Model $model
-     * @return mixed
-     */
-    public function _store(\Illuminate\Database\Eloquent\Model $model)
-    {
-        // TODO: Implement _store() method.
-    }
-
-
-
+    }*/
 
 
 
@@ -157,12 +207,12 @@ class Widget extends AdminController implements AdminInterface {
             $widget->save();
 
             //Get and save the structure
-            $page = \App\Category::find($page_id);
+            /*$page = \App\Category::find($page_id);
             $data = json_decode($page->data);
             $data->structure[$row_id]->columns[$column_id]->widgets[] = $widget->id;
 
             $page->data = json_encode($data);
-            $page->save();
+            $page->save();*/
 
             //Get the widgets's class
             $class = "\\App\\Widget\\{$type}";
@@ -610,5 +660,7 @@ class Widget extends AdminController implements AdminInterface {
         ));
 
     }
+
+
 
 }

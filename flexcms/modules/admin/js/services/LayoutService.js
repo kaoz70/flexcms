@@ -38,6 +38,7 @@ angular.module('app')
                     medium: 0,
                     small: 0,
                 },
+                widgets: [],
             };
         };
 
@@ -63,7 +64,6 @@ angular.module('app')
         };
 
         this.deleteRow = (ev, index) => {
-
             const confirm = $mdDialog.confirm()
                 .title('Quiere eliminar esta fila?')
                 .textContent('Se eliminaran todas las columnas y widgets.')
@@ -75,7 +75,6 @@ angular.module('app')
             $mdDialog.show(confirm).then(() => {
                 this.rows.splice(index, 1);
             });
-
         };
 
         this.deleteColumn = (ev, index, columns) => {

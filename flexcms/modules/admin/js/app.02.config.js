@@ -56,6 +56,19 @@
                 .backgroundPalette('background')
                 .warnPalette('warnRed')
                 .dark();
+
+            $mdThemingProvider.theme('layout-widgets')
+                .primaryPalette('lime')
+                .dark();
+
+            $mdThemingProvider.theme('dark-green')
+                .primaryPalette('green')
+                .dark();
+
+            $mdThemingProvider.theme('dark-blue')
+                .primaryPalette('blue')
+                .dark();
+
         })
         .config(($locationProvider, $httpProvider) => {
             $locationProvider.hashPrefix('');

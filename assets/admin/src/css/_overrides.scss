@@ -156,3 +156,8 @@ md-dialog-actions.md-error {
     background-color: $red;
   }
 }
+
+md-select-menu.md-default-theme md-content md-option,
+md-select-menu md-content md-option {
+  color: rgba(189, 189, 189, 0.87);
+}

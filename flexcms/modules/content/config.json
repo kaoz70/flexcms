@@ -4,7 +4,8 @@
     "show": false,
     "icon": "insert_drive_file",
     "name": {
-      "es": "Publicaciones"
+      "es": "Artículos",
+      "en": "Articles"
     }
   }
 }

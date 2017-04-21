@@ -12,14 +12,8 @@ namespace App;
 
 class Widget extends BaseModel implements \WidgetInterface {
 
-    protected $CI;
     protected $groups;
     protected static $type = 'widget';
-
-    public function __construct() {
-        parent::__construct();
-        $this->CI = get_instance();
-    }
 
     static function admin( $id ) {
         // TODO: Implement admin() method.
@@ -125,6 +119,40 @@ class Widget extends BaseModel implements \WidgetInterface {
 
         $this->data = json_encode($data);
         $this->save();
+
+    }
+
+    /**
+     * Check if there is any content widget, and updates the widgets to the page's ID
+     *
+     * @param array $data
+     * @param $page_id
+     * @return null|string
+     */
+    public static function getMainWidget(array $data, $page_id)
+    {
+
+        $mainWidget = null;
+
+        foreach ($data['structure'] as $row) {
+            foreach ($row['columns'] as $column) {
+                if(isset($column['widgets'])) {
+                    foreach ($column['widgets'] as $widget) {
+
+                        $w = static::find($widget);
+                        $w->category_id = $page_id;
+                        $w->save();
+
+                        if($w->type === '\App\Widget\Content') {
+                            $mainWidget = $w->type;
+                        }
+
+                    }
+                }
+            }
+        }
+
+        return $mainWidget;
 
     }
 

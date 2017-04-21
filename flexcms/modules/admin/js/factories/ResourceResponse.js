@@ -7,7 +7,7 @@
  *
  * */
 angular.module('app')
-    .factory('ResourceResponse', function($q){
+    .factory('ResourceResponse', function ($q) {
 
         return {
 
@@ -16,17 +16,15 @@ angular.module('app')
              *
              * @param service
              */
-            query: function (service) {
-
-                var deferred = $q.defer();
+            query(service) {
+                const deferred = $q.defer();
                 service.query(
-                    function(successData) {
+                    (successData) => {
                         deferred.resolve(successData);
-                    }, function(errorData) {
+                    }, (errorData) => {
                         deferred.reject(errorData);
                     });
                 return deferred.promise;
-
             },
 
             /**
@@ -35,18 +33,16 @@ angular.module('app')
              * @param service
              * @param params
              */
-            get: function (service, params) {
-
-                var deferred = $q.defer();
+            get(service, params) {
+                const deferred = $q.defer();
                 service.get(params,
-                    function(successData) {
+                    (successData) => {
                         deferred.resolve(successData);
-                    }, function(errorData) {
+                    }, (errorData) => {
                         deferred.reject(errorData);
                     });
                 return deferred.promise;
-
-            }
+            },
 
         };
 

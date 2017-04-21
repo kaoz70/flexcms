@@ -55,6 +55,7 @@ class TranslationNode extends Node
         $transSelect = '(SELECT data FROM translations WHERE parent_id = `categories`.`id` AND language_id = ' . $lang->id . ') as translation';
 
         //Check if its a content page
+        //Todo: move this into the save or update function
         $contentSelect = '(SELECT CASE WHEN EXISTS (
             SELECT *
             FROM widgets

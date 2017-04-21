@@ -40,6 +40,24 @@ class Response implements \JsonSerializable
      */
     private $type = 'success';
 
+    private $statusHeader = 200;
+
+    /**
+     * @param int $statusHeader
+     */
+    public function setStatusHeader($statusHeader)
+    {
+        $this->statusHeader = $statusHeader;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatusHeader()
+    {
+        return $this->statusHeader;
+    }
+
     /**
      * @param string $type
      */
@@ -89,7 +107,6 @@ class Response implements \JsonSerializable
     public function setError($message, \Exception $exception){
 
         $CI = &get_instance();
-        $CI->output->set_status_header(500);
 
         $data = [
             'type' => get_class($exception),
@@ -98,6 +115,7 @@ class Response implements \JsonSerializable
             'line' => $exception->getLine(),
         ];
 
+        $this->setStatusHeader(500);
         $this->setNotify(true);
         $this->setData($data);
         $this->setSuccess(false);

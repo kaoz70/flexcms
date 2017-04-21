@@ -134,7 +134,7 @@ class Admin {
         //Get menu item data
         foreach (Utils::getFolders(APPPATH . static::PATH) as $folder) {
             $config = json_decode(file_get_contents(APPPATH . static::PATH . DIRECTORY_SEPARATOR . $folder . DIRECTORY_SEPARATOR . 'config.json'));
-            if(isset($config->content) && $config->content) {
+            if(isset($config->content) && $config->content === true) {
                 $items[$folder] = $config;
             }
         }

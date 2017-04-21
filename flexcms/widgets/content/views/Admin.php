@@ -4,7 +4,7 @@
             <md-icon>{{widget.config.icon}}</md-icon>
         </md-card-avatar>
         <md-card-header-text>
-            <span class="md-title">{{widget.config.name}}</span>
+            <span class="md-title">{{widget.config.name[languages[0].slug]}}</span>
             <span class="md-subhead">{{widget.config.description[languages[0].slug]}}</span>
         </md-card-header-text>
     </md-card-header>

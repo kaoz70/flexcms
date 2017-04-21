@@ -20,6 +20,9 @@ angular
                     layout(LayoutResource, ResourceResponse, $routeParams) {
                         return ResourceResponse.get(LayoutResource, { id: $routeParams.id });
                     },
+                    languages(Language, ResourceResponse) {
+                        return ResourceResponse.query(Language);
+                    },
                 },
                 untilResolved: {
                     templateUrl: `${BASE_PATH}admin/Loading`,

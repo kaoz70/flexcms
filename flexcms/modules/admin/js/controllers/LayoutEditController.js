@@ -1,6 +1,6 @@
 angular.module('app')
 
-    .controller('LayoutEditController', function ($scope, $rootScope, LayoutService, LayoutResource, $routeSegment, WindowFactory, $routeParams, layout) {
+    .controller('LayoutEditController', function ($scope, $rootScope, LayoutService, LayoutResource, $routeSegment, WindowFactory, $routeParams, layout, $mdSidenav, languages) {
         const vm = this;
 
         // Open the sidebar on this controller
@@ -15,7 +15,8 @@ angular.module('app')
         vm.page = layout.data.page;
         vm.pages = layout.data.pages;
         vm.roles = layout.data.roles;
-        vm.widgets = layout.widgets;
+        vm.widgets = layout.data.widgets;
+        vm.languages = languages.data;
 
         vm.layoutService = LayoutService.init(vm.page.data.structure);
 
@@ -38,4 +39,16 @@ angular.module('app')
             });
         };
 
+        vm.closeRight = () => {
+            $mdSidenav('right')
+                .close();
+        };
+
+        vm.spliceArray = (array, $index) => {
+            array.splice($index, 1);
+        };
+
+        vm.dropCallback = (item) => {
+            return item.id ? item.id : item;
+        };
     });

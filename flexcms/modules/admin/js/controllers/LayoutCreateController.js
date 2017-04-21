@@ -3,7 +3,7 @@
  */
 angular.module('app')
 
-    .controller('LayoutCreateController', function ($scope, $rootScope, LayoutService, LayoutResource, $routeSegment, WindowFactory, layout) {
+    .controller('LayoutCreateController', function ($scope, $rootScope, LayoutService, LayoutResource, $routeSegment, WindowFactory, layout, $mdSidenav) {
         const vm = this;
 
         // Open the sidebar on this controller
@@ -44,5 +44,10 @@ angular.module('app')
                 $scope.$parent.pages = response.data.pages;
                 WindowFactory.back($scope);
             });
+        };
+
+        vm.closeRight = () => {
+            $mdSidenav('right')
+                .close();
         };
     });

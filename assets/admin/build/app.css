@@ -6905,6 +6905,11 @@ md-dialog-actions.md-error .md-button.md-warn.md-raised {
   background-color: #CD4237;
 }
 
+md-select-menu.md-default-theme md-content md-option,
+md-select-menu md-content md-option {
+  color: rgba(189, 189, 189, 0.87);
+}
+
 body {
   background-color: #152027;
   color: #0D1E2B;

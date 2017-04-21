@@ -68,6 +68,7 @@ class Layout extends RESTController {
             $page->enabled = $this->put('enabled');
             $page->group_visibility = $this->put('group_visibility');
             $page->data = $this->put('data');
+            $page->content_type = \App\Widget::getMainWidget($this->put('data'), $page->id);
             $page->save();
 
             $page->setTranslations($this->put('translations'));

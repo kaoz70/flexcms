@@ -8,31 +8,53 @@
  * @restrict A
  * */
 angular.module('app')
-    .directive('widget', function (WIDGET_PATH, Widget, $compile, $templateRequest) {
-
+    .directive('widget', function (WIDGET_PATH, WidgetResource, $compile, $templateRequest) {
         return {
             restrict: 'E',
             scope: {
-                widgetId: '='
+                widgetId: '=',
+                list: '=',
+                listIndex: '=',
             },
-            link: function(scope, element) {
+            link(scope, element) {
 
-                //Get the widget's data
-                Widget.get(scope.widgetId).then(function (response) {
+                scope.widget = {};
 
-                    scope.widget = response.data.data.widget;
-                    scope.languages = response.data.data.languages;
+                let origWidget;
+                const setData = (response) => {
+                    scope.widget = response.data.widget;
+                    scope.languages = response.data.languages;
 
-                    //Load the widget's template
-                    $templateRequest(WIDGET_PATH + response.data.data.view_url).then(function(html){
-                        var template = angular.element(html);
+                    origWidget = scope.widget;
+
+                    // Replace the widgetId with the real widgets id
+                    //scope.widgetId = response.data.widget.id;
+                    scope.list[scope.listIndex] = response.data.widget.id;
+
+                    // Load the widget's template
+                    $templateRequest(WIDGET_PATH + response.data.view_url).then((html) => {
+                        const template = angular.element(html);
                         element.append(template);
                         $compile(template)(scope);
                     });
+                };
 
-                });
+                if (typeof scope.widgetId === 'object') {
+                    // In this case widgetId is the widget type data {}
+                    WidgetResource.save(scope.widgetId, (response) => {
+                        setData(response);
+                    });
+                } else {
+                    // Get the widget's data
+                    WidgetResource.get({ id: scope.widgetId }, (response) => {
+                        setData(response);
+                    });
+                }
 
-            }
+                /*scope.$watchCollection(scope.widget, () => {
+                    console.log(4);
+                });*/
 
+            },
         };
-});
+    });
