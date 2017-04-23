@@ -46,7 +46,7 @@ class Forms extends \RESTController implements \AdminInterface {
             $response->setError('Ocurri&oacute; un problema al obtener los formularios!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 
@@ -69,7 +69,7 @@ class Forms extends \RESTController implements \AdminInterface {
             $response->setError('Ocurri&oacute; un error al crear el formulario!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 
@@ -92,7 +92,7 @@ class Forms extends \RESTController implements \AdminInterface {
             $response->setError('Ocurri&oacute; un problema al actualizar el formulario!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 
@@ -117,7 +117,7 @@ class Forms extends \RESTController implements \AdminInterface {
             $response->setError('Ocurri&oacute; un problema al eliminar el formulario!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 

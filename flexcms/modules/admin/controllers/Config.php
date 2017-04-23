@@ -21,7 +21,7 @@ class Config extends RESTController {
             $response->setError('Ocurri&oacute; un problema al obtener la configuraci&oacute;n!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 
@@ -37,7 +37,7 @@ class Config extends RESTController {
             $response->setError('Ocurri&oacute; un problema al guardar!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 

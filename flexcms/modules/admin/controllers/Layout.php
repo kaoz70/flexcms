@@ -47,7 +47,7 @@ class Layout extends RESTController {
             $response->setError('Ocurri&oacute; un problema!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 
@@ -84,7 +84,7 @@ class Layout extends RESTController {
             $response->setError('Ocurri&oacute; un problema!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
     }
 
     /**
@@ -119,7 +119,7 @@ class Layout extends RESTController {
             $response->setError('Ocurri&oacute; un problema al actualizar la p&aacute;gina!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 
@@ -150,7 +150,7 @@ class Layout extends RESTController {
             $response->setError('Ocurri&oacute; un problema al eliminar la p&aacute;gina!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
     }
 
     /**

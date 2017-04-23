@@ -95,7 +95,7 @@ class Content extends \RESTController implements \AdminInterface
             $response->setError('Ocurri&oacute; un problema al obtener el contenido!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 
@@ -129,7 +129,7 @@ class Content extends \RESTController implements \AdminInterface
             $response->setError('Ocurri&oacute; un problema al crear el contenido!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 
@@ -169,7 +169,7 @@ class Content extends \RESTController implements \AdminInterface
             $response->setError('Ocurri&oacute; un problema al crear el contenido!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 
@@ -204,7 +204,7 @@ class Content extends \RESTController implements \AdminInterface
             $response->setError('Ocurri&oacute; un problema al eliminar el contenido!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 
@@ -250,7 +250,7 @@ class Content extends \RESTController implements \AdminInterface
             $response->setError('Ocurri&oacute; un problema al eliminar el contenido!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 
@@ -307,7 +307,7 @@ class Content extends \RESTController implements \AdminInterface
             $response->setError('Ocurri&oacute; un problema guardar la configuraci&oacute;n!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 
@@ -350,7 +350,7 @@ class Content extends \RESTController implements \AdminInterface
             $response->setError('Ocurri&oacute; un problema al reorganizar el contenido!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 

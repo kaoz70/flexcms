@@ -43,7 +43,7 @@ class ImageConfig extends RESTController {
             $response->setError('Ocurri&oacute; un problema al obener las imagenes!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 
@@ -69,7 +69,7 @@ class ImageConfig extends RESTController {
             $response->setError('Ocurri&oacute; un problema al obener las imagenes!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 
@@ -95,7 +95,7 @@ class ImageConfig extends RESTController {
             $response->setError('Ocurri&oacute; un problema al obener las imagenes!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 
@@ -122,7 +122,7 @@ class ImageConfig extends RESTController {
             $response->setError('Ocurri&oacute; un problema al eliminar la configuraci&oacute;n de imagen!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 
@@ -138,7 +138,7 @@ class ImageConfig extends RESTController {
             $response->setError('Ocurri&oacute; un problema al reorganizar los elementos!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 

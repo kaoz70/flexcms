@@ -34,7 +34,7 @@ class Pages extends RESTController {
             $response->setError('Ocurri&oacute; un problema!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 

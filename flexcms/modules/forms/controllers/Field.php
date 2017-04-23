@@ -33,7 +33,7 @@ class Field extends \Field {
             $response->setError('Ocurri&oacute; un error al obtener los tipos de campos!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
     }
 
     public function index_delete($id)
@@ -57,7 +57,7 @@ class Field extends \Field {
             $response->setError('Ocurri&oacute; un problema al eliminar el campo!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 

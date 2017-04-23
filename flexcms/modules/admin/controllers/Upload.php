@@ -28,7 +28,7 @@ class Upload extends RESTController {
             $response->setError($this->upload->display_errors(), new Exception($this->upload->display_errors()));
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 

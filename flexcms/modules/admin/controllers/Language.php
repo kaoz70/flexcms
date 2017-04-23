@@ -35,7 +35,7 @@ class Language extends RESTController implements AdminInterface {
             $response->setError('Ocurri&oacute; un problema al obtener el idioma!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 
@@ -57,7 +57,7 @@ class Language extends RESTController implements AdminInterface {
             $response->setError('Ocurri&oacute; un problema al actualizar el idioma!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 
@@ -82,7 +82,7 @@ class Language extends RESTController implements AdminInterface {
             $response->setError('Ocurri&oacute; un error al crear el idioma!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 
@@ -112,7 +112,7 @@ class Language extends RESTController implements AdminInterface {
             $response->setError('Ocurri&oacute; un problema al eliminar el idioma!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
 
     }
 
@@ -130,7 +130,7 @@ class Language extends RESTController implements AdminInterface {
             $response->setError('Ocurri&oacute; un problema al reorganizar los idiomas!', $e);
         }
 
-        $this->response($response);
+        $this->response($response, $response->getStatusHeader());
     }
 
     /**
