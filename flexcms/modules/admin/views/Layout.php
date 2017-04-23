@@ -153,10 +153,10 @@
 
                         </div>
 
-                        <div dnd-list="vm.page.data.structure" dnd-allowed-types="['row-type']">
+                        <div id="layout" dnd-list="vm.page.data.structure" dnd-allowed-types="['row-type']">
 
                             <md-card ng-repeat="row in vm.page.data.structure"
-                                     md-theme="dark-blue"
+                                     md-theme="layout-rows"
                                      dnd-draggable="row"
                                      dnd-type="'row-type'"
                                      dnd-effect-allowed="move"
@@ -167,9 +167,6 @@
                                 <md-toolbar class="md-hue-1">
                                     <div class="md-toolbar-tools">
                                         <md-icon>open_with</md-icon>
-                                        <h2>
-                                            <span>Fila</span>
-                                        </h2>
                                         <span flex></span>
                                         <md-button ng-click="hideRowConfig = !hideRowConfig" class="md-icon-button" aria-label="Configuraci&oacute;n">
                                             <md-tooltip md-direction="bottom">Configuraci&oacute;n</md-tooltip>
@@ -212,7 +209,7 @@
                                          dnd-type="'col-type'"
                                          dnd-draggable="column"
                                          dnd-moved="row.columns.splice($index, 1)"
-                                         md-theme="dark-green"
+                                         md-theme="layout-columns"
                                          ng-init="hideColConfig = true"
                                     >
 
@@ -223,9 +220,6 @@
                                                 <md-toolbar dnd-handle class="md-hue-1">
                                                     <div class="md-toolbar-tools">
                                                         <md-icon>open_with</md-icon>
-                                                        <h2>
-                                                            <span>Columna</span>
-                                                        </h2>
                                                         <span flex></span>
                                                         <md-button ng-click="hideColConfig = !hideColConfig" class="md-icon-button" aria-label="Configuraci&oacute;n">
                                                             <md-tooltip md-direction="bottom">Configuraci&oacute;n</md-tooltip>

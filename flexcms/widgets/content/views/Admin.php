@@ -1,4 +1,4 @@
-<md-card md-theme="default">
+<md-card md-theme="content-widget">
     <md-card-header>
         <md-card-avatar>
             <md-icon>{{widget.config.icon}}</md-icon>

@@ -1262,9 +1262,20 @@ md-dialog.md-default-theme .md-dialog-content, md-dialog .md-dialog-content {
 
 widget .md-panel {
   position: absolute;
-  width: 100%;
-  height: 30px; }
+  width: 100%; }
 widget md-card {
   position: relative; }
+
+#layout {
+  margin: 0; }
+  #layout md-toolbar,
+  #layout .md-toolbar-tools {
+    height: 40px;
+    min-height: 40px; }
+  #layout md-card-content {
+    padding: 8px; }
+  #layout h2 {
+    font-size: 14px;
+    font-family: 'Raleway', sans-serif; }
 
 /*# sourceMappingURL=admin.css.map */

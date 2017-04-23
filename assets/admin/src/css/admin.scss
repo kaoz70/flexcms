@@ -802,3 +802,20 @@ widget {
     position: relative;
   }
 }
+
+#layout {
+  margin: 0;
+
+  md-toolbar,
+  .md-toolbar-tools {
+    height: 40px;
+    min-height: 40px;
+  }
+  md-card-content {
+    padding: 8px;
+  }
+  h2 {
+    font-size: 14px;
+    font-family: 'Raleway', sans-serif;
+  }
+}

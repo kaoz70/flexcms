@@ -61,11 +61,19 @@
                 .primaryPalette('lime')
                 .dark();
 
-            $mdThemingProvider.theme('dark-green')
-                .primaryPalette('green')
+            $mdThemingProvider.theme('layout-rows')
+                .primaryPalette('grey')
+                .backgroundPalette('grey')
                 .dark();
 
-            $mdThemingProvider.theme('dark-blue')
+            $mdThemingProvider.theme('layout-columns')
+                .backgroundPalette('blue-grey')
+                .primaryPalette('blue-grey')
+                .dark();
+
+
+            $mdThemingProvider.theme('content-widget')
+                .backgroundPalette('blue')
                 .primaryPalette('blue')
                 .dark();
 
