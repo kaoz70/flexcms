@@ -20,6 +20,7 @@ class BaseModel extends Model {
     protected $casts = [
         'enabled' => 'boolean',
         'important' => 'boolean',
+        'data' => 'json',
     ];
 
     private $lang;

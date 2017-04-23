@@ -20,10 +20,6 @@ angular.module('app')
 
         vm.layoutService = LayoutService.init(vm.page.data.structure);
 
-        $scope.$watch('vm.page.data.structure', (rows) => {
-            vm.modelAsJson = angular.toJson(rows, true);
-        }, true);
-
         WindowFactory.add($scope);
 
         vm.save = () => {
@@ -42,10 +38,6 @@ angular.module('app')
         vm.closeRight = () => {
             $mdSidenav('right')
                 .close();
-        };
-
-        vm.spliceArray = (array, $index) => {
-            array.splice($index, 1);
         };
 
         vm.dropCallback = (item) => {

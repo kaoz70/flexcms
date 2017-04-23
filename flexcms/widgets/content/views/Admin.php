@@ -13,15 +13,20 @@
 
         <md-input-container>
             <label>Tipo</label>
-            <md-select class="md-hue-1" ng-model="page.group_visibility">
+            <md-select class="md-hue-1" ng-model="widget.data.content_type">
                 <md-option><em>None</em></md-option>
-                <md-option ng-repeat="type in widget.types"
-                           ng-selected="{{widget.content.type == type.menu.name[languages[0].slug]}}"
-                           ng-value="type.menu.name[languages[0].slug]">
+                <md-option ng-repeat="(key, type) in widget.types"
+                           ng-selected="{{widget.data.content_type == key}}"
+                           ng-value="key">
                     {{type.menu.name[languages[0].slug]}}
                 </md-option>
             </md-select>
         </md-input-container>
 
     </md-card-content>
+
+    <md-card-footer layout="row">
+        <md-button ng-show="changed" flex ng-click="save()" class="md-raised md-primary">Guardar</md-button>
+    </md-card-footer>
+
 </md-card>

@@ -21,12 +21,12 @@ class Widget extends RESTController implements AdminInterface {
 
             $widget = \App\Widget::find($id);
 
-            //Get the widgets's class
-            $class = $widget->type;
+            //Get the model class
+            $modelClass = $widget->type . '\Model\Widget';
 
             $data = [
-                'widget' => $class::admin($widget->id),
-                'view_url' => $class::getAdminView(),
+                'widget' => $modelClass::admin($widget->id),
+                'view_url' => $modelClass::getAdminView(),
                 'languages' => \App\Language::all(),
             ];
 
@@ -53,19 +53,23 @@ class Widget extends RESTController implements AdminInterface {
 
             $widget = \App\Widget::find($id);
 
-            //Get the widgets's class
-            $class = $widget->type;
+            //Get the model class
+            $modelClass = $widget->type . '\Model\Widget';
+
+            //Get the new model
+            $model = $modelClass::find($id);
+            $model->store($this->put());
 
             $data = [
-                'widget' => $class::admin($widget->id),
-                'view_url' => $class::getAdminView(),
+                'widget' => $modelClass::admin($widget->id),
+                'view_url' => $modelClass::getAdminView(),
                 'languages' => \App\Language::all(),
             ];
 
             $response->setData($data);
 
         } catch (Exception $e) {
-            $response->setError('Ocurri&oacute; un problema al eliminar el widget!', $e);
+            $response->setError('Ocurri&oacute; un problema al actualizar el widget!', $e);
         }
 
         $this->response($response, $response->getStatusHeader());
@@ -84,13 +88,16 @@ class Widget extends RESTController implements AdminInterface {
 
             $class = $this->post('namespace');
 
+            //Get the model class
+            $modelClass = $class . '\Model\Widget';
+
             $widget = new \App\Widget();
-            $widget->type = $this->post('namespace');
+            $widget->type = $class;
             $widget->save();
 
             $data = [
-                'widget' => $class::admin($widget->id),
-                'view_url' => $class::getAdminView(),
+                'widget' => $modelClass::admin($widget->id),
+                'view_url' => $modelClass::getAdminView(),
                 'languages' => \App\Language::all(),
             ];
 

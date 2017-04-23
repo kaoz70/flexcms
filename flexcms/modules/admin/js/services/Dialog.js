@@ -17,7 +17,16 @@ angular.module('app')
                 templateUrl: `${BASE_PATH}admin/dialogs/ErrorDialog`,
                 parent: angular.element($document[0].body),
                 controller($scope) {
+                    let data;
+
+                    if(rejection.data.error) {
+                        data = rejection.data.error;
+                    } else {
+                        data = rejection.data;
+                    }
+
                     $scope.message = rejection.statusText;
+                    $scope.detail = data.message;
                     $scope.status = rejection.status;
                     $scope.showNotificationButton = true;
                     $scope.notified = false;

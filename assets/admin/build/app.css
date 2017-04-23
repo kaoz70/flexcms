@@ -7257,9 +7257,7 @@ md-input-container input {
 }
 
 .angular-ui-tree-empty {
-  background-image: none !important;
-  border: none !important;
-  min-height: 100% !important;
+  display: none;
 }
 
 .columns {
@@ -7830,6 +7828,15 @@ md-dialog.md-default-theme .md-dialog-content h1, md-dialog .md-dialog-content h
 
 [perfect-scrollbar] {
   overflow-y: hidden;
+  position: relative;
+}
+
+widget .md-panel {
+  position: absolute;
+  width: 100%;
+}
+
+widget md-card {
   position: relative;
 }
 

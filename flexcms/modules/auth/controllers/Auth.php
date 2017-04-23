@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+use App\Response;
 use Cartalyst\Sentinel\Native\Facades\Sentinel as Sentinel;
 
 class Auth extends AdminController {
@@ -23,17 +24,34 @@ class Auth extends AdminController {
      */
     public function index()
     {
-        $data['users'] = Sentinel::getUserRepository()->all();
-        $data['roles'] =  Sentinel::getRoleRepository()->all();
-        $data['titulo'] = 'Usuarios';
 
-        $data['url_create'] = static::URL_CREATE;
-        $data['url_edit'] = static::URL_EDIT;
-        $data['url_delete'] = static::URL_DELETE;
+        $response = new Response();
 
-        $data['txt_usuarios'] = "crear nuevo usuario";
+        try{
 
-        $this->load->view('auth/index_view', $data);
+            $users = Sentinel::getUserRepository()->all();
+            $roles =  Sentinel::getRoleRepository()->all();
+            $data = [];
+
+            foreach($roles as $role) {
+
+                $data[$role->id] = [];
+
+                foreach($users as $user_key => $user) {
+                    if($user->inRole($role)) {
+                        $data[$role->id][] = $user;
+                    }
+                }
+            }
+
+            $response->setData($data);
+
+        } catch (Exception $e) {
+            $response->setError('Ocurri&oacute; un problema al obtener el contenido!', $e);
+        }
+
+        $this->response($response, $response->getStatusHeader());
+
     }
 
     public function config()

@@ -45,6 +45,7 @@ return array(
     'App\\View' => $baseDir . '/flexcms/libraries/View.php',
     'App\\Widget' => $baseDir . '/flexcms/models/Widget.php',
     'App\\Widget\\Content' => $baseDir . '/flexcms/widgets/content/controllers/Content.php',
+    'App\\Widget\\Content\\Model\\Widget' => $baseDir . '/flexcms/widgets/content/models/Widget.php',
     'Archivo' => $baseDir . '/flexcms/modules/admin/controllers/Archivo.php',
     'Auth' => $baseDir . '/flexcms/modules/auth/controllers/Auth.php',
     'Auth\\Models\\Field' => $baseDir . '/flexcms/modules/auth/models/Field.php',

@@ -804,9 +804,7 @@ md-input-container input {
   position: relative; }
 
 .angular-ui-tree-empty {
-  background-image: none !important;
-  border: none !important;
-  min-height: 100% !important; }
+  display: none; }
 
 .columns {
   flex-wrap: wrap; }
@@ -1260,6 +1258,13 @@ md-dialog.md-default-theme .md-dialog-content, md-dialog .md-dialog-content {
 
 [perfect-scrollbar] {
   overflow-y: hidden;
+  position: relative; }
+
+widget .md-panel {
+  position: absolute;
+  width: 100%;
+  height: 30px; }
+widget md-card {
   position: relative; }
 
 /*# sourceMappingURL=admin.css.map */

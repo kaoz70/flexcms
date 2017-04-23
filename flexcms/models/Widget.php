@@ -85,7 +85,7 @@ class Widget extends BaseModel implements \WidgetInterface {
     public static function getContentWidget($page_id)
     {
         return static::where('category_id', $page_id)
-            ->where('type', 'Content')
+            ->where('type', '\App\Widget\Content')
             ->first();
     }
 
@@ -144,7 +144,7 @@ class Widget extends BaseModel implements \WidgetInterface {
                         $w->save();
 
                         if($w->type === '\App\Widget\Content') {
-                            $mainWidget = $w->type;
+                            $mainWidget = $w;
                         }
 
                     }

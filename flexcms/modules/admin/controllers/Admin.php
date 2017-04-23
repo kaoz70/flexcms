@@ -74,7 +74,7 @@ class Admin extends AdminController {
         $data['titulo'] = $this->site_config['site_name'] . " Control Panel";
         $data['user'] = Sentinel::getUser();
 
-        $root = Category::roots()->first();
+        $root = Category::find(1);
         $root->descendants()->get();
 
         $data['root_node'] = $root;

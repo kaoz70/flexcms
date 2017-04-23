@@ -356,6 +356,7 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'App\\View' => __DIR__ . '/../../..' . '/flexcms/libraries/View.php',
         'App\\Widget' => __DIR__ . '/../../..' . '/flexcms/models/Widget.php',
         'App\\Widget\\Content' => __DIR__ . '/../../..' . '/flexcms/widgets/content/controllers/Content.php',
+        'App\\Widget\\Content\\Model\\Widget' => __DIR__ . '/../../..' . '/flexcms/widgets/content/models/Widget.php',
         'Archivo' => __DIR__ . '/../../..' . '/flexcms/modules/admin/controllers/Archivo.php',
         'Auth' => __DIR__ . '/../../..' . '/flexcms/modules/auth/controllers/Auth.php',
         'Auth\\Models\\Field' => __DIR__ . '/../../..' . '/flexcms/modules/auth/models/Field.php',

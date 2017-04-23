@@ -344,9 +344,7 @@ md-input-container {
 }
 
 .angular-ui-tree-empty {
-  background-image: none !important;
-  border: none !important;
-  min-height: 100% !important;
+  display: none;
 }
 
 .columns {
@@ -536,6 +534,7 @@ panel-dispose {
   height: 100%;
   position: absolute;
   display: flex;
+
 }
 
 .panel-body {
@@ -792,4 +791,14 @@ md-dialog.md-default-theme, md-dialog {
 [perfect-scrollbar] {
   overflow-y: hidden;
   position: relative;
+}
+
+widget {
+  .md-panel {
+    position: absolute;
+    width: 100%;
+  }
+  md-card {
+    position: relative;
+  }
 }

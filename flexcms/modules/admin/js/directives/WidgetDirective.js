@@ -8,7 +8,7 @@
  * @restrict A
  * */
 angular.module('app')
-    .directive('widget', function (WIDGET_PATH, WidgetResource, $compile, $templateRequest) {
+    .directive('widget', function (WIDGET_PATH, WidgetResource, $compile, $templateRequest, Loading) {
         return {
             restrict: 'E',
             scope: {
@@ -19,13 +19,15 @@ angular.module('app')
             link(scope, element) {
 
                 scope.widget = {};
+                scope.changed = false;
 
                 let origWidget;
                 const setData = (response) => {
                     scope.widget = response.data.widget;
                     scope.languages = response.data.languages;
 
-                    origWidget = scope.widget;
+                    //Save the original widget so that we can compare any changes
+                    origWidget = angular.copy(scope.widget);
 
                     // Replace the widgetId with the real widgets id
                     //scope.widgetId = response.data.widget.id;
@@ -36,6 +38,15 @@ angular.module('app')
                         const template = angular.element(html);
                         element.append(template);
                         $compile(template)(scope);
+
+                        scope.$watch('widget', () => {
+                            if(angular.equals(origWidget, scope.widget)) {
+                                scope.changed = false;
+                            } else {
+                                scope.changed = true;
+                            }
+                        }, true);
+
                     });
                 };
 
@@ -51,10 +62,14 @@ angular.module('app')
                     });
                 }
 
-                /*scope.$watchCollection(scope.widget, () => {
-                    console.log(4);
-                });*/
-
+                scope.save = () => {
+                    Loading.show(element[0].children[0]);
+                    WidgetResource.update(scope.widget, (response) => {
+                        Loading.hide();
+                        scope.widget = response.data.widget;
+                        origWidget = angular.copy(scope.widget);
+                    });
+                }
             },
         };
     });

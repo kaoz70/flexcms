@@ -5,6 +5,7 @@ angular.module('app')
 
     .controller('LayoutCreateController', function ($scope, $rootScope, LayoutService, LayoutResource, $routeSegment, WindowFactory, layout, $mdSidenav) {
         const vm = this;
+        let isNew = true;
 
         // Open the sidebar on this controller
         $rootScope.isSidebarOpen = true;
@@ -27,27 +28,42 @@ angular.module('app')
 
         vm.layoutService = LayoutService.init(vm.page.data.structure);
 
-        $scope.$watch('vm.page.data.structure', (rows) => {
-            vm.modelAsJson = angular.toJson(rows, true);
-        }, true);
-
         WindowFactory.add($scope);
 
         vm.save = () => {
-            LayoutResource.save(vm.page, (response) => {
-                $scope.$parent.pages = response.data.pages;
-            });
+            if(isNew) {
+                LayoutResource.save(vm.page, (response) => {
+                    $scope.$parent.pages = response.data.pages;
+                    vm.page = response.data.page;
+                    isNew = false;
+                });
+            } else {
+                LayoutResource.update({ id: vm.page.id }, vm.page, (response) => {
+                    $scope.$parent.pages = response.data.pages;
+                });
+            }
         };
 
         vm.saveAndClose = () => {
-            LayoutResource.save(vm.page, (response) => {
-                $scope.$parent.pages = response.data.pages;
-                WindowFactory.back($scope);
-            });
+            if(isNew) {
+                LayoutResource.save(vm.page, (response) => {
+                    $scope.$parent.pages = response.data.pages;
+                    WindowFactory.back($scope);
+                });
+            } else {
+                LayoutResource.update(vm.page, (response) => {
+                    $scope.$parent.pages = response.data.pages;
+                    WindowFactory.back($scope);
+                });
+            }
         };
 
         vm.closeRight = () => {
             $mdSidenav('right')
                 .close();
+        };
+
+        vm.dropCallback = (item) => {
+            return item.id ? item.id : item;
         };
     });
