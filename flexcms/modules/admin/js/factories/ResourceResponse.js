@@ -36,10 +36,9 @@ angular.module('app')
             query(service) {
                 const deferred = $q.defer();
                 service.query((successData) => {
-                    try {
-                        JSON.parse(successData);
+                    if (successData.data) {
                         deferred.resolve(successData);
-                    } catch (e) {
+                    } else {
                         deferred.reject(formatErrorResponse(successData));
                     }
                 }, (errorData) => {
@@ -57,10 +56,9 @@ angular.module('app')
             get(service, params) {
                 const deferred = $q.defer();
                 service.get(params, (successData) => {
-                    try {
-                        JSON.parse(successData);
+                    if (successData.data) {
                         deferred.resolve(successData);
-                    } catch (e) {
+                    } else {
                         deferred.reject(formatErrorResponse(successData));
                     }
                 }, (errorData) => {
