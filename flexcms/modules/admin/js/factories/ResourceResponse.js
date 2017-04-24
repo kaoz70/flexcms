@@ -8,6 +8,23 @@
  * */
 angular.module('app')
     .factory('ResourceResponse', function ($q) {
+        const formatErrorResponse = (response) => {
+
+            // The error string is transformed into an Resource() object,
+            // we need to transform it into a string again,
+            // but it has no methods for this
+            let string = '';
+            angular.forEach(response, (prop) => {
+                string += prop;
+            });
+
+            return {
+                data: {
+                    message: 'Not valid JSON data',
+                    response: string,
+                },
+            };
+        };
 
         return {
 
@@ -18,12 +35,16 @@ angular.module('app')
              */
             query(service) {
                 const deferred = $q.defer();
-                service.query(
-                    (successData) => {
+                service.query((successData) => {
+                    try {
+                        JSON.parse(successData);
                         deferred.resolve(successData);
-                    }, (errorData) => {
-                        deferred.reject(errorData);
-                    });
+                    } catch (e) {
+                        deferred.reject(formatErrorResponse(successData));
+                    }
+                }, (errorData) => {
+                    deferred.reject(errorData);
+                });
                 return deferred.promise;
             },
 
@@ -35,16 +56,17 @@ angular.module('app')
              */
             get(service, params) {
                 const deferred = $q.defer();
-                service.get(params,
-                    (successData) => {
+                service.get(params, (successData) => {
+                    try {
+                        JSON.parse(successData);
                         deferred.resolve(successData);
-                    }, (errorData) => {
-                        deferred.reject(errorData);
-                    });
+                    } catch (e) {
+                        deferred.reject(formatErrorResponse(successData));
+                    }
+                }, (errorData) => {
+                    deferred.reject(errorData);
+                });
                 return deferred.promise;
             },
-
         };
-
-});
-
+    });

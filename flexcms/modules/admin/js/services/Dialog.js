@@ -19,7 +19,7 @@ angular.module('app')
                 controller($scope) {
                     let data;
 
-                    if(rejection.data.error) {
+                    if (rejection.data.error) {
                         data = rejection.data.error;
                     } else {
                         data = rejection.data;
