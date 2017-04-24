@@ -58,8 +58,8 @@ class Pages extends RESTController {
             throw new CMSException('No content module for page: ' . $id);
         }
 
-        $contentType = $contentWidget->getData();
-        $class = '\\' . $contentType->content_type . '\Content';
+        $contentType = $contentWidget->data;
+        $class = '\content\\' . ucfirst($contentType['content_type']);
 
         //Get the content's index page
         return $class::index($id);

@@ -7,8 +7,8 @@ const Task = elixir.Task;
 /**
  * Copies the fonts so that their paths are the ones from the CSS
  */
-elixir.extend('copyfonts', () => {
-    new Task('copyfonts-fontawesome', () => {
+elixir.extend('copyAssets', () => {
+    new Task('fonts-fontawesome', () => {
         return gulp
             .src([
                 './node_modules/font-awesome/fonts/*.{ttf,woff,woff2,eof,svg}',
@@ -16,12 +16,28 @@ elixir.extend('copyfonts', () => {
             .pipe(gulp.dest('./assets/admin/fonts'));
     });
 
-    new Task('copyfonts-material', () => {
+    new Task('fonts-material', () => {
         return gulp
             .src([
                 './node_modules/material-design-icons/iconfont/*.{ttf,woff,woff2,eof,svg}',
             ])
             .pipe(gulp.dest('./assets/admin/build/'));
+    });
+
+    new Task('copy-tinymce-skins', () => {
+        return gulp
+            .src([
+                './node_modules/tinymce/skins/**/*',
+            ])
+            .pipe(gulp.dest('./assets/admin/build/skins/'));
+    });
+
+    new Task('copy-tinymce-theme', () => {
+        return gulp
+            .src([
+                './node_modules/tinymce/themes/**/*',
+            ])
+            .pipe(gulp.dest('./assets/admin/build/themes/'));
     });
 });
 
@@ -136,5 +152,5 @@ elixir((mix) => {
     ], './assets/admin/build/login.js');
 
     // Copy the fonts
-    mix.copyfonts();
+    mix.copyAssets();
 });

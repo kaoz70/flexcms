@@ -30,8 +30,6 @@ use stdClass;
 class Content extends \RESTController implements \AdminInterface
 {
 
-    private static $image_folder = './assets/images/content/';
-
     public static function index($page_id)
     {
 
@@ -59,9 +57,8 @@ class Content extends \RESTController implements \AdminInterface
 
         try {
 
-            $data['title'] = $page->getTranslation(Language::getDefault()->id) ?
-                $page->getTranslation(Language::getDefault()->id)->name :
-                "{missing translation}";
+            $translation = $page->getTranslation(Language::getDefault()->id);
+            $data['title'] = $translation ? $translation->name : "{missing translation}";
 
         } catch (\TranslationException $e) {
             $data['title'] = "{Missing translation}";
@@ -74,7 +71,7 @@ class Content extends \RESTController implements \AdminInterface
     private static function getItems($id)
     {
         $widget = Widget::getContentWidget($id);
-        $contentOrder = $widget->getConfig()->order;
+        $contentOrder = $widget->getConfig()['order'];
         return \App\Content::getByPage($id, Language::getDefault()->id, $contentOrder);
     }
 

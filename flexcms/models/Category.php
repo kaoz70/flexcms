@@ -234,7 +234,7 @@ class Category extends TranslationNode {
      * @return mixed
      * @throws \CMSException
      */
-    protected function getTranslation($lang_id)
+    public function getTranslation($lang_id)
     {
 
         if(!$this->getType()) {

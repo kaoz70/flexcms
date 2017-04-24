@@ -69,16 +69,6 @@ class Widget extends BaseModel implements \WidgetInterface {
     }
 
     /**
-     * Returns the widget's stored jason data as an Object
-     *
-     * @return mixed
-     */
-    public function getData()
-    {
-        return json_decode($this->data);
-    }
-
-    /**
      * @param $page_id
      * @return Widget
      */
@@ -96,8 +86,8 @@ class Widget extends BaseModel implements \WidgetInterface {
      */
     public function getConfig()
     {
-        $data = $this->getData();
-        return $data && isset($data->settings) ? $data->settings : [
+        $data = $this->data;
+        return $data && isset($data['settings']) ? $data['settings'] : [
             'list_view' => '',
             'detail_view' => '',
             'order' => 'manual',
