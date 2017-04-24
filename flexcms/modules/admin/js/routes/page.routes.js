@@ -15,11 +15,11 @@
                 .when('/page/:page_id/images/edit/:image_id', 'page.images.edit')
                 .segment('page_index', {
                     default: true,
-                    controller: 'PageIndexCtrl',
+                    controller: 'PageIndexController',
                 })
                 .segment('page', {
                     templateUrl: `${BASE_PATH}admin/List1`,
-                    controller: 'PageCtrl',
+                    controller: 'PageController',
                     controllerAs: 'vm',
                     resolve: {
                         page(Page, $routeParams, ResourceResponse) {
@@ -37,7 +37,8 @@
                 .within()
                 .segment('content', {
                     templateUrl: `${BASE_PATH}content/Detail`,
-                    controller: 'ContentEditCtrl',
+                    controller: 'ContentEditController',
+                    controllerAs: 'vm',
                     dependencies: ['page_id', 'id'],
                     resolve: {
                         content(Content, $routeParams, ResourceResponse) {
@@ -53,7 +54,8 @@
                 })
                 .segment('create', {
                     templateUrl: `${BASE_PATH}content/Detail`,
-                    controller: 'ContentCreateCtrl',
+                    controller: 'ContentCreateController',
+                    controllerAs: 'vm',
                     dependencies: ['page_id', 'id'],
                     resolve: {
                         languages(Language, ResourceResponse) {
@@ -69,7 +71,7 @@
                 })
                 .segment('config', {
                     templateUrl: `${BASE_PATH}content/Config`,
-                    controller: 'PageConfigCtrl',
+                    controller: 'PageConfigController',
                     dependencies: ['page_id', 'widget_id'],
                     resolve: {
                         config(ContentConfig, ResourceResponse, $routeParams) {
@@ -85,7 +87,7 @@
                 })
                 .segment('images', {
                     templateUrl: `${BASE_PATH}admin/ListGrouped2`,
-                    controller: 'ImageConfigCtrl',
+                    controller: 'ImageConfigController',
                     resolve: {
                         images(ImageConfig, $q, $routeParams) {
                             const deferred = $q.defer();
@@ -108,7 +110,7 @@
                 .within()
                 .segment('create', {
                     templateUrl: `${BASE_PATH}admin/ImageConfigDetail`,
-                    controller: 'ImageConfigCreateCtrl',
+                    controller: 'ImageConfigCreateController',
                     untilResolved: {
                         templateUrl: `${BASE_PATH}admin/Loading`,
                     },

@@ -22,6 +22,8 @@ class Pages extends RESTController {
 
         try{
 
+
+
             if($id && $id !== 'null') {
                 $data = $this->edit($id);
             } else {
@@ -30,7 +32,7 @@ class Pages extends RESTController {
 
             $response->setData($data);
 
-        } catch (CMSException $e) {
+        } catch (Exception $e) {
             $response->setError('Ocurri&oacute; un problema!', $e);
         }
 
@@ -59,7 +61,16 @@ class Pages extends RESTController {
         }
 
         $contentType = $contentWidget->data;
+
+        if(!$contentType['content_type']) {
+            throw new CMSException('No content module for page: ' . $id);
+        }
+
         $class = '\content\\' . ucfirst($contentType['content_type']);
+
+        if(!class_exists($class)) {
+            throw new CMSException("Class '$class' does not exist");
+        }
 
         //Get the content's index page
         return $class::index($id);

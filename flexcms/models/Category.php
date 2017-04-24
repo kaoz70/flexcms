@@ -17,6 +17,8 @@ class Category extends TranslationNode {
     protected static $type;
     protected $language;
 
+    protected static $image_folder = 'assets/images/';
+
     protected $appends = ['translations'];
 
     /**
@@ -270,6 +272,28 @@ class Category extends TranslationNode {
         $this->translations = $arr;
 
         return $arr;
+
+    }
+
+    /**
+     * Get a model with all the available translations
+     *
+     * @param $content_id
+     * @return mixed
+     */
+    static function getForEdit($content_id)
+    {
+
+        $content = static::find($content_id);
+        $content->images = ImageSection::getImages(static::$type, $content_id, static::$image_folder . $content_id . '/');
+        $contentTrans = new EditTranslations();
+        $contentTrans->setContent($content);
+
+        foreach (Language::orderBy('position', 'asc')->get() as $lang) {
+            $contentTrans->add($lang, $content->getTranslation($lang->id));
+        }
+
+        return $contentTrans->getAll();
 
     }
 

@@ -98,18 +98,12 @@ class Widget extends BaseModel implements \WidgetInterface {
 
     public function setConfig($input)
     {
-
-        $data = $this->getData();
-
-        $data->settings->list_view = $input['list_view'];
-        $data->settings->detail_view = $input['detail_view'];
-        $data->settings->order = $input['order'];
-        $data->settings->pagination = (boolean)$input['pagination'];
-        $data->settings->quantity = (int)$input['quantity'];
-
-        $this->data = json_encode($data);
+        $this->data['settings']['list_view'] = $input['list_view'];
+        $this->data['settings']['detail_view'] = $input['detail_view'];
+        $this->data['settings']['order'] = $input['order'];
+        $this->data['settings']['pagination'] = (boolean)$input['pagination'];
+        $this->data['settings']['quantity'] = (int)$input['quantity'];
         $this->save();
-
     }
 
     /**

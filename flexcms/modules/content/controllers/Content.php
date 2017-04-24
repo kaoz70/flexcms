@@ -244,7 +244,7 @@ class Content extends \RESTController implements \AdminInterface
         try{
             $response->setData($this->getConfig($widget_id));
         } catch (Exception $e) {
-            $response->setError('Ocurri&oacute; un problema al eliminar el contenido!', $e);
+            $response->setError('Ocurri&oacute; un problema al obtener la configuraci&oacute;n!', $e);
         }
 
         $this->response($response, $response->getStatusHeader());
@@ -255,7 +255,7 @@ class Content extends \RESTController implements \AdminInterface
     {
 
         $widget = Widget::find($widget_id);
-        $data['page'] = Category::getForEdit($widget->category_id);
+        $data['page'] = Page::getForEdit($widget->category_id);
         $data['config'] = $widget->getConfig();
 
         $data['roles'] =  \App\Role::all();
@@ -334,7 +334,7 @@ class Content extends \RESTController implements \AdminInterface
             \App\Content::reorder($this->put(), $page_id);
 
             $widget = Widget::getContentWidget($page_id);
-            $contentOrder = $widget->getConfig()->order;
+            $contentOrder = $widget->getConfig()['order'];
 
             if($contentOrder == 'manual') {
                 $response->setMessage('Se guard&oacute; el nuevo orden de elementos');

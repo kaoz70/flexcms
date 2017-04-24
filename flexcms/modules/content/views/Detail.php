@@ -13,7 +13,7 @@
 
     <md-content perfect-scrollbar wheelPropagation="true" class="panel-body">
 
-        <form name="form">
+        <form name="vm.form">
 
             <md-card>
                 <md-card-title>
@@ -24,7 +24,7 @@
                 <md-card-content>
 
                     <md-tabs class="md-hue-1" md-dynamic-height="" md-border-bottom="">
-                        <md-tab ng-repeat="lang in content.translations" label="{{lang.name}}">
+                        <md-tab ng-repeat="lang in vm.content.translations" label="{{lang.name}}">
 
                             <md-input-container class="md-block md-hue-1">
                                 <input ng-model="lang.translation.name" type="text" placeholder="T&iacute;tulo" ng-required="true">
@@ -46,7 +46,7 @@
                 </md-card-title>
                 <md-card-content>
 
-                    <div ng-repeat="imageConfig in content.images">
+                    <div ng-repeat="imageConfig in vm.content.images">
 
                         <h3>{{imageConfig.name}}</h3>
 
@@ -71,7 +71,7 @@
                         <div class="input-group">
                             <label class="input-group-addon">Zona Horaria</label>
                             <timezone-selector
-                                    ng-model="content.timezone"
+                                    ng-model="vm.content.timezone"
                                     display-utc="true"
                                     sort-by="offset"
                                     show-local="true"
@@ -85,7 +85,7 @@
 
                         <div flex-gt-xs class="md-hue-1">
                             <h4>Fecha inicial</h4>
-                            <md-datepicker ng-model="content.publication_start"
+                            <md-datepicker ng-model="vm.content.publication_start"
                                            class="md-hue-1"
                                            md-placeholder="Fecha Inicio"
                                            md-open-on-focus></md-datepicker>
@@ -93,7 +93,7 @@
 
                         <div flex-gt-xs class="md-hue-1">
                             <h4>Fecha final</h4>
-                            <md-datepicker ng-model="content.publication_end"
+                            <md-datepicker ng-model="vm.content.publication_end"
                                            class="md-hue-1"
                                            md-placeholder="Fecha Fin"
                                            md-open-on-focus></md-datepicker>
@@ -105,11 +105,11 @@
                         <md-divider></md-divider>
                     </md-input-container>
 
-                    <md-switch ng-model="content.important" aria-label="Destacado">
+                    <md-switch ng-model="vm.content.important" aria-label="Destacado">
                         Destacado
                     </md-switch>
 
-                    <md-switch ng-model="content.enabled" aria-label="Publicado">
+                    <md-switch ng-model="vm.content.enabled" aria-label="Publicado">
                         Publicado
                     </md-switch>
 
@@ -125,7 +125,7 @@
                 <md-card-content>
 
                     <md-tabs class="md-hue-1" md-dynamic-height="" md-border-bottom="">
-                        <md-tab ng-repeat="lang in content.translations" label="{{lang.name}}">
+                        <md-tab ng-repeat="lang in vm.content.translations" label="{{lang.name}}">
 
                             <md-input-container class="md-block md-hue-1">
                                 <md-chips ng-model="lang.translation.meta_keywords"
@@ -164,7 +164,7 @@
                 <md-card-content>
 
                     <md-input-container class="md-block md-hue-1">
-                        <input type="text" placeholder="Clase CSS" ng-model="content.css_class" />
+                        <input type="text" placeholder="Clase CSS" ng-model="vm.content.css_class" />
                     </md-input-container>
 
                 </md-card-content>
@@ -178,12 +178,12 @@
         <md-toolbar class="md-secondary md-menu-toolbar">
             <div class="md-toolbar-tools" layout-align="end center">
 
-                <md-button class="md-icon-button" ng-click="save()" >
+                <md-button class="md-icon-button" ng-click="vm.save()" >
                     <md-icon>save</md-icon>
                     <md-tooltip md-direction="bottom">Guardar</md-tooltip>
                 </md-button>
 
-                <md-button class="md-icon-button" ng-click="saveAndClose()" >
+                <md-button class="md-icon-button" ng-click="vm.saveAndClose()" >
                     <md-icon>check</md-icon>
                     <md-tooltip md-direction="bottom">Guardar y Cerrar</md-tooltip>
                 </md-button>
