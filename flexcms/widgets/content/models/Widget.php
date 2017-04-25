@@ -40,7 +40,7 @@ class Widget extends \App\Widget
         $widget = Widget::getForEdit($id);
         $widget['types'] = Admin::getContentModules();
         $widget['config'] =  json_decode(file_get_contents(APPPATH . 'widgets/content/config.json'));
-        //TODO: what is this??
+        //TODO: what is this for??
         //$widget['content']->data = json_decode($widget['content']->data);
         return $widget;
     }
@@ -49,6 +49,14 @@ class Widget extends \App\Widget
     {
         $this->data = $data['data'];
         $this->save();
+
+        //THe page may not exist yet if the widget is created before a new page save
+        if($page = $this->getCategory()) {
+            //Update the page content type
+            $page->content_type = $this->data['content_type'];
+            $page->save();
+        }
+
     }
 
 }

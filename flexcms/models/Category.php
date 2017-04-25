@@ -12,7 +12,7 @@ namespace App;
 use Baum\Node;
 use Closure;
 
-class Category extends TranslationNode {
+class Category extends Node {
 
     protected static $type;
     protected $language;
@@ -118,6 +118,14 @@ class Category extends TranslationNode {
     }
 
     /**
+     * @return string
+     */
+    public static function getType()
+    {
+        return static::$type;
+    }
+
+    /**
      * Loops through each child nodes to see if the passed name is unique or not
      *
      * @param $children
@@ -162,46 +170,6 @@ class Category extends TranslationNode {
     }
 
     /**
-     * Creates the menu and the path to the active node
-     * @return array
-     */
-    static function createMenu($lang)
-    {
-        $CI =& get_instance();
-        //$path = $CI->m_breadcrumbs['page']['path'];
-
-        $tree = self::_getCachedTree($lang . '_pages_', $lang);
-
-        return compact('tree', 'path');
-    }
-
-    /**
-     * Checks if the Tree node is cached, and returns it, or else query again
-     *
-     * @param $key
-     * @param $lang
-     *
-     * @return mixed
-     */
-    static function _getCachedTree($key, $lang)
-    {
-
-        $CI =& get_instance();
-
-        if ( ! $tree = $CI->cache->get($key)) {
-            $tree = self::first();
-            $tree->lang = $lang;
-            $tree->findChildren(1);
-            if(ENVIRONMENT !== 'development') {
-                $CI->cache->save($key, $tree, 9999);
-            }
-        }
-
-        return $tree;
-
-    }
-
-    /**
      * Deletes a node
      *
      * @param $id
@@ -221,14 +189,6 @@ class Category extends TranslationNode {
 
     }
 
-    /**
-     * @return string
-     */
-    public static function getType()
-    {
-        return static::$type;
-    }
-    
     /**
      * Returns the content's translation as a json decoded object/array
      *
@@ -272,6 +232,95 @@ class Category extends TranslationNode {
         $this->translations = $arr;
 
         return $arr;
+
+    }
+
+    /**
+     * Set of all children & nested children.
+     *
+     * @param Language $lang
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function descendantsLang(Language $lang) {
+        return $this->descendantsAndSelfLang($lang)->withoutSelf();
+    }
+
+    /**
+     * Retrieve all of its children & nested children.
+     *
+     * @param Language $lang
+     * @param  array $columns
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getDescendantsLang(Language $lang, $columns = array('*')) {
+        if ( is_array($columns) )
+            return $this->descendantsLang($lang)->get($columns);
+
+        $arguments = func_get_args();
+
+        $limit    = intval(array_shift($arguments));
+        $columns  = array_shift($arguments) ?: array('*');
+
+        return $this->descendantsLang($lang)->limitDepth($limit)->get($columns);
+    }
+
+    /**
+     * Scope targeting itself and all of its nested children.
+     *
+     * @param Language $lang
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function descendantsAndSelfLang(Language $lang) {
+
+        //Get the translations
+        $transSelect = "(SELECT data FROM translations 
+        WHERE parent_id = `categories`.`id` 
+        AND language_id = {$lang->id} 
+        AND `translations`.`type` = '{$this->getType()}') as translation";
+
+        return $this->newNestedSetQuery()
+            ->selectRaw("*, $transSelect")
+            ->where($this->getLeftColumnName(), '>=', $this->getLeft())
+            ->where($this->getLeftColumnName(), '<', $this->getRight());
+    }
+
+    /**
+     * Creates the menu and the path to the active node
+     * @return array
+     */
+    static function createMenu($lang)
+    {
+        $CI =& get_instance();
+        //$path = $CI->m_breadcrumbs['page']['path'];
+
+        $tree = self::_getCachedTree($lang . '_pages_', $lang);
+
+        return compact('tree', 'path');
+    }
+
+    /**
+     * Checks if the Tree node is cached, and returns it, or else query again
+     *
+     * @param $key
+     * @param $lang
+     *
+     * @return mixed
+     */
+    static function _getCachedTree($key, $lang)
+    {
+
+        $CI =& get_instance();
+
+        if ( ! $tree = $CI->cache->get($key)) {
+            $tree = self::first();
+            $tree->lang = $lang;
+            $tree->findChildren(1);
+            if(ENVIRONMENT !== 'development') {
+                $CI->cache->save($key, $tree, 9999);
+            }
+        }
+
+        return $tree;
 
     }
 

@@ -422,6 +422,42 @@ md-input-container {
   .node.no-content {
     color: #b1b1b1;
   }
+  .node {
+    a:before {
+      display: inline-block;
+      font: normal normal normal 14px/1 FontAwesome;
+      font-size: inherit;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      margin-right: 9px;
+    }
+  }
+  .node.auth {
+    a:before {
+      content: "\f007";
+    }
+  }
+  .node.content {
+    a:before {
+      content: "\f15b";
+    }
+  }
+  .node.calendar {
+    a:before {
+      content: "\f073";
+    }
+  }
+  .node.catalog {
+    a:before {
+      content: "\f02c";
+    }
+  }
+  .node.faq {
+    a:before {
+      content: "\f059";
+    }
+  }
 }
 
 #layout {
@@ -819,3 +855,4 @@ widget {
     font-family: 'Raleway', sans-serif;
   }
 }
+

@@ -69,7 +69,8 @@ class Layout extends RESTController {
             $page->group_visibility = $this->put('group_visibility');
             $page->data = $this->put('data');
 
-            if($contentWidget = \App\Widget::getMainWidget($this->put('data'), $page->id)) {
+            if($contentWidget = \App\Widget::getMainWidget($page)) {
+                $page->is_content = true;
                 $page->content_type = $contentWidget->data['content_type'];
             }
 
@@ -110,6 +111,13 @@ class Layout extends RESTController {
                 'group_visibility' => $this->post('group_visibility'),
                 'data' => $this->post('data'),
             ]);
+
+            if($contentWidget = \App\Widget::getMainWidget($page)) {
+                $page->is_content = true;
+                $page->content_type = $contentWidget->data['content_type'];
+            }
+
+            $page->save();
 
             $page->setTranslations($this->post('translations'));
 

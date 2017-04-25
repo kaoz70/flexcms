@@ -7344,6 +7344,36 @@ md-input-container input {
   color: #b1b1b1;
 }
 
+#pages .node a:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin-right: 9px;
+}
+
+#pages .node.auth a:before {
+  content: "\f007";
+}
+
+#pages .node.content a:before {
+  content: "\f15b";
+}
+
+#pages .node.calendar a:before {
+  content: "\f073";
+}
+
+#pages .node.catalog a:before {
+  content: "\f02c";
+}
+
+#pages .node.faq a:before {
+  content: "\f059";
+}
+
 #layout .node [ui-tree-handle] {
   margin-left: 10px;
   margin-top: 8px;

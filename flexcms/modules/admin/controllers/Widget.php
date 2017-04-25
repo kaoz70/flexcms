@@ -22,7 +22,7 @@ class Widget extends RESTController implements AdminInterface {
             $widget = \App\Widget::find($id);
 
             //Get the model class
-            $modelClass = $widget->type . '\Model\Widget';
+            $modelClass = '\App\Widget\\' . $widget->type . '\Model\Widget';
 
             $data = [
                 'widget' => $modelClass::admin($widget->id),
@@ -54,7 +54,7 @@ class Widget extends RESTController implements AdminInterface {
             $widget = \App\Widget::find($id);
 
             //Get the model class
-            $modelClass = $widget->type . '\Model\Widget';
+            $modelClass = '\App\Widget\\' . $widget->type . '\Model\Widget';
 
             //Get the new model
             $model = $modelClass::find($id);
@@ -86,12 +86,13 @@ class Widget extends RESTController implements AdminInterface {
 
         try{
 
-            $class = $this->post('namespace');
+            $class = ucfirst($this->post('type'));
 
             //Get the model class
-            $modelClass = $class . '\Model\Widget';
+            $modelClass = '\App\Widget\\' . $class . '\Model\Widget';
 
             $widget = new \App\Widget();
+            $widget->category_id = $this->post('category_id') ?: 0;
             $widget->type = $class;
             $widget->save();
 

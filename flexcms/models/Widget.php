@@ -75,7 +75,7 @@ class Widget extends BaseModel implements \WidgetInterface {
     public static function getContentWidget($page_id)
     {
         return static::where('category_id', $page_id)
-            ->where('type', '\App\Widget\Content')
+            ->where('type', 'Content')
             ->first();
     }
 
@@ -109,25 +109,24 @@ class Widget extends BaseModel implements \WidgetInterface {
     /**
      * Check if there is any content widget, and updates the widgets to the page's ID
      *
-     * @param array $data
-     * @param $page_id
-     * @return null|string
+     * @param Page $page
+     * @return null|\App\Widget\Content\Model\Widget
      */
-    public static function getMainWidget(array $data, $page_id)
+    public static function getMainWidget(Page $page)
     {
 
         $mainWidget = null;
 
-        foreach ($data['structure'] as $row) {
-            foreach ($row['columns'] as $column) {
-                if(isset($column['widgets'])) {
-                    foreach ($column['widgets'] as $widget) {
+        foreach ($page->data->structure as $row) {
+            foreach ($row->columns as $column) {
+                if(isset($column->widgets)) {
+                    foreach ($column->widgets as $widget) {
 
                         $w = static::find($widget);
-                        $w->category_id = $page_id;
+                        $w->category_id = $page->id;
                         $w->save();
 
-                        if($w->type === '\App\Widget\Content') {
+                        if($w->type === 'Content') {
                             $mainWidget = $w;
                         }
 
@@ -138,6 +137,11 @@ class Widget extends BaseModel implements \WidgetInterface {
 
         return $mainWidget;
 
+    }
+
+    public function getCategory()
+    {
+        return Category::find($this->category_id);
     }
 
 }

@@ -445,7 +445,10 @@
                                                              dnd-draggable="id"
                                                              dnd-effect-allowed="move"
                                                              dnd-moved="column.widgets.splice($index, 1)">
-                                                            <widget widget-id="id" list="column.widgets" list-index="$index"></widget>
+                                                            <widget widget-id="id"
+                                                                    list="column.widgets"
+                                                                    list-index="$index"
+                                                                    category-id="vm.page.id"></widget>
                                                         </div>
                                                     </div>
                                                 </md-card-content>

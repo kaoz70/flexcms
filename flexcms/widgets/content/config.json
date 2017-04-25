@@ -7,7 +7,7 @@
     "es": "Widget principal, define el tipo de pagina",
     "en": "Main widget, defines the page content type"
   },
-  "namespace": "\\App\\Widget\\Content",
+  "type": "content",
   "icon": "description",
   "groups": [
     "general",
