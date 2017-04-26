@@ -7,11 +7,13 @@
  *
  * */
 angular.module('app')
-    .factory('Page', function($resource){
-        return $resource(system.base_url + 'admin/pages/:id', { id: '@id'}, {
+    .factory('Page', function ($resource) {
+        return $resource(system.base_url + 'admin/pages/:id', { id: '@id' }, {
             query: {
-                isArray: true
-            }
+                isArray: true,
+            },
+            update: {
+                method: 'PUT',
+            },
         });
     });
-

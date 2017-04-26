@@ -32,6 +32,13 @@ class Category extends Node {
     ];
 
     /**
+     * Column to perform the default sorting
+     *
+     * @var string
+     */
+    protected $orderColumn = 'order';
+
+    /**
      * All the available translations
      *
      * @return \Illuminate\Support\Collection
@@ -343,6 +350,31 @@ class Category extends Node {
         }
 
         return $contentTrans->getAll();
+
+    }
+
+    /**
+     * Correctly set the categories order
+     *
+     * @param $categories
+     * @return mixed
+     */
+    static public function setOrder($categories)
+    {
+
+        $catArray = [];
+
+        foreach ($categories as $key => $node){
+            $n = [];
+            $n['id'] = $node['id'];
+            $n['order'] = $key + 1;
+            if(isset($node['children'])) {
+                $n['children'] = static::setOrder($node['children']);
+            }
+            $catArray[] = $n;
+        }
+
+        return $catArray;
 
     }
 

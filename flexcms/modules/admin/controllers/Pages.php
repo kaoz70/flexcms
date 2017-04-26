@@ -22,8 +22,6 @@ class Pages extends RESTController {
 
         try{
 
-
-
             if($id && $id !== 'null') {
                 $data = $this->edit($id);
             } else {
@@ -47,7 +45,16 @@ class Pages extends RESTController {
     {
         //Get the root page
         $root = \App\Page::find(1);
-        return $root->getDescendantsLang(\App\Language::getDefault())->toHierarchy();
+        $lang = \App\Language::getDefault();
+
+        //Baum's toHierarchy() returns an object for root nodes, this returns an array
+        //@link https://github.com/etrepat/baum/issues/213
+        $roots = new \Baum\Extensions\Eloquent\Collection();
+        foreach ($root->getDescendantsLang($lang)->toHierarchy() as $child) {
+            $roots->add($child);
+        }
+
+        return $roots;
     }
 
     private function edit($id)
@@ -94,6 +101,36 @@ class Pages extends RESTController {
                 'unique' => $category->isUniqueName($name, $lang)
             ]
         ]);
+
+    }
+
+    /**
+     * Update the category tree structure with the one passed in the request data
+     *
+     * @return string
+     */
+    public function index_put()
+    {
+
+        $response = new Response();
+
+        try {
+
+            $categories = [
+                [
+                    'id' => 1,
+                    'children' => \App\Category::setOrder($this->put())
+                ],
+            ];
+
+            \App\Category::buildTree($categories);
+            $response->setData($categories);
+
+        }  catch (\Exception $e) {
+            $response->setError('Ocurri&oacute; un problema!', $e);
+        }
+
+        $this->response($response, $response->getStatusHeader());
 
     }
 

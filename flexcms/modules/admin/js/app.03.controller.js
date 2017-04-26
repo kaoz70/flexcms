@@ -47,5 +47,15 @@
                 clickOutsideToClose: true,
             });
         };
+
+        $scope.treeOptions = {
+            dropped() {
+                console.log($scope.pages);
+
+                Page.update({ id: 1 }, $scope.pages, (response) => {
+                    console.log(response);
+                });
+            },
+        };
     }
 }());

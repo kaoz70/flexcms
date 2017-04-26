@@ -90,8 +90,8 @@
                                 </li>
                                 <li class="submenu-menu" ui-sref-active="active">
 
-                                    <div perfect-scrollbar id="layout" ui-tree>
-                                        <ol class="tree" ui-tree-nodes="" ng-model="pages" id="tree-root">
+                                    <div perfect-scrollbar id="layout" ui-tree="treeOptions">
+                                        <ol class="tree" ui-tree-nodes="" ng-model="pages">
                                             <li ng-repeat="node in pages" ui-tree-node ng-include="'nodes_layout_renderer.html'"></li>
                                         </ol>
                                     </div>
@@ -116,7 +116,7 @@
                                 <li class="submenu-menu" ui-sref-active="active">
 
                                     <div perfect-scrollbar id="pages" ui-tree data-drag-enabled="false">
-                                        <ol class="tree" ui-tree-nodes="" ng-model="pages" id="tree-root">
+                                        <ol class="tree" ui-tree-nodes="" ng-model="pages">
                                             <li ng-repeat="node in pages" ui-tree-node ng-include="'nodes_renderer.html'"></li>
                                         </ol>
                                     </div>

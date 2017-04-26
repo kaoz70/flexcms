@@ -540,8 +540,10 @@ md-input-container {
 
 }
 
-.angular-ui-tree-placeholder {
-  background-color: #212121;
+.panel {
+  .angular-ui-tree-placeholder {
+    background-color: #212121;
+  }
 }
 
 .panel {
@@ -854,5 +856,23 @@ widget {
     font-size: 14px;
     font-family: 'Raleway', sans-serif;
   }
+
+  .angular-ui-tree-placeholder {
+    top: 4px;
+    left: 10px;
+    border: 1px dashed #009cff;
+    background: #152027;
+    border-radius: 3px;
+  }
+
+  .angular-ui-tree-placeholder:before {
+    top: 16px;
+    left: -11px;
+  }
+  .angular-ui-tree-placeholder:after {
+    top: 14px;
+    left: -13px;
+  }
+
 }
 
