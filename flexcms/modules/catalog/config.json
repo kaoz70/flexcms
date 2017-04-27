@@ -3,6 +3,7 @@
   "menu": {
     "show": false,
     "icon": "style",
+    "page_icon": "<i class='fa fa-tags' aria-hidden='true'></i>",
     "name": {
       "es": "Catalogo"
     }

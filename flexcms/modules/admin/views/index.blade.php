@@ -24,7 +24,7 @@
     <script type="text/ng-template" id="nodes_renderer.html">
         <div class="node @{{node.content_type ? 'has-content' : 'no-content'}} @{{ node.content_type }}">
             <div ui-tree-handle><i class="fa fa-bars" aria-hidden="true"></i></div>
-            <a ng-href='@{{node.content_type ? "#/page/" + node.id : ""}}'>@{{node.translation.menu_name ? node.translation.menu_name : '{missing translation}'}}</a>
+            <a ng-href='@{{node.content_type ? "#/page/" + node.id : ""}}'><span ng-bind-html="node.icon"></span>@{{node.translation.menu_name ? node.translation.menu_name : '{missing translation}'}}</a>
         </div>
         <ol class="node-children" ui-tree-nodes="" ng-model="node.children">
             <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_renderer.html'">

@@ -3,6 +3,7 @@
   "menu": {
     "show": true,
     "icon": "account_circle",
+    "page_icon": "<i class='fa fa-user' aria-hidden='true'></i>",
     "name": {
       "es": "Usuarios"
     },

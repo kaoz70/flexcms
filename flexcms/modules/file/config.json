@@ -1,6 +1,12 @@
 {
-  "content": false,
+  "content": true,
   "menu": {
-    "show": false
+    "show": false,
+    "icon": "insert_drive_file",
+    "page_icon": "<i class='fa fa-camera' aria-hidden='true'></i>",
+    "name": {
+      "es": "Archivos / Galeria",
+      "en": "Files / Gallery"
+    }
   }
 }

@@ -3,6 +3,7 @@
   "menu": {
     "show": false,
     "icon": "insert_drive_file",
+    "page_icon": "<i class='fa fa-file-text' aria-hidden='true'></i>",
     "name": {
       "es": "Contenido",
       "en": "Content"

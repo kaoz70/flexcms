@@ -167,14 +167,4 @@ class Layout extends RESTController {
         $this->response($response, $response->getStatusHeader());
     }
 
-    /**
-     * @return \Baum\Extensions\Eloquent\Collection
-     */
-    private function tree()
-    {
-        //Get the root page
-        $root = \App\Page::find(1);
-        return $root->getDescendantsLang(\App\Language::getDefault())->toHierarchy();
-    }
-
 }

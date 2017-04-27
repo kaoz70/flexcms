@@ -9,11 +9,14 @@
 namespace App;
 
 
+use Cartalyst\Sentinel\Sentinel;
+
 class Page extends Category
 {
 
     protected static $type = 'page';
     protected $table = 'categories';
+    protected $appends = ['translations', 'icon'];
 
     /**
      * Return enabled attribute as boolean instead of int
@@ -26,6 +29,22 @@ class Page extends Category
         $data = new \stdClass();
         $data->structure = [];
         return json_decode($value) ?: $data;
+    }
+
+    public function getIconAttribute()
+    {
+
+        $icon = '';
+
+        //Only get this info in the admin: that would be an Angular ajax request
+        //TODO check if user is admin
+        if(Utils::isAjaxRequest() && $contentWidget = \App\Widget::getMainWidget($this)) {
+            $path = APPPATH . 'modules' . DIRECTORY_SEPARATOR . $contentWidget->data['content_type'] . DIRECTORY_SEPARATOR . 'config.json';
+            $config = json_decode(file_get_contents($path));
+            $icon = $config->menu->page_icon;
+        }
+
+        return $icon;
     }
 
     /**

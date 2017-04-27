@@ -3,6 +3,7 @@
   "menu": {
     "show": false,
     "icon": "date_range",
+    "page_icon": "<i class='fa fa-calendar' aria-hidden='true'></i>",
     "name": {
       "es": "Calendario"
     }

@@ -3,6 +3,7 @@
   "menu": {
     "show": false,
     "icon": "question_answer",
+    "page_icon": "<i class='fa fa-question-circle' aria-hidden='true'></i>",
     "name": {
       "es": "Preguntas Frecuentes"
     }
