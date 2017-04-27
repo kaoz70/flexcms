@@ -9,8 +9,6 @@
 namespace App;
 
 
-use Cartalyst\Sentinel\Sentinel;
-
 class Page extends Category
 {
 
