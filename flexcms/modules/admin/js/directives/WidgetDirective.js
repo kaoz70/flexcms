@@ -8,7 +8,7 @@
  * @restrict A
  * */
 angular.module('app')
-    .directive('widget', function (WIDGET_PATH, WidgetResource, $compile, $templateRequest, Loading) {
+    .directive('widget', function (WIDGET_PATH, WidgetResource, $compile, $templateRequest, Loading, Dialog) {
         return {
             restrict: 'E',
             scope: {
@@ -34,7 +34,7 @@ angular.module('app')
                     scope.list[scope.listIndex] = response.data.widget.id;
 
                     // Load the widget's template
-                    $templateRequest(WIDGET_PATH + response.data.view_url).then((html) => {
+                    $templateRequest(WIDGET_PATH + scope.widget.admin_view).then((html) => {
                         const template = angular.element(html);
                         element.append(template);
                         $compile(template)(scope);
@@ -64,6 +64,16 @@ angular.module('app')
                         Loading.hide();
                         scope.widget = response.data.widget;
                         origWidget = angular.copy(scope.widget);
+                    });
+                };
+
+                scope.delete = (ev) => {
+                    Dialog.delete('Quiere eliminar este widget?', ev, () => {
+                        Loading.show(element[0].children[0]);
+                        WidgetResource.delete({ id: scope.widget.id }, (response) => {
+                            Loading.hide();
+                            scope.list.splice(scope.listIndex, 1);
+                        });
                     });
                 };
             },

@@ -2,6 +2,8 @@
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+use \App\Widget\Content\Model\Widget as ContentWidget;
+
 class Pages extends RESTController {
 
     var $txt_boton = '';
@@ -61,7 +63,7 @@ class Pages extends RESTController {
     {
 
         //Get the content module
-        $contentWidget = \App\Widget::getContentWidget($id);
+        $contentWidget = ContentWidget::findByPage($id);
 
         if(!$contentWidget) {
             throw new CMSException('No content module for page: ' . $id);

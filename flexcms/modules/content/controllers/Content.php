@@ -9,11 +9,7 @@
 namespace content;
 $_ns = __NAMESPACE__;
 
-use App\Category;
 use App\Config;
-use App\File;
-use App\ImageConfig;
-use App\ImageSection;
 use App\Language;
 use App\Page;
 use App\Response;
@@ -24,8 +20,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Intervention\Image\Exception\NotReadableException;
-use Intervention\Image\Image;
-use stdClass;
+use App\Widget\Content\Model\Widget as ContentWidget;
 
 class Content extends \RESTController implements \AdminInterface
 {
@@ -34,7 +29,7 @@ class Content extends \RESTController implements \AdminInterface
     {
 
         $page = Page::find($page_id);
-        $widget = Widget::getContentWidget($page_id);
+        $widget = ContentWidget::findByPage($page_id);
 
         $data['items'] = static::getItems($page_id);
         $data['menu'] = [
@@ -70,7 +65,7 @@ class Content extends \RESTController implements \AdminInterface
 
     private static function getItems($id)
     {
-        $widget = Widget::getContentWidget($id);
+        $widget = ContentWidget::findByPage($id);
         $contentOrder = $widget->getConfig()['order'];
         return \App\Content::getByPage($id, Language::getDefault()->id, $contentOrder);
     }
@@ -254,7 +249,7 @@ class Content extends \RESTController implements \AdminInterface
     private function getConfig($widget_id)
     {
 
-        $widget = Widget::find($widget_id);
+        $widget = ContentWidget::find($widget_id);
         $data['page'] = Page::getForEdit($widget->category_id);
         $data['config'] = $widget->getConfig();
 
@@ -284,7 +279,7 @@ class Content extends \RESTController implements \AdminInterface
             $configData = $this->put('config');
 
             //Update the widget's config
-            $widget = Widget::find($widget_id);
+            $widget = ContentWidget::find($widget_id);
             $widget->setConfig($configData);
 
             //Update the page's config
@@ -333,7 +328,7 @@ class Content extends \RESTController implements \AdminInterface
 
             \App\Content::reorder($this->put(), $page_id);
 
-            $widget = Widget::getContentWidget($page_id);
+            $widget = ContentWidget::findByPage($page_id);
             $contentOrder = $widget->getConfig()['order'];
 
             if($contentOrder == 'manual') {

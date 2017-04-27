@@ -59,6 +59,27 @@ angular.module('app')
             });
         };
 
+        this.delete = (message, ev, callback) => {
+            $mdDialog.show({
+                templateUrl: `${BASE_PATH}admin/dialogs/DeleteDialog`,
+                parent: angular.element($document[0].body),
+                targetEvent: ev,
+                controller($scope) {
+                    $scope.message = message;
+
+                    $scope.cancel = () => {
+                        $mdDialog.hide();
+                    };
+
+                    $scope.delete = () => {
+                        callback();
+                        $mdDialog.hide();
+                    };
+                },
+                clickOutsideToClose: true,
+            });
+        };
+
         /**
          * Shows a delete dialog, and on accept, removes the item from the array
          *
@@ -67,7 +88,7 @@ angular.module('app')
          * @param items
          * @param callback
          */
-        this.delete = (message, list, items, callback) => {
+        this.deleteFromList = (message, list, items, callback) => {
             $mdDialog.show({
                 templateUrl: `${BASE_PATH}admin/dialogs/DeleteDialog`,
                 parent: angular.element($document[0].body),

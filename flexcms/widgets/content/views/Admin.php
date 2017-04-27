@@ -7,6 +7,10 @@
             <span class="md-title">{{widget.config.name[languages[0].slug]}}</span>
             <span class="md-subhead">{{widget.config.description[languages[0].slug]}}</span>
         </md-card-header-text>
+        <md-button ng-click="delete($event)" class="md-icon-button" aria-label="Eliminar">
+            <md-tooltip md-direction="bottom">Eliminar</md-tooltip>
+            <md-icon>delete</md-icon>
+        </md-button>
     </md-card-header>
 
     <md-card-content>

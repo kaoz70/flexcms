@@ -10,23 +10,27 @@ namespace App;
 
 
 
-class Widget extends BaseModel implements \WidgetInterface {
+class Widget extends BaseModel {
 
     protected $groups;
     protected static $type = 'widget';
 
-    static function admin( $id ) {
-        // TODO: Implement admin() method.
-    }
+    protected $appends = ['admin_view'];
 
-    static function run( $method ) {
-        // TODO: Implement run() method.
-    }
+    /**
+     * View path to where the admin view is located
+     *
+     * @var string
+     */
+    protected static $admin_view;
 
-    /*static function run($widget, $method, $lang, $view, $admin = FALSE)
+    /**
+     * @return string
+     */
+    public function getAdminViewAttribute()
     {
-        $widget::run($method);
-    }*/
+        return static::$admin_view;
+    }
 
     /**
      * Gets all the installed widgets
@@ -47,7 +51,6 @@ class Widget extends BaseModel implements \WidgetInterface {
 
     }
 
-
     /**
      * Gets all the groups
      *
@@ -57,7 +60,6 @@ class Widget extends BaseModel implements \WidgetInterface {
      */
     static function getGroups(array $widgets)
     {
-
         $groups = [];
 
         foreach($widgets as $widget) {
@@ -65,45 +67,6 @@ class Widget extends BaseModel implements \WidgetInterface {
         }
 
         return array_unique($groups);
-
-    }
-
-    /**
-     * @param $page_id
-     * @return Widget
-     */
-    public static function getContentWidget($page_id)
-    {
-        return static::where('category_id', $page_id)
-            ->where('type', 'Content')
-            ->first();
-    }
-
-    /**
-     * Returns the widget's config for Content widgets
-     *
-     * @return mixed
-     */
-    public function getConfig()
-    {
-        $data = $this->data;
-        return $data && isset($data['settings']) ? $data['settings'] : [
-            'list_view' => '',
-            'detail_view' => '',
-            'order' => 'manual',
-            'pagination' => false,
-            'quantity' => 6,
-        ];
-    }
-
-    public function setConfig($input)
-    {
-        $this->data['settings']['list_view'] = $input['list_view'];
-        $this->data['settings']['detail_view'] = $input['detail_view'];
-        $this->data['settings']['order'] = $input['order'];
-        $this->data['settings']['pagination'] = (boolean)$input['pagination'];
-        $this->data['settings']['quantity'] = (int)$input['quantity'];
-        $this->save();
     }
 
     /**
