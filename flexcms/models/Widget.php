@@ -107,4 +107,16 @@ class Widget extends BaseModel {
         return Category::find($this->category_id);
     }
 
+    /**
+     * Reads the config file in the widget's directory
+     *
+     * @return object
+     */
+    public function readConfigFile()
+    {
+        $class = new \ReflectionClass($this);
+        $file = dirname(dirname($class->getFilename())) . DIRECTORY_SEPARATOR . 'config.json';
+        return json_decode(file_get_contents($file));
+    }
+
 }

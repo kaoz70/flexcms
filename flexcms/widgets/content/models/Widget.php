@@ -26,7 +26,7 @@ class Widget extends \App\Widget implements \WidgetInterface
     static function admin($id){
         $widget = static::getForEdit($id);
         $widget['types'] = Admin::getContentModules();
-        $widget['config'] =  json_decode(file_get_contents(APPPATH . 'widgets/content/config.json'));
+        $widget['config'] = (new Widget())->readConfigFile();
         return $widget;
     }
 
@@ -125,6 +125,5 @@ class Widget extends \App\Widget implements \WidgetInterface
         $this->data = $data;
         $this->save();
     }
-
 
 }
