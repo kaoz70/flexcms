@@ -7342,6 +7342,7 @@ md-input-container input {
 
 #pages .node.no-content {
   color: #b1b1b1;
+  cursor: not-allowed;
 }
 
 #pages .node a:before {

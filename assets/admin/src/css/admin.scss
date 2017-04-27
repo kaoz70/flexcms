@@ -421,6 +421,7 @@ md-input-container {
   }
   .node.no-content {
     color: #b1b1b1;
+    cursor: not-allowed;
   }
   .node {
     a:before {
