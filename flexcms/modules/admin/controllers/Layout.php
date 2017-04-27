@@ -68,6 +68,7 @@ class Layout extends RESTController {
             $page->enabled = $this->put('enabled');
             $page->group_visibility = $this->put('group_visibility');
             $page->data = $this->put('data');
+            $page->type = \App\Page::getType();
 
             if($contentWidget = \App\Widget::getMainWidget($page)) {
                 $page->is_content = true;
@@ -110,6 +111,7 @@ class Layout extends RESTController {
                 'enabled' => $this->post('enabled'),
                 'group_visibility' => $this->post('group_visibility'),
                 'data' => $this->post('data'),
+                'type' => \App\Page::getType(),
             ]);
 
             if($contentWidget = \App\Widget::getMainWidget($page)) {
