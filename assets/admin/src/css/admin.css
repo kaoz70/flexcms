@@ -868,8 +868,11 @@ md-input-container input {
 
 #pages .node [ui-tree-handle] {
   display: none; }
+#pages .node i {
+  margin-right: 11px; }
 #pages .node.no-content {
-  color: #b1b1b1; }
+  color: #b1b1b1;
+  cursor: not-allowed; }
 
 #layout .node [ui-tree-handle] {
   margin-left: 10px;
@@ -939,7 +942,7 @@ md-input-container input {
       #windows md-list-item .item-name md-icon {
         margin: 0 14px 0 0; }
 
-.angular-ui-tree-placeholder {
+.panel .angular-ui-tree-placeholder {
   background-color: #212121; }
 
 .panel {
@@ -1277,5 +1280,17 @@ widget md-card {
   #layout h2 {
     font-size: 14px;
     font-family: 'Raleway', sans-serif; }
+  #layout .angular-ui-tree-placeholder {
+    top: 4px;
+    left: 10px;
+    border: 1px dashed #009cff;
+    background: #152027;
+    border-radius: 3px; }
+  #layout .angular-ui-tree-placeholder:before {
+    top: 16px;
+    left: -11px; }
+  #layout .angular-ui-tree-placeholder:after {
+    top: 14px;
+    left: -13px; }
 
 /*# sourceMappingURL=admin.css.map */
