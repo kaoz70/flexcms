@@ -7100,7 +7100,7 @@ button md-icon {
 .sidebar .menu > li.active .submenu-panel {
   opacity: 1;
   width: 280px;
-  z-index: 100;
+  z-index: 78;
 }
 
 .sidebar .menu > li.active .submenu-panel > ul {
