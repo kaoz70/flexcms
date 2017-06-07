@@ -27,5 +27,6 @@
 			behavior : 'all'
 		}
 	}).render().setUser('<?=$user?>').start();
-
+
+
 </script>

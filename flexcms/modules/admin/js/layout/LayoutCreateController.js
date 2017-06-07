@@ -31,7 +31,7 @@ angular.module('app')
         WindowFactory.add($scope);
 
         vm.save = () => {
-            if(isNew) {
+            if (isNew) {
                 LayoutResource.save(vm.page, (response) => {
                     $scope.$parent.pages = response.data.pages;
                     vm.page = response.data.page;
@@ -45,7 +45,7 @@ angular.module('app')
         };
 
         vm.saveAndClose = () => {
-            if(isNew) {
+            if (isNew) {
                 LayoutResource.save(vm.page, (response) => {
                     $scope.$parent.pages = response.data.pages;
                     WindowFactory.back($scope);

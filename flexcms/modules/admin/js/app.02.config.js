@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
 
     angular.module('app')
 
