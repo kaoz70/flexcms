@@ -137,12 +137,14 @@ class Admin extends AdminController {
             if ($user = Sentinel::authenticate($credentials, true)) {
 
                 if(!Sentinel::hasAccess(['admin'])) {
-                    throw new Exception("No tiene acceso a esta secci&oacute;n");
+                    throw new Exception("invalid access");
                 }
 
                 if ($this->input->is_ajax_request()) {
-                    $data['return'] = "Login success";
-                    $this->load->view( 'admin/request/html', $data );
+                    $data['return'] = [
+                        'message' => 'Login success'
+                    ];
+                    $this->load->view( 'admin/request/json', $data );
                 } else {
                     redirect( 'admin' );
                 }
