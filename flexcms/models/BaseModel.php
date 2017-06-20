@@ -250,7 +250,7 @@ class BaseModel extends Model {
      * @param $items
      * @param null $section
      */
-    protected static function reorder($items, $section = null)
+    public static function reorder($items, $section = null)
     {
 
         if($section) {
@@ -259,7 +259,7 @@ class BaseModel extends Model {
             $count = static::get()->count();
         }
 
-        for($i = 0 ; $i < $count ; $i++){
+        for($i = 0 ; $i < $count; $i++){
             $row = static::find($items[$i]['id']);
             $row->position = $i + 1;
             $row->save();

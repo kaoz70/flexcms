@@ -132,7 +132,9 @@ class ImageConfig extends RESTController {
         $response = new Response();
 
         try{
-            \App\ImageConfig::reorder($this->put(), $section_id);
+            foreach ($this->put() as $section) {
+                \App\ImageConfig::reorder($section['items'], $section['id']);
+            }
             $response->setMessage('Se guard&oacute; el nuevo orden de elementos');
         } catch (Exception $e) {
             $response->setError('Ocurri&oacute; un problema al reorganizar los elementos!', $e);

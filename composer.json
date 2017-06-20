@@ -45,8 +45,7 @@
       "flexcms/interfaces",
       "flexcms/modules",
       "flexcms/models",
-      "flexcms/widgets",
-      "flexcms/workers"
+      "flexcms/widgets"
     ]
   },
   "config": {

@@ -1,4 +1,4 @@
-<?
+<?php
 
 class BaseController extends MX_Controller
 {

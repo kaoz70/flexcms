@@ -31,11 +31,11 @@ class Requirements
     }
 
     /**
-     * Check if mod_rewrite is enabled in the server, this provides us with SEO friendly URLs
+     * Check if mod_rewrite is enabled in the server, if its Apache, this provides us with SEO friendly URLs
      */
     private static function mod_rewrite()
     {
-        if (!array_key_exists('HTTP_MOD_REWRITE', $_SERVER)) {
+        if (function_exists('apache_get_modules') && !array_key_exists('HTTP_MOD_REWRITE', $_SERVER)) {
             Error::exception("Apache module <strong>mod_rewrite</strong> is not available or is not enabled.");
         }
     }

@@ -111,6 +111,7 @@
                 .segment('create', {
                     templateUrl: `${BASE_PATH}admin/ImageConfigDetail`,
                     controller: 'ImageConfigCreateController',
+                    controllerAs: 'vm',
                     untilResolved: {
                         templateUrl: `${BASE_PATH}admin/Loading`,
                     },
@@ -120,7 +121,8 @@
                 })
                 .segment('edit', {
                     templateUrl: `${BASE_PATH}admin/ImageConfigDetail`,
-                    controller: 'ImageConfigEditCtrl',
+                    controller: 'ImageConfigEditController',
+                    controllerAs: 'vm',
                     resolve: {
                         image(ImageConfig, ResourceResponse, $routeParams) {
                             return ResourceResponse.get(ImageConfig, {

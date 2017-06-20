@@ -297,7 +297,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	</div>
 	<h1>{{ $heading }}</h1>
-	<p>{{ $message }}</p>
+	<p>{!! $message !!}</p>
 </div>
 
 </body>

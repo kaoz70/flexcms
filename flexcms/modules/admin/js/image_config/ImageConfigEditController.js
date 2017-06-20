@@ -12,34 +12,32 @@
  * @requires $scope
  * */
 angular.module('app')
-    .controller('ImageConfigEditController', function($scope, $rootScope, Config, $routeParams, WindowFactory, ImageConfig, image){
+    .controller('ImageConfigEditController', function ($scope, $rootScope, Config, $routeParams, WindowFactory, ImageConfig, image) {
+        const vm = this;
 
-        $scope.image = image.data.image;
-        $scope.watermark_data = image.data.watermark;
+        vm.image = image.data.image;
+        vm.watermark_data = image.data.watermark;
 
         WindowFactory.add($scope);
 
-        $scope.saveAndClose = function () {
-
-            //Check for a valid form
-            $scope.form.$setSubmitted();
-
-            var data = {
-                image: $scope.image,
-                file: $scope.watermark_data
+        vm.saveAndClose = () => {
+            const data = {
+                image: vm.image,
+                file: vm.watermark_data,
             };
 
-            if($scope.form.$valid) {
+            // Check for a valid form
+            vm.form.$setSubmitted();
+
+            if (vm.form.$valid) {
                 ImageConfig.update({
-                    image_id: $scope.image.id
-                },data, function (response) {
-                    $scope.$parent.items = response.data;
+                    image_id: vm.image.id,
+                }, data, (response) => {
+                    vm.$parent.items = response.data;
                     WindowFactory.back($scope);
                 });
             }
-
         };
-
     })
 
 ;
