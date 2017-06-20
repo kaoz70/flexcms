@@ -57,6 +57,29 @@ class Content extends BaseModel {
         return $dt->tz($this->timezone)->toAtomString();
 
     }
+    /**
+     * Format the publications start time
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function setPublicationStartAttribute($value)
+    {
+        $dt = Carbon::parse($value);
+        $this->attributes['publication_start'] = $dt->tz($this->timezone)->toDateString();
+    }
+
+    /**
+     * Format the publications end time
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function setPublicationEndAttribute($value)
+    {
+        $dt = Carbon::parse($value);
+        $this->attributes['publication_end'] = $dt->tz($this->timezone)->toDateString();
+    }
 
     /**
      * Get all the page's contents

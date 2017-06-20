@@ -7417,6 +7417,8 @@ md-input-container input {
   display: flex;
   -webkit-box-pack: start;
   justify-content: flex-start;
+  line-height: 17px;
+  padding: 8px 0;
 }
 
 #windows md-list-item .item-name md-icon {

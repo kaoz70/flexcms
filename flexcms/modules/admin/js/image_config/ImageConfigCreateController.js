@@ -12,39 +12,37 @@
  * @requires $scope
  * */
 angular.module('app')
-    .controller('ImageConfigCreateController', function($scope, $rootScope, Config, $routeParams, WindowFactory, ImageConfig){
+    .controller('ImageConfigCreateController', function ($scope, $rootScope, Config, $routeParams, WindowFactory, ImageConfig) {
+        const vm = this;
 
-        $scope.image = {
+        vm.image = {
             image_section_id: $routeParams.section_id,
             force_jpg: true,
             optimize_original: true,
             quality: 80,
-            watermark_alpha: 50
+            watermark_alpha: 50,
         };
 
-        $scope.watermark_data = {};
+        vm.watermark_data = {};
 
         WindowFactory.add($scope);
 
-        $scope.saveAndClose = function () {
+        vm.saveAndClose = () => {
+            // Check for a valid form
+            vm.form.$setSubmitted();
 
-            //Check for a valid form
-            $scope.form.$setSubmitted();
-
-            var data = {
+            const data = {
                 image: $scope.image,
-                file: $scope.watermark_data
+                file: $scope.watermark_data,
             };
 
-            if($scope.form.$valid) {
-                ImageConfig.save(data, function (response) {
+            if ($scope.form.$valid) {
+                ImageConfig.save(data, (response) => {
                     $scope.$parent.items = response.data;
                     WindowFactory.back($scope);
                 });
             }
-
         };
-
     })
 
 ;

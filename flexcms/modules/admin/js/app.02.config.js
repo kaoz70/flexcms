@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
 
     angular.module('app')
 
@@ -78,8 +78,18 @@
                 .dark();
 
         })
-        .config(($locationProvider, $httpProvider) => {
+        .config(($locationProvider, $httpProvider, $mdDateLocaleProvider) => {
             $locationProvider.hashPrefix('');
+
+            $mdDateLocaleProvider.formatDate = function(date) {
+                return date ? moment(date).format('DD-MM-YYYY') : '';
+            };
+
+            $mdDateLocaleProvider.parseDate = function(dateString) {
+                var m = moment(dateString, 'DD-MM-YYYY', true);
+                console.log(m.toDate());
+                return m.isValid() ? m.toDate() : new Date(NaN);
+            };
 
             $httpProvider.interceptors.push(($q, Notification, Response, $injector) => {
                 return {

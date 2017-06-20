@@ -1,7 +1,7 @@
 <div class="panel panel-primary small-width">
 
     <div class="panel-header">
-        <md-toolbar md-colors="{borderBottomColor: '{{primaryColor300}}'}">
+        <md-toolbar>
             <div class="md-toolbar-tools">
                 <h2>Configucaci&oacute;n de Imagen</h2>
                 <span flex></span>
@@ -23,37 +23,37 @@
                 <md-card-content>
 
                     <md-input-container class="md-block md-hue-1">
-                        <input ng-model="image.name" type="text" placeholder="Nombre" ng-required="true">
+                        <input ng-model="vm.image.name" type="text" placeholder="Nombre" ng-required="true">
                     </md-input-container>
 
                     <md-input-container class="md-block md-hue-1">
-                        <input ng-model="image.sufix" type="text" placeholder="Sufijo" ng-required="true">
+                        <input ng-model="vm.image.sufix" type="text" placeholder="Sufijo" ng-required="true">
                     </md-input-container>
 
-                    <md-switch ng-model="image.force_jpg"
+                    <md-switch ng-model="vm.image.force_jpg"
                                aria-label="Forzar imagen JPG">
                         Forzar JPG
                     </md-switch>
 
-                    <md-switch ng-model="image.optimize_original"
+                    <md-switch ng-model="vm.image.optimize_original"
                                aria-label="Optimizar imagen original">
                         Optimizar imagen original
                     </md-switch>
 
                     <div label="Color de fondo (solo PNG)"
                          md-color-picker
-                         ng-model="image.background_color"></div>
+                         ng-model="vm.image.background_color"></div>
 
                     <md-slider-container>
                         <span>Calidad</span>
                         <md-slider flex min="0" max="100"
-                                   ng-model="image.quality"
+                                   ng-model="vm.image.quality"
                                    aria-label="Calidad"
                                    default="#fff"
                                    id="quality-slider">
                         </md-slider>
                         <md-input-container class="md-hue-1">
-                            <input flex type="number" ng-model="image.quality" aria-label="Calidad" aria-controls="quality-slider">
+                            <input flex type="number" ng-model="vm.image.quality" aria-label="Calidad" aria-controls="quality-slider">
                         </md-input-container>
                     </md-slider-container>
 
@@ -68,24 +68,24 @@
                 </md-card-title>
                 <md-card-content>
 
-                    <md-switch ng-model="image.restrict_proportions"
+                    <md-switch ng-model="vm.image.restrict_proportions"
                                aria-label="Restringir proporciones">
                         Restringir proporciones
                     </md-switch>
 
-                    <div ng-show="image.restrict_proportions">
+                    <div ng-show="vm.image.restrict_proportions">
 
-                        <md-switch ng-model="image.crop"
+                        <md-switch ng-model="vm.image.crop"
                                    aria-label="Recortar">
                             Recortar
                         </md-switch>
 
                         <div layout="row">
                             <md-input-container class="md-block md-hue-1">
-                                <input ng-model="image.width" type="number" ng-attr-placeholder="Ancho {{image.crop ? '' : 'm&aacute;ximo'}}" ng-required="image.restrict_proportions">
+                                <input ng-model="vm.image.width" type="number" ng-attr-placeholder="Ancho {{vm.image.crop ? '' : 'm&aacute;ximo'}}" ng-required="vm.image.restrict_proportions">
                             </md-input-container>
                             <md-input-container class="md-block md-hue-1">
-                                <input ng-model="image.height" type="number" ng-attr-placeholder="Alto {{image.crop ? '' : 'm&aacute;ximo'}}" ng-required="image.restrict_proportions">
+                                <input ng-model="vm.image.height" type="number" ng-attr-placeholder="Alto {{vm.image.crop ? '' : 'm&aacute;ximo'}}" ng-required="vm.image.restrict_proportions">
                             </md-input-container>
                         </div>
 
@@ -102,18 +102,18 @@
                 </md-card-title>
                 <md-card-content>
 
-                    <md-switch ng-model="image.watermark"
+                    <md-switch ng-model="vm.image.watermark"
                                aria-label="Marca de agua">
                         Usar marca de agua
                     </md-switch>
 
-                    <div layout="column" ng-show="image.watermark">
+                    <div layout="column" ng-show="vm.image.watermark">
 
-                        <upload-file model="watermark_data"></upload-file>
+                        <upload-file model="vm.watermark_data"></upload-file>
 
                         <md-input-container>
                             <label>Posici&oacute;n</label>
-                            <md-select ng-model="image.watermark_position">
+                            <md-select ng-model="vm.image.watermark_position">
                                 <md-option value="top-left">Superior izquierda</md-option>
                                 <md-option value="top">Superior centro</md-option>
                                 <md-option value="top-right">Superior derecha</md-option>
@@ -129,16 +129,16 @@
                         <md-slider-container>
                             <span>Alpha</span>
                             <md-slider flex min="0" max="100"
-                                       ng-model="image.watermark_alpha"
+                                       ng-model="vm.image.watermark_alpha"
                                        aria-label="Transparencia"
                                        id="watermark-alpha-slider">
                             </md-slider>
                             <md-input-container class="md-hue-1">
-                                <input flex type="number" ng-model="image.watermark_alpha" aria-label="Transparencia" aria-controls="watermark-alpha-slider">
+                                <input flex type="number" ng-model="vm.image.watermark_alpha" aria-label="Transparencia" aria-controls="watermark-alpha-slider">
                             </md-input-container>
                         </md-slider-container>
 
-                        <md-switch ng-model="image.watermark_repeat"
+                        <md-switch ng-model="vm.image.watermark_repeat"
                                    aria-label="Repetir">
                             Repetir
                         </md-switch>
@@ -157,7 +157,7 @@
         <md-toolbar class="md-secondary md-menu-toolbar">
             <div class="md-toolbar-tools" layout-align="end center">
 
-                <md-button class="md-icon-button" ng-click="saveAndClose()" >
+                <md-button class="md-icon-button" ng-click="vm.saveAndClose()" >
                     <md-icon>save</md-icon>
                     <md-tooltip md-direction="bottom">Guardar y Cerrar</md-tooltip>
                 </md-button>

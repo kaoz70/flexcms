@@ -16,7 +16,7 @@ angular.module('app')
         $rootScope.isSidebarOpen = true;
 
         let isNew = true;
-        const $parenScope = $scope.$parent;
+        const $parentScope = $scope.$parent;
 
         WindowFactory.add($scope);
 
@@ -25,6 +25,7 @@ angular.module('app')
             important: false,
             category_id: $routeParams.page_id,
             translations: languages.data,
+            timezone: null,
             images: [],
         };
 
@@ -35,24 +36,18 @@ angular.module('app')
             toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code',
         };
 
-        /**
-         * Executed after a successful save
-         * @param response
-         */
-        const onSave = (response) => {
-            // Set the new ID
-            vm.content.id = response.data.content.id;
-            $parenScope.items = response.data.items;
-        };
-
         vm.save = () => {
             // Check for a valid form
             vm.form.$setSubmitted();
 
             if (vm.form.$valid) {
                 if (isNew) {
-                    Content.save(vm.content, onSave);
-                    isNew = false;
+                    Content.save(vm.content, (response) => {
+                        // Set the new ID
+                        vm.content.id = response.data.content.id;
+                        $parentScope.items = response.data.items;
+                        isNew = false;
+                    });
                 } else {
                     Content.update({ id: vm.content.id }, vm.content);
                 }
@@ -65,12 +60,19 @@ angular.module('app')
 
             if (vm.form.$valid) {
                 if (isNew) {
-                    Content.save(vm.content, onSave);
+                    Content.save(vm.content, (response) => {
+                        // Set the new ID
+                        vm.content.id = response.data.content.id;
+                        $parentScope.items = response.data.items;
+
+                        WindowFactory.back($scope);
+                    });
                 } else {
-                    Content.update({ id: vm.content.id }, vm.content);
+                    Content.update({ id: vm.content.id }, vm.content, () => {
+                        WindowFactory.back($scope);
+                    });
                 }
 
-                WindowFactory.back($scope);
             }
         };
     });
