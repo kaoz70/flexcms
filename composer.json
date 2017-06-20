@@ -16,11 +16,14 @@
     "phpmailer/phpmailer": "^5.2",
     "josegonzalez/dotenv": "^2.0",
     "filp/whoops": "^2.1",
-    "intervention/image": "^2.3"
+    "intervention/image": "^2.3",
+    "robmorgan/phinx": "^0.8.1",
+    "symfony/console": "^3.3",
   },
   "require-dev": {
     "codeclimate/php-test-reporter": "dev-master",
-    "barryvdh/laravel-ide-helper": "^2.2"
+    "barryvdh/laravel-ide-helper": "^2.2",
+    "odan/phinx-migrations-generator": "^2.1"
   },
   "repositories": [
     {
@@ -45,8 +48,7 @@
       "flexcms/interfaces",
       "flexcms/modules",
       "flexcms/models",
-      "flexcms/widgets",
-      "flexcms/workers"
+      "flexcms/widgets"
     ]
   },
   "config": {

@@ -45,3 +45,34 @@ From the console in the root folder do:
 ```
 npm install
 ```
+
+### Migrations
+Initial Database
+
+    flexcms/vendor/bin/phinx-migrations generate
+
+Create
+
+    php flexcms/vendor/bin/phinx create MyNewMigration
+    
+Migrate
+
+    php flexcms/vendor/bin/phinx migrate
+    
+Rollback all
+
+    phinx rollback -e development -t 0
+    
+Rollback to a target
+
+    phinx rollback -e development -t 20120103083322
+    
+### Seeding
+    
+Create
+
+    php flexcms/vendor/bin/phinx seed:create UserSeeder
+    
+Seed
+
+    php flexcms/vendor/bin/phinx seed:run

@@ -1,0 +1,16 @@
+nbproject/
+.idea/
+composer.phar
+composer.lock
+.DS_STORE
+cache.properties
+
+.env
+env.php
+src/Config/env.php
+src/Config/environment.php
+
+vendor/
+build/
+bin/schema.php
+bin/schema.json
