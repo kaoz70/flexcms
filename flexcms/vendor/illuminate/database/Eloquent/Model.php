@@ -68,6 +68,13 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
     protected $with = [];
 
     /**
+     * The relationship counts that should be eager loaded on every query.
+     *
+     * @var array
+     */
+    protected $withCount = [];
+
+    /**
      * The number of models to return for pagination.
      *
      * @var int
@@ -410,7 +417,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
             return $query->{$method}($column, $amount, $extra);
         }
 
-        $this->incrementOrDecrementAttributeValue($column, $amount, $method);
+        $this->incrementOrDecrementAttributeValue($column, $amount, $extra, $method);
 
         return $query->where(
             $this->getKeyName(), $this->getKey()
@@ -422,12 +429,15 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      *
      * @param  string  $column
      * @param  int  $amount
+     * @param  array  $extra
      * @param  string  $method
      * @return void
      */
-    protected function incrementOrDecrementAttributeValue($column, $amount, $method)
+    protected function incrementOrDecrementAttributeValue($column, $amount, $extra, $method)
     {
         $this->{$column} = $this->{$column} + ($method == 'increment' ? $amount : $amount * -1);
+
+        $this->forceFill($extra);
 
         $this->syncOriginalAttribute($column);
     }
@@ -806,7 +816,9 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
         // Once we have the query builders, we will set the model instances so the
         // builder can easily access any information it may need from the model
         // while it is constructing and executing various queries against it.
-        return $builder->setModel($this)->with($this->with);
+        return $builder->setModel($this)
+                    ->with($this->with)
+                    ->withCount($this->withCount);
     }
 
     /**
@@ -929,6 +941,22 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
                         ->with(is_string($with) ? func_get_args() : $with)
                         ->where($this->getKeyName(), $this->getKey())
                         ->first();
+    }
+
+    /**
+     * Reload the current model instance with fresh attributes from the database.
+     *
+     * @return void
+     */
+    public function refresh()
+    {
+        if (! $this->exists) {
+            return;
+        }
+
+        $this->load(array_keys($this->relations));
+
+        $this->setRawAttributes(static::findOrFail($this->getKey())->attributes);
     }
 
     /**

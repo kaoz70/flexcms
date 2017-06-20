@@ -66,7 +66,7 @@ class GenerateMigrationTest extends \PHPUnit\Framework\TestCase
         $output = new NullOutput();
         $pdo = $this->getPdo($settings);
         $dba = new MySqlAdapter($pdo, $output);
-        $gen = new PhinxMySqlGenerator($dba, $output);
+        $gen = new PhinxMySqlGenerator($dba, $output, $settings);
 
         $diff = $this->read(__DIR__ . '/diffs/newtable.php');
         $actual = $gen->createMigration('MyNewMigration', $diff, []);
@@ -125,6 +125,7 @@ class GenerateMigrationTest extends \PHPUnit\Framework\TestCase
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
             ),
             'schema_file' => __DIR__ . '/schema.php',
+            'foreign_keys' => false,
             'migration_path' => __DIR__
         );
     }

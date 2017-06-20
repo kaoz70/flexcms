@@ -18,7 +18,7 @@
     "filp/whoops": "^2.1",
     "intervention/image": "^2.3",
     "robmorgan/phinx": "^0.8.1",
-    "symfony/console": "^3.3",
+    "symfony/console": "^3.3"
   },
   "require-dev": {
     "codeclimate/php-test-reporter": "dev-master",

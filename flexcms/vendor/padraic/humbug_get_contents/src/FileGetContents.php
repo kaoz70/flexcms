@@ -1,112 +1,184 @@
 <?php
-/**
- * Humbug
+
+/*
+ * This file is part of the Humbug package.
  *
- * @category   Humbug
- * @package    Humbug
- * @copyright  Copyright (c) 2015 Pádraic Brady (http://blog.astrumfutura.com)
- * @license    https://github.com/padraic/file_get_contents/blob/master/LICENSE New BSD License
+ * (c) 2015 Pádraic Brady <padraic.brady@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Humbug;
+
+use Composer\CaBundle\CaBundle;
+use RuntimeException;
 
 /**
  * This is largely extracted from the Composer Installer where originally implemented.
  */
 class FileGetContents
 {
+    /**
+     * @var array|null
+     *
+     * @private
+     */
+    protected static $lastResponseHeaders;
+
+    /**
+     * @var array|null
+     *
+     * @private
+     */
+    protected static $nextRequestHeaders;
 
     protected $options = array('http' => array());
 
-    protected static $lastResponseHeaders;
-
-    protected static $nextRequestHeaders;
-
     public function __construct()
     {
-        $this->checkConfig();
         $options = $this->getTlsStreamContextDefaults(null);
         $this->options = array_replace_recursive($this->options, $options);
     }
 
+    /**
+     * @param string              $filename Name of the file to read.
+     * @param resource|array|null $context A valid context resource created with `stream_context_create()`. If you don't
+     *                                     need to use a custom context, you can skip this parameter.
+     *
+     * @return bool|string The read data or `false` on failure.
+     */
     public function get($filename, $context = null)
     {
         $context = $this->getStreamContext($filename);
-        self::setHttpHeaders($context);
+        $context = self::setHttpHeaders($context);
+
         $result = file_get_contents($filename, null, $context);
+
         self::setLastResponseHeaders($http_response_header);
+
         return $result;
     }
 
+    /**
+     * @param array $headers HTTP response headers.
+     *
+     * @final Since 1.1.0
+     */
     public static function setLastResponseHeaders($headers)
     {
         self::$lastResponseHeaders = $headers;
     }
 
+    /**
+     * @return array|null HTTP response headers for the last response recorded or `null` if none has been recorded.
+     *
+     * @final Since 1.1.0
+     */
     public static function getLastResponseHeaders()
     {
         return self::$lastResponseHeaders;
     }
-    
+
+    /**
+     * @param array $headers An indexed or associative array.
+     *
+     * @final since 1.1.0
+     */
     public static function setNextRequestHeaders(array $headers)
     {
         self::$nextRequestHeaders = $headers;
     }
 
+    /**
+     * @return bool
+     *
+     * @final since 1.1.0
+     */
     public static function hasNextRequestHeaders()
     {
-        return !empty(self::$nextRequestHeaders);
+        return null !== self::$nextRequestHeaders;
     }
 
+    /**
+     * @return array|null An indexed or associative array whence there is any headers, `null` otherwise.
+     */
     public static function getNextRequestHeaders()
     {
         $return = self::$nextRequestHeaders;
         self::$nextRequestHeaders = null;
+
         return $return;
     }
 
+    /**
+     * @param resource|array|null $context A valid context resource created with `stream_context_create()`. If you don't
+     *                                     need to use a custom context, you can skip this parameter.
+     *
+     * @return resource|array|null Context to which the headers has been set.
+     *
+     * @private since 1.1.0
+     *
+     * TODO (2.0.0): change the name to reflect on the immutable side.
+     */
     public static function setHttpHeaders($context)
     {
         $headers = self::getNextRequestHeaders();
-        if (!empty($headers)) {
-            $options = stream_context_get_options($context);
-            if (!isset($options['http'])) {
-                $options['http'] = array('header'=>array());
-            } elseif (!isset($options['http']['header'])) {
-                $options['http']['header'] = array();
-            } elseif (is_string($options['http']['header'])) {
-                $options['http']['header'] = explode("\r\n", $options['http']['header']);
-            }
-            $headers = empty($options['http']['headers']) ? $headers : array_merge($options['http']['headers'], $headers);
-            stream_context_set_option(
-                $context,
-                'http',
-                'header',
-                $headers
-            );
+
+        if (empty($headers)) {
+            return $context;
         }
+
+        $options = stream_context_get_options($context);
+        if (!isset($options['http'])) {
+            $options['http'] = array('header' => array());
+        } elseif (!isset($options['http']['header'])) {
+            $options['http']['header'] = array();
+        } elseif (is_string($options['http']['header'])) {
+            $options['http']['header'] = explode("\r\n", $options['http']['header']);
+        }
+
+        $headers = empty($options['http']['headers']) ? $headers : array_merge($options['http']['headers'], $headers);
+
+        stream_context_set_option(
+            $context,
+            'http',
+            'header',
+            $headers
+        );
+
         return $context;
     }
 
-    protected function checkConfig()
-    {   
-        if (!extension_loaded('openssl')) {
-            throw new \RuntimeException(
-                'The openssl extension is not loaded but is required for secure HTTPS connections'
-            );
-        }
-    }
-
+    /**
+     * @param string $url URL path to access to the file to read.
+     *
+     * @return resource
+     *
+     * @final since 1.1.0
+     */
     protected function getStreamContext($url)
     {
         $host = parse_url($url, PHP_URL_HOST);
+
         if (PHP_VERSION_ID < 50600) {
             $this->options['ssl']['CN_match'] = $host;
             $this->options['ssl']['SNI_server_name'] = $host;
         }
+
         return $this->getMergedStreamContext($url);
     }
 
+    /**
+     * @param string $cafile
+     *
+     * @return array
+     *
+     * @private since 1.1.0
+     *
+     * TODO (2.0.0): remove argument (unnused in the codebase) and rename this method as an `init*` as is used in the
+     *               constructor anymore
+     */
     protected function getTlsStreamContextDefaults($cafile)
     {
         $ciphers = implode(':', array(
@@ -164,14 +236,14 @@ class FileGetContents
         );
 
         if (!$cafile) {
-            $cafile = self::getSystemCaRootBundlePath();
+            $cafile = CaBundle::getSystemCaRootBundlePath();
         }
         if (is_dir($cafile)) {
             $options['ssl']['capath'] = $cafile;
         } elseif ($cafile) {
             $options['ssl']['cafile'] = $cafile;
         } else {
-            throw new \RuntimeException('A valid cafile could not be located locally.');
+            throw new RuntimeException('A valid cafile could not be located locally.');
         }
 
         if (version_compare(PHP_VERSION, '5.4.13') >= 0) {
@@ -182,7 +254,7 @@ class FileGetContents
     }
 
     /**
-     * function copied from Composer\Util\StreamContextFactory::getContext
+     * Function copied from Composer\Util\StreamContextFactory::getContext
      *
      * This function is part of Composer.
      *
@@ -190,8 +262,12 @@ class FileGetContents
      *     Jordi Boggiano <j.boggiano@seld.be>
      *
      * @param string $url URL the context is to be used for
+     *
+     * @throws \RuntimeException If https proxy required and OpenSSL uninstalled
+     *
      * @return resource Default context
-     * @throws \\RuntimeException if https proxy required and OpenSSL uninstalled
+     *
+     * @final since 1.1.0
      */
     protected function getMergedStreamContext($url)
     {
@@ -204,26 +280,26 @@ class FileGetContents
         }
 
         if (!empty($proxy)) {
-            $proxyURL = isset($proxy['scheme']) ? $proxy['scheme'] . '://' : '';
+            $proxyURL = isset($proxy['scheme']) ? $proxy['scheme'].'://' : '';
             $proxyURL .= isset($proxy['host']) ? $proxy['host'] : '';
 
             if (isset($proxy['port'])) {
-                $proxyURL .= ":" . $proxy['port'];
+                $proxyURL .= ':'.$proxy['port'];
             } elseif ('http://' == substr($proxyURL, 0, 7)) {
-                $proxyURL .= ":80";
+                $proxyURL .= ':80';
             } elseif ('https://' == substr($proxyURL, 0, 8)) {
-                $proxyURL .= ":443";
+                $proxyURL .= ':443';
             }
 
             // http(s):// is not supported in proxy
             $proxyURL = str_replace(array('http://', 'https://'), array('tcp://', 'ssl://'), $proxyURL);
 
             if (0 === strpos($proxyURL, 'ssl:') && !extension_loaded('openssl')) {
-                throw new \RuntimeException('You must enable the openssl extension to use a proxy over https');
+                throw new RuntimeException('You must enable the openssl extension to use a proxy over https');
             }
 
             $options['http'] = array(
-                'proxy'           => $proxyURL,
+                'proxy' => $proxyURL,
             );
 
             // enabled request_fulluri unless it is explicitly disabled
@@ -246,7 +322,7 @@ class FileGetContents
             if (isset($proxy['user'])) {
                 $auth = urldecode($proxy['user']);
                 if (isset($proxy['pass'])) {
-                    $auth .= ':' . urldecode($proxy['pass']);
+                    $auth .= ':'.urldecode($proxy['pass']);
                 }
                 $auth = base64_encode($auth);
 
@@ -258,100 +334,26 @@ class FileGetContents
     }
 
     /**
-    * This method was adapted from Sslurp.
-    * https://github.com/EvanDotPro/Sslurp
-    *
-    * (c) Evan Coury <me@evancoury.com>
-    *
-    * For the full copyright and license information, please see below:
-    *
-    * Copyright (c) 2013, Evan Coury
-    * All rights reserved.
-    *
-    * Redistribution and use in source and binary forms, with or without modification,
-    * are permitted provided that the following conditions are met:
-    *
-    *     * Redistributions of source code must retain the above copyright notice,
-    *       this list of conditions and the following disclaimer.
-    *
-    *     * Redistributions in binary form must reproduce the above copyright notice,
-    *       this list of conditions and the following disclaimer in the documentation
-    *       and/or other materials provided with the distribution.
-    *
-    * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-    * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-    * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-    * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
-    * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-    * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-    * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
-    * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-    * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-    * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-    */
+     * @deprecated since 1.1.0 and will be removed in 2.0.0.
+     */
     public static function getSystemCaRootBundlePath()
     {
-        static $found = null;
-        if ($found !== null) {
-            return $found;
-        }
-
-        // If SSL_CERT_FILE env variable points to a valid certificate/bundle, use that.
-        // This mimics how OpenSSL uses the SSL_CERT_FILE env variable.
-        $envCertFile = getenv('SSL_CERT_FILE');
-        if ($envCertFile && is_readable($envCertFile) && self::validateCaFile(file_get_contents($envCertFile))) {
-            // Possibly throw exception instead of ignoring SSL_CERT_FILE if it's invalid?
-            return $envCertFile;
-        }
-
-        $caBundlePaths = array(
-            '/etc/pki/tls/certs/ca-bundle.crt', // Fedora, RHEL, CentOS (ca-certificates package)
-            '/etc/ssl/certs/ca-certificates.crt', // Debian, Ubuntu, Gentoo, Arch Linux (ca-certificates package)
-            '/etc/ssl/ca-bundle.pem', // SUSE, openSUSE (ca-certificates package)
-            '/usr/local/share/certs/ca-root-nss.crt', // FreeBSD (ca_root_nss_package)
-            '/usr/ssl/certs/ca-bundle.crt', // Cygwin
-            '/opt/local/share/curl/curl-ca-bundle.crt', // OS X macports, curl-ca-bundle package
-            '/usr/local/share/curl/curl-ca-bundle.crt', // Default cURL CA bunde path (without --with-ca-bundle option)
-            '/usr/share/ssl/certs/ca-bundle.crt', // Really old RedHat?
-            '/etc/ssl/cert.pem', // OpenBSD
+        @trigger_error(
+            'Deprecated since 1.1.0. Use `Composer\CaBundle\CaBundle::getSystemCaRootBundlePath()` instead.',
+            E_USER_DEPRECATED
         );
 
-        $found = null;
-        $configured = ini_get('openssl.cafile');
-        if ($configured && strlen($configured) > 0 && is_readable($caBundle) && self::validateCaFile(file_get_contents($caBundle))) {
-            $found = true;
-            $caBundle = $configured;
-        } else {
-            foreach ($caBundlePaths as $caBundle) {
-                if (@is_readable($caBundle) && self::validateCaFile(file_get_contents($caBundle))) {
-                    $found = true;
-                    break;
-                }
-            }
-            if (!$found) {
-                foreach ($caBundlePaths as $caBundle) {
-                    $caBundle = dirname($caBundle);
-                    if (is_dir($caBundle) && glob($caBundle.'/*')) {
-                        $found = true;
-                        break;
-                    }
-                }
-            }
-        }
-        if ($found) {
-            $found = $caBundle;
-        }
-        return $found;
+        return CaBundle::getSystemCaRootBundlePath();
     }
 
-    protected static function validateCaFile($contents) {
-        // assume the CA is valid if php is vunerable to
+    /**
+     * @deprecated since 1.1.0 and will be removed in 2.0.0.
+     */
+    protected static function validateCaFile($contents)
+    {
+        // Assumes the CA is valid if PHP is vulnerable to
         // https://www.sektioneins.de/advisories/advisory-012013-php-openssl_x509_parse-memory-corruption-vulnerability.html
-        if (
-            PHP_VERSION_ID <= 50327
-            || (PHP_VERSION_ID >= 50400 && PHP_VERSION_ID < 50422)
-            || (PHP_VERSION_ID >= 50500 && PHP_VERSION_ID < 50506)
-        ) {
+        if (!CaBundle::isOpensslParseSafe()) {
             return !empty($contents);
         }
 

@@ -11,8 +11,9 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
         'd9d39f82a605ebe5918f683dd402334c' => __DIR__ . '/..' . '/padraic/humbug_get_contents/src/function.php',
-        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
+        '3a50d90d85c7fe889a94ae1114b921ce' => __DIR__ . '/..' . '/padraic/humbug_get_contents/src/functions.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         'ce89ac35a6c330c55f4710717db9ff78' => __DIR__ . '/..' . '/kriswallsmith/assetic/src/functions.php',
     );
 
@@ -85,6 +86,7 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         ),
         'C' => 
         array (
+            'Composer\\CaBundle\\' => 18,
             'CodeClimate\\PhpTestReporter\\' => 28,
             'Cartalyst\\Support\\' => 18,
             'Cartalyst\\Sentinel\\' => 19,
@@ -231,7 +233,7 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         ),
         'Humbug\\' => 
         array (
-            0 => __DIR__ . '/..' . '/padraic/humbug_get_contents/src/Humbug',
+            0 => __DIR__ . '/..' . '/padraic/humbug_get_contents/src',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (
@@ -252,6 +254,10 @@ class ComposerStaticInit59deeb695aa1af7fc5e45379196c6de9
         'Doctrine\\Common\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
+        ),
+        'Composer\\CaBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/composer/ca-bundle/src',
         ),
         'CodeClimate\\PhpTestReporter\\' => 
         array (
