@@ -15,7 +15,7 @@ use App\Admin;
 class Widget extends \App\Widget implements \WidgetInterface
 {
 
-    protected static $admin_view = 'content/views/Admin.php';
+    protected static $admin_view = 'content/views/Admin';
 
     /**
      * Shows the Widget's admin view
