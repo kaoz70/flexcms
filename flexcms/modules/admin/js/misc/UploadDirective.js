@@ -18,8 +18,9 @@ angular.module('app')
                 multiple: '=',
             },
             link: (scope) => {
+                const firstConfig = scope.model.configs[0];
                 scope.progress = 0;
-                scope.items = scope.model.items;
+                scope.configs = scope.model.configs;
                 scope.show_progress = false;
                 scope.model.files = scope.existingFiles ? scope.existingFiles : [];
                 scope.columnWidth = scope.multiple ? 33 : 100;
@@ -30,8 +31,8 @@ angular.module('app')
                 };
 
                 scope.resultImageSize = {
-                    w: scope.items[0].width,
-                    h: scope.items[0].height,
+                    w: firstConfig.width,
+                    h: firstConfig.height,
                 };
 
                 const multiple = scope.multiple;
@@ -72,13 +73,13 @@ angular.module('app')
                 };
 
                 scope.edit = (file, evt) => {
-                    const template = scope.model.items[0].crop ?
+                    const template = firstConfig.crop ?
                         `${BASE_PATH}/admin/dialogs/ImageCrop` :
                         `${BASE_PATH}/admin/dialogs/ImageEdit`;
 
                     $mdDialog.show({
-                        controller: 'CropCtrl',
-                        controllerAs: 'ctrl',
+                        controller: 'CropController',
+                        controllerAs: 'vm',
                         templateUrl: template,
                         hasBackdrop: true,
                         locals: {
@@ -86,8 +87,6 @@ angular.module('app')
                             file,
                         },
                         targetEvent: evt,
-                    }).then((model) => {
-                        console.log(model.cropObject.cropTop);
                     });
                 };
             },

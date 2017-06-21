@@ -527,7 +527,7 @@ spl_autoload_register(function($classname) {
 		if ($classname[0] !== '/') {
 			$classfile = APPPATH . 'libraries/' . $classfile . '.php';
 		}
-		require($classfile);
+		//require($classfile);
 	} else if (strpos($classname, 'interface') !== false) {
 		// Interfaces
 		strtolower($classname);

@@ -177,7 +177,7 @@ class File extends BaseModel {
             $file->name = $fileData['raw_name'];
             $file->image_alt = $name;
             $file->name = $name;
-            $file->setUrlPath(base_url('framework/uploads/' . $fileData['file_name']));
+            $file->setUrlPath(base_url('flexcms/uploads/' . $fileData['file_name']));
             $file->setFilePath($fileData['full_path']);
             $file->setUploaded(true);
             $files[] = $file;

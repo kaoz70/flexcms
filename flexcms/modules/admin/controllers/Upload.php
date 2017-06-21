@@ -17,7 +17,7 @@ class Upload extends RESTController {
         $response = new \App\Response();
 
         $config['allowed_types'] = 'gif|jpg|png|pdf|xls|doc';
-        $config['upload_path'] = './framework/uploads';
+        $config['upload_path'] = APPPATH . 'uploads';
         $config['encrypt_name'] = TRUE;
 
         $this->load->library('upload', $config);

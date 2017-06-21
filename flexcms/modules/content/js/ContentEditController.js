@@ -3,7 +3,7 @@
  */
 angular.module('app')
 
-    .controller('ContentEditController', function($scope, $rootScope, content, $routeSegment, WindowFactory, $routeParams, $filter, $mdConstant, Content){
+    .controller('ContentEditController', function ($scope, $rootScope, content, $routeSegment, WindowFactory, $routeParams, $filter, $mdConstant, Content) {
         const vm = this;
 
         // Close the sidebar on this controller
