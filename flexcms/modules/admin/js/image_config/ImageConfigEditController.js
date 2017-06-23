@@ -35,7 +35,7 @@ angular.module('app')
                 ImageConfig.update({
                     image_id: vm.image.id,
                 }, data, (response) => {
-                    vm.$parent.items = response.data;
+                    $scope.$parent.items = response.data;
                     WindowFactory.back($scope);
                 });
             }

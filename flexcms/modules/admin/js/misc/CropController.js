@@ -8,15 +8,15 @@
  * @requires $scope
  * */
 angular.module('app')
-    .controller('CropController', function ($scope, model, file, $mdDialog, $filter) {
+    .controller('CropController', function ($scope, $mdDialog, $filter) {
         const vm = this;
 
         // We create a copy to work with, in case the user cancels the dialog
-        const modelCopy = angular.copy(model);
-        const fileCopy = angular.copy(file);
+        vm.model = {};
+        vm.file = {};
 
-        vm.model = model;
-        vm.file = file;
+        angular.copy($scope.model, vm.model);
+        angular.copy($scope.file, vm.file);
 
         // Get the width and height from the first image configuration (should be the biggest one)
         vm.width = vm.model.configs[0].width;
@@ -34,8 +34,6 @@ angular.module('app')
         }
 
         vm.closeDialog = () => {
-            angular.copy(modelCopy, model);
-            angular.copy(fileCopy, file);
             $mdDialog.hide();
         };
 
@@ -47,15 +45,12 @@ angular.module('app')
         };
 
         vm.save = () => {
-
-            console.log(modelCopy.cropObject.areaCoords.y);
-
-
-
             // Change the file name
-            file.name = $filter('slugify')(file.name);
+            vm.file.file_name = $filter('slugify')(vm.file.name);
 
-            $mdDialog.hide();
+            angular.copy(vm.model, $scope.model);
+            angular.copy(vm.file, $scope.file);
+
+            $mdDialog.hide($scope);
         };
-
-});
+    });

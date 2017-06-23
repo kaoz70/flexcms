@@ -76,7 +76,9 @@ class ImageSection extends BaseModel
         $sections = static::where('section', $section)->get();
 
         foreach ($sections as $section) {
-            $section->configs =  $section->imageConfigs();
+            // TODO: find a better way to not duplicate this (transformers maybe)
+            $section->configs =  $section->imageConfigs(); //this is for the content detail
+            $section->items =  $section->imageConfigs(); //this is for the list
         }
 
         return $sections;

@@ -80,6 +80,8 @@ $route['default_controller'] = 'html';
 $route['404_override'] = 'errors/e404';
 $route['translate_uri_dashes'] = FALSE;
 
+$route['uploads/$1'] = 'uploads/index/(:any)';
+
 //Set the admin routes
 foreach (new DirectoryIterator(APPPATH . 'modules/') as $item) {
 

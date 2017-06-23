@@ -8,7 +8,7 @@
  * @restrict A
  * */
 angular.module('app')
-    .directive('uploadFile', function (BASE_PATH, Upload, $mdDialog, Color, Dialog) {
+    .directive('uploadFile', function (BASE_PATH, Upload, $mdDialog, Color, Dialog, $timeout) {
         return {
             restrict: 'E',
             templateUrl: `${BASE_PATH}admin/FileUpload`,
@@ -16,9 +16,42 @@ angular.module('app')
                 model: '=',
                 existingFiles: '=',
                 multiple: '=',
+                onlyUpload: '=?',
             },
             link: (scope) => {
-                const firstConfig = scope.model.configs[0];
+                if (typeof scope.onlyUpload === 'undefined') {
+                    scope.onlyUpload = false;
+                }
+
+                if (scope.onlyUpload !== true) {
+                    const firstConfig = scope.model.configs[0];
+
+                    scope.resultImageSize = {
+                        w: firstConfig.width,
+                        h: firstConfig.height,
+                    };
+
+                    // FIXME: file not being updated
+                    scope.edit = (file, evt) => {
+                        const template = firstConfig.crop ?
+                            `${BASE_PATH}/admin/dialogs/ImageCrop` :
+                            `${BASE_PATH}/admin/dialogs/ImageEdit`;
+
+                        scope.file = file;
+
+                        $mdDialog.show({
+                            controller: 'CropController',
+                            controllerAs: 'vm',
+                            templateUrl: template,
+                            hasBackdrop: true,
+                            scope: scope.$new(),
+                            targetEvent: evt,
+                        }).then(() => {
+                            console.log(file.file_name);
+                        });
+                    };
+                }
+
                 scope.progress = 0;
                 scope.configs = scope.model.configs;
                 scope.show_progress = false;
@@ -28,11 +61,6 @@ angular.module('app')
                     dominantColor: [],
                     paletteColor: [],
                     textColor: null,
-                };
-
-                scope.resultImageSize = {
-                    w: firstConfig.width,
-                    h: firstConfig.height,
                 };
 
                 const multiple = scope.multiple;
@@ -72,23 +100,6 @@ angular.module('app')
                     Dialog.deleteFromList('Est&aacute; seguro de que quiere eliminar &eacute;sta imagen?', scope.model.files, [file]);
                 };
 
-                scope.edit = (file, evt) => {
-                    const template = firstConfig.crop ?
-                        `${BASE_PATH}/admin/dialogs/ImageCrop` :
-                        `${BASE_PATH}/admin/dialogs/ImageEdit`;
-
-                    $mdDialog.show({
-                        controller: 'CropController',
-                        controllerAs: 'vm',
-                        templateUrl: template,
-                        hasBackdrop: true,
-                        locals: {
-                            model: scope.model,
-                            file,
-                        },
-                        targetEvent: evt,
-                    });
-                };
             },
 
         };

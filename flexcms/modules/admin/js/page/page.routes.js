@@ -61,6 +61,9 @@
                         languages(Language, ResourceResponse) {
                             return ResourceResponse.query(Language);
                         },
+                        images(ImageConfig, ResourceResponse, $routeParams) {
+                            return ResourceResponse.query(ImageConfig, { page_id: $routeParams.page_id });
+                        },
                     },
                     untilResolved: {
                         templateUrl: `${BASE_PATH}admin/Loading`,
@@ -89,15 +92,8 @@
                     templateUrl: `${BASE_PATH}admin/ListGrouped2`,
                     controller: 'ImageConfigController',
                     resolve: {
-                        images(ImageConfig, $q, $routeParams) {
-                            const deferred = $q.defer();
-                            ImageConfig.query({ page_id: $routeParams.page_id }, (successData) => {
-                                deferred.resolve(successData);
-                            }, (errorData) => {
-                                deferred.reject(errorData);
-                            });
-
-                            return deferred.promise;
+                        images(ImageConfig, ResourceResponse, $routeParams) {
+                            return ResourceResponse.query(ImageConfig, { page_id: $routeParams.page_id });
                         },
                     },
                     untilResolved: {

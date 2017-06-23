@@ -32,10 +32,11 @@ angular.module('app')
              * Return a promise for a resource's query
              *
              * @param service
+             * @param params
              */
-            query(service) {
+            query(service, params = {}) {
                 const deferred = $q.defer();
-                service.query((successData) => {
+                service.query(params, (successData) => {
                     if (successData.data) {
                         deferred.resolve(successData);
                     } else {

@@ -9,7 +9,7 @@
  * */
 angular.module('app')
 
-    .controller('ContentCreateController', function ($scope, $rootScope, Content, $routeSegment, WindowFactory, $routeParams, languages) {
+    .controller('ContentCreateController', function ($scope, $rootScope, Content, $routeSegment, WindowFactory, $routeParams, languages, images) {
         const vm = this;
 
         // Close the sidebar on this controller
@@ -26,7 +26,7 @@ angular.module('app')
             category_id: $routeParams.page_id,
             translations: languages.data,
             timezone: null,
-            images: [],
+            images: images.data,
         };
 
         vm.editorInit = false;

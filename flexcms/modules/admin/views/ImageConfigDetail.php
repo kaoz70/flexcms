@@ -12,7 +12,7 @@
 
     <md-content perfect-scrollbar class="panel-body">
 
-        <form name="form">
+        <form name="vm.form">
 
             <md-card>
                 <md-card-title>
@@ -109,7 +109,8 @@
 
                     <div layout="column" ng-show="vm.image.watermark">
 
-                        <upload-file model="vm.watermark_data"></upload-file>
+                        <upload-file model="vm.watermark_data"
+                                     only-upload="true"></upload-file>
 
                         <md-input-container>
                             <label>Posici&oacute;n</label>

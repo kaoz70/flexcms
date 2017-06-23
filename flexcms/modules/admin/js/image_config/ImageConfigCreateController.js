@@ -32,11 +32,11 @@ angular.module('app')
             vm.form.$setSubmitted();
 
             const data = {
-                image: $scope.image,
-                file: $scope.watermark_data,
+                image: vm.image,
+                file: vm.watermark_data,
             };
 
-            if ($scope.form.$valid) {
+            if (vm.form.$valid) {
                 ImageConfig.save(data, (response) => {
                     $scope.$parent.items = response.data;
                     WindowFactory.back($scope);

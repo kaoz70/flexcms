@@ -666,7 +666,7 @@ button {
     .sidebar .menu > li.active .submenu-panel {
       opacity: 1;
       width: 280px;
-      z-index: 100; }
+      z-index: 78; }
       .sidebar .menu > li.active .submenu-panel > ul {
         left: 0; }
     .sidebar .menu .submenu-title,
@@ -938,7 +938,9 @@ md-input-container input {
     width: 100%; }
     #windows md-list-item .item-name {
       display: flex;
-      justify-content: flex-start; }
+      justify-content: flex-start;
+      line-height: 17px;
+      padding: 8px 0; }
       #windows md-list-item .item-name md-icon {
         margin: 0 14px 0 0; }
 

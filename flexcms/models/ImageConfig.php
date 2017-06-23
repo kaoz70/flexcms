@@ -116,7 +116,7 @@ class ImageConfig extends BaseModel
         $imageConfig->restrict_proportions = isset($imageData['restrict_proportions']) ? $imageData['restrict_proportions'] : '';
         $imageConfig->save();
 
-        if($watermarkData) {
+        if($watermarkData && count($watermarkData['files'])) {
 
             $imageConfig->watermark = true;
 
