@@ -12,3 +12,19 @@ function show_my_404($page, $theme) {
 	exit(4); // EXIT_UNKNOWN_FILE
 
 }
+
+/**
+ * If running nginx, implement getallheaders ourself.
+ *
+ * Code is taken from http://php.net/manual/en/function.getallheaders.php
+ */
+if (!function_exists('getallheaders')) {
+    function getallheaders() {
+        foreach ($_SERVER as $name => $value) {
+            if (substr($name, 0, 5) == 'HTTP_') {
+                $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+            }
+        }
+        return $headers;
+    }
+}

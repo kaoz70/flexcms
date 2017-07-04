@@ -21,16 +21,20 @@ class Image extends File {
      * @param $path
      * @param ImageConfig $config
      * @param $crop
+     * @param null $origPath
      * @return \Intervention\Image\Image
      */
-    public static function process($file, $path, ImageConfig $config, $crop)
+    public static function process($file, $path, ImageConfig $config, $crop, $origPath = NULL)
     {
 
         //Check if the filename is empty, this will happen if the file is not uploaded
         isset($file['file_name']) ? $file_name = $file['file_name'] : $file_name = $file['name'];
 
-        $origPath = $path . '/' . $file_name . '_orig' . $file['file_ext'];
-        $basePath = $path . '/' . $file_name . $config->sufix;
+        if(!$origPath) {
+            $origPath = $path . $file_name . '_orig' . $file['file_ext'];
+        }
+
+        $basePath = $path . $file_name . $config->sufix;
         $newPath = $basePath . $file['file_ext'];
 
         //Open the original image file
@@ -44,7 +48,7 @@ class Image extends File {
 
         //Crop the image
         if($config->restrict_proportions && $config->crop) {
-            $img->crop($crop['cropImageWidth'], $crop['cropImageHeight'], $crop['cropImageTop'], $crop['cropImageLeft']);
+            $img->crop($crop['cropImageWidth'], $crop['cropImageHeight'], $crop['cropImageLeft'], $crop['cropImageTop']);
         }
 
         //Resize the image

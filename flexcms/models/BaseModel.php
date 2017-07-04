@@ -2,7 +2,7 @@
 
 namespace App;
 use Gajus\Dindent\Exception\RuntimeException;
-use Herrera\Json\Exception\Exception;
+use Intervention\Image\ImageManagerStatic as Intervention;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -167,56 +167,70 @@ class BaseModel extends Model {
     {
 
         //Delete all the files
-        File::where('parent_id', $this->id)->delete();
+        //File::where('parent_id', $this->id)->delete();
 
         if(!$sections) {
             return;
         }
         
-        //Create the content folder if it does'nt exist yet
+        //Create the content folder if it doesn't exist yet
         $path = static::$image_folder . $this->id . '/';
         Utils::createFolder($path);
 
+        // Image sections
         foreach ($sections as $section) {
 
             $configs = ImageConfig::where('image_section_id', $section['id'])->get();
 
-            //Create the file row in the database
+            //Every uploaded file
             foreach ($section['files'] as $key => $file) {
 
-                $image = File::where('parent_id', $this->id)->where('section_id', $section['id'])->first();
-                if (!$image) {
-                    $image = new File();
-                    $image->parent_id = $this->id;
-                    $image->section_id = $section['id'];
-                }
-
-                $image->position = $key + 1;
-                $image->name = isset($file['file_name']) ? $file['file_name'] : $file['name'];
-                $image->data = [
-                    'coords' => $section['cropObject'],
-                    'colors' => $section['colors'],
-                    'image_alt' => $file['type'],
-                ];
-                $image->type = $file['type'];
-                $image->mime_type = $file['mime_type'];
-                $image->file_ext = $file['file_ext'];
-                $image->save();
-
-                $origPath = $path . '/' . $image->name . '_orig' . $file['file_ext'];
-
-                //Move the uploaded file
+                //Save the original image if its the first upload
                 if($file['file_path']) {
-                    File::move($file['file_path'], $origPath);
+                    File::move($file['file_path'], $path . $file['file_name'] . '_orig' . $file['file_ext']);
                 }
 
-                //Create the images
-                foreach ($configs as $config) {
-                    Image::process($file, $path, $config, $section['cropObject']);
-                }
+                //Create the file row in the database
+                foreach ($configs as $key => $config) {
+                    $image = Image::where('parent_id', $this->id)
+                        ->where('section_id', $section['id'])
+                        ->where('sufix', $config->sufix)
+                        ->first();
 
-                //Set the new path
-                $file['file_path'] = $origPath;
+                    if (!$image) {
+                        $image = new Image();
+                        $image->parent_id = $this->id;
+                        $image->sufix = $config->sufix;
+                        $image->section_id = $section['id'];
+                    }
+
+                    $image->position = $key + 1;
+                    $image->name = isset($file['file_name']) ? $file['file_name'] : $file['name'];
+                    $image->data = [
+                        'coords' => $section['cropObject'],
+                        'colors' => $section['colors'],
+                        'image_alt' => $file['type'],
+                    ];
+                    $image->type = $file['type'];
+                    $image->file_name = $file['file_name'];
+
+                    //Create the image
+                    if(isset($configs[$key - 1])) {
+                        $prevConfig = $configs[$key - 1];
+                        if($prevConfig->force_jpg) {
+                            $file['file_ext'] = '.jpg';
+                        }
+                        $origPath = $path . $image->file_name . $prevConfig->sufix . $file['file_ext'];
+                        $img = Image::process($file, $path, $config, $section['cropObject'], $origPath);
+                    } else {
+                        $img = Image::process($file, $path, $config, $section['cropObject']);
+                    }
+
+                    $image->mime_type = $img->mime();
+                    $image->file_ext = $img->extension;
+                    $image->save();
+
+                }
 
             }
         }

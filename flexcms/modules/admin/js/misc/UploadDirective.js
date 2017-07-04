@@ -37,17 +37,20 @@ angular.module('app')
                             `${BASE_PATH}/admin/dialogs/ImageCrop` :
                             `${BASE_PATH}/admin/dialogs/ImageEdit`;
 
-                        scope.file = file;
-
                         $mdDialog.show({
                             controller: 'CropController',
                             controllerAs: 'vm',
                             templateUrl: template,
                             hasBackdrop: true,
                             scope: scope.$new(),
+                            locals: {
+                                config: scope.model,
+                                file,
+                            },
                             targetEvent: evt,
                         }).then(() => {
-                            console.log(file.file_name);
+                            //console.log(config);
+                            //angular.copy(scope.model, config);
                         });
                     };
                 }
@@ -93,6 +96,10 @@ angular.module('app')
                             scope.progress = parseInt((100.0 * evt.loaded) / evt.total, 10);
                         });
                     }
+                };
+
+                scope.onChangeHandler = ($dataURI) => {
+                    console.log('chencge');
                 };
 
                 // TODO: delete the file server side

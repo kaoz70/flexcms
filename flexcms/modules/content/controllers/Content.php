@@ -9,6 +9,7 @@
 namespace content;
 $_ns = __NAMESPACE__;
 
+use App\BaseModel;
 use App\Config;
 use App\Language;
 use App\Page;
@@ -118,7 +119,7 @@ class Content extends \RESTController implements \AdminInterface
         } catch (ErrorException $e) {
             $response->setError('Ocurri&oacute; un problema al actualizar el contenido!', $e);
         } catch (NotReadableException $e) {
-            $response->setError('Ocurri&oacute; un problema al crear el contenido!', $e);
+            $response->setError('Ocurri&oacute; un problema al actualizar el contenido!', $e);
         }
 
         $this->response($response, $response->getStatusHeader());
@@ -203,10 +204,10 @@ class Content extends \RESTController implements \AdminInterface
     /**
      * Inserts or updates the current model with the provided post data
      *
-     * @param Model $model
+     * @param BaseModel $model
      * @return mixed
      */
-    public function _store(Model $model, $data)
+    public function _store(BaseModel $model, $data)
     {
 
         $model->css_class = isset($data['css_class']) ? $data['css_class'] : '';

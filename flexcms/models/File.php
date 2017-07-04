@@ -128,13 +128,13 @@ class File extends BaseModel {
      */
     public static function move($from, $to, $delete = true)
     {
-        if (copy($from, $to)) {
+        if (file_exists($from) && copy($from, $to)) {
             if($delete){
                 //Delete the file
                 unlink($from);
             }
         } else {
-            throw new FileException("No se pudo mover el archivo");
+            throw new FileException("No se pudo mover el archivo [FROM: $from] [TO: $to]");
         }
     }
 

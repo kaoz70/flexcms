@@ -727,7 +727,7 @@ $colorLight: rgb(115, 115, 115);
   background-size: $squareSize $squareSize, $squareSize $squareSize;
   -webkit-box-shadow: none;
 
-  width: 500px;
+  width: 100%;
   height: 450px;
   overflow: hidden;
 }
@@ -846,3 +846,17 @@ widget {
 
 }
 
+.crop-status {
+  i {
+    vertical-align: bottom;
+  }
+}
+
+
+.md-success-text {
+  color: $blue;
+}
+
+.md-warn-text {
+  color: $yellow;
+}
