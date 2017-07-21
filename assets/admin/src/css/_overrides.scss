@@ -161,3 +161,8 @@ md-select-menu.md-default-theme md-content md-option,
 md-select-menu md-content md-option {
   color: rgba(189, 189, 189, 0.87);
 }
+
+#toast-container .toast {
+  border-radius: 0 !important;
+  box-shadow: 0 0 10px #000 !important;
+}

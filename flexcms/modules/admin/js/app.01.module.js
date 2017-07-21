@@ -8,6 +8,7 @@
             'route-segment',
             'ui.tinymce',
             'angular-timezone-selector',
+            'toastr',
             'ngSanitize',
             'dndLists',
             'ui.tree',

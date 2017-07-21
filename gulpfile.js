@@ -61,7 +61,6 @@ elixir((mix) => {
         './node_modules/codemirror/addon/hint/show-hint.css',
         './node_modules/codemirror/addon/fold/foldgutter.css',
         './node_modules/codemirror/theme/rubyblue.css',
-        './flexcms/packages/appverse.notifications/dist/notification-bar.css',
         './assets/admin/src/css/admin.scss',
         './node_modules/font-awesome/css/font-awesome.min.css',
         './node_modules/chosen-js/chosen.css',
@@ -69,6 +68,7 @@ elixir((mix) => {
         './node_modules/angular-material/angular-material.min.css',
         './node_modules/angular-timezone-selector/dist/angular-timezone-selector.min.css',
         './assets/admin/src/css/pe-icon-7-stroke.css',
+        './node_modules/angular-toastr/dist/angular-toastr.css',
         './node_modules/animate.css/animate.min.css',
         './node_modules/md-color-picker/dist/mdColorPicker.min.css',
         './node_modules/ui-cropper/compile/minified/ui-cropper.css',
@@ -112,9 +112,8 @@ elixir((mix) => {
         './node_modules/codemirror/mode/css/css.js',
         './node_modules/codemirror/mode/htmlmixed/htmlmixed.js',
 
-        './node_modules/desandro-classie/classie.js', // FIXME Deprecated class
-        './flexcms/packages/appverse.notifications/dist/notification-fx.js',
-        './flexcms/packages/appverse.notifications/dist/appverse.notifications.min.js',
+        './node_modules/angular-toastr/dist/angular-toastr.js',
+        './node_modules/angular-toastr/dist/angular-toastr.tpls.js',
 
         './node_modules/tinymce/tinymce.min.js',
         './node_modules/angular-i18n/angular-locale_es-ec.js',
@@ -134,7 +133,7 @@ elixir((mix) => {
         './node_modules/md-color-picker/dist/mdColorPicker.min.js',
         './node_modules/md-color-picker/dist/mdColorPicker.min.js',
         './node_modules/ui-cropper/compile/minified/ui-cropper.js',
-        './flexcms/packages/color-thief/dist/color-thief.min.js',
+        './node_modules/color-thief/js/color-thief.js', // FIXME process is not defined
         './assets/admin/src/js/login.js',
     ], './assets/admin/build/app.js');
 

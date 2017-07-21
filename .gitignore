@@ -3,6 +3,7 @@
 .env
 composer.lock
 npm-debug.log
+yarn.lock
 
 node_modules/
 flexcms/sessions/ci_**

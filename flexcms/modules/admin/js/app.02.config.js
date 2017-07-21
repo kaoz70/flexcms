@@ -116,5 +116,13 @@
                     },
                 };
             });
+        })
+        .config((toastrConfig) => {
+            angular.extend(toastrConfig, {
+                allowHtml: true,
+                closeButton: true,
+                closeHtml: '<button>&times;</button>',
+                progressBar: true,
+            });
         });
 }());
