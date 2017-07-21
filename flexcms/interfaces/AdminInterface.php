@@ -1,5 +1,5 @@
 <?php
-use Illuminate\Database\Eloquent\Model;
+use App\BaseModel;
 
 /**
  * Created by PhpStorm.
@@ -43,10 +43,10 @@ interface AdminInterface {
     /**
      * Inserts or updates the current model with the provided post data
      *
-     * @param Model $model
+     * @param BaseModel $model
      * @param $data
      * @return mixed
      */
-    public function _store(Model $model, $data);
+    public function _store(BaseModel $model, $data);
 
 }

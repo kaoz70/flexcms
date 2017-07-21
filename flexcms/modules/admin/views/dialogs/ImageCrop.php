@@ -39,34 +39,63 @@
 
                 </md-card>
 
-                <md-card>
-                    <md-card-title>
-                        <md-card-title-text>
-                            <span class="md-headline">Corte </span>
-                            <span>{{vm.width}}px x {{vm.height}}px</span>
-                        </md-card-title-text>
-                    </md-card-title>
-                    <md-card-content>
+                <div layout="row">
+                    <md-card flex="">
+                        <md-card-title>
+                            <md-card-title-text>
+                                <span class="md-headline">Corte</span>
+                            </md-card-title-text>
+                        </md-card-title>
+                        <md-card-content>
 
-                        <md-card-title-media>
-                            <div class="crop-background">
-                                <ui-cropper image="vm.file.url_path"
-                                            area-type="rectangle"
-                                            area-coords="vm.model.areaCoords"
-                                            cropject="vm.model.cropObject"
-                                            aspect-ratio="vm.width / vm.height"
-                                            area-init-size="vm.initialSize"
-                                            area-init-coords="vm.initialCoords"
-                                            change-on-fly="false"
-                                            dominant-color="vm.model.colors.dominantColor"
-                                            palette-color="vm.model.colors.paletteColor"
-                                            result-image-size="vm.resultImageSize"
-                                            result-image="vm.file.resultImage"></ui-cropper>
-                            </div>
-                        </md-card-title-media>
+                            <md-card-title-media>
+                                <div class="crop-background">
+                                    <ui-cropper image="vm.file.url_path"
+                                                area-type="rectangle"
+                                                area-coords="vm.model.areaCoords"
+                                                cropject="vm.model.cropObject"
+                                                aspect-ratio="vm.width / vm.height"
+                                                area-init-size="vm.initialSize"
+                                                area-init-coords="vm.initialCoords"
+                                                change-on-fly="false"
+                                                dominant-color="vm.model.colors.dominantColor"
+                                                palette-color="vm.model.colors.paletteColor"
+                                                result-image-size="vm.resultImageSize"
+                                                result-image="vm.file.resultImage"></ui-cropper>
+                                </div>
+                            </md-card-title-media>
 
-                    </md-card-content>
-                </md-card>
+                        </md-card-content>
+                    </md-card>
+
+                    <md-card flex="33">
+                        <md-card-title>
+                            <md-card-title-text>
+                                <span class="md-headline">Resultado</span>
+                            </md-card-title-text>
+                        </md-card-title>
+                        <md-card-content>
+
+                            <md-card-title-media>
+                                <div class="md-media-lg card-media">
+                                    <div style="height: {{vm.height}}px;">
+                                        <img id="preview" ng-src="{{vm.file.resultImage}}" />
+                                    </div>
+                                </div>
+                            </md-card-title-media>
+
+                            <ul>
+                                <li><strong>Tama&ntilde;o:</strong> {{vm.width}}px x {{vm.height}}px</li>
+                                <li><strong>Estado:</strong> <span ng-bind-html="vm.status"></span></li>
+                            </ul>
+
+                        </md-card-content>
+                    </md-card>
+                </div>
+
+            </div>
+
+            <div flex="20" layout="column">
 
                 <md-card>
                     <md-card-title>
@@ -75,36 +104,17 @@
                         </md-card-title-text>
                     </md-card-title>
                     <md-card-content>
-                        <div ng-repeat="conf in vm.model.configs">{{vm.file.name | slugify}}{{conf.sufix}}{{conf.force_jpg ? '.jpg' : vm.file.file_ext}}</div>
+                        <ul ng-repeat="conf in vm.model.configs">
+                            <li>{{vm.file.name | slugify}}{{conf.sufix}}{{conf.force_jpg ? '.jpg' : vm.file.file_ext}}</li>
+                        </ul>
                     </md-card-content>
 
-                </md-card>
-
-            </div>
-
-            <div layout="column">
-
-                <md-card>
-                    <md-card-title>
-                        <md-card-title-text>
-                            <span class="md-headline">Resultado</span>
-                        </md-card-title-text>
-                    </md-card-title>
-                    <md-card-content>
-
-                        <md-card-title-media>
-                            <div class="md-media-lg card-media" style="min-width: 200px">
-                                <img ng-src="{{vm.file.resultImage}}" />
-                            </div>
-                        </md-card-title-media>
-
-                    </md-card-content>
                 </md-card>
 
                 <md-card>
                     <md-card-title>
                         <md-card-title-text>
-                            <span class="md-headline">Colores</span>
+                            <span class="md-headline">Colores obtenidos</span>
                         </md-card-title-text>
                     </md-card-title>
                     <md-card-content>

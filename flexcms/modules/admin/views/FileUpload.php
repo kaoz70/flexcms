@@ -22,23 +22,21 @@
 
             <md-card-title-media>
                 <div class="md-media-lg card-media">
-                    <!--<img class="img-fluid" src="{{file.url_path}}">-->
                     <div class="crop-background hide-off-screen">
                         <ui-cropper image="file.url_path"
                                     area-type="rectangle"
                                     aspect-ratio="model.items[0].width / model.items[0].height"
                                     area-coords="model.areaCoords"
                                     result-image-size="resultImageSize"
-                                    cropject="model.cropObject"
+                                    cropject="file.data.coords"
                                     init-max-area="true"
                                     change-on-fly="false"
+                                    on-change="onChangeHandler($dataURI)"
                                     dominant-color="model.colors.dominantColor"
                                     palette-color="model.colors.paletteColor"
                                     result-image="file.resultImage"></ui-cropper>
                     </div>
                     <img class="img-fluid" ng-src="{{file.resultImage}}" />
-
-                    {{model.cropObject.areaCoords.y}}
                 </div>
             </md-card-title-media>
 
