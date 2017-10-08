@@ -146,19 +146,14 @@ class Widget extends RESTController implements AdminInterface {
     /**
      * Inserts or updates the current model with the provided post data
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param \App\BaseModel $model
      * @param $data
      * @return mixed
      */
-    public function _store(\Illuminate\Database\Eloquent\Model $model, $data)
+    public function _store(\App\BaseModel $model, $data)
     {
-        $widget->type = $this->post('namespace');
-        $widget->save();
-
-        return [
-            'widget' => $class::admin($widget->id),
-            'languages' => \App\Language::all(),
-        ];
+        $model->type = $this->post('namespace');
+        $model->save();
     }
 
 

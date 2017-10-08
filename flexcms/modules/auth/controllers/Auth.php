@@ -3,28 +3,31 @@
 use App\Response;
 use Cartalyst\Sentinel\Native\Facades\Sentinel as Sentinel;
 
-class Auth extends AdminController {
+class Auth extends RESTController implements AdminInterface {
 
     const URL_CREATE = 'admin/auth/users/create';
     const URL_DELETE = 'admin/auth/users/delete/';
     const URL_EDIT = 'admin/auth/users/edit/';
 
-    function __construct(){
-        parent::__construct();
+    public function config()
+    {
+        $data['config'] = \App\Config::get('auth');
 
-        $this->load->library('Seguridad');
-        $this->seguridad->init();
+        $data['titulo'] = 'Configuraci&oacute;n';
+        $data['txt_guardar'] = 'Guardar Configuraci&oacute;n';
+        $data['roles'] =  Sentinel::getRoleRepository()->all();
 
+        $this->load->view('auth/config_view', $data);
     }
 
     /**
-     * List of items
+     * Gets one or all resources
      *
+     * @param null $id
      * @return mixed
      */
-    public function index()
+    public function index_get($id = null)
     {
-
         $response = new Response();
 
         try{
@@ -51,18 +54,49 @@ class Auth extends AdminController {
         }
 
         $this->response($response, $response->getStatusHeader());
-
     }
 
-    public function config()
+    /**
+     * Update a resource
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function index_put($id)
     {
-        $data['config'] = \App\Config::get('auth');
-
-        $data['titulo'] = 'Configuraci&oacute;n';
-        $data['txt_guardar'] = 'Guardar Configuraci&oacute;n';
-        $data['roles'] =  Sentinel::getRoleRepository()->all();
-
-        $this->load->view('auth/config_view', $data);
+        // TODO: Implement index_put() method.
     }
 
+    /**
+     * Insert a new resource
+     *
+     * @return mixed
+     */
+    public function index_post()
+    {
+        // TODO: Implement index_post() method.
+    }
+
+    /**
+     * Delete a resource
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function index_delete($id)
+    {
+        // TODO: Implement index_delete() method.
+    }
+
+    /**
+     * Inserts or updates the current model with the provided post data
+     *
+     * @param \App\BaseModel $model
+     * @param $data
+     * @return mixed
+     */
+    public function _store(\App\BaseModel $model, $data)
+    {
+        // TODO: Implement _store() method.
+    }
 }

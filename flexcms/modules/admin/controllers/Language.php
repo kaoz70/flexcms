@@ -136,10 +136,10 @@ class Language extends RESTController implements AdminInterface {
     /**
      * Inserts or updates the current model with the provided post data
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param \App\BaseModel $model
      * @return mixed
      */
-    public function _store(\Illuminate\Database\Eloquent\Model $model, $data)
+    public function _store(\App\BaseModel $model, $data)
     {
         $model->name = $data['name'];
         $model->slug = $data['slug'];
