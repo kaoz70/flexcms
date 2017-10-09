@@ -72,7 +72,7 @@ elixir((mix) => {
         './node_modules/animate.css/animate.min.css',
         './node_modules/md-color-picker/dist/mdColorPicker.min.css',
         './node_modules/ui-cropper/compile/minified/ui-cropper.css',
-        './assets/admin/src/css/scrollbars.scss'
+        './assets/admin/src/css/scrollbars.scss',
     ], './assets/admin/build/app.css');
 
     // Admin scripts
@@ -132,7 +132,7 @@ elixir((mix) => {
         './node_modules/tinycolor2/dist/tinycolor-min.js',
         './node_modules/md-color-picker/dist/mdColorPicker.min.js',
         './node_modules/md-color-picker/dist/mdColorPicker.min.js',
-        './node_modules/ui-cropper/compile/minified/ui-cropper.js',
+        './node_modules/ui-cropper/compile/unminified/ui-cropper.js',
         './node_modules/color-thief/js/color-thief.js', // FIXME process is not defined
         './assets/admin/src/js/login.js',
     ], './assets/admin/build/app.js');
@@ -147,7 +147,7 @@ elixir((mix) => {
         './node_modules/angular-material/angular-material.js',
         './node_modules/angular-animate/angular-animate.min.js',
         './node_modules/angular-spinner/dist/angular-spinner.min.js',
-        './assets/admin/src/js/login.js'
+        './assets/admin/src/js/login.js',
     ], './assets/admin/build/login.js');
 
     // Copy the fonts

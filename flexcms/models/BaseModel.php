@@ -182,6 +182,12 @@ class BaseModel extends Model {
 
             $configs = ImageConfig::where('image_section_id', $section['id'])->get();
 
+            // TODO: Delete the file
+            foreach ($section['delete'] as $key => $file) {
+                $toDelete = File::find($file['id']);
+                $toDelete->delete();
+            }
+
             //Every uploaded file
             foreach ($section['files'] as $key => $file) {
 
@@ -207,7 +213,7 @@ class BaseModel extends Model {
                     $image->position = $key + 1;
                     $image->name = isset($file['file_name']) ? $file['file_name'] : $file['name'];
                     $image->data = [
-                        'coords' => $section['cropObject'],
+                        'coords' => $file['data']['coords'],
                         'colors' => $section['colors'],
                         'image_alt' => $file['type'],
                     ];
@@ -221,9 +227,9 @@ class BaseModel extends Model {
                             $file['file_ext'] = '.jpg';
                         }
                         $origPath = $path . $image->file_name . $prevConfig->sufix . $file['file_ext'];
-                        $img = Image::process($file, $path, $config, $section['cropObject'], $origPath);
+                        $img = Image::process($file, $path, $config, $file['data']['coords'], $origPath);
                     } else {
-                        $img = Image::process($file, $path, $config, $section['cropObject']);
+                        $img = Image::process($file, $path, $config, $file['data']['coords']);
                     }
 
                     $image->mime_type = $img->mime();

@@ -55,10 +55,11 @@ class ImageSection extends BaseModel
 
     public static function getFiles($section_id, $content_id, $image_base_path)
     {
-        $images = Image::where('section_id', $section_id)->where('parent_id', $content_id)->ordeBy('position')->get();
+        $images = Image::where('section_id', $section_id)->where('parent_id', $content_id)->orderBy('position')->get();
 
         foreach ($images as $image) {
-            $image->setUrlPath(base_url($image_base_path . $image->name . '_orig' . $image->file_ext));
+            /** @var Image $image */
+            $image->setUrlPath(base_url($image_base_path . $image->name . '_orig.' . $image->file_ext));
         }
 
         return $images;

@@ -15,7 +15,7 @@
     <md-card flex-xs flex="{{columnWidth}}" ng-repeat="file in model.files">
         <md-card-title>
             <md-card-title-text>
-                {{file.file_name}}{{file.file_ext}}
+                {{file.file_name}}.{{file.file_ext}}
             </md-card-title-text>
         </md-card-title>
         <md-card-content>

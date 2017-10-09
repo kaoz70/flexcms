@@ -53,7 +53,7 @@
                                     <ui-cropper image="vm.file.url_path"
                                                 area-type="rectangle"
                                                 area-coords="vm.model.areaCoords"
-                                                cropject="vm.model.cropObject"
+                                                cropject="vm.model.coords"
                                                 aspect-ratio="vm.width / vm.height"
                                                 area-init-size="vm.initialSize"
                                                 area-init-coords="vm.initialCoords"

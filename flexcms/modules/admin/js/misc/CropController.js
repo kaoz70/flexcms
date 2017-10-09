@@ -19,11 +19,6 @@ angular.module('app')
         const configCopy = angular.copy(config);
         const fileCopy = angular.copy(file);
 
-        // FIXME: until https://github.com/CrackerakiUA/ui-cropper/issues/22 is resolved
-        const previewImage = document.getElementById('preview');
-        vm.width = 0;
-        vm.height = 0;
-
         // Get the width and height from the first image configuration (should be the biggest one)
         vm.width = vm.model.configs[0].width;
         vm.height = vm.model.configs[0].height;
@@ -45,25 +40,13 @@ angular.module('app')
             $mdDialog.hide();
         };
 
-        $scope.$watch('vm.model.cropObject', (coords) => {
-            const ratio = coords.cropImageHeight / coords.cropImageWidth;
-
+        $scope.$watch('vm.model.coords', (coords) => {
             // Check if the cropped image will be pixelated
-            if (coords.cropImageWidth < vm.width || coords.cropImageHeight < vm.height) {
-                vm.status = '<span class="crop-status md-warn-text"><i class="material-icons">warning</i> PIXELADO</span>';
-            } else {
-                vm.status = '<span class="crop-status md-success-text"><i class="material-icons">check</i> OK</span>';
-            }
-
-            // FIXME: until https://github.com/CrackerakiUA/ui-cropper/issues/22 is resolved
-            // Image is higher, or square
-            if (previewImage) {
-                if (coords.cropImageHeight >= coords.cropImageWidth) {
-                    vm.width = previewImage.width / ratio;
-                    vm.height = previewImage.height;
-                } else { // Image is wider
-                    vm.height = previewImage.height * ratio;
-                    vm.width = previewImage.width;
+            if (coords) {
+                if (coords.cropImageWidth < vm.width || coords.cropImageHeight < vm.height) {
+                    vm.status = '<span class="crop-status md-warn-text"><i class="material-icons">warning</i> PIXELADO</span>';
+                } else {
+                    vm.status = '<span class="crop-status md-success-text"><i class="material-icons">check</i> OK</span>';
                 }
             }
         });

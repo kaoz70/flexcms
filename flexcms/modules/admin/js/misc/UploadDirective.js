@@ -8,7 +8,7 @@
  * @restrict A
  * */
 angular.module('app')
-    .directive('uploadFile', function (BASE_PATH, Upload, $mdDialog, Color, Dialog, $timeout) {
+    .directive('uploadFile', function (BASE_PATH, Upload, $mdDialog, Color, Dialog) {
         return {
             restrict: 'E',
             templateUrl: `${BASE_PATH}admin/FileUpload`,
@@ -48,9 +48,6 @@ angular.module('app')
                                 file,
                             },
                             targetEvent: evt,
-                        }).then(() => {
-                            //console.log(config);
-                            //angular.copy(scope.model, config);
                         });
                     };
                 }
@@ -59,6 +56,7 @@ angular.module('app')
                 scope.configs = scope.model.configs;
                 scope.show_progress = false;
                 scope.model.files = scope.existingFiles ? scope.existingFiles : [];
+                scope.model.delete = [];
                 scope.columnWidth = scope.multiple ? 33 : 100;
                 scope.model.colors = {
                     dominantColor: [],
@@ -102,11 +100,11 @@ angular.module('app')
                     console.log('chencge');
                 };
 
-                // TODO: delete the file server side
                 scope.delete = (file) => {
-                    Dialog.deleteFromList('Est&aacute; seguro de que quiere eliminar &eacute;sta imagen?', scope.model.files, [file]);
+                    Dialog.deleteFromList('Est&aacute; seguro de que quiere eliminar &eacute;sta imagen?', scope.model.files, [file], () => {
+                        scope.model.delete.push(file);
+                    });
                 };
-
             },
 
         };
