@@ -26,6 +26,11 @@ class Inspector
     private $previousExceptionInspector;
 
     /**
+     * @var \Throwable[]
+     */
+    private $previousExceptions;
+
+    /**
      * @param \Throwable $exception The exception to inspect
      */
     public function __construct($exception)
@@ -54,7 +59,62 @@ class Inspector
      */
     public function getExceptionMessage()
     {
-        return $this->exception->getMessage();
+        return $this->extractDocrefUrl($this->exception->getMessage())['message'];
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getPreviousExceptionMessages()
+    {
+        return array_map(function ($prev) {
+            /** @var \Throwable $prev */
+            return $this->extractDocrefUrl($prev->getMessage())['message'];
+        }, $this->getPreviousExceptions());
+    }
+
+    /**
+     * @return int[]
+     */
+    public function getPreviousExceptionCodes()
+    {
+        return array_map(function ($prev) {
+            /** @var \Throwable $prev */
+            return $prev->getCode();
+        }, $this->getPreviousExceptions());
+    }
+
+    /**
+     * Returns a url to the php-manual related to the underlying error - when available.
+     *
+     * @return string|null
+     */
+    public function getExceptionDocrefUrl()
+    {
+        return $this->extractDocrefUrl($this->exception->getMessage())['url'];
+    }
+
+    private function extractDocrefUrl($message)
+    {
+        $docref = [
+            'message' => $message,
+            'url' => null,
+        ];
+
+        // php embbeds urls to the manual into the Exception message with the following ini-settings defined
+        // http://php.net/manual/en/errorfunc.configuration.php#ini.docref-root
+        if (!ini_get('html_errors') || !ini_get('docref_root')) {
+            return $docref;
+        }
+
+        $pattern = "/\[<a href='([^']+)'>(?:[^<]+)<\/a>\]/";
+        if (preg_match($pattern, $message, $matches)) {
+            // -> strip those automatically generated links from the exception message
+            $docref['message'] = preg_replace($pattern, '', $message, 1);
+            $docref['url'] = $matches[1];
+        }
+
+        return $docref;
     }
 
     /**
@@ -84,6 +144,26 @@ class Inspector
         return $this->previousExceptionInspector;
     }
 
+
+    /**
+     * Returns an array of all previous exceptions for this inspector's exception
+     * @return \Throwable[]
+     */
+    public function getPreviousExceptions()
+    {
+        if ($this->previousExceptions === null) {
+            $this->previousExceptions = [];
+
+            $prev = $this->exception->getPrevious();
+            while ($prev !== null) {
+                $this->previousExceptions[] = $prev;
+                $prev = $prev->getPrevious();
+            }
+        }
+
+        return $this->previousExceptions;
+    }
+
     /**
      * Returns an iterator for the inspected exception's
      * frames.
@@ -92,29 +172,27 @@ class Inspector
     public function getFrames()
     {
         if ($this->frames === null) {
-            $frames = $this->getTrace($this->exception);            
-            
-            // Fill empty line/file info for call_user_func_array usages (PHP Bug #44428) 
+            $frames = $this->getTrace($this->exception);
+
+            // Fill empty line/file info for call_user_func_array usages (PHP Bug #44428)
             foreach ($frames as $k => $frame) {
-                
                 if (empty($frame['file'])) {
                     // Default values when file and line are missing
                     $file = '[internal]';
                     $line = 0;
-                    
+
                     $next_frame = !empty($frames[$k + 1]) ? $frames[$k + 1] : [];
-                    
+
                     if ($this->isValidNextFrame($next_frame)) {
                         $file = $next_frame['file'];
                         $line = $next_frame['line'];
                     }
-                    
+
                     $frames[$k]['file'] = $file;
                     $frames[$k]['line'] = $line;
                 }
-                
             }
-            
+
             // Find latest non-error handling frame index ($i) used to remove error handling frames
             $i = 0;
             foreach ($frames as $k => $frame) {
@@ -122,15 +200,15 @@ class Inspector
                     $i = $k;
                 }
             }
-            
+
             // Remove error handling frames
             if ($i > 0) {
-                array_splice($frames, 0, $i);               
-            } 
-            
+                array_splice($frames, 0, $i);
+            }
+
             $firstFrame = $this->getFrameFromException($this->exception);
             array_unshift($frames, $firstFrame);
-            
+
             $this->frames = new FrameCollection($frames);
 
             if ($previousInspector = $this->getPreviousExceptionInspector()) {
@@ -157,7 +235,7 @@ class Inspector
      *
      * If xdebug is installed
      *
-     * @param  \Throwable $exception
+     * @param \Throwable $e
      * @return array
      */
     protected function getTrace($e)
@@ -174,7 +252,7 @@ class Inspector
         }
 
         if (!extension_loaded('xdebug') || !xdebug_is_enabled()) {
-            return [];
+            return $traces;
         }
 
         // Use xdebug to get the full stack trace and remove the shutdown handler stack trace
@@ -218,11 +296,11 @@ class Inspector
             'args'  => [],
         ];
     }
-    
+
     /**
      * Determine if the frame can be used to fill in previous frame's missing info
      * happens for call_user_func and call_user_func_array usages (PHP Bug #44428)
-     * 
+     *
      * @param array $frame
      * @return bool
      */
@@ -231,15 +309,15 @@ class Inspector
         if (empty($frame['file'])) {
             return false;
         }
-        
+
         if (empty($frame['line'])) {
             return false;
         }
-        
+
         if (empty($frame['function']) || !stristr($frame['function'], 'call_user_func')) {
             return false;
         }
-        
+
         return true;
     }
 }

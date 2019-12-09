@@ -81,7 +81,7 @@ class Modules
 	public static function load($module) 
 	{
 		(is_array($module)) ? list($module, $params) = each($module) : $params = NULL;	
-
+		
 		/* get the requested controller class name */
 		$alias = strtolower(basename($module));
 
@@ -90,10 +90,10 @@ class Modules
 		{
 			/* find the controller */
 			list($class) = CI::$APP->router->locate(explode('/', $module));
-
+	
 			/* controller cannot be located */
 			if (empty($class)) return;
-
+	
 			/* set the module directory */
 			$path = APPPATH.'controllers/'.CI::$APP->router->directory;
 			

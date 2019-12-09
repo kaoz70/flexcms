@@ -38,7 +38,7 @@ with the contents of .env.example and set the credentials there.
 http://domain.com/admin/
 
 * User: miguel@dejabu.ec
-* Pass: pass
+* Pass: admin
 
 ## Development
 From the console in the root folder do:

@@ -11,10 +11,10 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Sentinel
- * @version    2.0.15
+ * @version    2.0.18
  * @author     Cartalyst LLC
  * @license    BSD License (3-clause)
- * @copyright  (c) 2011-2017, Cartalyst LLC
+ * @copyright  (c) 2011-2019, Cartalyst LLC
  * @link       http://cartalyst.com
  */
 
@@ -44,6 +44,7 @@ class SentinelServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->setOverrides();
         $this->garbageCollect();
     }
 
@@ -53,7 +54,6 @@ class SentinelServiceProvider extends ServiceProvider
     public function register()
     {
         $this->prepareResources();
-        $this->setOverrides();
         $this->registerPersistences();
         $this->registerUsers();
         $this->registerRoles();

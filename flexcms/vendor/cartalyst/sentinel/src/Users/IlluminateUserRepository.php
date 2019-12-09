@@ -11,10 +11,10 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Sentinel
- * @version    2.0.15
+ * @version    2.0.18
  * @author     Cartalyst LLC
  * @license    BSD License (3-clause)
- * @copyright  (c) 2011-2017, Cartalyst LLC
+ * @copyright  (c) 2011-2019, Cartalyst LLC
  * @link       http://cartalyst.com
  */
 
@@ -106,8 +106,10 @@ class IlluminateUserRepository implements UserRepositoryInterface
             }
         } else {
             $query->whereNested(function ($query) use ($loginNames, $logins) {
-                foreach ($loginNames as $name) {
-                    $query->orWhere($name, $logins);
+                foreach ($loginNames as $index => $name) {
+                    $method = $index === 0 ? 'where' : 'orWhere';
+
+                    $query->{$method}($name, $logins);
                 }
             });
         }

@@ -11,10 +11,10 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Sentinel
- * @version    2.0.15
+ * @version    2.0.18
  * @author     Cartalyst LLC
  * @license    BSD License (3-clause)
- * @copyright  (c) 2011-2017, Cartalyst LLC
+ * @copyright  (c) 2011-2019, Cartalyst LLC
  * @link       http://cartalyst.com
  */
 
@@ -201,7 +201,11 @@ trait PermissionsTrait
             return true;
         }
 
+        $permission = (string) $permission;
+
         foreach ($prepared as $key => $value) {
+            $key = (string) $key;
+
             if ((str_is($permission, $key) || str_is($key, $permission)) && $value === true) {
                 return true;
             }

@@ -1,4 +1,4 @@
-## Laravel 5 IDE Helper Generator
+## Laravel IDE Helper Generator
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
@@ -6,6 +6,19 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 
 __For Laravel 4.x, check [version 1.11](https://github.com/barryvdh/laravel-ide-helper/tree/1.11)__
+
+  * [Complete phpDocs, directly from the source](#complete-phpdocs--directly-from-the-source)
+  * [Install](#install)
+  * [Automatic phpDoc generation for Laravel Facades](#automatic-phpdoc-generation-for-laravel-facades)
+  * [Automatic phpDocs for models](#automatic-phpdocs-for-models)
+  * [Automatic phpDocs generation for Laravel Fluent methods](#automatic-phpdocs-generation-for-laravel-fluent-methods)
+  * [Auto-completion for factory builders](#auto-completion-for-factory-builders)
+- [PhpStorm Meta for Container instances](#phpstorm-meta-for-container-instances)
+- [Lumen Install](#lumen-install)
+    + [Enabling Facades](#enabling-facades)
+    + [Adding the Service Provider](#adding-the-service-provider)
+    + [Adding Additional Facades](#adding-additional-facades)
+  * [License](#license)
 
 ### Complete phpDocs, directly from the source
 
@@ -22,14 +35,14 @@ If you don't want to generate it, you can add a pre-generated file to the root f
 * Generated version for Lumen: https://gist.github.com/barryvdh/be17164b0ad51f832f20
 * Generated Phpstorm Meta file: https://gist.github.com/barryvdh/bb6ffc5d11e0a75dba67
 
-Note: You do need CodeIntel for Sublime Text: https://github.com/SublimeCodeIntel/SublimeCodeIntel
+Note: You do need CodeComplice for Sublime Text: https://github.com/spectacles/CodeComplice
 
 ### Install
 
 Require this package with composer using the following command:
 
 ```bash
-composer require barryvdh/laravel-ide-helper
+composer require --dev barryvdh/laravel-ide-helper
 ```
 
 After updating composer, add the service provider to the `providers` array in `config/app.php`
@@ -37,12 +50,7 @@ After updating composer, add the service provider to the `providers` array in `c
 ```php
 Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 ```
-
-To install this package on only development systems, add the `--dev` flag to your composer command:
-
-```bash
-composer require --dev barryvdh/laravel-ide-helper
-```
+**Laravel 5.5** uses Package Auto-Discovery, so doesn't require you to manually add the ServiceProvider.
 
 In Laravel, instead of adding the service provider in the `config/app.php` file, you can add the following code to your `app/Providers/AppServiceProvider.php` file, within the `register()` method:
 
@@ -66,7 +74,7 @@ You can now re-generate the docs yourself (for future updates)
 php artisan ide-helper:generate
 ```
 
-Note: `bootstrap/compiled.php` has to be cleared first, so run `php artisan clear-compiled` before generating (and `php artisan optimize` after).
+Note: `bootstrap/compiled.php` has to be cleared first, so run `php artisan clear-compiled` before generating.
 
 You can configure your composer.json to do this after each commit:
 
@@ -74,9 +82,8 @@ You can configure your composer.json to do this after each commit:
 "scripts":{
     "post-update-cmd": [
         "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-        "php artisan ide-helper:generate",
-        "php artisan ide-helper:meta",
-        "php artisan optimize"
+        "@php artisan ide-helper:generate",
+        "@php artisan ide-helper:meta"
     ]
 },
 ```
@@ -90,19 +97,12 @@ php artisan vendor:publish --provider="Barryvdh\LaravelIdeHelper\IdeHelperServic
 The generator tries to identify the real class, but if it cannot be found, you can define it in the config file.
 
 Some classes need a working database connection. If you do not have a default working connection, some facades will not be included.
-You can use an in-memory SQLite driver by adding the -M option.
+You can use an in-memory SQLite driver by adding the `-M` option.
 
 You can choose to include helper files. This is not enabled by default, but you can override it with the `--helpers (-H)` option.
 The `Illuminate/Support/helpers.php` is already set up, but you can add/remove your own files in the config file.
 
 ### Automatic phpDocs for models
-
-> You need to require `doctrine/dbal: ~2.3` in your own composer.json to get database columns.
-
-
-```bash
-composer require doctrine/dbal
-```
 
 If you don't want to write your properties yourself, you can use the command `php artisan ide-helper:models` to generate
 phpDocs, based on table columns, relations and getters/setters. You can write the comments directly to your Model file, using the `--write (-W)` option. By default, you are asked to overwrite or write to a separate file (`_ide_helper_models.php`). You can force No with `--nowrite (-N)`.
@@ -122,8 +122,8 @@ php artisan ide-helper:models Post
  * @property integer $author_id
  * @property string $title
  * @property string $text
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
  * @property-read \User $author
  * @property-read \Illuminate\Database\Eloquent\Collection|\Comment[] $comments
  */
@@ -149,18 +149,36 @@ Models can be ignored using the `--ignore (-I)` option
 php artisan ide-helper:models --ignore="Post,User"
 ```
 
-Note: With namespaces, wrap your model name in " signs: `php artisan ide-helper:models "API\User"`, or escape the slashes (`Api\\User`)
+Note: With namespaces, wrap your model name in double-quotes (`"`): `php artisan ide-helper:models "API\User"`, or escape the slashes (`Api\\User`)
+
+For properly recognition of `Model` methods (i.e. `paginate`, `findOrFail`) you should extend `\Eloquent` or add
+```php
+/** @mixin \Eloquent */
+```
+for your model class.
 
 ### Automatic phpDocs generation for Laravel Fluent methods
 If you need phpDocs support for Fluent methods in migration, for example
 ```php
-$table->string(“somestring”)->nullable()->index();
+$table->string("somestring")->nullable()->index();
 ```
 After publishing vendor, simply change the `include_fluent` line your `config/ide-helper.php` file into:
 ```php
 'include_fluent' => true,
 ```
-And then run `php artisan ide-helper:generate` , you will now see all of the Fluent methods are recognized by your IDE now.
+And then run `php artisan ide-helper:generate` , you will now see all of the Fluent methods are recognized by your IDE.
+
+
+### Auto-completion for factory builders
+
+If you would like the `factory()->create()` and `factory()->make()` methods to return the correct model class,
+you can enable custom factory builders with the `include_factory_builders` line your `config/ide-helper.php` file.
+
+```php
+'include_factory_builders' => true,
+```
+
+For this to work, you must also publish the PhpStorm Meta file (see below). 
 
 
 ## PhpStorm Meta for Container instances

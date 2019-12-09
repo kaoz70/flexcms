@@ -160,7 +160,7 @@ $autoload['config'] = array();
 |
 */
 
-$autoload['language'] = array();
+$autoload['language'] = array(['auth']);
 
 
 /*

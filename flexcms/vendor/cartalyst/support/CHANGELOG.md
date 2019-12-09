@@ -1,4 +1,4 @@
-# Support Change Log
+# Change Log
 
 This project follows [Semantic Versioning](CONTRIBUTING.md).
 
@@ -10,6 +10,18 @@ We do not give estimated times for completion on `Accepted` Proposals.
 - [Rejected](https://github.com/cartalyst/support/labels/Rejected)
 
 ---
+
+### v2.0.3 - 2019-03-02
+
+`REVISED`
+
+- Minor tweak on event dispatcher method resolving
+
+### v2.0.2 - 2019-03-02
+
+`FIXED`
+
+- Event dispatching method calling for Laravel 5.8 support
 
 ### v2.0.1 - 2017-02-23
 

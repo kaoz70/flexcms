@@ -1,5 +1,5 @@
 {
-  "name": "Dejabu/FlexCMS",
+  "name": "kaoz70/FlexCMS",
   "description": "Content Management System",
   "require": {
     "kriswallsmith/assetic": "^1.3",
@@ -10,7 +10,7 @@
     "illuminate/view": "^5.4",
     "cartalyst/sentinel": "^2.0",
     "baum/baum": "~1.1",
-    "symfony/http-foundation": "^3.2",
+    "symfony/http-foundation": "^4.2.12",
     "symfony/var-dumper": "^3.1",
     "doctrine/dbal": "^2.5",
     "phpmailer/phpmailer": "^5.2",

@@ -1,42 +1,40 @@
 <?php
-/**
- * Humbug
+
+/*
+ * This file is part of the Humbug package.
  *
- * @category   Humbug
- * @package    Humbug
- * @subpackage UnitTests
- * @copyright  Copyright (c) 2015 Pádraic Brady (http://blog.astrumfutura.com)
- * @license    https://github.com/padraic/file_get_contents/blob/master/LICENSE New BSD License
+ * (c) 2015 Pádraic Brady <padraic.brady@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Humbug\Test;
 
-use Humbug\FileGetContents;
+use PHPUnit\Framework\TestCase;
+use org\bovigo\vfs\vfsStream;
 
-class FunctionTest extends \PHPUnit_Framework_TestCase
+class FunctionTest extends TestCase
 {
-
     private static $result;
 
     public function setup()
     {
-        if (PHP_VERSION_ID >= 50600) {
-            $this->markTestSkipped('Under PHP 5.6+ no requests will be modified.');
-        }
+        vfsStream::setup('home_root_path');
         if (null === self::$result) {
-            $result = humbug_get_contents('https://howsmyssl.com/a/check');
+            $result = humbug_get_contents('https://www.howsmyssl.com/a/check');
             self::$result = json_decode($result, true);
         }
     }
 
     public function teardown()
     {
-        @unlink(sys_get_temp_dir() . '/humbug.tmp');
+        self::$result = null;
     }
 
     public function testRating()
     {
-        $this->assertEquals('Improvable', self::$result['rating']);
+        $this->assertEquals('Probably Okay', self::$result['rating']);
     }
 
     public function testTlsCompression()
@@ -66,13 +64,13 @@ class FunctionTest extends \PHPUnit_Framework_TestCase
 
     public function testFileGetContentsWillPassThrough()
     {
-        file_put_contents(sys_get_temp_dir() . '/humbug.tmp', ($expected = uniqid()), LOCK_EX);
-        $this->assertEquals(file_get_contents(sys_get_temp_dir() . '/humbug.tmp'), $expected);
+        file_put_contents(vfsStream::url('home_root_path/humbug.tmp'), ($expected = uniqid()));
+        $this->assertEquals(file_get_contents(vfsStream::url('home_root_path/humbug.tmp')), $expected);
     }
 
     public function testCanGetResponseHeaders()
     {
-        humbug_set_headers(['Accept-Language: da\r\n']);
+        humbug_set_headers(array('Accept-Language: da\r\n'));
         humbug_get_contents('http://padraic.github.io');
         $this->assertTrue(count(humbug_get_headers()) > 0);
     }
@@ -83,9 +81,8 @@ class FunctionTest extends \PHPUnit_Framework_TestCase
             'Accept-Language: da',
             'User-Agent: Humbug'
         ));
-        $out = humbug_get_contents('http://myhttp.info/');
-        $this->assertEquals(1, preg_match('%'.preg_quote('<td>Accept language</td><td>da</td>').'%', $out));
-        $this->assertEquals(1, preg_match('%'.preg_quote('<td>User agent</td><td>Humbug</td>').'%', $out));
+        $out = humbug_get_contents('http://www.procato.com/my+headers/');
+        $this->assertEquals(1, preg_match('%'.preg_quote('<th>Accept-Language</th><td>da</td>').'%', $out));
+        $this->assertEquals(1, preg_match('%'.preg_quote('<th>User-Agent</th><td>Humbug</td>').'%', $out));
     }
-    
 }

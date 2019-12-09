@@ -25,6 +25,8 @@ trait DetectsDeadlocks
             'database table is locked',
             'A table in the database is locked',
             'has been chosen as the deadlock victim',
+            'Lock wait timeout exceeded; try restarting transaction',
+            'WSREP detected deadlock/conflict and aborted the transaction. Try restarting the transaction',
         ]);
     }
 }

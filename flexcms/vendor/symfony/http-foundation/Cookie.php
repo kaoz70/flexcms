@@ -18,6 +18,10 @@ namespace Symfony\Component\HttpFoundation;
  */
 class Cookie
 {
+    const SAMESITE_NONE = 'none';
+    const SAMESITE_LAX = 'lax';
+    const SAMESITE_STRICT = 'strict';
+
     protected $name;
     protected $value;
     protected $domain;
@@ -25,31 +29,76 @@ class Cookie
     protected $path;
     protected $secure;
     protected $httpOnly;
+
     private $raw;
     private $sameSite;
+    private $secureDefault = false;
 
-    const SAMESITE_LAX = 'lax';
-    const SAMESITE_STRICT = 'strict';
+    private static $reservedCharsList = "=,; \t\r\n\v\f";
+    private static $reservedCharsFrom = ['=', ',', ';', ' ', "\t", "\r", "\n", "\v", "\f"];
+    private static $reservedCharsTo = ['%3D', '%2C', '%3B', '%20', '%09', '%0D', '%0A', '%0B', '%0C'];
 
     /**
-     * Constructor.
+     * Creates cookie from raw header string.
      *
+     * @param string $cookie
+     * @param bool   $decode
+     *
+     * @return static
+     */
+    public static function fromString($cookie, $decode = false)
+    {
+        $data = [
+            'expires' => 0,
+            'path' => '/',
+            'domain' => null,
+            'secure' => false,
+            'httponly' => false,
+            'raw' => !$decode,
+            'samesite' => null,
+        ];
+
+        $parts = HeaderUtils::split($cookie, ';=');
+        $part = array_shift($parts);
+
+        $name = $decode ? urldecode($part[0]) : $part[0];
+        $value = isset($part[1]) ? ($decode ? urldecode($part[1]) : $part[1]) : null;
+
+        $data = HeaderUtils::combine($parts) + $data;
+
+        if (isset($data['max-age'])) {
+            $data['expires'] = time() + (int) $data['max-age'];
+        }
+
+        return new static($name, $value, $data['expires'], $data['path'], $data['domain'], $data['secure'], $data['httponly'], $data['raw'], $data['samesite']);
+    }
+
+    public static function create(string $name, string $value = null, $expire = 0, ?string $path = '/', string $domain = null, bool $secure = null, bool $httpOnly = true, bool $raw = false, ?string $sameSite = self::SAMESITE_LAX): self
+    {
+        return new self($name, $value, $expire, $path, $domain, $secure, $httpOnly, $raw, $sameSite);
+    }
+
+    /**
      * @param string                        $name     The name of the cookie
-     * @param string                        $value    The value of the cookie
+     * @param string|null                   $value    The value of the cookie
      * @param int|string|\DateTimeInterface $expire   The time the cookie expires
      * @param string                        $path     The path on the server in which the cookie will be available on
-     * @param string                        $domain   The domain that the cookie is available to
-     * @param bool                          $secure   Whether the cookie should only be transmitted over a secure HTTPS connection from the client
+     * @param string|null                   $domain   The domain that the cookie is available to
+     * @param bool|null                     $secure   Whether the client should send back the cookie only over HTTPS or null to auto-enable this when the request is already using HTTPS
      * @param bool                          $httpOnly Whether the cookie will be made accessible only through the HTTP protocol
      * @param bool                          $raw      Whether the cookie value should be sent with no url encoding
      * @param string|null                   $sameSite Whether the cookie will be available for cross-site requests
      *
      * @throws \InvalidArgumentException
      */
-    public function __construct($name, $value = null, $expire = 0, $path = '/', $domain = null, $secure = false, $httpOnly = true, $raw = false, $sameSite = null)
+    public function __construct(string $name, string $value = null, $expire = 0, ?string $path = '/', string $domain = null, ?bool $secure = false, bool $httpOnly = true, bool $raw = false, string $sameSite = null)
     {
+        if (9 > \func_num_args()) {
+            @trigger_error(sprintf('The default value of the "$secure" and "$samesite" arguments of "%s"\'s constructor will respectively change from "false" to "null" and from "null" to "lax" in Symfony 5.0, you should define their values explicitly or use "Cookie::create()" instead.', __METHOD__), E_USER_DEPRECATED);
+        }
+
         // from PHP source code
-        if (preg_match("/[=,; \t\r\n\013\014]/", $name)) {
+        if ($raw && false !== strpbrk($name, self::$reservedCharsList)) {
             throw new \InvalidArgumentException(sprintf('The cookie name "%s" contains invalid characters.', $name));
         }
 
@@ -73,11 +122,17 @@ class Cookie
         $this->domain = $domain;
         $this->expire = 0 < $expire ? (int) $expire : 0;
         $this->path = empty($path) ? '/' : $path;
-        $this->secure = (bool) $secure;
-        $this->httpOnly = (bool) $httpOnly;
-        $this->raw = (bool) $raw;
+        $this->secure = $secure;
+        $this->httpOnly = $httpOnly;
+        $this->raw = $raw;
 
-        if (!in_array($sameSite, array(self::SAMESITE_LAX, self::SAMESITE_STRICT, null), true)) {
+        if ('' === $sameSite) {
+            $sameSite = null;
+        } elseif (null !== $sameSite) {
+            $sameSite = strtolower($sameSite);
+        }
+
+        if (!\in_array($sameSite, [self::SAMESITE_LAX, self::SAMESITE_STRICT, self::SAMESITE_NONE, null], true)) {
             throw new \InvalidArgumentException('The "sameSite" parameter value is not valid.');
         }
 
@@ -91,15 +146,21 @@ class Cookie
      */
     public function __toString()
     {
-        $str = ($this->isRaw() ? $this->getName() : urlencode($this->getName())).'=';
+        if ($this->isRaw()) {
+            $str = $this->getName();
+        } else {
+            $str = str_replace(self::$reservedCharsFrom, self::$reservedCharsTo, $this->getName());
+        }
+
+        $str .= '=';
 
         if ('' === (string) $this->getValue()) {
-            $str .= 'deleted; expires='.gmdate('D, d-M-Y H:i:s T', time() - 31536001);
+            $str .= 'deleted; expires='.gmdate('D, d-M-Y H:i:s T', time() - 31536001).'; Max-Age=0';
         } else {
-            $str .= $this->isRaw() ? $this->getValue() : urlencode($this->getValue());
+            $str .= $this->isRaw() ? $this->getValue() : rawurlencode($this->getValue());
 
             if (0 !== $this->getExpiresTime()) {
-                $str .= '; expires='.gmdate('D, d-M-Y H:i:s T', $this->getExpiresTime());
+                $str .= '; expires='.gmdate('D, d-M-Y H:i:s T', $this->getExpiresTime()).'; Max-Age='.$this->getMaxAge();
             }
         }
 
@@ -167,6 +228,18 @@ class Cookie
     }
 
     /**
+     * Gets the max-age attribute.
+     *
+     * @return int
+     */
+    public function getMaxAge()
+    {
+        $maxAge = $this->expire - time();
+
+        return 0 >= $maxAge ? 0 : $maxAge;
+    }
+
+    /**
      * Gets the path on the server in which the cookie will be available on.
      *
      * @return string
@@ -183,7 +256,7 @@ class Cookie
      */
     public function isSecure()
     {
-        return $this->secure;
+        return $this->secure ?? $this->secureDefault;
     }
 
     /**
@@ -203,7 +276,7 @@ class Cookie
      */
     public function isCleared()
     {
-        return $this->expire < time();
+        return 0 !== $this->expire && $this->expire < time();
     }
 
     /**
@@ -224,5 +297,13 @@ class Cookie
     public function getSameSite()
     {
         return $this->sameSite;
+    }
+
+    /**
+     * @param bool $default The default value of the "secure" flag when it is set to null
+     */
+    public function setSecureDefault(bool $default): void
+    {
+        $this->secureDefault = $default;
     }
 }

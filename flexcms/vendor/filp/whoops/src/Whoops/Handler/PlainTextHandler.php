@@ -27,6 +27,11 @@ class PlainTextHandler extends Handler
     protected $logger;
 
     /**
+     * @var callable
+     */
+    protected $dumper;
+
+    /**
      * @var bool
      */
     private $addTraceToOutput = true;
@@ -40,6 +45,11 @@ class PlainTextHandler extends Handler
      * @var integer
      */
     private $traceFunctionArgsOutputLimit = 1024;
+
+    /**
+     * @var bool
+     */
+    private $addPreviousToOutput = true;
 
     /**
      * @var bool
@@ -84,6 +94,17 @@ class PlainTextHandler extends Handler
     }
 
     /**
+     * Set var dumper callback function.
+     *
+     * @param  callable $dumper
+     * @return void
+     */
+    public function setDumper(callable $dumper)
+    {
+        $this->dumper = $dumper;
+    }
+
+    /**
      * Add error trace to output.
      * @param  bool|null  $addTraceToOutput
      * @return bool|$this
@@ -95,6 +116,21 @@ class PlainTextHandler extends Handler
         }
 
         $this->addTraceToOutput = (bool) $addTraceToOutput;
+        return $this;
+    }
+
+    /**
+     * Add previous exceptions to output.
+     * @param  bool|null $addPreviousToOutput
+     * @return bool|$this
+     */
+    public function addPreviousToOutput($addPreviousToOutput = null)
+    {
+        if (func_num_args() == 0) {
+            return $this->addPreviousToOutput;
+        }
+
+        $this->addPreviousToOutput = (bool) $addPreviousToOutput;
         return $this;
     }
 
@@ -135,13 +171,18 @@ class PlainTextHandler extends Handler
     public function generateResponse()
     {
         $exception = $this->getException();
-        return sprintf("%s: %s in file %s on line %d%s\n",
-            get_class($exception),
-            $exception->getMessage(),
-            $exception->getFile(),
-            $exception->getLine(),
-            $this->getTraceOutput()
-        );
+        $message = $this->getExceptionOutput($exception);
+
+        if ($this->addPreviousToOutput) {
+            $previous = $exception->getPrevious();
+            while ($previous) {
+                $message .= "\n\nCaused by\n" . $this->getExceptionOutput($previous);
+                $previous = $previous->getPrevious();
+            }
+        }
+
+
+        return $message . $this->getTraceOutput() . "\n";
     }
 
     /**
@@ -193,7 +234,7 @@ class PlainTextHandler extends Handler
 
         // Dump the arguments:
         ob_start();
-        var_dump($frame->getArgs());
+        $this->dump($frame->getArgs());
         if (ob_get_length() > $this->getTraceFunctionArgsOutputLimit()) {
             // The argument var_dump is to big.
             // Discarded to limit memory usage.
@@ -205,9 +246,25 @@ class PlainTextHandler extends Handler
             );
         }
 
-        return sprintf("\n%s",
+        return sprintf(
+            "\n%s",
             preg_replace('/^/m', self::VAR_DUMP_PREFIX, ob_get_clean())
         );
+    }
+
+    /**
+     * Dump variable.
+     *
+     * @param mixed $var
+     * @return void
+     */
+    protected function dump($var)
+    {
+        if ($this->dumper) {
+            call_user_func($this->dumper, $var);
+        } else {
+            var_dump($var);
+        }
     }
 
     /**
@@ -249,6 +306,22 @@ class PlainTextHandler extends Handler
         }
 
         return $response;
+    }
+
+    /**
+     * Get the exception as plain text.
+     * @param \Throwable $exception
+     * @return string
+     */
+    private function getExceptionOutput($exception)
+    {
+        return sprintf(
+            "%s: %s in file %s on line %d",
+            get_class($exception),
+            $exception->getMessage(),
+            $exception->getFile(),
+            $exception->getLine()
+        );
     }
 
     /**

@@ -46,7 +46,7 @@ class MX_Config extends CI_Config
 		{
 			parent::load($file, $use_sections, $fail_gracefully);					
 			return $this->item($file);
-		}
+		}  
 		
 		if ($config = Modules::load_file($file, $path, 'config'))
 		{

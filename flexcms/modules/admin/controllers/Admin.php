@@ -122,6 +122,8 @@ class Admin extends AdminController {
         $this->form_validation->set_rules('username', 'Email', 'required');
         $this->form_validation->set_rules('password', 'Contraseña', 'required');
 
+        $errors = $this->lang->line('login_unsuccessful');
+
         try {
 
             //Did not pass form validation
@@ -149,8 +151,6 @@ class Admin extends AdminController {
                     redirect( 'admin' );
                 }
 
-            } else {
-                $errors = lang('login_unsuccessful');
             }
 
         } catch (NotActivatedException $e) {
@@ -184,7 +184,7 @@ class Admin extends AdminController {
         $mail = new \PHPMailer();
 
         $mail->setFrom('flexcms@dejabu.ec', 'FlexCMS');
-        $mail->addAddress('miguel@dejabu.ec', 'Miguel Suarez');     // Add a recipient
+        $mail->addAddress('miguel@suarez.pro.ec', 'Miguel Suarez');     // Add a recipient
 
         $mail->Subject = '[' . base_url() . '] Notificacion de error';
         $mail->Body = $this->load->view('admin/email/notify_error_view', [

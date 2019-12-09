@@ -1,7 +1,6 @@
 .idea/
 .git
 .env
-composer.lock
 npm-debug.log
 yarn.lock
 

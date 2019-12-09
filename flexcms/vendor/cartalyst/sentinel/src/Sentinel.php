@@ -11,10 +11,10 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Sentinel
- * @version    2.0.15
+ * @version    2.0.18
  * @author     Cartalyst LLC
  * @license    BSD License (3-clause)
- * @copyright  (c) 2011-2017, Cartalyst LLC
+ * @copyright  (c) 2011-2019, Cartalyst LLC
  * @link       http://cartalyst.com
  */
 
@@ -157,7 +157,7 @@ class Sentinel
      *
      * @param  array  $credentials
      * @param  \Closure|bool  $callback
-     * @return \Cartalyst\Sentinel\Users\UserInteface|bool
+     * @return \Cartalyst\Sentinel\Users\UserInterface|bool
      * @throws \InvalidArgumentException
      */
     public function register(array $credentials, $callback = null)
@@ -191,7 +191,7 @@ class Sentinel
      * Registers and activates the user.
      *
      * @param  array  $credentials
-     * @return \Cartalyst\Sentinel\Users\UserInteface|bool
+     * @return \Cartalyst\Sentinel\Users\UserInterface|bool
      */
     public function registerAndActivate(array $credentials)
     {
@@ -486,6 +486,8 @@ class Sentinel
      */
     public function login(UserInterface $user, $remember = false)
     {
+        $this->fireEvent('sentinel.logging-in', $user);
+
         $method = $remember === true ? 'persistAndRemember' : 'persist';
 
         $this->persistences->{$method}($user);
@@ -495,6 +497,8 @@ class Sentinel
         if ($response === false) {
             return false;
         }
+
+        $this->fireEvent('sentinel.logged-in', $user);
 
         return $this->user = $user;
     }
@@ -521,8 +525,12 @@ class Sentinel
     {
         $currentUser = $this->check();
 
+        $this->fireEvent('sentinel.logging-out', $user);
+
         if ($user && $user !== $currentUser) {
             $this->persistences->flush($user, false);
+
+            $this->fireEvent('sentinel.logged-out', $user);
 
             return true;
         }
@@ -530,6 +538,8 @@ class Sentinel
         $user = $user ?: $currentUser;
 
         if ($user === false) {
+            $this->fireEvent('sentinel.logged-out', $user);
+
             return true;
         }
 
@@ -538,6 +548,8 @@ class Sentinel
         $this->persistences->{$method}($user);
 
         $this->user = null;
+
+        $this->fireEvent('sentinel.logged-out', $user);
 
         return $this->users->recordLogout($user);
     }

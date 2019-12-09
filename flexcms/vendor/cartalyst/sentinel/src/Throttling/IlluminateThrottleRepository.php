@@ -11,10 +11,10 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Sentinel
- * @version    2.0.15
+ * @version    2.0.18
  * @author     Cartalyst LLC
  * @license    BSD License (3-clause)
- * @copyright  (c) 2011-2017, Cartalyst LLC
+ * @copyright  (c) 2011-2019, Cartalyst LLC
  * @link       http://cartalyst.com
  */
 
@@ -366,7 +366,7 @@ class IlluminateThrottleRepository implements ThrottleRepositoryInterface
                     return $this->secondsToFree($last, $delay);
                 }
             }
-        } elseif ($throttles->count() > $this->$thresholds) {
+        } elseif ($throttles->count() >= $this->$thresholds) {
             $interval = $type.'Interval';
 
             $first = $throttles->first();

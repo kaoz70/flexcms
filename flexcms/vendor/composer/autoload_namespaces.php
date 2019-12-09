@@ -7,12 +7,9 @@ $baseDir = dirname(dirname($vendorDir));
 
 return array(
     'josegonzalez\\Dotenv' => array($vendorDir . '/josegonzalez/dotenv/src', $vendorDir . '/josegonzalez/dotenv/tests'),
+    'UpdateHelper\\' => array($vendorDir . '/kylekatarnls/update-helper/src'),
     'Guzzle\\Tests' => array($vendorDir . '/guzzle/guzzle/tests'),
     'Guzzle' => array($vendorDir . '/guzzle/guzzle/src'),
-    'Doctrine\\DBAL\\' => array($vendorDir . '/doctrine/dbal/lib'),
-    'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib'),
-    'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib'),
-    'Doctrine\\Common\\Collections\\' => array($vendorDir . '/doctrine/collections/lib'),
     'Baum' => array($vendorDir . '/baum/baum/src'),
     'Barryvdh' => array($vendorDir . '/barryvdh/reflection-docblock/src'),
     'Assetic' => array($vendorDir . '/kriswallsmith/assetic/src'),
