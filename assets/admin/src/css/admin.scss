@@ -1,8 +1,27 @@
 @import "colors";
+@import "vars";
 @import "utils";
 @import "notifications";
 @import "overrides";
-@import "vars";
+@import "scrollbars";
+
+@import "../../../../node_modules/animate.css/animate.min.css";
+@import "../../../../node_modules/animsition/dist/css/animsition.min.css";
+@import "../../../../node_modules/material-design-icons/iconfont/material-icons.css";
+@import "../../../../node_modules/codemirror/lib/codemirror.css";
+@import "../../../../node_modules/codemirror/addon/hint/show-hint.css";
+@import "../../../../node_modules/codemirror/addon/fold/foldgutter.css";
+@import "../../../../node_modules/codemirror/theme/rubyblue.css";
+@import "../../../../node_modules/font-awesome/css/font-awesome.min.css";
+@import "../../../../node_modules/chosen-js/chosen.css";
+@import "../../../../node_modules/angular-ui-tree/dist/angular-ui-tree.css";
+@import "../../../../node_modules/angular-material/angular-material.min.css";
+@import "./pe-icon-7-stroke.css";
+@import "../../../../node_modules/angular-timezone-selector/dist/angular-timezone-selector.min.css";
+@import "../../../../node_modules/angular-toastr/dist/angular-toastr.css";
+@import "../../../../node_modules/md-color-picker/dist/mdColorPicker.min.css";
+@import "../../../../node_modules/ui-cropper/compile/minified/ui-cropper.css";
+
 
 @import url('https://fonts.googleapis.com/css?family=Julius+Sans+One|Raleway');
 

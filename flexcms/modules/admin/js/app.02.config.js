@@ -1,5 +1,4 @@
 ﻿(function () {
-
     angular.module('app')
 
         // Base path used to find templates
@@ -76,46 +75,43 @@
                 .backgroundPalette('blue')
                 .primaryPalette('blue')
                 .dark();
-
         })
         .config(($locationProvider, $httpProvider, $mdDateLocaleProvider) => {
             $locationProvider.hashPrefix('');
 
-            $mdDateLocaleProvider.formatDate = function(date) {
+            $mdDateLocaleProvider.formatDate = function (date) {
                 return date ? moment(date).format('DD-MM-YYYY') : '';
             };
 
-            $mdDateLocaleProvider.parseDate = function(dateString) {
-                var m = moment(dateString, 'DD-MM-YYYY', true);
+            $mdDateLocaleProvider.parseDate = function (dateString) {
+                const m = moment(dateString, 'DD-MM-YYYY', true);
                 console.log(m.toDate());
                 return m.isValid() ? m.toDate() : new Date(NaN);
             };
 
-            $httpProvider.interceptors.push(($q, Notification, Response, $injector) => {
-                return {
+            $httpProvider.interceptors.push(($q, Notification, Response, $injector) => ({
 
-                    // called if HTTP CODE = 2xx
-                    response(response) {
-                        try {
-                            Response.validate(response);
-                            Notification.show(response.data.type, response.data.message);
-                        } catch (err) {
-                            const Dialog = $injector.get('Dialog');
-                            Dialog.invalidResponseError(err, response);
-                        }
-
-                        return response;
-                    },
-
-                    // called if HTTP CODE != 2xx
-                    responseError(rejection) {
+                // called if HTTP CODE = 2xx
+                response(response) {
+                    try {
+                        Response.validate(response);
+                        Notification.show(response.data.type, response.data.message);
+                    } catch (err) {
                         const Dialog = $injector.get('Dialog');
-                        Dialog.responseError(rejection);
+                        Dialog.invalidResponseError(err, response);
+                    }
 
-                        return $q.reject(rejection);
-                    },
-                };
-            });
+                    return response;
+                },
+
+                // called if HTTP CODE != 2xx
+                responseError(rejection) {
+                    const Dialog = $injector.get('Dialog');
+                    Dialog.responseError(rejection);
+
+                    return $q.reject(rejection);
+                },
+            }));
         })
         .config((toastrConfig) => {
             angular.extend(toastrConfig, {

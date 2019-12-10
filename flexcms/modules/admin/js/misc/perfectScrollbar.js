@@ -1,7 +1,6 @@
 angular.module('app').directive('perfectScrollbar',
-    ['$parse', '$window', function ($parse, $window, $timeout) {
-
-        // Ps options to test against when creating options{}
+    ['$parse', '$window', '$timeout', function ($parse, $window, $timeout) {
+        // PerfectScrollbar options to test against when creating options{}
         const psOptions = [
             'wheelSpeed',
             'wheelPropagation',
@@ -26,8 +25,9 @@ angular.module('app').directive('perfectScrollbar',
                 const el = $elem[0];
                 const jqWindow = angular.element($window);
                 const options = {};
+                let ps;
 
-                // search Ps lib options passed as attrs to wrapper
+                // search PerfectScrollbar lib options passed as attrs to wrapper
                 for (let i = 0, l = psOptions.length; i < l; i++) {
                     const opt = psOptions[i];
                     if (typeof $attr[opt] !== 'undefined') {
@@ -36,10 +36,10 @@ angular.module('app').directive('perfectScrollbar',
                 }
 
                 $scope.$evalAsync(() => {
-                    Ps.initialize(el, options);
+                    ps = new PerfectScrollbar(el, options);
                     const onScrollHandler = $parse($attr.onScroll);
                     $elem.on('scroll', () => {
-                        const scrollTop = el.scrollTop;
+                        const { scrollTop } = el;
                         const scrollHeight = el.scrollHeight - el.clientHeight;
                         $scope.$apply(() => {
                             onScrollHandler($scope, {
@@ -57,7 +57,7 @@ angular.module('app').directive('perfectScrollbar',
                                 el.scrollTop = el.scrollHeight;
                             }, 100);
                         }
-                        Ps.update(el);
+                        ps.update();
                     });
                 }
 
@@ -81,7 +81,7 @@ angular.module('app').directive('perfectScrollbar',
 
                 $elem.bind('$destroy', () => {
                     jqWindow.off('resize', update);
-                    Ps.destroy(el);
+                    ps.destroy();
                 });
             },
         };

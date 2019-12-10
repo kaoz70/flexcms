@@ -15,3 +15,6 @@ flexcms/cache/
 flexcms/uploads/
 assets/cache/
 !index.html
+
+fonts/**
+images/**
