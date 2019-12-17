@@ -2,7 +2,7 @@
 
 namespace App;
 use Gajus\Dindent\Exception\RuntimeException;
-use Intervention\Image\ImageManagerStatic as Intervention;
+use Intervention\Image\Exception\NotReadableException;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -172,7 +172,7 @@ class BaseModel extends Model {
         if(!$sections) {
             return;
         }
-        
+
         //Create the content folder if it doesn't exist yet
         $path = static::$image_folder . $this->id . '/';
         Utils::createFolder($path);
@@ -184,8 +184,10 @@ class BaseModel extends Model {
 
             // TODO: Delete the file
             foreach ($section['delete'] as $key => $file) {
-                $toDelete = File::find($file['id']);
-                $toDelete->delete();
+                if(isset($file['id'])) {
+                    $toDelete = File::find($file['id']);
+                    $toDelete->delete();
+                }
             }
 
             //Every uploaded file
@@ -218,7 +220,6 @@ class BaseModel extends Model {
                         'image_alt' => $file['type'],
                     ];
                     $image->type = $file['type'];
-                    $image->file_name = $file['file_name'];
 
                     //Create the image
                     if(isset($configs[$key - 1])) {
@@ -226,7 +227,7 @@ class BaseModel extends Model {
                         if($prevConfig->force_jpg) {
                             $file['file_ext'] = '.jpg';
                         }
-                        $origPath = $path . $image->file_name . $prevConfig->sufix . $file['file_ext'];
+                        $origPath = $path . $image->name . $prevConfig->sufix . $file['file_ext'];
                         $img = Image::process($file, $path, $config, $file['data']['coords'], $origPath);
                     } else {
                         $img = Image::process($file, $path, $config, $file['data']['coords']);

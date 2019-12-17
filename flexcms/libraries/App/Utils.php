@@ -14,7 +14,7 @@ class Utils
 
     /**
      * Get the folder names in the provided path
-     * 
+     *
      * @param $path
      * @return array
      */
@@ -28,7 +28,7 @@ class Utils
             }
         }
 
-        //Sort the folders alphabetically (me need admin first)
+        //Sort the folders alphabetically (we need admin first)
         // TODO: Make admin always first independently of folder name
         sort($folders);
 

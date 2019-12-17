@@ -14,10 +14,9 @@ class Uploads extends RESTController
 
     public function index_get($filename)
     {
-
         $image = Image::make(APPPATH . 'uploads/' . $filename);
-        echo $image->response();
-
+        header("Content-Type: {$image->mime}");
+        echo $image->encode($image->extension);
     }
 
 }

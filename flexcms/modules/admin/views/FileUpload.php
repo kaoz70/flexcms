@@ -1,7 +1,7 @@
 <md-button name="file"
            class="md-raised md-primary"
            ngf-select="upload($files)"
-           ngf-multiple="multiple"
+           ngf-multiple="imageSection.multiple_upload"
            ngf-pattern="'image/*'"
            ngf-accept="'image/*'"
            ngf-max-size="20MB">Seleccionar imagen</md-button>
@@ -12,10 +12,10 @@
 
 <div layout="row" style="flex-wrap: wrap">
 
-    <md-card flex-xs flex="{{columnWidth}}" ng-repeat="file in model.files">
+    <md-card flex-xs flex="{{columnWidth}}" ng-repeat="file in imageSection.files">
         <md-card-title>
             <md-card-title-text>
-                {{file.file_name}}.{{file.file_ext}}
+                {{file.name}}.{{file.file_ext}}
             </md-card-title-text>
         </md-card-title>
         <md-card-content>
@@ -25,15 +25,15 @@
                     <div class="crop-background hide-off-screen">
                         <ui-cropper image="file.url_path"
                                     area-type="rectangle"
-                                    aspect-ratio="model.items[0].width / model.items[0].height"
-                                    area-coords="model.areaCoords"
+                                    aspect-ratio="imageSection.items[0].width / imageSection.items[0].height"
+                                    area-coords="imageSection.areaCoords"
                                     result-image-size="resultImageSize"
                                     cropject="file.data.coords"
                                     init-max-area="true"
                                     change-on-fly="false"
                                     on-change="onChangeHandler($dataURI)"
-                                    dominant-color="model.colors.dominantColor"
-                                    palette-color="model.colors.paletteColor"
+                                    dominant-color="imageSection.colors.dominantColor"
+                                    palette-color="imageSection.colors.paletteColor"
                                     result-image="file.resultImage"></ui-cropper>
                     </div>
                     <img class="img-fluid" ng-src="{{file.resultImage}}" />

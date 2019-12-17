@@ -3527,10 +3527,6 @@ panel-dispose button {
   max-width: 1350px;
 }
 
-md-grid-list {
-  height: 100%;
-}
-
 .table-condensed > thead > tr > th {
   padding: 0 13px 4px 13px;
 }

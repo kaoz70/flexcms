@@ -72,7 +72,6 @@ angular.module('app')
                         WindowFactory.back($scope);
                     });
                 }
-
             }
         };
     });

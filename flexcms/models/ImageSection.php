@@ -11,30 +11,7 @@ namespace App;
 class ImageSection extends BaseModel
 {
 
-    private $items;
-    private $files;
-
-    protected $appends = ['items', 'files'];
-
-    public function setItemsAttribute($value)
-    {
-        $this->items = $value;
-    }
-
-    public function getItemsAttribute()
-    {
-        return $this->items;
-    }
-
-    public function setFilesAttribute($value)
-    {
-        $this->files = $value;
-    }
-
-    public function getFilesAttribute()
-    {
-        return $this->files;
-    }
+    protected $appends = [];
 
     public function getMultipleUploadAttribute($value)
     {
@@ -43,14 +20,7 @@ class ImageSection extends BaseModel
 
     public static function getImages($section, $content_id, $image_base_path)
     {
-        $sections = static::getBySection($section);
-
-        foreach ($sections as $section) {
-            $section->files = static::getFiles($section->id, $content_id, $image_base_path);
-        }
-
-        return $sections;
-
+        return static::getBySection($section, $content_id, $image_base_path);
     }
 
     public static function getFiles($section_id, $content_id, $image_base_path)
@@ -69,17 +39,24 @@ class ImageSection extends BaseModel
      * Get all the image configs in a section
      *
      * @param $section
+     * @param $content_id
+     * @param $image_base_path
      * @return mixed
      */
-    public static function getBySection($section)
+    public static function getBySection($section, $content_id, $image_base_path)
     {
 
         $sections = static::where('section', $section)->get();
 
+        /** @var ImageSection $section */
         foreach ($sections as $section) {
-            // TODO: find a better way to not duplicate this (transformers maybe)
             $section->configs =  $section->imageConfigs(); //this is for the content detail
-            $section->items =  $section->imageConfigs(); //this is for the list
+
+            // Add the files
+            /** @var ImageConfig $config */
+            foreach ($section->configs as $config) {
+                $config->images = $config->getContentFiles($content_id, $image_base_path);
+            }
         }
 
         return $sections;

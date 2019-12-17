@@ -18,8 +18,6 @@ angular.module('app')
         vm.image = image.data.image;
         vm.watermark_data = image.data.watermark;
 
-        console.log(vm.watermark_data);
-
         WindowFactory.add($scope);
 
         vm.saveAndClose = () => {
@@ -40,6 +38,4 @@ angular.module('app')
                 });
             }
         };
-    })
-
-;
+    });

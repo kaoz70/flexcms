@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3e5d5db52bf6f89b64fe99fca552f149",
+    "content-hash": "9a8471aa2219af3f10a57ba119925ca9",
     "packages": [
         {
             "name": "baum/baum",

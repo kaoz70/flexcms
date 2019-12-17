@@ -15,6 +15,8 @@ class ImageConfig extends BaseModel
     protected $table = 'images_config';
     protected static $section_id = 'image_section_id';
 
+    protected $appends = ['images'];
+
     /**
      * Return this column as boolean
      *
@@ -206,9 +208,16 @@ class ImageConfig extends BaseModel
         }
     }
 
-    public static function images($content_id)
+    public function getContentFiles($content_id, $image_base_path)
     {
-        return Image::where('parent_id', $content_id)->get();
+        $images = Image::where('config_id', $this->id)->where('parent_id', $content_id)->orderBy('position')->get();
+
+        foreach ($images as $image) {
+            /** @var Image $image */
+            $image->setUrlPath(base_url($image_base_path . $image->name . '_orig.' . $image->file_ext));
+        }
+
+        return $images;
     }
 
 }

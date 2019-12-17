@@ -46,13 +46,11 @@
                 </md-card-title>
                 <md-card-content>
 
-                    <div ng-repeat="imageConfig in vm.content.images">
+                    <div ng-repeat="imageSection in vm.content.images">
 
-                        <h3>{{imageConfig.name}}</h3>
+                        <h3>{{imageSection.name}}</h3>
 
-                        <upload-file model="imageConfig"
-                                     existing-files="imageConfig.files"
-                                     multiple="imageConfig.multiple_upload"></upload-file>
+                        <upload-file image-section="imageSection"></upload-file>
 
                     </div>
 

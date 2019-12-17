@@ -42,61 +42,6 @@
                 <md-card>
                     <md-card-title>
                         <md-card-title-text>
-                            <span class="md-headline">General</span>
-                        </md-card-title-text>
-                    </md-card-title>
-                    <md-card-content>
-
-                        <md-tabs class="md-hue-1" md-dynamic-height="" md-border-bottom="">
-                            <md-tab ng-repeat="lang in vm.page.translations" label="{{lang.name}}">
-
-                                <md-input-container class="md-block md-hue-1">
-                                    <input ng-model="lang.translation.name" type="text" placeholder="T&iacute;tulo" ng-required="true">
-                                </md-input-container>
-
-                                <md-input-container class="md-block md-hue-1">
-                                    <input ng-model="lang.translation.menu_name" type="text" placeholder="Nombre del Men&uacute;" ng-required="true">
-                                </md-input-container>
-
-                            </md-tab>
-                        </md-tabs>
-
-                    </md-card-content>
-                </md-card>
-
-                <md-card>
-                    <md-card-title>
-                        <md-card-title-text>
-                            <span class="md-headline">Visibilidad</span>
-                        </md-card-title-text>
-                    </md-card-title>
-                    <md-card-content>
-
-                        <md-switch ng-model="vm.page.enabled" aria-label="Publicado">
-                            Publicado
-                        </md-switch>
-
-                        <md-switch ng-model="vm.page.popup" aria-label="Mostrar en popup">
-                            Mostrar en popup
-                        </md-switch>
-
-                        <md-input-container>
-                            <label>Visible para</label>
-                            <md-select class="md-hue-1" ng-model="vm.page.group_visibility">
-                                <md-option ng-value="null" >Public</md-option>
-                                <md-option ng-repeat="role in vm.roles"
-                                           ng-value="role.id">
-                                    {{role.name}}
-                                </md-option>
-                            </md-select>
-                        </md-input-container>
-
-                    </md-card-content>
-                </md-card>
-
-                <md-card>
-                    <md-card-title>
-                        <md-card-title-text>
                             <span class="md-headline">Avanzado</span>
                         </md-card-title-text>
                     </md-card-title>
