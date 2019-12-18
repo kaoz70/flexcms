@@ -17,6 +17,12 @@ class ImageConfig extends BaseModel
 
     protected $appends = ['images'];
 
+    protected $casts = [
+        'crop' => 'boolean',
+        'force_jpg' => 'boolean',
+        'optimize_original' => 'boolean',
+    ];
+
     /**
      * Return this column as boolean
      *

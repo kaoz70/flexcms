@@ -20,8 +20,8 @@ angular.module('app')
         const fileCopy = angular.copy(file);
 
         // Get the width and height from the first image configuration (should be the biggest one)
-        vm.width = vm.model.configs[0].width;
-        vm.height = vm.model.configs[0].height;
+        vm.width = vm.model.items[0].width;
+        vm.height = vm.model.items[0].height;
 
         if (vm.model.areaCoords) {
             vm.initialSize = {

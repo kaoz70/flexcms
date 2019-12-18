@@ -32,6 +32,7 @@ class File extends BaseModel {
      */
     protected $casts = [
         'data' => 'object',
+        'variants' => 'object',
     ];
 
     /**

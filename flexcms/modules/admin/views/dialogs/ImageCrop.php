@@ -104,7 +104,7 @@
                         </md-card-title-text>
                     </md-card-title>
                     <md-card-content>
-                        <ul ng-repeat="conf in vm.model.configs">
+                        <ul ng-repeat="conf in vm.model.items">
                             <li>{{vm.file.name | slugify}}{{conf.sufix}}{{conf.force_jpg ? '.jpg' : vm.file.file_ext}}</li>
                         </ul>
                     </md-card-content>

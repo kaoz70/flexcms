@@ -2,8 +2,10 @@
 
 namespace App;
 use Gajus\Dindent\Exception\RuntimeException;
+use Illuminate\Support\Collection;
 use Intervention\Image\Exception\NotReadableException;
 use Illuminate\Database\Eloquent\Model;
+use Intervention\Image\ImageManagerStatic as Intervention;
 
 /**
  * Created by PhpStorm.
@@ -195,50 +197,58 @@ class BaseModel extends Model {
 
                 //Save the original image if its the first upload
                 if($file['file_path']) {
-                    File::move($file['file_path'], $path . $file['file_name'] . '_orig' . $file['file_ext']);
+                    $filePath = $path . $file['file_name'] . '_orig' . $file['file_ext'];
+                    File::move($file['file_path'], $filePath);
+                    $img = Intervention::make($filePath);
                 }
 
-                //Create the file row in the database
-                foreach ($configs as $key => $config) {
-                    $image = Image::where('parent_id', $this->id)
-                        ->where('section_id', $section['id'])
-                        ->where('sufix', $config->sufix)
-                        ->first();
+                $image = Image::where('parent_id', $this->id)
+                    ->where('section_id', $section['id'])
+                    ->first();
 
-                    if (!$image) {
-                        $image = new Image();
-                        $image->parent_id = $this->id;
-                        $image->sufix = $config->sufix;
-                        $image->section_id = $section['id'];
-                    }
+                if (!$image) {
+                    $image = new Image();
+                    $image->parent_id = $this->id;
+                    $image->section_id = $section['id'];
+                }
 
-                    $image->position = $key + 1;
-                    $image->name = isset($file['file_name']) ? $file['file_name'] : $file['name'];
-                    $image->data = [
-                        'coords' => $file['data']['coords'],
-                        'colors' => $section['colors'],
-                        'image_alt' => $file['type'],
-                    ];
-                    $image->type = $file['type'];
+                $image->position = $key + 1;
+                $image->name = isset($file['file_name']) ? $file['file_name'] : $file['name'];
+                $image->data = [
+                    'coords' => $file['data']['coords'],
+                    'colors' => $section['colors'],
+                    'image_alt' => $file['type'],
+                ];
+                $image->type = $file['type'];
 
-                    //Create the image
-                    if(isset($configs[$key - 1])) {
-                        $prevConfig = $configs[$key - 1];
+                if($file['file_path'] && isset($img)) {
+                    $image->mime_type = $img->mime();
+                    $image->file_ext = $img->extension;
+                }
+
+                // Create the variants
+                $variants = new Collection();
+                foreach ($configs as $configKey => $config) {
+                    if(isset($configs[$configKey - 1])) {
+                        $prevConfig = $configs[$configKey - 1];
                         if($prevConfig->force_jpg) {
                             $file['file_ext'] = '.jpg';
                         }
                         $origPath = $path . $image->name . $prevConfig->sufix . $file['file_ext'];
-                        $img = Image::process($file, $path, $config, $file['data']['coords'], $origPath);
+                        $processed = Image::process($file, $path, $config, $file['data']['coords'], $origPath);
                     } else {
-                        $img = Image::process($file, $path, $config, $file['data']['coords']);
+                        $processed = Image::process($file, $path, $config, $file['data']['coords']);
                     }
 
-                    $image->mime_type = $img->mime();
-                    $image->file_ext = $img->extension;
-                    $image->save();
-
+                    $variants->put($config->sufix, [
+                        'url' => $processed->basePath() . '?' . time(),
+                        'width' => $processed->getWidth(),
+                        'height' => $processed->getHeight(),
+                    ]);
                 }
 
+                $image->variants = $variants;
+                $image->save();
             }
         }
     }

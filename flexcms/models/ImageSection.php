@@ -11,7 +11,7 @@ namespace App;
 class ImageSection extends BaseModel
 {
 
-    protected $appends = [];
+    protected $appends = ['images'];
 
     public function getMultipleUploadAttribute($value)
     {
@@ -23,9 +23,9 @@ class ImageSection extends BaseModel
         return static::getBySection($section, $content_id, $image_base_path);
     }
 
-    public static function getFiles($section_id, $content_id, $image_base_path)
+    public static function getFiles(ImageSection $imageSection, $content_id, $image_base_path)
     {
-        $images = Image::where('section_id', $section_id)->where('parent_id', $content_id)->orderBy('position')->get();
+        $images = Image::where('section_id', $imageSection->id)->where('parent_id', $content_id)->orderBy('position')->get();
 
         foreach ($images as $image) {
             /** @var Image $image */
@@ -43,19 +43,16 @@ class ImageSection extends BaseModel
      * @param $image_base_path
      * @return mixed
      */
-    public static function getBySection($section, $content_id, $image_base_path)
+    public static function getBySection($section, $content_id = null, $image_base_path = null)
     {
-
         $sections = static::where('section', $section)->get();
 
         /** @var ImageSection $section */
         foreach ($sections as $section) {
-            $section->configs =  $section->imageConfigs(); //this is for the content detail
+            $section->items =  $section->imageConfigs();
 
-            // Add the files
-            /** @var ImageConfig $config */
-            foreach ($section->configs as $config) {
-                $config->images = $config->getContentFiles($content_id, $image_base_path);
+            if($content_id && $image_base_path) {
+                $section->files =  static::getFiles($section, $content_id, $image_base_path);
             }
         }
 

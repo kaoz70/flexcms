@@ -21,7 +21,7 @@ angular.module('app')
             }
 
             if (scope.onlyUpload !== true) {
-                const firstConfig = scope.imageSection.configs[0];
+                const firstConfig = scope.imageSection.items[0];
 
                 scope.resultImageSize = {
                     w: firstConfig.width,
@@ -50,9 +50,8 @@ angular.module('app')
             }
 
             scope.progress = 0;
-            scope.configs = scope.imageSection.configs;
+            scope.configs = scope.imageSection.items;
             scope.show_progress = false;
-            scope.imageSection.files = scope.existingFiles ? scope.existingFiles : [];
             scope.imageSection.delete = [];
             scope.columnWidth = scope.imageSection.multiple_upload ? 33 : 100;
             scope.imageSection.colors = {
