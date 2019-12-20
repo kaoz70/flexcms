@@ -8,7 +8,7 @@
  * @restrict A
  * */
 angular.module('app')
-    .directive('uploadFile', (BASE_PATH, Upload, $mdDialog, $timeout, Color, Dialog) => ({
+    .directive('uploadFile', (BASE_PATH, Upload, $mdDialog, Color, Dialog) => ({
         restrict: 'E',
         templateUrl: `${BASE_PATH}admin/FileUpload`,
         scope: {
@@ -42,7 +42,6 @@ angular.module('app')
                     h: firstConfig.height,
                 };
 
-                // FIXME: file not being updated
                 scope.edit = (file, evt) => {
                     const template = firstConfig.crop
                         ? `${BASE_PATH}/admin/dialogs/ImageCrop`
@@ -68,19 +67,14 @@ angular.module('app')
             scope.show_progress = false;
             scope.imageSection.delete = [];
             scope.columnWidth = scope.imageSection.multiple_upload ? 33 : 100;
-            scope.imageSection.colors = {
-                dominantColor: [],
-                paletteColor: [],
-                textColor: null,
-            };
 
-            const { multiple } = scope;
-
-            scope.onCropImageChanged = (file) => {
-                $timeout(() => {
-                    file.data.colors.textColor = Color.isLight(file.data.colors.dominantColor) ? 'dark' : 'light';
-                }, 2000);
-            };
+            scope.$watch('imageSection', (config) => {
+                config.files.forEach((file) => {
+                    if (file.data && file.data.colors) {
+                        file.data.colors.textColor = Color.isLight(file.data.colors.dominantColor) ? 'dark' : 'light';
+                    }
+                });
+            }, true);
 
             // upload on file select or drop
             scope.upload = (files) => {
@@ -93,8 +87,8 @@ angular.module('app')
                             files,
                         },
                     }).then((resp) => {
-                        if (multiple) {
-                            scope.imageSection.files = scope.imageSection.files.concat(resp.data.data);
+                        if (scope.imageSection.multiple_upload) {
+                            scope.imageSection.files = [...scope.imageSection.files, ...resp.data.data];
                         } else {
                             scope.imageSection.files = resp.data.data;
                         }
@@ -108,13 +102,9 @@ angular.module('app')
                 }
             };
 
-            scope.onChangeHandler = ($dataURI) => {
-                console.log('change');
-            };
-
             scope.delete = (file) => {
-                Dialog.deleteFromList('Est&aacute; seguro de que quiere eliminar &eacute;sta imagen?', scope.imageSection.files, [file], () => {
-                    scope.imageSection.delete.push(file);
+                Dialog.deleteFromList('Est&aacute; seguro de que quiere eliminar &eacute;sta imagen?', [], [file], (shouldDelete) => {
+                    file.delete = shouldDelete;
                 });
             };
         },

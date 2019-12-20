@@ -12,7 +12,7 @@
 
 <div layout="row" style="flex-wrap: wrap">
 
-    <md-card flex-xs flex="{{columnWidth}}" ng-repeat="file in imageSection.files">
+    <md-card flex-xs flex="{{columnWidth}}" ng-repeat="file in imageSection.files" ng-if="!file.delete">
         <md-card-title>
             <md-card-title-text>
                 {{file.name}}.{{file.file_ext}}
@@ -31,7 +31,6 @@
                                     area-init-size="file.initialSize"
                                     area-init-coords="file.initialCoords"
                                     change-on-fly="false"
-                                    on-load-done="onCropImageChanged(file)"
                                     dominant-color="file.data.colors.dominantColor"
                                     palette-color="file.data.colors.paletteColor"
                                     result-image="file.resultImage"></ui-cropper>

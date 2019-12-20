@@ -96,7 +96,7 @@ angular.module('app')
                     $scope.message = message;
 
                     $scope.cancel = () => {
-                        $mdDialog.hide();
+                        $mdDialog.hide(false);
                     };
 
                     $scope.delete = () => {
@@ -105,7 +105,7 @@ angular.module('app')
                             list.splice(index, 1);
                         });
 
-                        $mdDialog.hide();
+                        $mdDialog.hide(true);
                     };
                 },
                 clickOutsideToClose: true,

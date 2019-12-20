@@ -184,16 +184,27 @@ class BaseModel extends Model {
 
             $configs = ImageConfig::where('image_section_id', $section['id'])->get();
 
-            // TODO: Delete the file
-            foreach ($section['delete'] as $key => $file) {
-                if(isset($file['id'])) {
-                    $toDelete = File::find($file['id']);
-                    $toDelete->delete();
-                }
-            }
-
             //Every uploaded file
             foreach ($section['files'] as $key => $file) {
+
+                // Delete the file if marked for deletion
+                if(isset($file['delete']) && $file['delete']) {
+                    if(isset($file['id'])) {
+                        $toDelete = File::find($file['id']);
+                        $toDelete->delete();
+
+                        foreach ($toDelete['variants'] as $variant) {
+                            try {
+                                unlink($variant->url);
+                            } catch (\Exception $exception) {
+                                continue;
+                            }
+                        }
+                    }
+
+                    // Do not process the file any more
+                    continue;
+                }
 
                 //Save the original image if its the first upload
                 if($file['file_path']) {
@@ -204,6 +215,7 @@ class BaseModel extends Model {
 
                 $image = Image::where('parent_id', $this->id)
                     ->where('section_id', $section['id'])
+                    ->where('position', $key + 1)
                     ->first();
 
                 if (!$image) {
@@ -216,7 +228,7 @@ class BaseModel extends Model {
                 $image->name = isset($file['file_name']) ? $file['file_name'] : $file['name'];
                 $image->data = [
                     'coords' => $file['data']['coords'],
-                    'colors' => $section['colors'],
+                    'colors' => $file['data']['colors'],
                     'image_alt' => $file['type'],
                 ];
                 $image->type = $file['type'];
