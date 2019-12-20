@@ -1,7 +1,7 @@
 <md-dialog class="fullscreen-dialog" role="dialog" aria-label="Editar imagen">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>Editar imagen "{{vm.model.name}}"</h2>
+            <h2>Editar imagen "{{vm.config.name}}"</h2>
             <span flex></span>
             <md-button class="md-icon-button tools-action" aria-label="Close" ng-click="vm.closeDialog()">
                 <md-icon>close</md-icon>
@@ -52,14 +52,14 @@
                                 <div class="crop-background">
                                     <ui-cropper image="vm.file.url_path"
                                                 area-type="rectangle"
-                                                area-coords="vm.model.areaCoords"
-                                                cropject="vm.model.coords"
+                                                area-coords="vm.file.data.coords.areaCoords"
+                                                cropject="vm.file.data.coords"
                                                 aspect-ratio="vm.width / vm.height"
                                                 area-init-size="vm.initialSize"
                                                 area-init-coords="vm.initialCoords"
                                                 change-on-fly="false"
-                                                dominant-color="vm.model.colors.dominantColor"
-                                                palette-color="vm.model.colors.paletteColor"
+                                                dominant-color="vm.file.data.colors.dominantColor"
+                                                palette-color="vm.file.data.colors.paletteColor"
                                                 result-image-size="vm.resultImageSize"
                                                 result-image="vm.file.resultImage"></ui-cropper>
                                 </div>
@@ -78,7 +78,7 @@
 
                             <md-card-title-media>
                                 <div class="md-media-lg card-media">
-                                    <div style="height: {{vm.height}}px;">
+                                    <div>
                                         <img id="preview" ng-src="{{vm.file.resultImage}}" />
                                     </div>
                                 </div>
@@ -104,7 +104,7 @@
                         </md-card-title-text>
                     </md-card-title>
                     <md-card-content>
-                        <ul ng-repeat="conf in vm.model.items">
+                        <ul ng-repeat="conf in vm.config.items">
                             <li>{{vm.file.name | slugify}}{{conf.sufix}}{{conf.force_jpg ? '.jpg' : vm.file.file_ext}}</li>
                         </ul>
                     </md-card-content>
@@ -126,10 +126,10 @@
                                 md-row-height="1:1"
                                 md-gutter="4px">
                             <md-grid-tile
-                                    ng-style="{'background': vm.generateRGB(vm.model.colors.dominantColor)}"
+                                    ng-style="{'background': vm.generateRGB(vm.file.data.colors.dominantColor)}"
                                     md-colspan="3"
                                     md-rowspan="1">
-                                <h3 ng-class="'text-' + vm.model.colors.textColor">Text: {{vm.model.colors.textColor}}</h3>
+                                <h3 ng-class="'text-' + vm.file.data.colors.textColor">Text: {{vm.file.data.colors.textColor}}</h3>
                             </md-grid-tile>
                         </md-grid-list>
 
@@ -140,7 +140,7 @@
                                 md-row-height="1:1"
                                 md-gutter="4px">
                             <md-grid-tile
-                                    ng-repeat="color in vm.model.colors.paletteColor"
+                                    ng-repeat="color in vm.file.data.colors.paletteColor"
                                     ng-style="{'background': vm.generateRGB(color)}">
                             </md-grid-tile>
                         </md-grid-list>

@@ -25,15 +25,15 @@
                     <div class="crop-background hide-off-screen">
                         <ui-cropper image="file.url_path"
                                     area-type="rectangle"
-                                    aspect-ratio="imageSection.items[0].width / imageSection.items[0].height"
-                                    area-coords="imageSection.areaCoords"
-                                    result-image-size="resultImageSize"
+                                    area-coords="file.data.coords.areaCoords"
                                     cropject="file.data.coords"
-                                    init-max-area="true"
+                                    aspect-ratio="imageSection.items[0].width / imageSection.items[0].height"
+                                    area-init-size="file.initialSize"
+                                    area-init-coords="file.initialCoords"
                                     change-on-fly="false"
-                                    on-change="onChangeHandler($dataURI)"
-                                    dominant-color="imageSection.colors.dominantColor"
-                                    palette-color="imageSection.colors.paletteColor"
+                                    on-load-done="onCropImageChanged(file)"
+                                    dominant-color="file.data.colors.dominantColor"
+                                    palette-color="file.data.colors.paletteColor"
                                     result-image="file.resultImage"></ui-cropper>
                     </div>
                     <img class="img-fluid" ng-src="{{file.resultImage}}" />

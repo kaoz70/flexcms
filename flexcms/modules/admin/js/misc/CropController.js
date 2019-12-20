@@ -8,39 +8,38 @@
  * @requires $scope
  * */
 angular.module('app')
-    .controller('CropController', function ($scope, $mdDialog, $filter, config, file) {
+    .controller('CropController', function ($scope, $mdDialog, $filter, config, file, Color) {
         const vm = this;
-
-        // We create a copy to work with, in case the user cancels the dialog
-        vm.model = config;
-        vm.file = file;
-        vm.status = '';
-
         const configCopy = angular.copy(config);
         const fileCopy = angular.copy(file);
 
-        // Get the width and height from the first image configuration (should be the biggest one)
-        vm.width = vm.model.items[0].width;
-        vm.height = vm.model.items[0].height;
+        // We create a copy to work with, in case the user cancels the dialog
+        vm.config = config;
+        vm.file = file;
+        vm.status = '';
 
-        if (vm.model.areaCoords) {
+        // Get the width and height from the first image configuration (should be the biggest one)
+        vm.width = vm.config.items[0].width;
+        vm.height = vm.config.items[0].height;
+
+        if (vm.file.data.coords.areaCoords) {
             vm.initialSize = {
-                w: vm.model.areaCoords.w,
-                h: vm.model.areaCoords.h,
+                w: vm.file.data.coords.areaCoords.w,
+                h: vm.file.data.coords.areaCoords.h,
             };
             vm.initialCoords = {
-                x: vm.model.areaCoords.x,
-                y: vm.model.areaCoords.y,
+                x: vm.file.data.coords.areaCoords.x,
+                y: vm.file.data.coords.areaCoords.y,
             };
         }
 
         vm.closeDialog = () => {
-            angular.copy(configCopy, vm.model);
+            angular.copy(configCopy, vm.config);
             angular.copy(fileCopy, vm.file);
             $mdDialog.hide();
         };
 
-        $scope.$watch('vm.model.coords', (coords) => {
+        $scope.$watch('vm.file.data.coords', (coords) => {
             // Check if the cropped image will be pixelated
             if (coords) {
                 if (coords.cropImageWidth < vm.width || coords.cropImageHeight < vm.height) {
@@ -54,6 +53,10 @@ angular.module('app')
         $scope.$watch('vm.file.name', (name) => {
             // Change the file name
             vm.file.file_name = $filter('slugify')(name);
+        });
+
+        $scope.$watch('vm.file.data.colors.dominantColor', (color) => {
+            vm.file.data.colors.textColor = Color.isLight(color) ? 'dark' : 'light';
         });
 
         // Generate the CSS color from the array

@@ -42,19 +42,13 @@ class Image extends File {
         // Open the original image file
         $img = Intervention::make($origPath);
 
-        // If we are going to force the image to JPG, encode it as JPG
-        if($config->force_jpg) {
-            $newPath = $basePath . '.jpg';
-            $img->encode('jpg', $config->quality);
-        }
-
         // Crop the image
         if($config->crop) {
-            $img->crop(round($crop['cropWidth']), round($crop['cropHeight']), round($crop['cropLeft']), round($crop['cropTop']));
+            $img->crop(round($crop['cropImageWidth']), round($crop['cropImageHeight']), round($crop['cropImageLeft']), round($crop['cropImageTop']));
         }
 
-        // Resize the image
-        else if($config->restrict_proportions) {
+        // Resize the image to the given width and height
+        if($config->restrict_proportions || $config->crop) {
             if($config->width > $config->height) {
                 $img->widen($config->width);
             } else {
@@ -73,6 +67,12 @@ class Image extends File {
             } else {
                 $img->insert($wImg, $config->watermark_position);
             }
+        }
+
+        // If we are going to force the image to JPG, encode it as JPG
+        if($config->force_jpg) {
+            $newPath = $basePath . '.jpg';
+            $img->encode('jpg', $config->quality);
         }
 
         $img->save($newPath, $config->quality);

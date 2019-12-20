@@ -8,7 +8,7 @@
  * @restrict A
  * */
 angular.module('app')
-    .directive('uploadFile', (BASE_PATH, Upload, $mdDialog, Color, Dialog) => ({
+    .directive('uploadFile', (BASE_PATH, Upload, $mdDialog, $timeout, Color, Dialog) => ({
         restrict: 'E',
         templateUrl: `${BASE_PATH}admin/FileUpload`,
         scope: {
@@ -16,6 +16,20 @@ angular.module('app')
             onlyUpload: '=?',
         },
         link: (scope) => {
+
+            scope.imageSection.files.map((file) => {
+                file.initialSize = {
+                    w: file.data.coords.areaCoords.w,
+                    h: file.data.coords.areaCoords.h,
+                };
+                file.initialCoords = {
+                    x: file.data.coords.areaCoords.x,
+                    y: file.data.coords.areaCoords.y,
+                };
+
+                return file;
+            });
+
             if (typeof scope.onlyUpload === 'undefined') {
                 scope.onlyUpload = false;
             }
@@ -62,9 +76,11 @@ angular.module('app')
 
             const { multiple } = scope;
 
-            scope.$watch('model.colors.dominantColor', (color) => {
-                scope.imageSection.colors.textColor = Color.isLight(color) ? 'dark' : 'light';
-            });
+            scope.onCropImageChanged = (file) => {
+                $timeout(() => {
+                    file.data.colors.textColor = Color.isLight(file.data.colors.dominantColor) ? 'dark' : 'light';
+                }, 2000);
+            };
 
             // upload on file select or drop
             scope.upload = (files) => {
