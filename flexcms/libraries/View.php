@@ -25,6 +25,7 @@ class View
      * @param bool $viewPath
      * @param array $data
      * @return LaravelView
+     * @throws \Throwable
      */
     static function blade($viewPath = false, $data = array())
     {
@@ -59,12 +60,8 @@ class View
             $data
         );
 
-        /*$CI =& get_instance();
-        $CI->output->set_output($viewObj->render());*/
-
         echo $viewObj->render();
         return $viewObj;
-
     }
 
 }

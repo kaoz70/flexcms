@@ -50,14 +50,15 @@ class Page extends Category
      *
      * @param $lang_id
      * @return mixed
+     * @throws \CMSException
      */
     public static function getList($lang_id)
     {
-        
         $pages = static::where('type', static::$type)->get();
-        
+
+        /** @var Page $page */
         foreach ($pages as &$page) {
-            $page->getTranslation($lang_id);
+            $page->translation = $page->getTranslation($lang_id);
         }
 
         return $pages;

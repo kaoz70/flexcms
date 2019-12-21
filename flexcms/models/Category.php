@@ -210,9 +210,9 @@ class Category extends Node {
             throw new \CMSException("Please set the model " . __CLASS__ . "'s protected type variable");
         }
 
-        $trans = $this->hasOne('App\Translation', 'parent_id')
+        $trans = $this->hasOne(Translation::class, 'parent_id')
             ->where('language_id', $lang_id)
-            ->where('type', static::$type)
+            ->where('type', $this->getType())
             ->first();
 
         if($trans) {

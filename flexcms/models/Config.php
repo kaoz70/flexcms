@@ -47,9 +47,9 @@ class Config extends Model {
             }
 
             $result[$row->key] = $value;
-            
+
         }
-        
+
         return $result;
     }
 
@@ -81,15 +81,15 @@ class Config extends Model {
     static function siteIndex($lang)
     {
         $conf = static::get();
-        $page = Category::find($conf['index_page_id']);
+        /** @var Page $page */
+        $page = Page::find($conf['index_page_id']);
 
         if($page) {
-            $page->data = $page->getTranslation($lang, 'page');
+            $page->translation = $page->getTranslation($lang);
             return $page;
         } else {
-            throw new \Exception('No site index page defined, define one on the backend');
+            throw new \Exception('No site index found, define one on the backend');
         }
-
     }
 
     static function theme()

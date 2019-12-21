@@ -76,7 +76,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 //$route['default_controller'] = 'DefaultController/index'; //Testing HMVC
-$route['default_controller'] = 'html';
+$route['default_controller'] = 'page';
 $route['404_override'] = 'errors/e404';
 $route['translate_uri_dashes'] = FALSE;
 
@@ -97,7 +97,7 @@ foreach (new DirectoryIterator(APPPATH . 'modules/') as $item) {
 
 }
 
-//$route['([a-z]{2})/(.+)'] = "html/$1";
+$route['([a-z]{2})/(.+)'] = "page/$1";
 
 
 /* End of file routes.php */
