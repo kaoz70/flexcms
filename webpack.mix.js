@@ -1,8 +1,8 @@
 const mix = require('laravel-mix');
 
-const distDir = 'assets/admin/build';
+const distDir = 'assets/admin';
 
-mix.sass('./assets/admin/src/css/admin.scss', `./${distDir}/app.css`).sourceMaps();
+mix.sass('./assets/admin/src/css/admin.scss', `./${distDir}/build/app.css`).sourceMaps();
 
 // Admin scripts
 mix.scripts([
@@ -62,9 +62,9 @@ mix.scripts([
     './node_modules/md-color-picker/dist/mdColorPicker.min.js',
     './node_modules/md-color-picker/dist/mdColorPicker.min.js',
     './node_modules/ui-cropper/compile/unminified/ui-cropper.js',
-    './node_modules/color-thief/js/color-thief.js', // FIXME process is not defined
+    './node_modules/color-thief/js/color-thief.js',
     './assets/admin/src/js/login.js',
-], `./${distDir}/app.js`).sourceMaps();
+], `./${distDir}/build/app.js`).sourceMaps();
 
 // Login scripts
 mix.scripts([
@@ -77,13 +77,13 @@ mix.scripts([
     './node_modules/angular-animate/angular-animate.min.js',
     './node_modules/angular-spinner/dist/angular-spinner.min.js',
     './assets/admin/src/js/login.js',
-], `./${distDir}/login.js`);
+], `./${distDir}/build/login.js`);
 
 // Copy some assets into dist folder
-mix.copyDirectory('./node_modules/font-awesome/fonts', './assets/admin/fonts');
-mix.copyDirectory('./node_modules/material-design-icons/iconfont', distDir);
-mix.copyDirectory('./node_modules/tinymce/skins', `${distDir}/skins`);
-mix.copyDirectory('./node_modules/tinymce/themes', `${distDir}/themes`);
+mix.copyDirectory('./node_modules/font-awesome/fonts', `${distDir}/fonts`);
+mix.copyDirectory('./node_modules/material-design-icons/iconfont', `${distDir}/fonts`);
+mix.copyDirectory('./node_modules/tinymce/skins', `${distDir}/build/skins`);
+mix.copyDirectory('./node_modules/tinymce/themes', `${distDir}/build/themes`);
 
 // Avoid Mix copying files (pictures, svg) automatically to css dist folder.
 /* mix.options({

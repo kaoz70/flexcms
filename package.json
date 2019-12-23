@@ -57,10 +57,10 @@
     "ng-file-upload": "^12.2.13",
     "perfect-scrollbar": "^1.4.0",
     "tinycolor2": "^1.4.1",
-    "tinymce": "^4.7.0",
+    "tinymce": "^5.1.5",
     "ui-cropper": "^1.0.9"
   },
-  "name": "web-flexcms",
+  "name": "flexcms",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://kaoz70@bitbucket.org/kaoz70/web-flexcms.git",
