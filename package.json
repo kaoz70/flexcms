@@ -25,7 +25,7 @@
     "webpack": "^4.41.2"
   },
   "dependencies": {
-    "angular": "^1.7.9",
+    "angular": "^1.8.0",
     "angular-animate": "^1.7.9",
     "angular-aria": "^1.7.9",
     "angular-bootstrap-datetimepicker": "^1.1.3",
