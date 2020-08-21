@@ -16,6 +16,9 @@ angular.module('app')
             onlyUpload: '=?',
         },
         link: (scope) => {
+            if (!scope.imageSection.files) {
+                scope.imageSection.files = [];
+            }
 
             scope.imageSection.files.map((file) => {
                 file.initialSize = {
@@ -88,7 +91,10 @@ angular.module('app')
                         },
                     }).then((resp) => {
                         if (scope.imageSection.multiple_upload) {
-                            scope.imageSection.files = [...scope.imageSection.files, ...resp.data.data];
+                            scope.imageSection.files = [
+                                ...scope.imageSection.files,
+                                ...resp.data.data,
+                            ];
                         } else {
                             scope.imageSection.files = resp.data.data;
                         }

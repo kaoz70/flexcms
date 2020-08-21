@@ -8,6 +8,18 @@
 Simple content management system, in the current state of the project its not ready to 
 be used in production or even in development. Its still under heavy development.
 
+Login:
+![image](https://user-images.githubusercontent.com/79406/90838557-c27f5100-e31a-11ea-92e0-e35fa860c350.png)
+
+Page config:
+![image](https://user-images.githubusercontent.com/79406/90838802-754faf00-e31b-11ea-85f0-4df6de02b017.png)
+
+Page images config:
+![image](https://user-images.githubusercontent.com/79406/90838837-8ef0f680-e31b-11ea-9f91-9a9e9df4732b.png)
+
+Image editor:
+![image](https://user-images.githubusercontent.com/79406/90840196-f65c7580-e31e-11ea-8f62-3e160ad424d9.png)
+
 ## Current version
 
 0.0.1a

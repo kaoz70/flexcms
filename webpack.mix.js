@@ -84,6 +84,7 @@ mix.copyDirectory('./node_modules/font-awesome/fonts', `${distDir}/fonts`);
 mix.copyDirectory('./node_modules/material-design-icons/iconfont', `${distDir}/fonts`);
 mix.copyDirectory('./node_modules/tinymce/skins', `${distDir}/build/skins`);
 mix.copyDirectory('./node_modules/tinymce/themes', `${distDir}/build/themes`);
+mix.copyDirectory('./node_modules/tinymce/icons', `${distDir}/build/icons`);
 
 // Avoid Mix copying files (pictures, svg) automatically to css dist folder.
 /* mix.options({
