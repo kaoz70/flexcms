@@ -48,6 +48,7 @@
     "animsition": "^4.0.2",
     "chosen-js": "^1.8.7",
     "codemirror": "^5.57.0",
+    "color-thief": "^2.2.5",
     "cross-env": "^7.0.2",
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.20",
