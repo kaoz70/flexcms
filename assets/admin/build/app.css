@@ -3633,6 +3633,7 @@ md-dialog-content .icon i {
 .img-fluid {
   max-width: 100%;
   height: auto;
+  width: auto;
 }
 
 .crop-background {
