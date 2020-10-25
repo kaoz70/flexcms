@@ -3352,6 +3352,10 @@ panel-dispose button {
   background-color: #1b242b;
 }
 
+md-dialog {
+  background-color: #1b242b;
+}
+
 .panel.small-width {
   width: 350px;
 }

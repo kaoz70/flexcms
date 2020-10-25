@@ -586,6 +586,10 @@ panel-dispose {
 
 }
 
+md-dialog {
+  background-color: $panel-footer;
+}
+
 .panel.small-width {
   width: 350px;
 }
