@@ -18,13 +18,22 @@
                 <md-card>
                     <md-card-title>
                         <md-card-title-text>
+                            <span class="md-headline">Imagen</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content>
+                        <img ng-src="{{vm.file.url_path}}" style="max-width: 300px">
+                    </md-card-content>
+                </md-card>
+
+                <md-card>
+                    <md-card-title>
+                        <md-card-title-text>
                             <span class="md-headline">Informaci&oacute;n</span>
                         </md-card-title-text>
                     </md-card-title>
                     <md-card-content>
-
                         <div layout="row">
-
                             <md-input-container flex class="md-block md-hue-1">
                                 <input ng-model="vm.file.name" type="text" placeholder="Nombre" ng-required="true">
                             </md-input-container>
@@ -32,11 +41,8 @@
                             <md-input-container flex class="md-block md-hue-1">
                                 <input ng-model="vm.file.image_alt" type="text" placeholder="Texto alterno" ng-required="true">
                             </md-input-container>
-
                         </div>
-
                     </md-card-content>
-
                 </md-card>
 
                 <md-card>
@@ -48,7 +54,6 @@
                     <md-card-content>
                         <div ng-repeat="conf in vm.model.items">{{vm.file.name | slugify}}{{conf.sufix}}{{conf.force_jpg ? '.jpg' : vm.file.file_ext}}</div>
                     </md-card-content>
-
                 </md-card>
 
             </div>
