@@ -29,7 +29,7 @@ class Image extends File {
         // Check if the filename is empty, this will happen if the file is not uploaded
         isset($file['file_name']) ? $file_name = $file['file_name'] : $file_name = $file['name'];
 
-        // The extension is saves without the dot in DB, but it comes with the dot from the frontend
+        // The extension is saved without the dot in DB, but it comes with the dot from the frontend
         $extension = str_replace('.', '', $file['file_ext']);
 
         if(!$origPath) {
@@ -44,7 +44,12 @@ class Image extends File {
 
         // Crop the image
         if($config->crop) {
-            $img->crop(round($crop['cropImageWidth']), round($crop['cropImageHeight']), round($crop['cropImageLeft']), round($crop['cropImageTop']));
+            $img->crop(
+                round($crop['cropImageWidth']),
+                round($crop['cropImageHeight']),
+                round($crop['cropImageLeft']),
+                round($crop['cropImageTop'])
+            );
         }
 
         // Resize the image to the given width and height
